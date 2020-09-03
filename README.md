@@ -1,2 +1,2 @@
-# FRIC-team8-SBSG
-asdf
+# Findings Reports and Information Console (FRIC)
+
