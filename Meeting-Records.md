@@ -16,16 +16,19 @@
   2. Team review by 09/03/2020
 - Meeting's Overall Score: 9.5 / 10
 
-## Meeting Date
+## 09/08/2020
 
-- Objective:
-- Start Time: 
-- End Time:
-- Attendees:
-- Meeting Agenda:
-- Meeting Summary:
+- Objective: Review new assignments, scm and GUI.
+- Start Time: 6:30pm
+- End Time: 7:30pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez
+- Meeting Agenda: Review feedback for SCM, Task breakdown,
+- Meeting Summary: We reviewed our document for feedback before a final submission, broke down tasks for CRC, we planned for creating the baseline for our GUI demo. 
 - Action Items:
-- Meeting's Overall Score:
+  1. Finalize SCM.
+  2. Team review by 09/14/2020.
+  3. Sprint Demo
+- Meeting's Overall Score: 9.0 / 10
 
 ## Meeting Date
 
