@@ -128,7 +128,7 @@ export default {
         'Other',
         [
           {
-            to: '',
+            to: '/archive',
             label: 'Archive',
             icon: 'archive'
           },
