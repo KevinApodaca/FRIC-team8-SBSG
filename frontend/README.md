@@ -1,27 +1,49 @@
-# Frontend
+# Findings and Reporting Information Console - FRIC
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+* PWA/SPA — Single page app
+* Built with Vue.js, Buefy & Bulma
+* SCSS sources with variables
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* [Quick Start](#quick-start)
+* [Browser Support](#browser-support)
+* [Reporting Issues](#reporting-issues)
+* [Licensing](#licensing)
+* [Useful Links](#useful-links)
 
-## Code scaffolding
+## Quick Start
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Get the repo
 
-## Build
+Download the source code with `git clone https://github.com/KevinApodaca/FRIC-team8-SBSG.git` 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+#### Install
 
-## Running unit tests
+`cd` to project's dir and run `npm --silent install` 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Serve
 
-## Running end-to-end tests
+To pre-compile & hot-reload for development run `npm run --silent serve`
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+#### Build
 
-## Further help
+Production-ready with minified bundle `npm run --silent build`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Browser Support
+
+Currently supports 
+- Firefox
+- Chrome
+- Safari
+
+## Reporting Issues
+
+## Licensing
+
+## Useful Links
+
+- [Vue.js Guide](https://vuejs.org/v2/guide/)
+- [Vue CLI Guide](https://cli.vuejs.org/guide/)
+- [Buefy](https://buefy.org)
+- [Bulma](https://bulma.io)
