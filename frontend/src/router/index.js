@@ -28,6 +28,17 @@ const routes = [
   },
   {
     meta: {
+      title: 'Archive'
+    },
+    path: '/archive',
+    name: 'archive',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Archive.vue')
+  },
+  {
+    meta: {
       title: 'Sync'
     },
     path: '/forms',
