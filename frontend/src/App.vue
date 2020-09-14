@@ -71,7 +71,7 @@ export default {
             icon: 'state-machine'
           },
           {
-            to: '',
+            to: '/taskpage',
             label: 'Tasks',
             icon: 'playlist-edit'
           },
