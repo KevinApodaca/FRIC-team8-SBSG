@@ -78,12 +78,11 @@
                 </option>
               </b-select>
             </b-field>
-          </form>
-        </card-component>
-        <!-- Finding Impact Component Card -->
-        <card-component v-if="isProfileExists" title="Finding Impact" icon="chart-donut" class="tile is-child">
-          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-           <b-field label="Confidentiality" horizontal>
+            <hr>
+          <!-- Finging Impact Component Card -->
+          <card-component v-if="isProfileExists" title="Finding Impact" icon="chart-donut" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+             <b-field label="Confidentiality" horizontal>
               <b-select v-model="form.confidentiality">
                 <option v-for="(confidentiality, index) in confidentiality" :key="index" :value="confidentiality">
                   {{ confidentiality }}
@@ -96,7 +95,7 @@
                 </option>
               </b-select>
             </b-field>
-               <b-field label="Availability" horizontal>
+              <b-field label="Availability" horizontal>
               <b-select v-model="form.availability">
                 <option v-for="(availability, index) in availability" :key="index" :value="availability">
                   {{ availability }}
@@ -104,11 +103,13 @@
               </b-select>
             </b-field>
             </b-field>
-            <hr>
-            <!-- Analyst Information Component Card -->
-          <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
-            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Analyst" horizontal>
+        </card-component>
+          </form>
+        </card-component>
+        <!-- Finding Impact Component Card -->
+        <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
+          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+           <b-field label="Analyst" horizontal>
               <b-select v-model="form.analyst">
                 <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
                   {{ analyst }}
@@ -129,8 +130,7 @@
               </b-select>
             </b-field>
             </b-field>
-        </card-component>
-        <hr>
+            <hr>
         <!-- Mitigation Information Component Card -->
           <card-component v-if="isProfileExists" title="Mitigation" icon="engine" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -201,6 +201,23 @@
             </b-field>
             <b-field label="Likelihood" horizontal>
               <b-input v-model="form.likelihood" reaadonly />
+            </b-field>
+          </card-component>
+            <hr>
+          <!-- Finding System Level Impact Information Component Card -->
+          <card-component v-if="isProfileExists" title="Finding System Level Impact" icon="car-coolant-level" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Confidentiality Finding Impact on System" vertical>
+              <b-input v-model="form.cfis" reaadonly />
+            </b-field>
+            <b-field label="Integrity Finding Impact on System" vertical>
+              <b-input v-model="form.ifis" reaadonly />
+            </b-field>
+            <b-field label="Availability Finding Impact on System" vertical>
+              <b-input v-model="form.afis" reaadonly />
+            </b-field>
+            <b-field label="Impact Score" vertical>
+              <b-input v-model="form.score" reaadonly />
             </b-field>
           </card-component>
           </card-component>
