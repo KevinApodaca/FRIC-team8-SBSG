@@ -80,6 +80,7 @@
             </b-field>
           </form>
         </card-component>
+        <!-- Finding Impact Component Card -->
         <card-component v-if="isProfileExists" title="Finding Impact" icon="chart-donut" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
            <b-field label="Confidentiality" horizontal>
@@ -103,9 +104,11 @@
               </b-select>
             </b-field>
             </b-field>
-          <card-component v-if="isProfileExists" title="Analyst Information" icon="bag-personal" class="tile is-child">
-          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-           <b-field label="Analyst" horizontal>
+            <hr><hr>
+            <!-- Analyst Information Component Card -->
+          <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Analyst" horizontal>
               <b-select v-model="form.analyst">
                 <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
                   {{ analyst }}
@@ -118,13 +121,24 @@
                 </option>
               </b-select>
             </b-field>
-               <b-field label="Posture" horizontal>
+              <b-field label="Posture" horizontal>
               <b-select v-model="form.posture">
                 <option v-for="(posture, index) in posture" :key="index" :value="posture">
                   {{ posture }}
                 </option>
               </b-select>
             </b-field>
+            </b-field>
+        </card-component>
+        <hr><hr>
+        <!-- Mitigation Information Component Card -->
+          <card-component v-if="isProfileExists" title="Mitigation" icon="engine" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+               <b-field label="Brief Description" horizontal>
+              <b-input v-model="form.desc" reaadonly />
+            </b-field>
+            <b-field label="Long Description" horizontal>
+              <b-input type="textarea" v-model="form.long" reaadonly />
             </b-field>
         </card-component>
         </card-component>
