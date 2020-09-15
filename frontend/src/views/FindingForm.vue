@@ -104,7 +104,7 @@
               </b-select>
             </b-field>
             </b-field>
-            <hr><hr>
+            <hr>
             <!-- Analyst Information Component Card -->
           <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -130,7 +130,7 @@
             </b-field>
             </b-field>
         </card-component>
-        <hr><hr>
+        <hr>
         <!-- Mitigation Information Component Card -->
           <card-component v-if="isProfileExists" title="Mitigation" icon="engine" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -141,13 +141,25 @@
               <b-input type="textarea" v-model="form.long" reaadonly />
             </b-field>
         </card-component>
-        <!-- Mitigation Information Component Card -->
+        <!-- Threat Relevance Information Component Card -->
           <card-component v-if="isProfileExists" title="Threat Relevance" icon="emoticon-devil" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Relevance" horizontal>
               <b-select v-model="form.relevance">
                 <option v-for="(relevance, index) in relevance" :key="index" :value="relevance">
                   {{ relevance }}
+                </option>
+              </b-select>
+            </b-field>
+          </card-component>
+          <hr>
+        <!-- Countermeasure Information Component Card -->
+          <card-component v-if="isProfileExists" title="Countermeasure" icon="alarm-light" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Effectiveness Rating" horizontal>
+              <b-select v-model="form.effectiveness">
+                <option v-for="(effectiveness, index) in effectiveness" :key="index" :value="effectiveness">
+                  {{ effectiveness }}
                 </option>
               </b-select>
             </b-field>
