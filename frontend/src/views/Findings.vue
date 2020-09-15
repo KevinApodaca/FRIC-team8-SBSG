@@ -30,6 +30,13 @@
           </form>
         </card-toolbar>
         <finding-overview-table data-url="/data-sources/findings.json" :checkable="true"/>
+         <card-toolbar slot="toolbar">
+            <div slot="right" class="buttons has-addons">
+            <button class="button is-rounded is-link is-outlined">ERB Report</button>
+            <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
+            <button class="button is-rounded is-link is-outlined">Final Report</button>
+          </div>
+        </card-toolbar>
       </card-component>
     </section>
   </div>
