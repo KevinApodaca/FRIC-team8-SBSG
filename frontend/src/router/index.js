@@ -28,14 +28,14 @@ const routes = [
   },
   {
     meta: {
-      title: 'Taskpage'
+      title: 'Task'
     },
-    path: '/taskpage',
-    name: 'taskpage',
+    path: '/task',
+    name: 'task',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "taskpage" */ '../views/TaskPage.vue')
+    component: () => import(/* webpackChunkName: "task" */ '../views/Task.vue')
   },
   {
     meta: {

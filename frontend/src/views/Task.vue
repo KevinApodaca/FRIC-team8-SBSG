@@ -1,0 +1,68 @@
+<template>
+  <div>
+    <title-bar :title-stack="titleStack"/>
+    <hero-bar>
+      Tasks
+      <router-link slot="right" to="/" class="button">
+        New Task
+      </router-link>
+    </hero-bar>
+    <section class="section is-main-section">
+      <card-component class="has-table has-mobile-sort-spaced" title="Task Overview Table" icon="slot-machine">
+        <refresh-button slot="button"/>
+        <card-toolbar slot="toolbar">
+            <div slot="left" class="buttons has-addons">
+            <button class="button is-rounded is-success">Archive</button>
+            <button class="button is-rounded is-light">Demote</button>
+            <button class="button is-rounded is-success">Save</button>
+            <button class="button is-rounded">Cancel</button>
+            </div>
+          <form slot="right" @submit.prevent="actionSample">
+            <div class="field has-addons" >
+              <div class="control">
+                <input class="input" type="text" placeholder="Search for a task...">
+              </div>
+              <div class="control">
+                <button type="submit" class="button is-primary">
+                  <b-icon icon="table-search" custom-size="default"/>
+                </button>
+              </div>
+            </div>
+          </form>
+        </card-toolbar>
+        <task-overview-table data-url="/data-sources/tasks.json" :checkable="true"/>
+      </card-component>
+    </section>
+  </div>
+
+</template>
+
+<script>
+import TaskOverviewTable from '@/components/TaskOverviewTable'
+import CardComponent from '@/components/CardComponent'
+import TitleBar from '@/components/TitleBar'
+import HeroBar from '@/components/HeroBar'
+import RefreshButton from '@/components/RefreshButton'
+import CardToolbar from '@/components/CardToolbar'
+export default {
+  name: 'TaskS',
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable },
+  computed: {
+    titleStack () {
+      return [
+        'Lead Analyst',
+        'Tasks'
+      ]
+    }
+  },
+  methods: {
+    actionSample () {
+      this.$buefy.toast.open({
+        message: 'Feed has been refreshed',
+        type: 'is-info',
+        queue: false
+      })
+    }
+  }
+}
+</script>
