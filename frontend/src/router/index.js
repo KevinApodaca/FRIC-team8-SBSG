@@ -39,6 +39,17 @@ const routes = [
   },
   {
     meta: {
+      title: 'Findings'
+    },
+    path: '/findings',
+    name: 'findings',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Findings.vue')
+  },
+  {
+    meta: {
       title: 'Sync'
     },
     path: '/forms',
@@ -68,6 +79,15 @@ const routes = [
     path: '/client/:id',
     name: 'client.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue'),
+    props: true
+  },
+  {
+    meta: {
+      title: 'Edit Finding'
+    },
+    path: '/findings/:id',
+    name: 'finding.edit',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/FindingForm.vue'),
     props: true
   },
   {
