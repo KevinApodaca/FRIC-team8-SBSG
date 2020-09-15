@@ -165,6 +165,20 @@
             </b-field>
           </card-component>
         </card-component>
+        <!-- Impact Information Component Card -->
+         <card-component v-if="isProfileExists" title="Impact" icon="equalizer" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Impact Description" horizontal>
+              <b-input type="textarea" v-model="form.desc" reaadonly />
+            </b-field>
+            <b-field label="Impact Level" horizontal>
+              <b-select v-model="form.level">
+                <option v-for="(level, index) in level" :key="index" :value="level">
+                  {{ level }}
+                </option>
+              </b-select>
+            </b-field>
+          </card-component>
       </tiles>
     </section>
   </div>
