@@ -134,10 +134,10 @@
         <!-- Mitigation Information Component Card -->
           <card-component v-if="isProfileExists" title="Mitigation" icon="engine" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-               <b-field label="Brief Description" horizontal>
+               <b-field label="Brief Description" vertical>
               <b-input v-model="form.desc" reaadonly />
             </b-field>
-            <b-field label="Long Description" horizontal>
+            <b-field label="Long Description" vertical>
               <b-input type="textarea" v-model="form.long" reaadonly />
             </b-field>
         </card-component>
@@ -168,10 +168,10 @@
         <!-- Impact Information Component Card -->
          <card-component v-if="isProfileExists" title="Impact" icon="equalizer" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Impact Description" horizontal>
+            <b-field label="Impact Description" vertical>
               <b-input type="textarea" v-model="form.desc" reaadonly />
             </b-field>
-            <b-field label="Impact Level" horizontal>
+            <b-field label="Impact Level" vertical>
               <b-select v-model="form.level">
                 <option v-for="(level, index) in level" :key="index" :value="level">
                   {{ level }}
@@ -179,17 +179,28 @@
               </b-select>
             </b-field>
             <hr>
-            <!-- Severity Information Component Card -->
+          <!-- Severity Information Component Card -->
           <card-component v-if="isProfileExists" title="Severity" icon="hazard-lights" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Severity Category Score" horizontal>
+            <b-field label="Severity Category Score" vertical>
               <b-input v-model="form.desc" reaadonly />
             </b-field>
-            <b-field label="Vulnerability Severity" horizontal>
+            <b-field label="Vulnerability Severity" vertical>
               <b-input v-model="form.desc" reaadonly />
             </b-field>
-            <b-field label="Quantitative Vulnerability Severity" horizontal>
+            <b-field label="Quantitative Vulnerability Severity" vertical>
               <b-input v-model="form.desc" reaadonly />
+            </b-field>
+          </card-component>
+            <hr>
+          <!-- Risk Information Component Card -->
+          <card-component v-if="isProfileExists" title="Risk" icon="hazard-lights" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Risk" horizontal>
+              <b-input v-model="form.risk" reaadonly />
+            </b-field>
+            <b-field label="Likelihood" horizontal>
+              <b-input v-model="form.likelihood" reaadonly />
             </b-field>
           </card-component>
           </card-component>
