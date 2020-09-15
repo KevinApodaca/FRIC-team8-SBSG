@@ -141,6 +141,17 @@
               <b-input type="textarea" v-model="form.long" reaadonly />
             </b-field>
         </card-component>
+        <!-- Mitigation Information Component Card -->
+          <card-component v-if="isProfileExists" title="Threat Relevance" icon="emoticon-devil" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Relevance" horizontal>
+              <b-select v-model="form.relevance">
+                <option v-for="(relevance, index) in relevance" :key="index" :value="relevance">
+                  {{ relevance }}
+                </option>
+              </b-select>
+            </b-field>
+          </card-component>
         </card-component>
       </tiles>
     </section>
