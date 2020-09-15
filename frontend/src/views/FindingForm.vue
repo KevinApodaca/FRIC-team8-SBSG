@@ -47,11 +47,34 @@
                 </option>
               </b-select>
             </b-field>
-            <!-- ADD THE FILE PICKER COMPONENT HERE -->
+            <card-component title="Evidence" icon="cloud-upload"><file-picker-drag-and-drop/> </card-component>
             <b-field label="System" horizontal>
               <b-select v-model="form.system">
                 <option v-for="(system, index) in system" :key="index" :value="system">
                   {{ system }}
+                </option>
+              </b-select>
+              <label class="label is-large is-bold has-text-info">OR</label>
+              <b-field label="Task" horizontal>
+              <b-select v-model="form.task">
+                <option v-for="(task, index) in task" :key="index" :value="task">
+                  {{ task }}
+                </option>
+              </b-select>
+              <label class="label is-large is-bold has-text-info">OR</label>
+            </b-field>
+             <b-field label="Subtask" horizontal>
+              <b-select v-model="form.subtask">
+                <option v-for="(substask, index) in subtask" :key="index" :value="subtask">
+                  {{ subtask }}
+                </option>
+              </b-select>
+            </b-field>
+            </b-field>
+               <b-field label="Related Finding(s)" horizontal>
+              <b-select v-model="form.findings">
+                <option v-for="(findings, index) in findings" :key="index" :value="findings">
+                  {{ findings }}
                 </option>
               </b-select>
             </b-field>
@@ -86,10 +109,11 @@ import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import AnalystsTable from '@/components/AnalystsTable'
+import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 
 export default {
   name: 'FindingForm',
-  components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
+  components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable, FilePickerDragAndDrop },
   props: {
     id: {
       default: null
