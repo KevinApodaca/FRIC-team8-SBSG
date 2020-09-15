@@ -80,20 +80,53 @@
             </b-field>
           </form>
         </card-component>
-
-        <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
+        <card-component v-if="isProfileExists" title="Finding Impact" icon="chart-donut" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-          <b-field label="Lead Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
-              </div>
-          </b-field>
-          <b-field label="Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
-              </div>
-          </b-field>
-          <analysts-table data-url="/data-sources/findings.json" :checkable="true"/>
+           <b-field label="Confidentiality" horizontal>
+              <b-select v-model="form.confidentiality">
+                <option v-for="(confidentiality, index) in confidentiality" :key="index" :value="confidentiality">
+                  {{ confidentiality }}
+                </option>
+              </b-select>
+              <b-field label="Integrity" horizontal>
+              <b-select v-model="form.integrity">
+                <option v-for="(integrity, index) in type" :key="index" :value="integrity">
+                  {{ integrity }}
+                </option>
+              </b-select>
+            </b-field>
+               <b-field label="Availability" horizontal>
+              <b-select v-model="form.availability">
+                <option v-for="(availability, index) in availability" :key="index" :value="availability">
+                  {{ availability }}
+                </option>
+              </b-select>
+            </b-field>
+            </b-field>
+          <card-component v-if="isProfileExists" title="Analyst Information" icon="bag-personal" class="tile is-child">
+          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+           <b-field label="Analyst" horizontal>
+              <b-select v-model="form.analyst">
+                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
+                  {{ analyst }}
+                </option>
+              </b-select>
+              <b-field label="Collaborator" horizontal>
+              <b-select v-model="form.collaborator">
+                <option v-for="(collaborator, index) in collaborator" :key="index" :value="collaborator">
+                  {{ collaborator }}
+                </option>
+              </b-select>
+            </b-field>
+               <b-field label="Posture" horizontal>
+              <b-select v-model="form.posture">
+                <option v-for="(posture, index) in posture" :key="index" :value="posture">
+                  {{ posture }}
+                </option>
+              </b-select>
+            </b-field>
+            </b-field>
+        </card-component>
         </card-component>
       </tiles>
     </section>
@@ -108,12 +141,11 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
-import AnalystsTable from '@/components/AnalystsTable'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 
 export default {
   name: 'FindingForm',
-  components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable, FilePickerDragAndDrop },
+  components: { CardComponent, Tiles, HeroBar, TitleBar, FilePickerDragAndDrop },
   props: {
     id: {
       default: null
