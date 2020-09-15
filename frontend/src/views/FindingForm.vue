@@ -54,14 +54,14 @@
                   {{ system }}
                 </option>
               </b-select>
-              <label class="label is-large is-bold has-text-info">OR</label>
+              <label class="label is-medium is-bold has-text-info">OR</label>
               <b-field label="Task" horizontal>
               <b-select v-model="form.task">
                 <option v-for="(task, index) in task" :key="index" :value="task">
                   {{ task }}
                 </option>
               </b-select>
-              <label class="label is-large is-bold has-text-info">OR</label>
+              <label class="label is-medium is-bold has-text-info">OR</label>
             </b-field>
              <b-field label="Subtask" horizontal>
               <b-select v-model="form.subtask">
@@ -178,6 +178,20 @@
                 </option>
               </b-select>
             </b-field>
+            <hr>
+            <!-- Severity Information Component Card -->
+          <card-component v-if="isProfileExists" title="Severity" icon="hazard-lights" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Severity Category Score" horizontal>
+              <b-input v-model="form.desc" reaadonly />
+            </b-field>
+            <b-field label="Vulnerability Severity" horizontal>
+              <b-input v-model="form.desc" reaadonly />
+            </b-field>
+            <b-field label="Quantitative Vulnerability Severity" horizontal>
+              <b-input v-model="form.desc" reaadonly />
+            </b-field>
+          </card-component>
           </card-component>
       </tiles>
     </section>
