@@ -14,7 +14,7 @@
             <b-field label="Title" horizontal>
               <b-input v-model="form.title" required />
             </b-field>
-            <b-field label="System" horizontal>
+            <b-field label="Systems" horizontal>
               <b-select v-model="form.system">
                 <option v-for="(system, index) in type" :key="index" :value="system">
                   {{ system }}

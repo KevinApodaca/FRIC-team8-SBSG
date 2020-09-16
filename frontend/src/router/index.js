@@ -50,30 +50,11 @@ const routes = [
   },
   {
     meta: {
-      title: 'Findings'
-    },
-    path: '/findings',
-    name: 'findings',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tables" */ '../views/Findings.vue')
-  },
-  {
-    meta: {
       title: 'Sync'
     },
     path: '/forms',
     name: 'sync',
     component: () => import(/* webpackChunkName: "forms" */ '../views/Forms.vue')
-  },
-  {
-    meta: {
-      title: 'Systems'
-    },
-    path: '/systems',
-    name: 'systems',
-    component: () => import(/* webpackChunkName: "forms" */ '../views/Systems.vue')
   },
   {
     meta: {
@@ -102,28 +83,11 @@ const routes = [
   },
   {
     meta: {
-<<<<<<< HEAD
       title: 'Edit Task'
     },
     path: '/tasks/:id',
     name: 'tasks.edit',
     component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue'),
-=======
-      title: 'Edit Finding'
-    },
-    path: '/findings/:id',
-    name: 'finding.edit',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/FindingForm.vue'),
-    props: true
-  },
-  {
-    meta: {
-      title: 'Edit System'
-    },
-    path: '/systems/:id',
-    name: 'system.edit',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/SystemForm.vue'),
->>>>>>> master
     props: true
   },
   {
