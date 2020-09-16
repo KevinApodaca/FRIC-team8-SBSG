@@ -1,6 +1,7 @@
 {
     "data": [{
-            "subtasks": 43,
+            "id":77,
+            "subtask": 43,
             "system": "hudson32",
             "analyst": "e.y",
             "title": "Important title",
@@ -8,9 +9,10 @@
             "findings": "56",
             "progress": 18,
             "created": "Jun 10, 2020",
-            "priority": "Low"
+            "priority": "Low",
         },
         {
+            "id":57,
             "subtasks": 49,
             "system": "cmueller",
             "analyst": "s.a",
@@ -22,6 +24,7 @@
             "priority": "High"
         },
         {
+            "id":75,
             "subtasks": 44,
             "system": "buckridge.neil",
             "analyst": "a.n",

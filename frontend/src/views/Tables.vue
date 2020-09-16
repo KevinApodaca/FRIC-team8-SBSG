@@ -2,7 +2,7 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      Events
+      Event
       <router-link slot="right" to="/" class="button">
         New Event
       </router-link>
