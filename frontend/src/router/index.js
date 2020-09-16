@@ -50,6 +50,28 @@ const routes = [
   },
   {
     meta: {
+      title: 'Subtasks'
+    },
+    path: '/subtasks',
+    name: 'subtasks',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Subtasks.vue')
+  },
+  {
+    meta: {
+      title: 'Subtasks Form'
+    },
+    path: '/subtasksform',
+    name: 'subtasks',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/SubtaskForm.vue')
+  },
+  {
+    meta: {
       title: 'Sync'
     },
     path: '/forms',
