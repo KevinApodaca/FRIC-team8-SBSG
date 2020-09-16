@@ -81,7 +81,7 @@ export default {
             icon: 'view-list'
           },
           {
-            to: '',
+            to: '/findings',
             label: 'Findings',
             icon: 'file-find'
           },
