@@ -66,7 +66,7 @@ export default {
             updateMark: true
           },
           {
-            to: '',
+            to: '/systems',
             label: 'Systems',
             icon: 'state-machine'
           },

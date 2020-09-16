@@ -58,6 +58,14 @@ const routes = [
   },
   {
     meta: {
+      title: 'Systems'
+    },
+    path: '/systems',
+    name: 'systems',
+    component: () => import(/* webpackChunkName: "forms" */ '../views/Systems.vue')
+  },
+  {
+    meta: {
       title: 'Profile'
     },
     path: '/profile',
@@ -88,6 +96,15 @@ const routes = [
     path: '/findings/:id',
     name: 'finding.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/FindingForm.vue'),
+    props: true
+  },
+  {
+    meta: {
+      title: 'Edit System'
+    },
+    path: '/systems/:id',
+    name: 'system.edit',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/SystemForm.vue'),
     props: true
   },
   {
