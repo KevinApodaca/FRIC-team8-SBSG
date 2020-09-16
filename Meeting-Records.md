@@ -18,36 +18,54 @@
 
 ## 09/08/2020
 
-- Objective: Review new assignments, scm and GUI.
+- Objective: Discuss framework for app development.
 - Start Time: 6:30pm
 - End Time: 7:30pm
-- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez
-- Meeting Agenda: Review feedback for SCM, Task breakdown,
-- Meeting Summary: We reviewed our document for feedback before a final submission, broke down tasks for CRC, we planned for creating the baseline for our GUI demo. 
+- Attendees: Kevin Apodaca, Richard Quinn, Agustin Cortez
+- Meeting Agenda: Propose ideas for developing app
+- Meeting Summary: We discussed the `angular` framework to use for demo. 
 - Action Items:
-  1. Finalize SCM.
-  2. Team review by 09/14/2020.
-  3. Sprint Demo
+  1. Task breakdown for CRC
+  2. Initial setup for angular and codebase
 - Meeting's Overall Score: 9.0 / 10
 
-## Meeting Date
+## 09/13/2020
 
-- Objective:
-- Start Time: 
-- End Time:
-- Attendees:
-- Meeting Agenda:
-- Meeting Summary:
+- Objective: Review initial UI and show team how to use with `VueJS`
+- Start Time: 6:00pm
+- End Time: 7:00pm
+- Attendees: Kevin Apodaca, Adrian Gonzalez, Agustin Cortez
+- Meeting Agenda: Onboard to `Vue` and demo initial project
+- Meeting Summary: Showed some team members how to build project, serve it, and how to make changes.
 - Action Items:
-- Meeting's Overall Score:
+  1. Demo with rest of team
+  2. Onboard to new framework with `VueJS` instead of `Angular`
+  3. Sprint Demo
+- Meeting's Overall Score: 9.5 / 10
 
-## Meeting Date
+## 09/14/2020
 
-- Objective:
-- Start Time: 
-- End Time:
-- Attendees:
-- Meeting Agenda:
-- Meeting Summary:
+- Objective: Optional meeting to work together on the GUI
+- Start Time: 6:30pm
+- End Time: 7:30pm
+- Attendees: Kevin Apodaca, Richard Quinn, Adrian Gonzalez, Agustin Cortez
+- Meeting Agenda: Work together on the GUI
+- Meeting Summary: Demo'd more of the GUI and discussed the codebase and how to create new components.
 - Action Items:
-- Meeting's Overall Score:
+  1. Complete GUI before demo deadline
+  2. Complete CRC
+  3. Sprint Demo
+- Meeting's Overall Score: 9.5 / 10
+
+## 09/15/2020
+
+- Objective: Weekly meeting for sprint retro and action items.
+- Start Time: 6:30pm
+- End Time: 7:30pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Go through sprint demo and feedback, status update on UI and CRC review
+- Meeting Summary: Demo'd more of the GUI and discussed the codebase and how to create new components.
+- Action Items:
+  1. Complete GUI before demo deadline
+  2. Complete CRC
+- Meeting's Overall Score: 9.5 / 10
