@@ -106,7 +106,7 @@
         </card-component>
           </form>
         </card-component>
-        <!-- Finding Impact Component Card -->
+        <!-- Analyst Information Component Card -->
         <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
            <b-field label="Analyst" horizontal>

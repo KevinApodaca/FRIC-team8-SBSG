@@ -65,7 +65,7 @@ export default {
             icon: 'slot-machine'
           },
           {
-            to: '',
+            to: '/systems',
             label: 'Systems',
             icon: 'state-machine'
           },
