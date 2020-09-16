@@ -146,7 +146,7 @@ export default {
         'About',
         [
           {
-            href: '',
+            to: '/setup-content-form',
             label: 'Setup',
             icon: 'settings'
           },
