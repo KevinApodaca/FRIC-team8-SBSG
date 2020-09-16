@@ -62,11 +62,10 @@ export default {
           {
             to: '/tables',
             label: 'Event',
-            icon: 'slot-machine',
-            updateMark: true
+            icon: 'slot-machine'
           },
           {
-            to: '',
+            to: '/systems',
             label: 'Systems',
             icon: 'state-machine'
           },
@@ -81,7 +80,7 @@ export default {
             icon: 'view-list'
           },
           {
-            to: '',
+            to: '/findings',
             label: 'Findings',
             icon: 'file-find'
           },

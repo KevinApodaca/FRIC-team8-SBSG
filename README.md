@@ -20,7 +20,7 @@ Download the source code with `git clone https://github.com/KevinApodaca/FRIC-te
 
 #### Install
 
-`cd` to project's dir and run `npm --silent install` 
+`cd` to project's frontend dir and run `npm --silent install` 
 
 #### Serve
 

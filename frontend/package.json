@@ -1,6 +1,7 @@
 {
-  "name": "admin-one-vue-bulma-dashboard-premium",
+  "name": "fric-tool",
   "version": "1.7.0",
+  "description": "the Findings and Report Information Console is a senior project developed by Team 8 (SBSG) of the University of Texas at El Paso's Fall 2020 CS4311 course for the CEAD clients.",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
