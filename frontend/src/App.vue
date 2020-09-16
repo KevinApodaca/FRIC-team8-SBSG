@@ -62,8 +62,7 @@ export default {
           {
             to: '/tables',
             label: 'Event',
-            icon: 'slot-machine',
-            updateMark: true
+            icon: 'slot-machine'
           },
           {
             to: '',
