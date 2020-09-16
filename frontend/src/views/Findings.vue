@@ -8,7 +8,7 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Event Overview Table" icon="slot-machine">
+      <card-component class="has-table has-mobile-sort-spaced" title="Findings Overview Table" icon="file-find">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
@@ -57,7 +57,7 @@ export default {
     titleStack () {
       return [
         'Lead Analyst',
-        'Event'
+        'Findings'
       ]
     }
   },
