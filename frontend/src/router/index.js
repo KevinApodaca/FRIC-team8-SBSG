@@ -28,6 +28,39 @@ const routes = [
   },
   {
     meta: {
+      title: 'tasks'
+    },
+    path: '/tasks',
+    name: 'tasks',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "task" */ '../views/Tasks.vue')
+  },
+  {
+    meta: {
+      title: 'task-form'
+    },
+    path: '/task-form/:id',
+    name: 'tasks.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue')
+  },
+  {
+    meta: {
+      title: 'CreateTask Form'
+    },
+    path: '/createtask-form',
+    name: 'createtask.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateTask.vue')
+  },
+  {
+    meta: {
       title: 'Setup'
     },
     path: '/setup-content-form',
@@ -208,7 +241,6 @@ const routes = [
     ]
   }
 ]
-
 const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
@@ -220,5 +252,4 @@ const router = new VueRouter({
     }
   }
 })
-
 export default router

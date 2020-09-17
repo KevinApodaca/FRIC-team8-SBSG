@@ -70,7 +70,7 @@ export default {
             icon: 'state-machine'
           },
           {
-            to: '',
+            to: '/tasks',
             label: 'Tasks',
             icon: 'playlist-edit'
           },

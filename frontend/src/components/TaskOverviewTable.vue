@@ -11,7 +11,7 @@
       :striped="true"
       :hoverable="true"
       default-sort="name"
-      :data='clients'>
+      :data='tasks'>
 
       <b-table-column label="Title" field="title" sortable v-slot="props">
         {{ props.row.title }}
@@ -39,10 +39,10 @@
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
-          <router-link :to="{name:'client.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="View Event">
+          <router-link :to="{name:'tasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Task Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Event">
+          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Task">
             <b-icon icon="trash-can" size="is-small"/>
           </button>
         </div>
@@ -89,7 +89,7 @@ export default {
     return {
       isModalActive: false,
       trashObject: null,
-      clients: [],
+      tasks: [],
       isLoading: false,
       paginated: false,
       perPage: 10,
@@ -116,7 +116,7 @@ export default {
             if (r.data.data.length > this.perPage) {
               this.paginated = true
             }
-            this.clients = r.data.data
+            this.tasks = r.data.data
           }
         })
         .catch(e => {
