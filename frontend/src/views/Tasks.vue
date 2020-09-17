@@ -8,7 +8,7 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Task Overview Table" icon="slot-machine">
+      <card-component class="has-table has-mobile-sort-spaced" title="Task Overview Table" icon="playlist-edit">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">

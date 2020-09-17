@@ -11,11 +11,6 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Event Overview Table" icon="slot-machine">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-         <!--  <div slot="left" class="buttons has-addons">
-            <button class="button is-active" @click="actionSample">Active</button>
-            <button class="button">Recent</button>
-            <button class="button">Archived</button>
-          </div> -->
             <div slot="left" class="buttons has-addons">
             <button class="button is-rounded is-danger">Delete</button>
             <button class="button is-rounded is-success">Save</button>
