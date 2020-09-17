@@ -4,7 +4,7 @@
     <hero-bar>
       Event
       <router-link slot="right" to="/" class="button">
-        New Event
+        New Events
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
