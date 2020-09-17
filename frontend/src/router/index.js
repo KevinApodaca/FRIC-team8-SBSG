@@ -28,32 +28,47 @@ const routes = [
   },
   {
     meta: {
-      title: 'Tasks'
+      title: 'tasks'
     },
     path: '/tasks',
     name: 'tasks',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tasks" */ '../views/Tasks.vue')
+    component: () => import(/* webpackChunkName: "task" */ '../views/Tasks.vue')
   },
   {
     meta: {
-      title: 'Task Form'
+      title: 'task-form'
     },
     path: '/task-form/:id',
     name: 'tasks.edit',
-    component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue'),
-    props: true
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue')
   },
   {
     meta: {
       title: 'CreateTask Form'
     },
     path: '/createtask-form',
-    name: 'createtasks.edit',
-    component: () => import(/* webpackChunkName: "task-form" */ '../views/CreateTask.vue'),
-    props: true
+    name: 'createtask.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateTask.vue')
+  },
+  {
+    meta: {
+      title: 'Setup'
+    },
+    path: '/setup-content-form',
+    name: 'Setup',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/SetupContentForm.vue')
   },
   {
     meta: {
@@ -68,11 +83,63 @@ const routes = [
   },
   {
     meta: {
+      title: 'Findings'
+    },
+    path: '/findings',
+    name: 'findings',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Findings.vue')
+  },
+  {
+    meta: {
+      title: 'Subtasks'
+    },
+    path: '/subtasks',
+    name: 'subtasks',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Subtasks.vue')
+  },
+  {
+    meta: {
+      title: 'Subtasks Form'
+    },
+    path: '/subtasks-form',
+    name: 'subtasks',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/SubtaskForm.vue')
+  },
+  {
+    meta: {
+      title: 'View Subtasks'
+    },
+    path: '/subtasks-view',
+    name: 'subtasks',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/SubtaskView.vue')
+  },
+  {
+    meta: {
       title: 'Sync'
     },
     path: '/forms',
     name: 'sync',
     component: () => import(/* webpackChunkName: "forms" */ '../views/Forms.vue')
+  },
+  {
+    meta: {
+      title: 'Systems'
+    },
+    path: '/systems',
+    name: 'systems',
+    component: () => import(/* webpackChunkName: "forms" */ '../views/Systems.vue')
   },
   {
     meta: {
@@ -97,6 +164,33 @@ const routes = [
     path: '/client/:id',
     name: 'client.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue'),
+    props: true
+  },
+  {
+    meta: {
+      title: 'Edit Finding'
+    },
+    path: '/findings/:id',
+    name: 'finding.edit',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/FindingForm.vue'),
+    props: true
+  },
+  {
+    meta: {
+      title: 'Edit System'
+    },
+    path: '/systems/:id',
+    name: 'system.edit',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/SystemForm.vue'),
+    props: true
+  },
+  {
+    meta: {
+      title: 'Edit Subtask'
+    },
+    path: '/subtasks/:id',
+    name: 'subtasks.edit',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/SubtaskForm.vue'),
     props: true
   },
   {
@@ -147,7 +241,6 @@ const routes = [
     ]
   }
 ]
-
 const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
@@ -159,5 +252,4 @@ const router = new VueRouter({
     }
   }
 })
-
 export default router
