@@ -38,7 +38,7 @@
               </b-select>
             </b-field>
             </b-field>
-            <b-field label="Systems" horizontal>
+            <b-field label="System(s)" horizontal>
               <b-select v-model="form.system">
                 <option v-for="(system, index) in type" :key="index" :value="system">
                   {{ system }}
