@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" :to="heroRouterLinkTo" class="button">
-        {{ heroRouterLinkLabel }}
+      <router-link slot="right" to="/tasks" class="button">
+        Cancel
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -13,6 +13,30 @@
           <form @submit.prevent="submit">
             <b-field label="Title" horizontal>
               <b-input v-model="form.title" required />
+            </b-field>
+            <b-field label="Description" horizontal>
+              <b-input type="textarea" v-model="form.description" required />
+            </b-field>
+              <b-field label="Analyst(s)" horizontal>
+              <b-select v-model="form.analyst">
+                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
+                  {{ analyst }}
+                </option>
+              </b-select>
+              <b-field label="Collaborator(s)" horizontal>
+              <b-select v-model="form.analyst">
+                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
+                  {{ analyst }}
+                </option>
+              </b-select>
+            </b-field>
+              <b-field label="Related Task(s)" horizontal>
+              <b-select v-model="form.tasks">
+                <option v-for="(tasks, index) in tasks" :key="index" :value="tasks">
+                  {{ tasks }}
+                </option>
+              </b-select>
+            </b-field>
             </b-field>
             <b-field label="Systems" horizontal>
               <b-select v-model="form.system">
@@ -66,27 +90,6 @@
             </b-select>
           </b-field>
           </b-field>
-              <b-field label="Analyst" horizontal>
-              <b-select v-model="form.analyst">
-                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
-                  {{ analyst }}
-                </option>
-              </b-select>
-              <b-field label="Collaborator" horizontal>
-              <b-select v-model="form.analyst">
-                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
-                  {{ analyst }}
-                </option>
-              </b-select>
-            </b-field>
-              <b-field label="Related Task" horizontal>
-              <b-select v-model="form.tasks">
-                <option v-for="(tasks, index) in tasks" :key="index" :value="tasks">
-                  {{ tasks }}
-                </option>
-              </b-select>
-            </b-field>
-            </b-field>
           </form>
         </card-component>
       </tiles>

@@ -12,10 +12,10 @@
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-            <button class="button is-rounded is-success">Archive</button>
-            <button class="button is-rounded is-light is-danger">Demote</button>
+            <button class="button is-rounded is-info is-outline">Archive</button>
+            <button class="button is-rounded">Demote</button>
             <button class="button is-rounded is-success">Save</button>
-            <button class="button is-rounded">Cancel</button>
+            <button class="button is-rounded is-danger">Cancel</button>
             </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >

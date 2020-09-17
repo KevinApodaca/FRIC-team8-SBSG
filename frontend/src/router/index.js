@@ -39,6 +39,15 @@ const routes = [
   },
   {
     meta: {
+      title: 'Task Form'
+    },
+    path: '/task-form',
+    name: 'tasks.edit',
+    component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue'),
+    props: true
+  },
+  {
+    meta: {
       title: 'Archive'
     },
     path: '/archive',
@@ -79,15 +88,6 @@ const routes = [
     path: '/client/:id',
     name: 'client.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue'),
-    props: true
-  },
-  {
-    meta: {
-      title: 'Edit Task'
-    },
-    path: '/tasks/:id',
-    name: 'tasks.edit',
-    component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue'),
     props: true
   },
   {
