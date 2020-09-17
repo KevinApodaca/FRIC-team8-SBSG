@@ -47,29 +47,39 @@
 </template>
 
 <script>
-import TitleBar from '@/components/TitleBar'
 import CardComponent from '@/components/CardComponent'
 import mapValues from 'lodash/mapValues'
 import CheckboxPicker from '@/components/CheckboxPicker'
 import Notification from '@/components/Notification'
 export default {
-  name: 'Forms',
-  components: { CheckboxPicker, CardComponent, TitleBar, Notification },
+  name: 'SetupContentForm',
+  components: { CardComponent, Notification, CheckboxPicker },
   data () {
     return {
       isLoading: false,
+      form: {
+        name: null,
+        email: null,
+        phone: null,
+        sync_with: null,
+        subject: null,
+        question: null
+      },
       customElementsForm: {
         checkbox: [],
         radio: null,
         switch: true,
         file: null
       },
-      departments: [
-        'Option1',
-        'option2',
-        'Option3'
+      sync_with: [
+        'j.w',
+        'k.a',
+        'j.z',
+        'd.h'
       ]
     }
+  },
+  computed: {
   },
   methods: {
     submit () {
@@ -85,6 +95,19 @@ export default {
 
       this.$buefy.snackbar.open({
         message: 'Reset successfully',
+        queue: false
+      })
+    },
+    synced () {
+      this.form = mapValues(this.form, item => {
+        if (item && typeof item === 'object') {
+          return []
+        }
+        return null
+      })
+
+      this.$buefy.snackbar.open({
+        message: 'Sync succesful',
         queue: false
       })
     }
