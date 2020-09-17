@@ -75,7 +75,7 @@ export default {
             icon: 'playlist-edit'
           },
           {
-            to: '',
+            to: '/subtasks',
             label: 'Subtasks',
             icon: 'view-list'
           },
