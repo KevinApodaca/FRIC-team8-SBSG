@@ -1,0 +1,21 @@
+{
+    "data":
+    [
+        {
+            
+            "posture": "Insider"
+        },
+        {
+            "posture": "Insider-nearsider"
+        },
+        {
+            "posture": "Outsider"
+        },
+        {
+            "posture": "Nearsider"
+        },
+        {
+            "posture": "Nearsider-outsider"
+        }
+    ]
+}

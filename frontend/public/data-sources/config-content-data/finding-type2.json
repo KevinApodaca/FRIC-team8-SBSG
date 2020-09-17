@@ -1,0 +1,88 @@
+{
+    "data":
+    [
+        {
+            "type": "Credentials Complexity",
+            "posture": "Insider",
+            "threat_level": "Confirmed",
+            "finding_impact_level": "VH",
+            "finding_classification": "Vulnerability",
+            "countermeasure": "Very High",
+            "event_type": "Cooperative Vulnerability Penetration Assessment (CVPA)",
+            "severity_category": "I",
+            "progress": "",
+            "event_rules": "Rule 1"
+        },
+        {
+            "type": "Manufcturer Default Creds",
+            "posture": "Insider-nearsider",
+            "threat_level": "Expected",
+            "finding_impact_level": "H",
+            "finding_classification": "Information",
+            "countermeasure": "High",
+            "event_type": "Cooperative Vulnerability Investigation (CVPI)",
+            "severity_category": "II",
+            "event_rules": "Rule 2"
+        },
+        {
+            "type": "Lack of Authentication",
+            "posture": "Outsider",
+            "threat_level": "Anticipated",
+            "finding_impact_level": "M",
+            "countermeasure": "Moderate",
+            "event_type": "Verification of Fixes (VOF)",
+            "severity_category": "III",
+            "event_rules": "Rule 3"
+        },
+        {
+            "type": "Plain Text Protocols",
+            "posture": "Nearsider",
+            "threat_level": "Predicted",
+            "finding_impact_level": "L",
+            "countermeasure": "Low",
+            "event_rules": "Rule 4"
+        },
+        {
+            "type": "Plain Text Web Login",
+            "posture": "Nearsider-outsider",
+            "threat_level": "Possible",
+            "finding_impact_level": "VL",
+            "countermeasure": "Very Low",
+            "event_rules": "Rule 5"
+        },
+        {
+            "type": "Encryption",
+            "finding_impact_level": "Information",
+            "event_rules": "Rule 6"
+        },
+        {
+            "type": "Authentication Bypass",
+            "event_rules": "Rule 7"
+        },
+        {
+            "type": "Port Security",
+            "event_rules": "Rule 8"
+        },
+        {
+            "type": "Access Control",
+            "event_rules": "Rule 9"
+            
+        },
+        {
+            "type": "Least Privilege",
+            "event_rules": "Rule 10"
+        },
+        {
+            "type": "Privilege Escalation",
+            "event_rules": "Rule 11"
+        },
+        {
+            "type": "Missing Patches",
+            "event_rules": "Rule 12"
+        },
+        {
+            "type": "Information Disclosure",
+            "event_rules": "Rule 13"
+        }
+    ]
+}

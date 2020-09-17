@@ -132,7 +132,7 @@ export default {
             icon: 'archive'
           },
           {
-            to: '',
+            to: '/configuration-content',
             label: 'Configuration',
             icon: 'cog-clockwise'
           },
