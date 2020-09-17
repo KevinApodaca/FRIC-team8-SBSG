@@ -113,7 +113,7 @@ export default {
       if (this.isProfileExists) {
         return this.subtasks.name
       } else {
-        return 'New Subtask'
+        return 'Create Subtask'
       }
     },
     heroRouterLinkTo () {
