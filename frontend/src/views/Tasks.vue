@@ -8,6 +8,38 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
+      <notification class="is-info">
+        <div>
+          <b-icon icon="bell" custom-size="default"/>
+          <b>Notification</b><br>
+    <table class="table">
+  <thead>
+    <tr>
+      <th><abbr title="TT">Task Title</abbr></th>
+      <th><abbr title="TDD">Task Due Date</abbr></th>
+      <th><abbr title="ST">Subtask Title</abbr></th>
+      <th><abbr title="SDD">Subtask Due Date</abbr></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>Find bugs</th>
+      <th>07/12/2020</th>
+      <th>Find why fix didn't work</th>
+      <th>07/12/2020</th>
+    </tr>
+    <tr>
+      <th>Exploit login</th>
+      <th>08/11/2020</th>
+      <th>Grab all data views</th>
+      <th>08/11/2020</th>
+    </tr>
+  </tfoot>
+  <tbody>
+  </tbody>
+</table>
+        </div>
+      </notification>
       <card-component class="has-table has-mobile-sort-spaced" title="Task Overview Table" icon="playlist-edit">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
@@ -43,9 +75,10 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
+import Notification from '@/components/Notification'
 export default {
   name: 'Task',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, Notification },
   computed: {
     titleStack () {
       return [
