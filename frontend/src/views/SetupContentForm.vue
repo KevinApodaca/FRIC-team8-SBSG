@@ -10,26 +10,26 @@
               <b>There is no existing event in your local system</b>
             </div>
           </notification>
-           <b-field label="There is no existing event in your local system" horizontal>
-          <b-field>
-            <b-input v-model="form.event">
-            </b-input>
-          </b-field>
-          </b-field>
-          <b-field label="Please input your initial:" horizontal>
+          <b-field label="There is no existing event in your local system" horizontal>
             <b-field>
-              <b-input v-model="form.initial" placeholder="Enter your initials here" required/>
+              <b-input>
+              </b-input>
             </b-field>
+          </b-field>
+          <b-field label="Please input your initials:" horizontal>
+            <b-field>
+              <b-input placeholder="Enter your initials here" required/>
             </b-field>
-            <b-field label="Please select an option:" class="has-check" horizontal>
+          </b-field>
+          <b-field label="Please select an option:" class="has-check" horizontal>
           <checkbox-picker :options="{event:'Create a new event (any existing event will be archived)'}" v-model="customElementsForm.checkbox" type="is-primary"/>
-        </b-field>
-        <b-field label="" class="has-check" horizontal>
-        <checkbox-picker :options="{event:'First time sync with lead analyst. Please enter the lead analyst’s IP'}" v-model="customElementsForm.checkbox" type="is-primary"/>
-        </b-field>
-        <b-field label="" horizontal>
-              <b-input v-model="form.initial" placeholder="Enter initials here" required />
-            </b-field>
+          </b-field>
+          <b-field label="" class="has-check" horizontal>
+            <checkbox-picker :options="{event:'First time sync with lead analyst. Please enter the lead analyst’s IP'}" v-model="customElementsForm.checkbox" type="is-primary"/>
+          </b-field>
+          <b-field label="" horizontal>
+            <b-input placeholder="Enter initials here" required />
+          </b-field>
           <b-field horizontal>
             <b-field grouped>
               <div class="control">
@@ -58,14 +58,6 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: {
-        name: null,
-        email: null,
-        phone: null,
-        department: null,
-        subject: null,
-        question: null
-      },
       customElementsForm: {
         checkbox: [],
         radio: null,
@@ -76,14 +68,6 @@ export default {
         'Option1',
         'option2',
         'Option3'
-      ]
-    }
-  },
-  computed: {
-    titleStack () {
-      return [
-        'Lead Analyst',
-        'Setup Content'
       ]
     }
   },
