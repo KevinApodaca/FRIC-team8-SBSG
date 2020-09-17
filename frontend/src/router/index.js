@@ -41,9 +41,18 @@ const routes = [
     meta: {
       title: 'Task Form'
     },
-    path: '/task-form',
+    path: '/task-form/:id',
     name: 'tasks.edit',
     component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue'),
+    props: true
+  },
+  {
+    meta: {
+      title: 'CreateTask Form'
+    },
+    path: '/createtask-form',
+    name: 'createtasks.edit',
+    component: () => import(/* webpackChunkName: "task-form" */ '../views/CreateTask.vue'),
     props: true
   },
   {

@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Tasks
-      <router-link slot="right" to='/task-form' class="button">
+      <router-link slot="right" to='/createtask-form' class="button">
         New Task
       </router-link>
     </hero-bar>

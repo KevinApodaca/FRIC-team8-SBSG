@@ -142,7 +142,7 @@ export default {
       if (this.isProfileExists) {
         return this.tasks.name
       } else {
-        return 'Task Detailed View'
+        return 'Create Task'
       }
     },
     heroRouterLinkTo () {
@@ -163,7 +163,7 @@ export default {
       if (this.isProfileExists) {
         return 'Task Basic Information'
       } else {
-        return 'Task Details'
+        return 'New Task'
       }
     }
   },
