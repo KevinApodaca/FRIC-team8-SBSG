@@ -85,7 +85,7 @@ export default {
             icon: 'file-find'
           },
           {
-            label: 'Submenu Example',
+            label: 'Submenu (Test)',
             icon: 'view-list',
             menuSecondaryKey: 'submenu-1',
             menuSecondaryIcon: 'view-list',
@@ -96,12 +96,12 @@ export default {
                 {
                   icon: 'view-list',
                   href: '#void',
-                  label: 'Sub-item One'
+                  label: 'Sub-item Test'
                 },
                 {
                   icon: 'view-list',
                   href: '#void',
-                  label: 'Sub-item Two'
+                  label: 'Sub-item Test2'
                 }
               ],
               'Dropdown',
@@ -112,11 +112,11 @@ export default {
                   menu: [
                     {
                       href: '#void',
-                      label: 'Sub-item One'
+                      label: 'Sub-item Test'
                     },
                     {
                       href: '#void',
-                      label: 'Sub-item Two'
+                      label: 'Sub-item Test2'
                     }
                   ]
                 }
@@ -135,11 +135,6 @@ export default {
             to: '/configuration-content',
             label: 'Configuration',
             icon: 'cog-clockwise'
-          },
-          {
-            to: '/lock-screen',
-            label: 'Lock Screen',
-            icon: 'lock-reset'
           }
         ],
         'About',
