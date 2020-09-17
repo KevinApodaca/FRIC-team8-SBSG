@@ -63,7 +63,7 @@ const routes = [
     meta: {
       title: 'Subtasks Form'
     },
-    path: '/subtasksform',
+    path: '/subtasks-form',
     name: 'subtasks',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

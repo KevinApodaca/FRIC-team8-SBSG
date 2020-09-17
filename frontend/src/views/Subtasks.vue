@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Subtasks
-      <router-link slot="right" to="/subtasksform" class="button">
+      <router-link slot="right" to="/subtasks-form" class="button">
         New Subtask
       </router-link>
     </hero-bar>
@@ -12,10 +12,10 @@
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-            <button class="button is-rounded is-danger">Archive</button>
-            <button class="button is-rounded is-warning">Promote</button>
-            <button class="button is-rounded is-success">Save</button>
-            <button class="button is-black">Cancel</button>
+            <button class="button is-rounded is-info is-outline">Archive</button>
+            <button class="button is-rounded">Promote</button>
+            <button class="button is-rounded ">Save</button>
+            <button class="button is-rounded is-danger is-outline">Cancel</button>
           </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >
