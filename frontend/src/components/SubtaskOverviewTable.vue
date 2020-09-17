@@ -41,7 +41,6 @@
           </button>
         </div>
       </b-table-column>
-
       <section class="section" slot="empty">
         <div class="content has-text-grey has-text-centered">
           <template v-if="isLoading">

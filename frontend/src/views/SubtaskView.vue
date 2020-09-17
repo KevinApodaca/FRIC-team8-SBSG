@@ -12,30 +12,30 @@
         <card-component :title="formCardTitle" icon="slot-machine" class="tile is-child">
           <form @submit.prevent="submit">
             <b-field label="Title" horizontal>
-              <b-input v-model="form.name" required />
+              <b-input v-model="form.title" required />
             </b-field>
             <b-field label="Description" horizontal>
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
              <b-field label="Progress" horizontal>
-            <b-select v-model="form.department">
+            <b-select v-model="form.progress">
               <option v-for="(department, index) in departments" :key="index" :value="department">
                 {{ department }}
               </option>
             </b-select>
           </b-field>
             <b-field label="Due Date" horizontal>
-              <b-input v-model="form.version" reaadonly />
+              <b-input v-model="form.created" reaadonly />
             </b-field>
             <b-field label="Analyst" horizontal>
-              <b-input v-model="form.created" required />
+              <b-input v-model="form.analyst" required />
             </b-field>
             <hr>
             <b-field label="Collaborator" horizontal>
               <b-input v-model="form.organization" required />
             </b-field>
             <b-field label="Tasks" horizontal>
-              <b-input v-model="form.sctg" required />
+              <b-input v-model="form.task" required />
             </b-field>
             <hr>
                <b-field label="Subtasks" horizontal>
@@ -50,7 +50,6 @@
             </b-field>
           </form>
         </card-component>
-
         <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
           <b-field label="Lead Analysts">
