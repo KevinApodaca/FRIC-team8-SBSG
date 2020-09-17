@@ -1,0 +1,71 @@
+{
+    "data":
+    [
+        {
+            "type": "Credentials Complexity",
+            "posture": "Insider",
+            "threat_level": "Confirmed",
+            "impact_level": "VH",
+            "finding_classification": "Vulnerability",
+            "countermeasure": "Very High",
+            "event_type": "Cooperative Vulnerability Penetration Assessment (CVPA)"
+        },
+        {
+            "type": "Manufcturer Default Creds",
+            "posture": "Insider-nearsider",
+            "threat_level": "Expected",
+            "impact_level": "H",
+            "finding_classification": "Information",
+            "countermeasure": "High",
+            "event_type": "Cooperative Vulnerability Investigation (CVPI)"
+        },
+        {
+            "type": "Lack of Authentication",
+            "posture": "Outsider",
+            "threat_level": "Anticipated",
+            "impact_level": "M",
+            "countermeasure": "Moderate",
+            "event_type": "Verification of Fixes (VOF)"
+        },
+        {
+            "type": "Plain Text Protocols",
+            "posture": "Nearsider",
+            "threat_level": "Predicted",
+            "impact_level": "L",
+            "countermeasure": "Low"
+        },
+        {
+            "type": "Plain Text Web Login",
+            "posture": "Nearsider-outsider",
+            "threat_level": "Possible",
+            "impact_level": "VL",
+            "countermeasure": "Very Low"
+        },
+        {
+            "type": "Encryption",
+            "impact_level": "Information"
+        },
+        {
+            "type": "Authentication Bypass"
+        },
+        {
+            "type": "Port Security"
+        },
+        {
+            "type": "Access Control"
+            
+        },
+        {
+            "type": "Least Privilege"
+        },
+        {
+            "type": "Privilege Escalation"
+        },
+        {
+            "type": "Missing Patches"
+        },
+        {
+            "type": "Information Disclosure"
+        }
+    ]
+}

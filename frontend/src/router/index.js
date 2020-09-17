@@ -143,6 +143,14 @@ const routes = [
   },
   {
     meta: {
+      title: 'ConfigurationContent'
+    },
+    path: '/configuration-content',
+    name: 'configcontent',
+    component: () => import(/* webpackChunkName: "forms" */ '../views/ConfigurationContent.vue')
+  },
+  {
+    meta: {
       title: 'Profile'
     },
     path: '/profile',
