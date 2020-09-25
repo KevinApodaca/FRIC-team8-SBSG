@@ -69,3 +69,16 @@
   1. Complete GUI before demo deadline
   2. Complete CRC
 - Meeting's Overall Score: 9.5 / 10
+
+## 09/22/2020
+
+- Objective: Discuss UI demo with clients and plan for next demo.
+- Start Time: 6:30pm
+- End Time: 7:30pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Go through UI demo, discuss plans for fixing elements in the UI for better UX.
+- Meeting Summary: We discussed how we thought the demo went with the client, what we liked and did not.
+- Action Items:
+  1. Clean up code by removing unused components and create relevant code documentation
+  2. Update the UI based on client demos
+- Meeting's Overall Score: 9.0 / 10
