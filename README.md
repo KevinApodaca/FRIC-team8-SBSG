@@ -1,8 +1,16 @@
-# Findings and Reporting Information Console - FRIC
+<h1 align="center"> Findings and Reporting Information Console - FRIC </h1>
+
+## Scope of Product
+The Cyber Experimentation & Analysis Division (CEAD) recognizes the complexity and the time it takes to manage task assignments, progress, vulnerability discovery during a cyber engagement and generate custom reports that presents the discovered vulnerabilities and potential issues to CEAD’s target audience. They want a system that would aid the management of task, collection of evidence, and report generation during a cyber engagement.
+
+The University of Texas at El Paso (UTEP) and CEAD are collaborating to develop Findings and Reporting Information Console (FRIC) system that will provide the ability to manage task assignment and progress, and facilitate the collection of evidence on existing vulnerabilities, and generation of custom reports.
+
+This is the FRIC system, as developed by Team 8 (SBSG) of the Fall 2020 CS 4311 cohort at the University of Texas at El Paso. FRIC uses the following technologies for its development.
 
 * PWA/SPA — Single page app
 * Built with Vue.js, Buefy & Bulma
 * SCSS sources with variables
+* Mobile Responsive
 
 ## Table of Contents
 
@@ -20,15 +28,15 @@ Download the source code with `git clone https://github.com/KevinApodaca/FRIC-te
 
 #### Install
 
-`cd` to project's frontend dir and run `npm --silent install` 
+`cd` to project's frontend dir and run `npm install` 
 
 #### Serve
 
-To pre-compile & hot-reload for development run `npm run --silent serve`
+To pre-compile & hot-reload for development run `npm run serve`
 
 #### Build
 
-Production-ready with minified bundle `npm run --silent build`
+Production-ready with minified bundle `npm run build`
 
 ## Browser Support
 
@@ -36,6 +44,9 @@ Currently supports
 - Firefox
 - Chrome
 - Safari
+- Brave
+- Opera
+- Edge
 
 ## Reporting Issues
 
