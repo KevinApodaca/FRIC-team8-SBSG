@@ -223,11 +223,11 @@ const routes = [
       },
       {
         meta: {
-          title: 'Error v.1'
+          title: 'Help Page'
         },
-        path: '/error-in-card',
-        name: 'error-in-card',
-        component: () => import(/* webpackChunkName: "full-page" */ '../views/full-page/Error.vue')
+        path: '/help-page',
+        name: 'help-page',
+        component: () => import(/* webpackChunkName: "full-page" */ '../views/full-page/HelpPage.vue')
       },
       {
         meta: {
