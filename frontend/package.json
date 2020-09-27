@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.8.35",
     "lodash": "^4.17.20",
+    "mongoose": "^5.10.7",
     "numeral": "^2.0.6",
     "perfect-scrollbar": "^1.5.0",
     "register-service-worker": "^1.7.1",
