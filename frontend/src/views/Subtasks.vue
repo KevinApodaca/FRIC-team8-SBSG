@@ -8,7 +8,7 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Subtasks Overview Table" icon="file-find">
+      <card-component class="has-table has-mobile-sort-spaced" title="Subtasks Overview Table" icon="view-list">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">

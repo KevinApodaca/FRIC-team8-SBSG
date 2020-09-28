@@ -10,8 +10,8 @@
             "countermeasure": "Very High",
             "event_type": "Cooperative Vulnerability Penetration Assessment (CVPA)",
             "severity_category": "I",
-            "progress": "",
-            "event_rules": "Rule 1"
+            "progress": 67,
+            "event_rules": "Do not attack IP 192.168.0.1,"
         },
         {
             "type": "Manufcturer Default Creds",
@@ -22,7 +22,8 @@
             "countermeasure": "High",
             "event_type": "Cooperative Vulnerability Investigation (CVPI)",
             "severity_category": "II",
-            "event_rules": "Rule 2"
+            "progress": 78,
+            "event_rules": "Must only attack system X after system Y is down"
         },
         {
             "type": "Lack of Authentication",
@@ -32,7 +33,8 @@
             "countermeasure": "Moderate",
             "event_type": "Verification of Fixes (VOF)",
             "severity_category": "III",
-            "event_rules": "Rule 3"
+            "progress": 88,
+            "event_rules": "A third rule of engagement"
         },
         {
             "type": "Plain Text Protocols",
@@ -40,6 +42,7 @@
             "threat_level": "Predicted",
             "finding_impact_level": "L",
             "countermeasure": "Low",
+            "progress": 100,
             "event_rules": "Rule 4"
         },
         {
@@ -48,6 +51,7 @@
             "threat_level": "Possible",
             "finding_impact_level": "VL",
             "countermeasure": "Very Low",
+            "progress": 18,
             "event_rules": "Rule 5"
         },
         {
