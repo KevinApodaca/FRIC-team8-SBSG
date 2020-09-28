@@ -16,7 +16,7 @@
             "findings": "56",
             "progress": 18,
             "classification": "Top Secret",
-            "created": "09112020",
+            "created": "09-11-2020",
             "created_mm_dd_yyyy": "13092020",
             "declassified_date": "21092020"
         },
@@ -35,7 +35,7 @@
             "findings": "12",
             "progress": 34,
             "classification": "Unclassified",
-            "created": "Nov 6, 2020",
+            "created": "08-12-2020",
             "created_mm_dd_yyyy": "11-06-2020",
             "declassified_date": "09-21-2020"
         },
@@ -54,7 +54,7 @@
             "findings": "03",
             "progress": 73,
             "classification": "Classified",
-            "created": "Jun 7, 2020",
+            "created": "05-12-2020",
             "created_mm_dd_yyyy": "06-07-2020",
             "declassified_date": "06-22-2020"
         },
@@ -73,7 +73,7 @@
             "findings": "05",
             "progress": 47,
             "classification": "Confidential",
-            "created": "Dec 20, 2020",
+            "created": "12-11-2020",
             "created_mm_dd_yyyy": "12-20-2020",
             "declassified_date": "06-12-2020"
         },
@@ -92,7 +92,7 @@
             "findings": "09",
             "progress": 80,
             "classification": "Secret",
-            "created": "Mar 21, 2020",
+            "created": "05-08-2020",
             "created_mm_dd_yyyy": "03-21-2020",
             "declassified_date": "10-11-2020"
         },
@@ -111,7 +111,7 @@
             "findings": "10",
             "progress": 52,
             "classification": "Top Secret",
-            "created": "Jul 11, 2020",
+            "created": "12-12-2020",
             "created_mm_dd_yyyy": "07-11-2020",
             "declassified_date": "12-21-2020"
         },
@@ -130,7 +130,7 @@
             "findings": "04",
             "progress": 34,
             "classification": "Unclassified",
-            "created": "Jul 20, 2020",
+            "created": "10-06-2020",
             "created_mm_dd_yyyy": "20072020",
             "declassified_date": "21012020"
         },
@@ -149,7 +149,7 @@
             "findings": "12",
             "progress": 66,
             "classification": "Classified",
-            "created": "Jan 21, 2020",
+            "created": "02-07-2020",
             "created_mm_dd_yyyy": "21012020",
             "declassified_date": "04102020"
         },
@@ -168,7 +168,7 @@
             "findings": "07",
             "progress": 43,
             "classification": "Confidential",
-            "created": "Feb 15, 2020",
+            "created": "29-12-2020",
             "created_mm_dd_yyyy": "15022020",
             "declassified_date": "15192020"
         },
@@ -187,7 +187,7 @@
             "findings": "15",
             "progress": 76,
             "classification": "Top Secret",
-            "created": "Aug 1, 2020",
+            "created": "06-07-2020",
             "created_mm_dd_yyyy": "08012020",
             "declassified_date": "16082020"
         },
@@ -206,7 +206,7 @@
             "findings": "06",
             "progress": 81,
             "classification": "Secret",
-            "created": "Jan 25, 2020",
+            "created": "02-10-2020",
             "created_mm_dd_yyyy": "12012020",
             "declassified_date": "12092020"
         },
@@ -225,7 +225,7 @@
             "findings": "43",
             "progress": 100,
             "classification": "Top Secret",
-            "created": "23122020",
+            "created": "05-12-2020",
             "created_mm_dd_yyyy": "12122020",
             "declassified_date": "06102020"
         }
