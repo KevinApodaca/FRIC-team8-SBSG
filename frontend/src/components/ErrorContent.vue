@@ -13,9 +13,9 @@
       <p>The navigation bar on the left-hand-side provides the navigation to all components of the system, organized in categories.
         For all relevant component, FRIC provides the following three views.</p><br>
         <h3>Component Overview</h3>
-        <p>This view provides the general information about the component, such as the collection table of documents, helpful information, and call to action buttons.</p>
+        <p>This view provides the general information about the component, such as the collection table of documents, helpful information, and call to action buttons.</p><br>
         <h3>Component Detail View</h3>
-        <p>This view provides the specific information about the component, such as the name, date, creation date, etc.</p>
+        <p>This view provides the specific information about the component, such as the name, date, creation date, etc.</p><br>
         <h3>New Component View</h3>
         <p>This view provides the functionality to create a new instance of this component by filling out the relevant fields required by the system, as well as the submission buttons.</p>
     </div>
