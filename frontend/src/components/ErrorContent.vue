@@ -4,12 +4,24 @@
       <b-icon icon="help" custom-size="default"/>
     </div>
     <div class="error-page-caption">
-      <h1>About</h1>
+      <h1>About FRIC</h1>
       <p>The Findings and Reporting Information Console is a system that will aid the management of task, collection of evidence, and report generation during a cyber engagement.</p>
     </div>
     <hr>
     <div class="error-page-caption">
-      <h1>Installation and Build</h1>
+      <h1>User Guide</h1>
+      <p>The navigation bar on the left-hand-side provides the navigation to all components of the system, organized in categories.
+        For all relevant component, FRIC provides the following three views.</p><br>
+        <h3>Component Overview</h3>
+        <p>This view provides the general information about the component, such as the collection table of documents, helpful information, and call to action buttons.</p>
+        <h3>Component Detail View</h3>
+        <p>This view provides the specific information about the component, such as the name, date, creation date, etc.</p>
+        <h3>New Component View</h3>
+        <p>This view provides the functionality to create a new instance of this component by filling out the relevant fields required by the system, as well as the submission buttons.</p>
+    </div>
+    <hr>
+    <div class="error-page-caption">
+      <h1>Developer Guide</h1>
       <p>In order to run and install the FRIC tool please follow the following steps</p>
       <div class="content">
         <ol type="1">
@@ -19,22 +31,17 @@
           <li>To deploy the complete project bundle run the command <code>npm run build</code></li>
         </ol>
       </div>
-    </div>
-    <hr>
-    <div class="error-page-caption">
-      <h1>Dependencies</h1>
       <p>Dependencies are installed automatically with <em>Step 2</em> above.
       Some notable dependencies are:</p>
       <div class="content">
         <ol type="i">
-          <li>VueJS</li>
-          <li>Bulma</li>
-          <li>Buefy</li>
-          <li>Mongoose</li>
-          <li>Axios</li>
-          <li></li>
+          <li>VueJS verion <em>2.6.10</em></li>
+          <li>Bulma version <em>0.9.0</em></li>
+          <li>Buefy version <em>0.9.3</em></li>
+          <li>Mongoose version <em>5.10.7</em></li>
+          <li>Axios version <em>0.20.0</em></li>
         </ol>
-        <p>a complete list of dependencies for the tool can be seen in the <code>package.json</code> file.</p>
+        <p>For a complete list of dependencies you can look at the <code>package.json</code> file.</p>
       </div>
     </div>
     <div class="error-page-action">
