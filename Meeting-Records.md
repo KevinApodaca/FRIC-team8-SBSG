@@ -94,5 +94,20 @@
 - Action Items:
   1. Revisit and finalize CRC
   2. Present to clients on 9/31/2020
-  3. Complete changes based on client feedback before demol
+  3. Complete changes based on client feedback before demo
 - Meeting's Overall Score: 9.5 / 10
+
+
+## 09/29/2020
+
+- Objective: SCRUM status update
+- Start Time: 6:30pm
+- End Time: 7:30pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Standup for jira work
+- Meeting Summary: We discussed progress on our tickets and 
+- Action Items:
+  1. Complete DB setup for mongoDB
+  2. Demo to clients
+  3. Complete CRC with feedback
+- Meeting's Overall Score: 9.6 / 10
