@@ -3,9 +3,6 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" to="/tasks" class="button">
-        Cancel
-      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
@@ -93,6 +90,18 @@
           </form>
         </card-component>
       </tiles>
+      <b-field horizontal>
+        <b-field grouped>
+          <div class="control">
+            <b-button native-type="submit" type="is-primary">Save</b-button>
+          </div>
+          <div class="control">
+            <router-link slot="right" to="/tasks" class="button is-primary is-outlined">
+             Cancel
+            </router-link>
+          </div>
+        </b-field>
+      </b-field>
     </section>
   </div>
 </template>

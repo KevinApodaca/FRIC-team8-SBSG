@@ -14,8 +14,6 @@
             <div slot="left" class="buttons has-addons">
             <button class="button is-rounded is-info is-outline">Archive</button>
             <button class="button is-rounded is-success">Promote</button>
-            <button class="button is-rounded is-link">Save</button>
-            <button class="button is-rounded is-danger is-outline">Cancel</button>
           </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >
