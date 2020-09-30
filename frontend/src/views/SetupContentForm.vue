@@ -15,11 +15,15 @@
               <b-input placeholder="Enter your initials here" required/>
             </b-field>
           </b-field>
-        <b-field label="Please select an option" class="has-check" horizontal>
-          <radio-picker :options="{one:'Create a new event (any existing event will be archived)'}" v-model="customElementsForm.radio"></radio-picker>
-        </b-field>
-        <b-field label="" class="has-check" horizontal>
-          <radio-picker :options="{two:'First time sync with lead analyst. Please enter the lead analyst’s IP'}" v-model="customElementsForm.radio"></radio-picker>
+        <b-field label="Please select an option" class="col" horizontal>
+          <b-field class="row">
+            <input type="radio" name="option" value="new">Create a new event (any existing event will be archived)
+            <br>
+          </b-field>
+          <b-field class="row">
+            <input type="radio" name="option" value="sync"/>First time sync with lead analyst. Please enter the lead analyst’s IP
+            <br>
+          </b-field>
         </b-field>
           <b-field label="" horizontal>
             <b-input placeholder="Enter initials here" required />
@@ -44,10 +48,9 @@
 import CardComponent from '@/components/CardComponent'
 import mapValues from 'lodash/mapValues'
 import Notification from '@/components/Notification'
-import RadioPicker from '@/components/RadioPicker'
 export default {
   name: 'SetupContentForm',
-  components: { CardComponent, Notification, RadioPicker },
+  components: { CardComponent, Notification },
   data () {
     return {
       isLoading: false,
@@ -58,12 +61,6 @@ export default {
         sync_with: null,
         subject: null,
         question: null
-      },
-      customElementsForm: {
-        checkbox: [],
-        radio: null,
-        switch: true,
-        file: null
       },
       sync_with: [
         'j.w',
