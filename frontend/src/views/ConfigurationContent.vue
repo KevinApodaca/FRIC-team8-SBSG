@@ -21,11 +21,7 @@
         </card-toolbar>
         <finding-type-table data-url="/data-sources/config-content-data/finding-type.json" :checkable="true"/>
       </card-component>
-       <!-- Posture Table -->
-      <card-component class="has-table has-mobile-sort-spaced" title="Posture Table" icon="playlist-edit">
-        <refresh-button slot="button"/>
-        <posture-table data-url="/data-sources/config-content-data/posture.json" :checkable="true"/>
-      </card-component>
+      <hr>
        <!-- Table 2 Overview -->
       <card-component class="has-table has-mobile-sort-spaced" title="Value Type Table Continued" icon="cog-clockwise">
         <refresh-button slot="button"/>
@@ -82,11 +78,10 @@ import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import FindingTypeTable from '@/components/config-tables/FindingTypeTable'
-import PostureTable from '@/components/config-tables/PostureTable'
 import FindingImpactLevelTable from '@/components/config-tables/FindingImpactLevelTable'
 export default {
   name: 'ConfigurationContent',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingTypeTable, PostureTable, FindingImpactLevelTable },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingTypeTable, FindingImpactLevelTable },
   computed: {
     titleStack () {
       return [
