@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Event
-      <router-link slot="right" to="/" class="button">
-        New Events
+      <router-link slot="right" to="/create-event" class="button">
+        New Event
       </router-link>
     </hero-bar>
     <section class="section is-main-section">

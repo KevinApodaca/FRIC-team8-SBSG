@@ -61,14 +61,14 @@ const routes = [
   },
   {
     meta: {
-      title: 'Create Event'
+      title: 'CreateEvent Form'
     },
-    path: '/create-event',
-    name: 'createevent.edit',
+    path: '/create-form',
+    name: 'createtask.edit',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateEvent.vue')
+    component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateTask.vue')
   },
   {
     meta: {
