@@ -4,7 +4,7 @@
     <hero-bar>
       Archive
       <router-link slot="right" to="/" class="button">
-        New Event
+        New Archive
       </router-link>
     </hero-bar>
     <section class="section is-main-section">

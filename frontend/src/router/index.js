@@ -28,7 +28,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'tasks'
+      title: 'Tasks'
     },
     path: '/tasks',
     name: 'tasks',
@@ -50,7 +50,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'CreateTask Form'
+      title: 'Create Task'
     },
     path: '/createtask-form',
     name: 'createtask.edit',
@@ -116,7 +116,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Subtasks Form'
+      title: 'Create Subtask'
     },
     path: '/subtasks-form',
     name: 'subtasks',

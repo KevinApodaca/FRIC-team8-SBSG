@@ -109,10 +109,11 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.subtasks.name
       } else {
-        lastCrumb = 'New Subtask'
+        lastCrumb = 'Subtask View'
       }
 
       return [
+        'Analyst',
         'Subtasks',
         lastCrumb
       ]
@@ -121,7 +122,7 @@ export default {
       if (this.isProfileExists) {
         return this.subtasks.name
       } else {
-        return 'New Subtask'
+        return 'Create Subtask'
       }
     },
     heroRouterLinkTo () {
@@ -133,7 +134,7 @@ export default {
     },
     heroRouterLinkLabel () {
       if (this.isProfileExists) {
-        return 'New Subtask'
+        return 'Create Subtask'
       } else {
         return 'Subtasks'
       }

@@ -50,6 +50,7 @@ export default {
   computed: {
     titleStack () {
       return [
+        'Analyst',
         'Subtasks'
       ]
     }
