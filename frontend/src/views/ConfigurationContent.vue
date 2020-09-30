@@ -21,6 +21,7 @@
         </card-toolbar>
         <finding-type-table data-url="/data-sources/config-content-data/finding-type.json" :checkable="true"/>
       </card-component>
+      <hr>
        <!-- Table 2 Overview -->
       <card-component class="has-table has-mobile-sort-spaced" title="Value Type Table Continued" icon="cog-clockwise">
         <refresh-button slot="button"/>
