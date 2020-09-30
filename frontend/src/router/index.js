@@ -202,6 +202,14 @@ const routes = [
     props: true
   },
   {
+    meta: {
+      title: 'TesterForm'
+    },
+    path: '/tester-form',
+    name: 'tester-form',
+    component: () => import(/* webpackChunkName: "full-page" */ '../views/TesterForm.vue')
+  },
+  {
     path: '/full-page',
     component: () => import(/* webpackChunkName: "full-page" */ '../views/FullPage.vue'),
     children: [
