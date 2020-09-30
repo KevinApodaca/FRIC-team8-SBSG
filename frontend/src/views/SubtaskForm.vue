@@ -3,9 +3,6 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" to="/subtasks" class="button">
-        Cancel
-      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
@@ -27,7 +24,6 @@
             <b-field label="Due Date" horizontal required>
               <b-input b-type="date" v-model="form.duedate" placeholder="DDMMYYYY" />
             </b-field>
-            <button class="button is-rounded is-success">Save</button>
             <hr>
           </form>
         </card-component>
@@ -64,6 +60,18 @@
             <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop/></card-component>
         </card-component>
       </tiles>
+     <b-field horizontal>
+        <b-field grouped>
+          <div class="control">
+            <b-button native-type="submit" type="is-primary">Save</b-button>
+          </div>
+          <div class="control">
+            <router-link slot="right" to="/subtasks" class="button is-primary is-outlined">
+             Cancel
+            </router-link>
+          </div>
+        </b-field>
+      </b-field>
     </section>
   </div>
 </template>
