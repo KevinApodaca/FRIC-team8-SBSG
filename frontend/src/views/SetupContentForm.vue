@@ -16,10 +16,10 @@
             </b-field>
           </b-field>
         <b-field label="Please select an option" class="has-check" horizontal>
-          <radio-picker :options="{one:'Create a new event (any existing event will be archived)'}" v-model="customElementsForm.radio"></radio-picker>
+          <checkbox-picker :options="{new:'Create a new event (any existing event will be archived)'}" v-model="customElementsForm.checkbox"/>
         </b-field>
         <b-field label="" class="has-check" horizontal>
-          <radio-picker :options="{two:'First time sync with lead analyst. Please enter the lead analyst’s IP'}" v-model="customElementsForm.radio"></radio-picker>
+          <checkbox-picker :options="{sync:'First time sync with lead analyst. Please enter the lead analyst’s IP'}" v-model="customElementsForm.checkbox"/>
         </b-field>
           <b-field label="" horizontal>
             <b-input placeholder="Enter initials here" required />
@@ -44,10 +44,10 @@
 import CardComponent from '@/components/CardComponent'
 import mapValues from 'lodash/mapValues'
 import Notification from '@/components/Notification'
-import RadioPicker from '@/components/RadioPicker'
+import CheckboxPicker from '@/components/CheckboxPicker'
 export default {
   name: 'SetupContentForm',
-  components: { CardComponent, Notification, RadioPicker },
+  components: { CardComponent, Notification, CheckboxPicker },
   data () {
     return {
       isLoading: false,
