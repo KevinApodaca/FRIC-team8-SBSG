@@ -27,7 +27,7 @@
             </div>
           </form>
         </card-toolbar>
-        <clients-table-sample data-url="/data-sources/clients.json" :checkable="true"/>
+        <clients-table-sample data-url="http://localhost:3000/events" :checkable="true"/>
       </card-component>
     </section>
   </div>

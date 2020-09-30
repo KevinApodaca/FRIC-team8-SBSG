@@ -76,7 +76,7 @@
 <script>
 import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
+// import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -161,11 +161,12 @@ export default {
     },
     getData () {
       if (this.id) {
+        var url = 'http://localhost:3000/events/' + this.id
         axios
-          .get('/data-sources/clients.json')
+          .get(url)
           .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
+            // const item = find(r.data, item => item._id === parseInt(this._id))
+            const item = r.data
             if (item) {
               this.isProfileExists = true
               this.form = item
