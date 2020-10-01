@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Findings
-      <router-link slot="right" to="/" class="button">
+      <router-link slot="right" to="/findings-form" class="button">
         New Finding
       </router-link>
     </hero-bar>
@@ -12,7 +12,7 @@
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-            <button class="button is-rounded is-danger">Delete</button>
+            <button class="button is-rounded is-danger">Archive</button>
             <button class="button is-rounded is-success">Save</button>
             <button class="button is-rounded">Cancel</button>
           </div>
@@ -56,7 +56,6 @@ export default {
   computed: {
     titleStack () {
       return [
-        'Lead Analyst',
         'Findings'
       ]
     }
