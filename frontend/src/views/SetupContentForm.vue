@@ -32,8 +32,18 @@
           ></radio-picker>
         </b-field>
         <b-field label="" horizontal>
-          <b-input placeholder="Enter initials here" required />
+          <b-input placeholder="Enter lead's initials here" required />
         </b-field>
+         <b-field horizontal>
+            <b-field grouped>
+              <div class="control">
+                <b-button type="is-primary" @click="submit">Submit</b-button>
+              </div>
+              <div class="control">
+                <b-button type="is-primary is-outlined" @click="reset">Cancel</b-button>
+              </div>
+            </b-field>
+          </b-field>
       </card-component>
     </section>
   </div>
@@ -70,7 +80,11 @@ export default {
   },
   computed: {},
   methods: {
-    submit () {},
+    submit () {
+      this.$buefy.snackbar.open({
+        message: 'Setup submitted'
+      })
+    },
     reset () {
       this.form = mapValues(this.form, (item) => {
         if (item && typeof item === 'object') {
@@ -80,7 +94,7 @@ export default {
       })
 
       this.$buefy.snackbar.open({
-        message: 'Reset successfully',
+        message: 'Setup cancelled',
         queue: false
       })
     },
