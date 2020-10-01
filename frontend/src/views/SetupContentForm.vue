@@ -10,23 +10,17 @@
               <b>There is no existing event in your local system</b>
             </div>
           </notification>
-          <b-field label="There is no existing event in your local system" horizontal>
-            <b-field>
-              <b-input>
-              </b-input>
-            </b-field>
-          </b-field>
           <b-field label="Please input your initials:" horizontal>
             <b-field>
               <b-input placeholder="Enter your initials here" required/>
             </b-field>
           </b-field>
-          <b-field label="Please select an option:" class="has-check" horizontal>
-          <checkbox-picker :options="{event:'Create a new event (any existing event will be archived)'}" v-model="customElementsForm.checkbox" type="is-primary"/>
-          </b-field>
-          <b-field label="" class="has-check" horizontal>
-            <checkbox-picker :options="{event:'First time sync with lead analyst. Please enter the lead analyst’s IP'}" v-model="customElementsForm.checkbox" type="is-primary"/>
-          </b-field>
+        <b-field label="Please select an option" class="has-check" horizontal>
+          <radio-picker :options="{one:'Create a new event (any existing event will be archived)'}" v-model="customElementsForm.radio"></radio-picker>
+        </b-field>
+        <b-field label="" class="has-check" horizontal>
+          <radio-picker :options="{two:'First time sync with lead analyst. Please enter the lead analyst’s IP'}" v-model="customElementsForm.radio"></radio-picker>
+        </b-field>
           <b-field label="" horizontal>
             <b-input placeholder="Enter initials here" required />
           </b-field>
@@ -49,11 +43,11 @@
 <script>
 import CardComponent from '@/components/CardComponent'
 import mapValues from 'lodash/mapValues'
-import CheckboxPicker from '@/components/CheckboxPicker'
 import Notification from '@/components/Notification'
+import RadioPicker from '@/components/RadioPicker'
 export default {
   name: 'SetupContentForm',
-  components: { CardComponent, Notification, CheckboxPicker },
+  components: { CardComponent, Notification, RadioPicker },
   data () {
     return {
       isLoading: false,

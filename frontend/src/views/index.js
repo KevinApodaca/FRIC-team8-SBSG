@@ -28,7 +28,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Tasks'
+      title: 'tasks'
     },
     path: '/tasks',
     name: 'tasks',
@@ -50,7 +50,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Create Task'
+      title: 'CreateTask Form'
     },
     path: '/createtask-form',
     name: 'createtask.edit',
@@ -58,17 +58,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateTask.vue')
-  },
-  {
-    meta: {
-      title: 'Create Event'
-    },
-    path: '/create-event',
-    name: 'createevent.edit',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateEvent.vue')
   },
   {
     meta: {
@@ -116,7 +105,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'Create Subtask'
+      title: 'Subtasks Form'
     },
     path: '/subtasks-form',
     name: 'subtasks',

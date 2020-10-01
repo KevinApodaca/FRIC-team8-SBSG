@@ -30,12 +30,12 @@
       <b-table-column cell-class="is-progress-col" label="Progress" field="progress" sortable v-slot="props">
         <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
       </b-table-column>
-      <b-table-column label="Created" v-slot="props">
+      <b-table-column label="Created (DD-MM-YYYY)" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
-          <router-link :to="{name:'client.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="View Event">
+          <router-link :to="{name:'client.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Event Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
           <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Event">

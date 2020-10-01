@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Event
-      <router-link slot="right" to="/" class="button">
-        New Events
+      <router-link slot="right" to="/create-event" class="button">
+        New Event
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -12,9 +12,7 @@
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-            <button class="button is-rounded is-danger">Delete</button>
-            <button class="button is-rounded is-success">Save</button>
-            <button class="button is-rounded">Cancel</button>
+            <button class="button is-rounded is-info is-outline">Archive</button>
           </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >

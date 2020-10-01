@@ -45,9 +45,7 @@
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
             <button class="button is-rounded is-info is-outline">Archive</button>
-            <button class="button is-rounded">Demote</button>
-            <button class="button is-rounded is-success">Save</button>
-            <button class="button is-rounded is-danger">Cancel</button>
+            <button class="button is-rounded is-success">Demote</button>
             </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >

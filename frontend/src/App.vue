@@ -145,7 +145,7 @@ export default {
             icon: 'settings'
           },
           {
-            href: '',
+            to: '/help-page',
             label: 'Help',
             icon: 'help-circle'
           }

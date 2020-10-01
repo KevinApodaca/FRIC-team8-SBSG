@@ -34,7 +34,7 @@
       <b-table-column label="No. of Findings" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>
       </b-table-column>
-      <b-table-column label="Due Date" v-slot="props">
+      <b-table-column label="Due Date (DD-MM-YYYY)" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">

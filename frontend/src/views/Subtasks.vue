@@ -8,14 +8,12 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Subtasks Overview Table" icon="file-find">
+      <card-component class="has-table has-mobile-sort-spaced" title="Subtasks Overview Table" icon="view-list">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
             <button class="button is-rounded is-info is-outline">Archive</button>
             <button class="button is-rounded is-success">Promote</button>
-            <button class="button is-rounded is-link">Save</button>
-            <button class="button is-rounded is-danger is-outline">Cancel</button>
           </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >
@@ -52,6 +50,7 @@ export default {
   computed: {
     titleStack () {
       return [
+        'Analyst',
         'Subtasks'
       ]
     }

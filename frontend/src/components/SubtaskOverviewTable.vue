@@ -28,12 +28,12 @@
       <b-table-column label="No. of Findings" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>
       </b-table-column>
-      <b-table-column label="Due Date" v-slot="props">
+      <b-table-column label="Due Date (DD-MM-YYYY)" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
-          <router-link :to="{name:'subtasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="View Subtask">
+          <router-link :to="{name:'subtasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Subtask Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
           <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Archive Subtask">
