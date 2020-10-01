@@ -35,7 +35,7 @@
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
-          <router-link :to="{name:'client.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="View Event">
+          <router-link :to="{name:'client.edit', params: {id: props.row._id}}" class="button is-small is-primary" v-b-tooltip.hover title="View Event">
             <b-icon icon="information" size="is-small"/>
           </router-link>
           <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Event">
@@ -108,12 +108,10 @@ export default {
         .get(this.dataUrl)
         .then(r => {
           this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.clients = r.data.data
+          if (r.data.length > this.perPage) {
+            this.paginated = true
           }
+          this.clients = r.data
         })
         .catch(e => {
           this.isLoading = false
