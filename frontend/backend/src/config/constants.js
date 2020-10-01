@@ -7,5 +7,5 @@ export const PORT = process.env.PORT || 3000
  * Configuration for MongoDB
  */
 export const dbConfig = {
-  url: 'mongodb://localhost:27017/bezkoder_db'
+  url: 'mongodb://localhost:27017/db'
 }

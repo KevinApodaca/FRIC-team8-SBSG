@@ -10,12 +10,12 @@
     <section class="section is-main-section">
       <tiles>
         <card-component :title="formCardTitle" icon="slot-machine" class="tile is-child">
-          <form @submit.prevent="submit">
+          <form id="create-event-form" @submit.prevent="submit">
             <b-field label="Event Name" horizontal>
-              <b-input v-model="form.name" required />
+              <b-input name="event-name" v-model="form.name" required />
             </b-field>
             <b-field label="Event Description" horizontal>
-              <b-input type="textarea" v-model="form.description" required />
+              <b-input name="event-description" type="textarea" v-model="form.description" required />
             </b-field>
              <b-field label="Event Type" horizontal>
             <b-select v-model="form.department">
@@ -25,17 +25,17 @@
             </b-select>
           </b-field>
             <b-field label="Event Version" horizontal>
-              <b-input v-model="form.version" reaadonly />
+              <b-input name="event-version" v-model="form.version" reaadonly />
             </b-field>
             <b-field label="Assessment Date" horizontal>
-              <b-input v-model="form.created" required />
+              <b-input name="event-date" v-model="form.created" required />
             </b-field>
             <hr>
             <b-field label="Organization Name" horizontal>
-              <b-input v-model="form.organization" required />
+              <b-input name="org-name" v-model="form.organization" required />
             </b-field>
             <b-field label="Security Classification Title Guide" horizontal>
-              <b-input v-model="form.sctg" required />
+              <b-input name="sec-class" v-model="form.sctg" required />
             </b-field>
             <hr>
                <b-field label="Event Classification" horizontal>
@@ -49,7 +49,7 @@
               <b-input v-model="form.declassified_date" required />
             </b-field>
            <b-field label="Customer Name" horizontal>
-              <b-input v-model="form.login" required />
+              <b-input name="customer-name" v-model="form.login" required />
             </b-field>
           </form>
         </card-component>
@@ -71,7 +71,7 @@
        <b-field horizontal>
             <b-field grouped>
               <div class="control">
-                <b-button native-type="submit" type="is-primary">Submit</b-button>
+                <b-button form="create-event-form" native-type="submit" type="is-primary">Submit</b-button>
               </div>
               <div class="control">
                 <router-link slot="right" to="/tables" class="button is-primary is-outlined">Cancel</router-link>
@@ -195,9 +195,29 @@ export default {
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
+      var form = document.getElementById('create-event-form')
+      const eventName = form.querySelector('input[name=event-name]')
+      const eventDescription = form.querySelector('input[name=event-description]')
       this.isLoading = true
-
+      var data = {
+        Event_Name: eventName.value,
+        Event_Description: eventDescription.value,
+        Event_Type: 'some type',
+        Event_Version: 0,
+        Organization_Name: 'name',
+        Security_Classification: 'some classification',
+        Event_Classification: 'Another classification',
+        Archive_Status: 'status',
+        Assessment_Date: '2017-11-01T06:00:00.000Z',
+        Declassification_Date: '2017-11-01T06:00:00.000Z',
+        Customer_Name: 'name',
+        id: '5f7536e4a2a2ba0acdf5eea6'
+      }
+      axios
+        .post('http://localhost/event', data)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
       setTimeout(() => {
         this.isLoading = false
 
