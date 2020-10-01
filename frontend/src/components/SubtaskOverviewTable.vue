@@ -33,7 +33,7 @@
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
-          <router-link :to="{name:'subtasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="View Subtask">
+          <router-link :to="{name:'subtasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Subtask Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
           <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Archive Subtask">
