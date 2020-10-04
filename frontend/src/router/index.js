@@ -152,6 +152,29 @@ const routes = [
     name: 'systems',
     component: () => import(/* webpackChunkName: "forms" */ '../views/Systems.vue')
   },
+
+  {
+    meta: {
+      title: 'system-form'
+    },
+    path: '/system-form/:id',
+    name: 'systems.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "system-form" */ '../views/SystemForm.vue')
+  },
+  {
+    meta: {
+      title: 'Create System'
+    },
+    path: '/createsystem-form',
+    name: 'createsystem.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateSystem.vue')
+  },
   {
     meta: {
       title: 'ConfigurationContent'
