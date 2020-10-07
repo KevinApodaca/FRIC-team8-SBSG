@@ -31,7 +31,7 @@
             </b-field>
           </form>
         </card-component>
-        <card-component v-if="isProfileExists" title="System Categorization" icon="lightbulb-group" class="tile is-child">
+        <card-component title="System Categorization" icon="lightbulb-group" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
           <b-field label="Confidentiality" horizontal>
               <b-select v-model="form.confidentiality">
