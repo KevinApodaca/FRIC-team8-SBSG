@@ -82,7 +82,7 @@ import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 
 export default {
-  name: 'SystemForm',
+  name: 'CreateSystem',
   components: { CardComponent, Tiles, HeroBar, TitleBar },
   props: {
     id: {
