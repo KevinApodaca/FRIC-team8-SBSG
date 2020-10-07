@@ -105,9 +105,24 @@
 - End Time: 7:30pm
 - Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
 - Meeting Agenda: Standup for jira work
-- Meeting Summary: We discussed progress on our tickets and 
+- Meeting Summary: We discussed progress on our tickets and demoed some work
 - Action Items:
   1. Complete DB setup for mongoDB
   2. Demo to clients
   3. Complete CRC with feedback
 - Meeting's Overall Score: 9.6 / 10
+
+
+## 10/06/2020
+
+- Objective: Sprint retro and planning
+- Start Time: 6:30pm
+- End Time: 7:30pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Conduct sprint retro for sprint 3, plan and start sprting 4.
+- Meeting Summary: We reflected on what worked and didn't during sprint 3, planned out work for sprint 4, and started sprint.
+- Action Items:
+  1. Refactor DB code
+  2. Update the UI with changes from feedback
+  3. Complete CRC with contracts
+- Meeting's Overall Score: 9.8 / 10
