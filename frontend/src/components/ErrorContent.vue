@@ -31,6 +31,17 @@
           <li>To deploy the complete project bundle run the command <code>npm run build</code></li>
         </ol>
       </div>
+      <p>The database service is run through starting the mongoDB service and the Express server setup. Please run these commands in a new command window from the <code>backend</code> folder</p>
+      <div class="content">
+        <ol type="a">
+          <li>Start the mongoDB service with <code>mongod</code></li>
+          <li>Launch the server with <code>node Server.js</code></li>
+          <li>Access the DB through a tool like TablePlus or mongoDB Compass</li>
+        </ol>
+        <p>
+          Changes to the database url should be made in line 21 of <code>Server.js</code>
+        </p>
+      </div>
       <p>Dependencies are installed automatically with <em>Step 2</em> above.
       Some notable dependencies are:</p>
       <div class="content">
