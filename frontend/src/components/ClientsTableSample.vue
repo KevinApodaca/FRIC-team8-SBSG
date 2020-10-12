@@ -108,12 +108,10 @@ export default {
         .get(this.dataUrl)
         .then(r => {
           this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.clients = r.data.data
+          if (r.data.length > this.perPage) {
+            this.paginated = true
           }
+          this.clients = r.data
         })
         .catch(e => {
           this.isLoading = false
