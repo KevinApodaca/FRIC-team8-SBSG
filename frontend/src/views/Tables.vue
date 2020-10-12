@@ -7,6 +7,11 @@
         New Event
       </router-link>
     </hero-bar>
+       <b-field label="Derived From:" vertical>
+          <b-field>
+            <b-input v-model="name"/>
+          </b-field>
+        </b-field>
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced" title="Event Overview Table" icon="slot-machine">
         <refresh-button slot="button"/>
