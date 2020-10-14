@@ -66,7 +66,7 @@
             <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
           </div>
           <div class="control">
-            <router-link slot="right" to="/tables" class="button is-primary is-outlined">
+            <router-link slot="right" to="/subtasks" class="button is-primary is-outlined">
              Cancel
             </router-link>
           </div>
