@@ -60,10 +60,10 @@
             <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop/></card-component>
         </card-component>
       </tiles>
-     <b-field horizontal>
+      <b-field horizontal>
         <b-field grouped>
           <div class="control">
-            <b-button native-type="submit" type="is-primary">Save</b-button>
+            <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
           </div>
           <div class="control">
             <router-link slot="right" to="/subtasks" class="button is-primary is-outlined">
@@ -197,7 +197,7 @@ export default {
         this.isLoading = false
 
         this.$buefy.snackbar.open({
-          message: 'Demo only',
+          message: 'Subtask has been updated',
           queue: false
         })
       }, 500)

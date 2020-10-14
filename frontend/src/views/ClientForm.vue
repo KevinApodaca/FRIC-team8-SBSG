@@ -69,6 +69,18 @@
           <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
         </card-component>
       </tiles>
+      <b-field horizontal>
+        <b-field grouped>
+          <div class="control">
+            <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+          </div>
+          <div class="control">
+            <router-link slot="right" to="/tables" class="button is-primary is-outlined">
+             Cancel
+            </router-link>
+          </div>
+        </b-field>
+      </b-field>
     </section>
   </div>
 </template>
@@ -194,7 +206,7 @@ export default {
         this.isLoading = false
 
         this.$buefy.snackbar.open({
-          message: 'Demo only',
+          message: 'Event has been updated',
           queue: false
         })
       }, 500)
