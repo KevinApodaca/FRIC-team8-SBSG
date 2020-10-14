@@ -204,7 +204,7 @@ export default {
         created_mm_dd_yyyy: '13092020',
         declassified_date: this.form.declassified_date
       }
-      axios.post('http://localhost:3000/event/', newForm)
+      axios.post('http://localhost:3000/events/', newForm)
         .then(response => {
           console.log(response)
         })

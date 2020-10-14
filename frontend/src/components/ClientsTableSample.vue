@@ -126,7 +126,7 @@ export default {
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      axios.delete('http://localhost:3000/event/' + this.trashObject.id)
+      axios.delete('http://localhost:3000/events/' + this.trashObject.id)
         .then(response => {
           console.log(response)
           // this.fireDelete(trashObject)

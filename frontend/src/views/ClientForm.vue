@@ -174,7 +174,7 @@ export default {
     getData () {
       if (this.id) {
         axios
-          .get('http://localhost:3000/event/' + this.id)
+          .get('http://localhost:3000/events/' + this.id)
           .then(r => {
             // const item = find(r.data.data, item => item.id === parseInt(this.id))
             const item = r.data
