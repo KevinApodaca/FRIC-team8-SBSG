@@ -39,7 +39,7 @@ const routes = [
   },
   {
     meta: {
-      title: 'task-form'
+      title: 'Edit Task'
     },
     path: '/task-form/:id',
     name: 'tasks.edit',
