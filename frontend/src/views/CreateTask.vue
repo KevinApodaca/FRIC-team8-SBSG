@@ -8,11 +8,15 @@
       <tiles>
         <card-component :title="formCardTitle" icon="playlist-edit" class="tile is-child">
           <form @submit.prevent="submit">
-            <b-field label="Title" horizontal>
+            <b-field label="Title" horizontal >
+              <div style = "width: 20rem;">
               <b-input v-model="form.title" required />
+              </div>
             </b-field>
             <b-field label="Description" horizontal>
+              <div style = "width: 40rem;">
               <b-input type="textarea" v-model="form.description" required />
+              </div>
             </b-field>
               <b-field label="Analyst(s)" horizontal>
               <b-select v-model="form.analyst">
@@ -58,10 +62,14 @@
             </b-field>
             <hr>
             <b-field label="No. of Subtask" horizontal>
+              <div style = "width: 5rem;">
               <b-input v-model="form.subtask" required />
+              </div>
             </b-field>
             <b-field label="No. of Findings" horizontal>
+              <div style = "width: 5rem;">
               <b-input v-model="form.findings" required />
+              </div>
             </b-field>
             <hr>
             <b-field label="Due Date:" horizontal>
