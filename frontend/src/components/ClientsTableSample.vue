@@ -2,7 +2,7 @@
   <div>
     <modal-box :is-active="isModalActive" :trash-object-name="trashObjectName" @confirm="trashConfirm"
                @cancel="trashCancel"/>
-    <b-table
+    <b-table ref="btable"
       :checked-rows.sync="checkedRows"
       :checkable="checkable"
       :loading="isLoading"
@@ -38,7 +38,7 @@
           <router-link :to="{name:'client.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Event Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button ref= "refresh" class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Event">
+          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Event">
             <b-icon icon="trash-can" size="is-small"/>
           </button>
         </div>
@@ -126,10 +126,13 @@ export default {
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      console.log('HELLLO')
       axios.delete('http://localhost:3000/event/' + this.trashObject.id)
         .then(response => {
           console.log(response)
+          // this.fireDelete(trashObject)
+          // this.tableData.splice(this.tableData.indexOf(trashObject), 1)
+          // this.photos.splice(trashObject, 1)
+          // this.organisations.splice(trashObject, 1)
         })
         .catch(error => {
           this.$buefy.toast.open({
