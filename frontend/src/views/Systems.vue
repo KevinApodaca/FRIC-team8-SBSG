@@ -27,7 +27,7 @@
             </div>
           </form>
         </card-toolbar>
-        <system-overview-table data-url="/data-sources/systems.json" :checkable="true"/>
+        <system-overview-table data-url='http://localhost:3000/systems/all' :checkable="true"/>
       </card-component>
     </section>
   </div>

@@ -21,7 +21,7 @@
               <b-input v-model="form.router" required />
             </b-field>
             <b-field label="System Switch" horizontal>
-              <b-input v-model="form.switch" required />
+              <b-input v-model="form.switches" required />
             </b-field>
            <b-field label="System Room" horizontal>
               <b-input v-model="form.room" required />
@@ -59,7 +59,9 @@
     <b-field horizontal>
         <b-field grouped>
           <div class="control">
-            <b-button native-type="submit" type="is-primary">Save</b-button>
+            <router-link to="/systems">
+              <b-button native-type="submit" type="is-primary" @click="submit">Save</b-button>
+            </router-link>
           </div>
           <div class="control">
             <router-link slot="right" to="/systems" class="button is-primary is-outlined">
@@ -187,15 +189,17 @@ export default {
     },
     submit () {
       this.isLoading = true
-
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'Demo only',
-          queue: false
+      axios.post('http://localhost:3000/systems/', this.form)
+        .then(response => {
+          console.log(response)
         })
-      }, 500)
+        .catch(error => {
+          this.$buefy.toast.open({
+            message: `Error: ${error.message}`,
+            type: 'is-danger',
+            queue: false
+          })
+        })
     }
   },
   watch: {

@@ -14,7 +14,7 @@
       :data='systems'>
 
       <b-table-column label="System" field="system" sortable v-slot="props">
-        {{ props.row.system }}
+        {{ props.row.name }}
       </b-table-column>
       <b-table-column label="No. of Tasks" field="tasks" sortable v-slot="props">
         {{ props.row.tasks }}
@@ -100,12 +100,10 @@ export default {
         .get(this.dataUrl)
         .then(r => {
           this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.systems = r.data.data
+          if (r.data.length > this.perPage) {
+            this.paginated = true
           }
+          this.systems = r.data
         })
         .catch(e => {
           this.isLoading = false
@@ -120,6 +118,17 @@ export default {
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
+      axios.delete('http://localhost:3000/systems/' + this.trashObject.id)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          this.$buefy.toast.open({
+            message: `Error: ${error.message}`,
+            type: 'is-danger',
+            queue: false
+          })
+        })
     },
     trashConfirm () {
       this.isModalActive = false

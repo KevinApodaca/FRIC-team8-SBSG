@@ -185,26 +185,8 @@ export default {
     },
     submit () {
       this.isLoading = true
-      var newForm = {
-        id: 43,
-        avatar: 'https://avatars.dicebear.com/api/jdenticon/wf.svg',
-        login: this.form.login,
-        initials: '',
-        name: this.form.name,
-        description: this.form.description,
-        organization: this.form.organization,
-        department: '',
-        sctg: this.form.sctg,
-        version: this.form.version,
-        systems: '0',
-        findings: '0',
-        progress: 0,
-        classification: 'Super Secret',
-        created: this.form.created,
-        created_mm_dd_yyyy: '13092020',
-        declassified_date: this.form.declassified_date
-      }
-      axios.post('http://localhost:3000/events/', newForm)
+
+      axios.post('http://localhost:3000/events/', this.form)
         .then(response => {
           console.log(response)
         })

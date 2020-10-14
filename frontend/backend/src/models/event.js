@@ -66,7 +66,7 @@ module.exports = mongoose => {
     },
     progress: {
       type: Number,
-      default: 18,
+      default: 0,
     },
     avatar:{
       type: String,

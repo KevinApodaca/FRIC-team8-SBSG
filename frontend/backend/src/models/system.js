@@ -1,6 +1,10 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
     {
+      name: {
+        type: String,
+        default: ''
+      },
       system: {
         type: String,
         default: ''
@@ -39,11 +43,11 @@ module.exports = mongoose => {
       },
       findings: {
         type: String,
-        default: ''
+        default: '0'
       },
       progress: {
-        type: String,
-        default: ''
+        type: Number,
+        default: 0
       },
       task: {
         type: String,
@@ -51,7 +55,7 @@ module.exports = mongoose => {
       },
       status: {
         type: String,
-        default: ''
+        default: '0'
       },
       type: {
         type: String,
