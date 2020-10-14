@@ -1,8 +1,13 @@
 <template>
   <div>
+    <modal-box :is-active="isModalActive" :trash-object-name="trashObjectName" @confirm="trashConfirm"
+               @cancel="trashCancel"/>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Event
+      <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Task">
+            <b-icon icon="trash-can" size="is-small"/>
+          </button>
       <router-link slot="right" to="/create-event" class="button">
         New Event
       </router-link>
@@ -46,10 +51,23 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
+import ModalBox from '@/components/ModalBox'
 export default {
   name: 'Event',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, ClientsTableSample },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, ClientsTableSample, ModalBox },
+  data () {
+    return {
+      isModalActive: false,
+      trashObject: null
+    }
+  },
   computed: {
+    trashObjectName () {
+      if (this.trashObject) {
+        return this.trashObject.name
+      }
+      return null
+    },
     titleStack () {
       return [
         'Lead Analyst',
@@ -58,6 +76,20 @@ export default {
     }
   },
   methods: {
+    trashModal (trashObject) {
+      this.trashObject = trashObject
+      this.isModalActive = true
+    },
+    trashConfirm () {
+      this.isModalActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false
+      })
+    },
+    trashCancel () {
+      this.isModalActive = false
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',
