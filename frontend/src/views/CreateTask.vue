@@ -61,7 +61,7 @@
               </b-select>
             </b-field>
             <hr>
-            <b-field label="No. of Subtask" horizontal>
+            <b-field label="No. of Subtasks" horizontal>
               <div style = "width: 5rem;">
               <b-input v-model="form.subtask" required />
               </div>
