@@ -43,16 +43,16 @@
               </b-select>
             </b-field>
             <b-field label="Priority" horizontal>
-              <b-select v-model="form.priority">
-                <option v-for="(priority, index) in type" :key="index" :value="priority">
-                  {{ priority }}
+              <b-select v-model="form.task_priority">
+                <option v-for="(task_priority, index) in task_priorities" :key="index" :value="task_priority">
+                  {{ task_priority }}
                 </option>
               </b-select>
             </b-field>
             <b-field label="Progress" horizontal>
-              <b-select v-model="form.progress">
-                <option v-for="(progress, index) in type" :key="index" :value="progress">
-                  {{ progress }}
+              <b-select v-model="form.task_progress">
+                <option v-for="(task_progress, index) in task_progresses" :key="index" :value="task_progresses">
+                  {{ task_progress }}
                 </option>
               </b-select>
             </b-field>
@@ -132,7 +132,21 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      task_priority: null,
+      task_progress: null,
+      task_priorities: [
+        'Low',
+        'Medium',
+        'High'
+      ],
+      task_progresses: [
+        'not started',
+        'transferred',
+        'in progress',
+        'complete',
+        'not applicable'
+      ]
     }
   },
   computed: {

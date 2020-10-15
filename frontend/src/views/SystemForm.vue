@@ -37,23 +37,23 @@
         <card-component v-if="isProfileExists" title="System Categorization" icon="lightbulb-group" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
           <b-field label="Confidentiality" horizontal>
-              <b-select v-model="form.confidentiality">
-                <option v-for="(confidentiality, index) in confidentiality" :key="index" :value="confidentiality">
-                  {{ confidentiality }}
+               <b-select v-model="form.system_confidentiality">
+                <option v-for="(system_confidentiality, index) in system_confidentialities" :key="index" :value="system_confidentialities">
+                  {{ system_confidentiality }}
                 </option>
               </b-select>
             </b-field>
           <b-field label="Integrity" horizontal>
-              <b-select v-model="form.integrity">
-                <option v-for="(integrity, index) in type" :key="index" :value="integrity">
-                  {{ integrity }}
+              <b-select v-model="form.system_integrity">
+                <option v-for="(system_integrity, index) in system_integrities" :key="index" :value="system_integrity">
+                  {{ system_integrity }}
                 </option>
               </b-select>
             </b-field>
              <b-field label="Availability" horizontal>
-              <b-select v-model="form.availability">
-                <option v-for="(availability, index) in availability" :key="index" :value="availability">
-                  {{ availability }}
+              <b-select v-model="form.system_availability">
+                <option v-for="(system_availability, index) in system_availabilities" :key="index" :value="system_availability">
+                  {{ system_availability }}
                 </option>
               </b-select>
             </b-field>
@@ -97,7 +97,28 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      system_confidentiality: null,
+      system_integrity: null,
+      system_availability: null,
+      system_confidentialities: [
+        'Low',
+        'Medium',
+        'High',
+        'Information'
+      ],
+      system_integrities: [
+        'Low',
+        'Medium',
+        'High',
+        'Information'
+      ],
+      system_availabilities: [
+        'Low',
+        'Medium',
+        'High',
+        'Information'
+      ]
     }
   },
   computed: {

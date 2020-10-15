@@ -18,9 +18,9 @@
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
              <b-field label="Event Type" horizontal>
-            <b-select v-model="form.department">
-              <option v-for="(department, index) in departments" :key="index" :value="department">
-                {{ department }}
+            <b-select v-model="form.event_type">
+              <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
+                {{ event_type }}
               </option>
             </b-select>
           </b-field>
@@ -39,9 +39,9 @@
             </b-field>
             <hr>
                <b-field label="Event Classification" horizontal>
-            <b-select v-model="form.classification">
-              <option v-for="(classification, index) in departments" :key="index" :value="department">
-                {{ department }}
+            <b-select v-model="form.event_classification">
+              <option v-for="(event_classification, index) in event_classifications" :key="index" :value="event_classification">
+                {{ event_classification }}
               </option>
             </b-select>
           </b-field>
@@ -108,7 +108,21 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      event_type: null,
+      event_classification: null,
+      event_types: [
+        'CVPA',
+        'CVI',
+        'VOF'
+      ],
+      event_classifications: [
+        'Top Secret',
+        'Secret',
+        'Confidential',
+        'Classified',
+        'Unclassified'
+      ]
     }
   },
   computed: {
