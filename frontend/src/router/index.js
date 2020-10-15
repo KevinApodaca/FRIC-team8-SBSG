@@ -214,6 +214,15 @@ const routes = [
     },
     path: '/findings/:id',
     name: 'finding.edit',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/FindingView.vue'),
+    props: true
+  },
+  {
+    meta: {
+      title: 'New Finding'
+    },
+    path: '/new-finding',
+    name: 'finding.new',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/FindingForm.vue'),
     props: true
   },

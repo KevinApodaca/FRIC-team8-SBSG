@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Findings
-      <router-link slot="right" to="/" class="button">
+      <router-link slot="right" to="/new-finding" class="button">
         New Finding
       </router-link>
     </hero-bar>
@@ -12,9 +12,9 @@
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-            <button class="button is-rounded is-danger">Delete</button>
-            <button class="button is-rounded is-success">Save</button>
-            <button class="button is-rounded">Cancel</button>
+            <button class="button is-rounded is-link is-outlined">ERB Report</button>
+            <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
+            <button class="button is-rounded is-link is-outlined">Final Report</button>
           </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >
@@ -31,10 +31,8 @@
         </card-toolbar>
         <finding-overview-table data-url="/data-sources/findings.json" :checkable="true"/>
          <card-toolbar slot="toolbar">
-            <div slot="right" class="buttons has-addons">
-            <button class="button is-rounded is-link is-outlined">ERB Report</button>
-            <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
-            <button class="button is-rounded is-link is-outlined">Final Report</button>
+            <div slot="left" class="buttons has-addons">
+            <button class="button is-rounded is-info is-outline">Archive</button>
           </div>
         </card-toolbar>
       </card-component>
@@ -56,7 +54,7 @@ export default {
   computed: {
     titleStack () {
       return [
-        'Lead Analyst',
+        'Analyst',
         'Findings'
       ]
     }
