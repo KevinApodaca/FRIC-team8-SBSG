@@ -136,7 +136,7 @@ export default {
       form: this.getClearFormObject(),
       createdReadable: null,
       isProfileExists: false,
-       task_priority: null,
+      task_priority: null,
       task_progress: null,
       task_priorities: [
         'Low',
