@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div> <!-- SAMPLE STUFF -->
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
