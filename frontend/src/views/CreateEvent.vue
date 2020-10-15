@@ -53,25 +53,13 @@
             </b-field>
           </form>
         </card-component>
-      <!--   <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
-          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-          <b-field label="Lead Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
-              </div>
-          </b-field>
-          <b-field label="Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
-              </div>
-          </b-field>
-          <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
-        </card-component> -->
       </tiles>
        <b-field horizontal>
             <b-field grouped>
               <div class="control">
-                <b-button native-type="submit" type="is-primary">Submit</b-button>
+                <router-link to="/tables">
+                  <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+                </router-link>
               </div>
               <div class="control">
                 <router-link slot="right" to="/tables" class="button is-primary is-outlined">Cancel</router-link>
@@ -213,14 +201,17 @@ export default {
     submit () {
       this.isLoading = true
 
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'Demo only',
-          queue: false
+      axios.post('http://localhost:3000/events/', this.form)
+        .then(response => {
+          console.log(response)
         })
-      }, 500)
+        .catch(error => {
+          this.$buefy.toast.open({
+            message: `Error: ${error.message}`,
+            type: 'is-danger',
+            queue: false
+          })
+        })
     }
   },
   watch: {

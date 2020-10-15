@@ -24,7 +24,7 @@
               <b-input v-model="form.router" required />
             </b-field>
             <b-field label="System Switch" horizontal>
-              <b-input v-model="form.switch" required />
+              <b-input v-model="form.switches" required />
             </b-field>
            <b-field label="System Room" horizontal>
               <b-input v-model="form.room" required />
@@ -62,7 +62,9 @@
       <b-field horizontal>
         <b-field grouped>
           <div class="control">
-            <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+            <router-link to='/systems'>
+              <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+            </router-link>
           </div>
           <div class="control">
             <router-link slot="right" to="/systems" class="button is-primary is-outlined">
@@ -78,7 +80,7 @@
 <script>
 import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
+// import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -184,10 +186,10 @@ export default {
     getData () {
       if (this.id) {
         axios
-          .get('/data-sources/systems.json')
+          .get('http://localhost:3000/systems/' + this.id)
           .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
+            // const item = find(r.data.data, item => item.id === parseInt(this.id))
+            const item = r.data
             if (item) {
               this.isProfileExists = true
               this.form = item
@@ -211,15 +213,14 @@ export default {
     },
     submit () {
       this.isLoading = true
-
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'System has been updated',
-          queue: false
+      console.log(this.form)
+      axios.patch('http://localhost:3000/systems/' + this.id, this.form)
+        .then(response => {
+          console.log(response)
         })
-      }, 500)
+        .catch(error => {
+          console.log(error.message)
+        })
     }
   },
   watch: {

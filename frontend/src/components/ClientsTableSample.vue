@@ -2,7 +2,7 @@
   <div>
     <modal-box :is-active="isModalActive" :trash-object-name="trashObjectName" @confirm="trashConfirm"
                @cancel="trashCancel"/>
-    <b-table
+    <b-table ref="btable"
       :checked-rows.sync="checkedRows"
       :checkable="checkable"
       :loading="isLoading"
@@ -108,12 +108,10 @@ export default {
         .get(this.dataUrl)
         .then(r => {
           this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.clients = r.data.data
+          if (r.data.length > this.perPage) {
+            this.paginated = true
           }
+          this.clients = r.data
         })
         .catch(e => {
           this.isLoading = false
@@ -128,6 +126,21 @@ export default {
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
+      axios.delete('http://localhost:3000/events/' + this.trashObject.id)
+        .then(response => {
+          console.log(response)
+          // this.fireDelete(trashObject)
+          // this.tableData.splice(this.tableData.indexOf(trashObject), 1)
+          // this.photos.splice(trashObject, 1)
+          // this.organisations.splice(trashObject, 1)
+        })
+        .catch(error => {
+          this.$buefy.toast.open({
+            message: `Error: ${error.message}`,
+            type: 'is-danger',
+            queue: false
+          })
+        })
     },
     trashConfirm () {
       this.isModalActive = false
