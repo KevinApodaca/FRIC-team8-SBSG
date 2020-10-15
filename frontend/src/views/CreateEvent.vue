@@ -200,10 +200,29 @@ export default {
     },
     submit () {
       this.isLoading = true
-
+      console.log('Hello There')
+      console.log(this.form)
       axios.post('http://localhost:3000/events/', this.form)
         .then(response => {
           console.log(response)
+          if (response.status === 200) {
+            var trans = {
+              initials: 'K.A',
+              time: Date.now(),
+              action: 'K.A created Event ' + this.form.name
+            }
+            axios.post('http://localhost:3000/transactions/', trans)
+              .then(res => {
+                console.log(res)
+              })
+              .catch(error => {
+                this.$buefy.toast.open({
+                  message: `Error: ${error.message}`,
+                  type: 'is-danger',
+                  queue: false
+                })
+              })
+          }
         })
         .catch(error => {
           this.$buefy.toast.open({

@@ -8,5 +8,6 @@ db.mongoose = mongoose
 db.url = dbConfig.url
 db.events = require('./event.js')(mongoose)
 db.systems = require('./system.js')(mongoose)
+db.transaction = require('./transactions.js')(mongoose)
 
 module.exports = db

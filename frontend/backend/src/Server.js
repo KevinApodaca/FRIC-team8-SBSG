@@ -1,6 +1,7 @@
 import { PORT } from './config/constants'
 import { eventRouter } from './routes'
 import { systemRouter } from './routes'
+import { transactionRouter } from './routes'
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 
 app.use('/events', eventRouter)
 app.use('/systems', systemRouter)
+app.use('/transactions',transactionRouter)
 
 const db = require('./models')
 db.mongoose
