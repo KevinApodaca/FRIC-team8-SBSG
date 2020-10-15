@@ -123,9 +123,9 @@
               </b-select>
             </b-field>
               <b-field label="Posture" horizontal>
-              <b-select v-model="form.posture">
-                <option v-for="(posture, index) in posture" :key="index" :value="posture">
-                  {{ posture }}
+              <b-select v-model="form.finding_posture">
+                <option v-for="(finding_posture, index) in finding_postures" :key="index" :value="finding_posture">
+                  {{ finding_posture }}
                 </option>
               </b-select>
             </b-field>
@@ -145,9 +145,9 @@
           <card-component v-if="isProfileExists" title="Threat Relevance" icon="emoticon-devil" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Relevance" horizontal>
-              <b-select v-model="form.relevance">
-                <option v-for="(relevance, index) in relevance" :key="index" :value="relevance">
-                  {{ relevance }}
+              <b-select v-model="form.threat_relevance">
+                <option v-for="(threat_relevance, index) in threat_relevances" :key="index" :value="threat_relevance">
+                  {{ threat_relevance }}
                 </option>
               </b-select>
             </b-field>
@@ -157,42 +157,29 @@
           <card-component v-if="isProfileExists" title="Countermeasure" icon="alarm-light" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Effectiveness Rating" horizontal>
-              <b-select v-model="form.effectiveness">
-                <option v-for="(effectiveness, index) in effectiveness" :key="index" :value="effectiveness">
-                  {{ effectiveness }}
+              <b-select v-model="form.effectiveness_rating">
+                <option v-for="(effectiveness_rating, index) in effectiveness_ratings" :key="index" :value="effectiveness_rating">
+                  {{ effectiveness_rating }}
                 </option>
               </b-select>
             </b-field>
+          </card-component>
+          <hr>
+           <!-- Impact Information Component Card -->
+          <card-component v-if="isProfileExists" title="Impact" icon="equalizer" class="tile is-child">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+              <b-field label="Impact Description" vertical>
+                <b-input type="textarea" v-model="form.desc" reaadonly />
+              </b-field>
+              <b-field label="Impact Level" vertical>
+                <b-select v-model="form.impact_level">
+                  <option v-for="(impact_level, index) in impact_levels" :key="index" :value="impact_level">
+                    {{ impact_level }}
+                  </option>
+                </b-select>
+              </b-field>
           </card-component>
         </card-component>
-        <!-- Impact Information Component Card -->
-         <card-component v-if="isProfileExists" title="Impact" icon="equalizer" class="tile is-child">
-            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Impact Description" vertical>
-              <b-input type="textarea" v-model="form.desc" reaadonly />
-            </b-field>
-            <b-field label="Impact Level" vertical>
-              <b-select v-model="form.level">
-                <option v-for="(level, index) in level" :key="index" :value="level">
-                  {{ level }}
-                </option>
-              </b-select>
-            </b-field>
-            <hr>
-          <!-- Severity Information Component Card -->
-          <card-component v-if="isProfileExists" title="Severity" icon="hazard-lights" class="tile is-child">
-            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Severity Category Score" vertical>
-              <b-input v-model="form.desc" reaadonly />
-            </b-field>
-            <b-field label="Vulnerability Severity" vertical>
-              <b-input v-model="form.desc" reaadonly />
-            </b-field>
-            <b-field label="Quantitative Vulnerability Severity" vertical>
-              <b-input v-model="form.desc" reaadonly />
-            </b-field>
-          </card-component>
-            <hr>
           <!-- Risk Information Component Card -->
           <card-component v-if="isProfileExists" title="Risk" icon="hazard-lights" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -202,7 +189,6 @@
             <b-field label="Likelihood" horizontal>
               <b-input v-model="form.likelihood" reaadonly />
             </b-field>
-          </card-component>
             <hr>
           <!-- Finding System Level Impact Information Component Card -->
           <card-component v-if="isProfileExists" title="Finding System Level Impact" icon="car-coolant-level" class="tile is-child">
@@ -268,6 +254,10 @@ export default {
       finding_confidentiality: null,
       finding_integrity: null,
       finding_availability: null,
+      finding_posture: null,
+      threat_relevance: null,
+      effectiveness_rating: null,
+      impact_level: null,
       finding_statuses: [
         'Open',
         'Closed'
@@ -308,6 +298,35 @@ export default {
         'Low',
         'Medium',
         'High',
+        'Information'
+      ],
+      finding_postures: [
+        'Insider',
+        'Insider-nearsider',
+        'Outsider',
+        'Nearsider',
+        'Nearsider-outsider'
+      ],
+      threat_relevances: [
+        'Confirmed',
+        'Expected',
+        'Anticipated',
+        'Predicted',
+        'Possible'
+      ],
+      effectiveness_ratings: [
+        'Very high (10)',
+        'High (7-9)',
+        'Moderate (4-6)',
+        'Low (1-3)',
+        'Very low (0)'
+      ],
+      impact_levels: [
+        'VH',
+        'H',
+        'M',
+        'L',
+        'VL',
         'Information'
       ]
     }
