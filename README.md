@@ -28,11 +28,13 @@ Download the source code with `git clone https://github.com/KevinApodaca/FRIC-te
 
 #### Install
 
-`cd` to project's frontend dir and run `npm install` 
+To install all dependencies for the frontend ui: `cd` to project's frontend directory and run `npm install`
+To install all dependencies for the backend services: `cd` to project's backend directory and run `npm install`
 
 #### Serve
 
-To pre-compile & hot-reload for development run `npm run serve`
+To pre-compile & hot-reload for development run `npm run serve`in the frontend directory
+To start the Express server and the MongoDB instance, run `npm start` in the backend directory
 
 #### Build
 
