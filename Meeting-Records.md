@@ -126,3 +126,17 @@
   2. Update the UI with changes from feedback
   3. Complete CRC with contracts
 - Meeting's Overall Score: 9.8 / 10
+
+## 10/13/2020
+
+- Objective: Organize jira board and forms
+- Start Time: 6:30pm
+- End Time: 7:30pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Conduct status update, review and approve forms, discuss backend changes.
+- Meeting Summary: We went through standup, discussed and approved latest change request and change approval forns, finally discusses the backend services Adrian worked on.
+- Action Items:
+  1. DEMO with clients on Thursday
+  2. Get ahead on backend models for next deliverable
+  3. Come up with more method signatures for class activities
+- Meeting's Overall Score: 10 / 10
