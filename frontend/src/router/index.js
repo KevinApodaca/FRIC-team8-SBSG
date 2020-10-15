@@ -223,7 +223,7 @@ const routes = [
     },
     path: '/new-finding',
     name: 'finding.new',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/FindingForm.vue'),
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/CreateFinding.vue'),
     props: true
   },
   {
