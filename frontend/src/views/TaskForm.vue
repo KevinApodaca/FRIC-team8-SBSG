@@ -61,10 +61,14 @@
             </b-field>
             <hr>
             <b-field label="No. of Subtask" horizontal>
-              <b-input v-model="form.subtask" required />
+              <div style = "width: 5rem;">
+                <b-input v-model="form.subtask" required />
+              </div>
             </b-field>
             <b-field label="No. of Findings" horizontal>
-              <b-input v-model="form.findings" required />
+              <div style = "width: 5rem;">
+                <b-input v-model="form.findings" required />
+              </div>
             </b-field>
             <hr>
             <b-field label="Due Date:" horizontal>
