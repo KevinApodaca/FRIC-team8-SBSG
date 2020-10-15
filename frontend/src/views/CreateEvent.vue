@@ -28,7 +28,7 @@
               <b-input v-model="form.version" reaadonly />
             </b-field>
             <b-field label="Assessment Date" horizontal>
-              <b-input v-model="form.created" required />
+              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.created"></b-datepicker>
             </b-field>
             <hr>
             <b-field label="Organization Name" horizontal>
@@ -46,7 +46,7 @@
             </b-select>
           </b-field>
            <b-field label="Declassification Date" horizontal>
-              <b-input v-model="form.declassified_date" required />
+              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.declassified_date"></b-datepicker>
             </b-field>
            <b-field label="Customer Name" horizontal>
               <b-input v-model="form.login" required />
