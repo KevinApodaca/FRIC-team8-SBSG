@@ -49,9 +49,9 @@ module.exports = mongoose => {
         type: Number,
         default: 0
       },
-      task: {
+      tasks: {
         type: String,
-        default: ''
+        default: '0'
       },
       status: {
         type: String,
@@ -68,6 +68,21 @@ module.exports = mongoose => {
       risk: {
         type: String,
         default: ''
+      },
+      system_confidentiality: {
+        type: String,
+        default: 'Low',
+        enum: ['Low','Medium','High','Information']
+      },
+      system_integrity: {
+        type: String,
+        default: 'Low',
+        enum: ['Low','Medium','High','Information']
+      },
+      system_availability: {
+        type: String,
+        default: 'Low',
+        enum: ['Low','Medium','High','Information']
       }
   },
   {collection: 'system'}

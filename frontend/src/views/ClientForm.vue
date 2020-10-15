@@ -220,6 +220,24 @@ export default {
       axios.patch('http://localhost:3000/events/' + this.id, this.form)
         .then(response => {
           console.log(response)
+          if (response.status === 200) {
+            var trans = {
+              initials: 'K.A',
+              time: Date.now(),
+              action: 'K.A made changes to ' + this.form.name
+            }
+            axios.post('http://localhost:3000/transactions/', trans)
+              .then(res => {
+                console.log(res)
+              })
+              .catch(error => {
+                this.$buefy.toast.open({
+                  message: `Error: ${error.message}`,
+                  type: 'is-danger',
+                  queue: false
+                })
+              })
+          }
         })
         .catch(error => {
           console.log(error.message)
