@@ -38,7 +38,7 @@
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
           <b-field label="Confidentiality" horizontal>
                <b-select v-model="form.system_confidentiality">
-                <option v-for="(system_confidentiality, index) in system_confidentialities" :key="index" :value="system_confidentialities">
+                <option v-for="(system_confidentiality, index) in system_confidentialities" :key="index" :value="system_confidentiality">
                   {{ system_confidentiality }}
                 </option>
               </b-select>

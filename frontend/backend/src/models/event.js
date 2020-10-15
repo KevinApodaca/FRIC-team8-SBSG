@@ -9,21 +9,22 @@ module.exports = mongoose => {
       type: String,
       default: ''
     },
-    type: {
+    event_type: {
       type: String,
-      default: '',
+      enum: ['CVPA', 'CVI', 'VOF'],
+      default: 'CVPA',
     },
     version: {
       type: String,
-      default: "2.0",
+      default: "",
     },
     created: {
       type: String,
-      default: "09112020",
+      default: "",
     },
     created_mm_dd_yyyy: {
-      type: String,
-      default: "13092020"
+      type: Date,
+      default: ""
     },
     organization: {
       type: String,
@@ -31,38 +32,39 @@ module.exports = mongoose => {
     },
     department: {
       type: String,
-      default: 'CVPA',
+      default: 'None',
     },
     sctg: {
       type: String,
-      default: 'Security Classification',
+      default: 'None',
     },
-    classification:{
+    event_classification:{
       type: String,
       default: 'Top Secret',
+      enum: ['Top Secret', 'Secret', 'Confidential', 'Classified','Unclassified']
     },
     declassified_date:{
-      type: String,
-      default: "21092020",
+      type: Date,
+      default: '',
     },
     login: {
       type: String,
     },
     archive:{
       type: String,
-      default: 'Archive',
+      default: '',
     },
     systems: {
       type: String,
-      default: '09',
+      default: '0',
     },
     initials: {
       type: String,
-      default: 'L.A',
+      default: '',
     },
     findings: {
       type: String,
-      default: '06',
+      default: '0',
     },
     progress: {
       type: Number,
