@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Findings
-      <router-link slot="right" to="/" class="button">
+      <router-link slot="right" to="/create-finding" class="button">
         New Finding
       </router-link>
     </hero-bar>

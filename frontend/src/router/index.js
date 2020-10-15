@@ -105,6 +105,17 @@ const routes = [
   },
   {
     meta: {
+      title: 'Create Finding'
+    },
+    path: '/create-finding',
+    name: 'createfinding.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/CreateFinding.vue')
+  },
+  {
+    meta: {
       title: 'Subtasks'
     },
     path: '/subtasks',
