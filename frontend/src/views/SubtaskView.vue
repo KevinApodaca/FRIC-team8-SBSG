@@ -3,9 +3,6 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Subtask Detailed View
-      <router-link slot="right" to="/subtasks/" class="button">
-        Back to Subtasks
-      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
@@ -65,6 +62,18 @@
           <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
         </card-component>
       </tiles>
+      <b-field horizontal>
+        <b-field grouped>
+          <div class="control">
+            <b-button native-type="submit" type="is-primary">Save</b-button>
+          </div>
+          <div class="control">
+            <router-link slot="right" to="/subtasks" class="button is-primary is-outlined">
+             Cancel
+            </router-link>
+          </div>
+        </b-field>
+      </b-field>
     </section>
   </div>
 </template>
@@ -100,12 +109,13 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.name
+        lastCrumb = 'Subtask Detailed View'
       } else {
-        lastCrumb = 'Subtask View'
+        lastCrumb = 'Subtask Detailed View'
       }
 
       return [
+        'Analyst',
         'Subtasks',
         lastCrumb
       ]
@@ -157,7 +167,7 @@ export default {
     getData () {
       if (this.id) {
         axios
-          .get('/data-sources/clients.json')
+          .get('/data-sources/subtasks.json')
           .then(r => {
             const item = find(r.data.data, item => item.id === parseInt(this.id))
 
@@ -167,7 +177,7 @@ export default {
               this.form.created_date = new Date(item.created_mm_dd_yyyy)
               this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
             } else {
-              this.$router.push({ name: 'client.new' })
+              this.$router.push({ name: 'subtask.new' })
             }
           })
           .catch(e => {

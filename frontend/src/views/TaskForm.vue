@@ -3,19 +3,21 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" to="/tasks" class="button">
-        Cancel
-      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
+        <div>
         <card-component :title="formCardTitle" icon="playlist-edit" class="tile is-child">
           <form @submit.prevent="submit">
             <b-field label="Title" horizontal>
-              <b-input v-model="form.title" required />
+              <div style = 'width: 25rem;'>
+                <b-input v-model="form.title" required />
+              </div>
             </b-field>
             <b-field label="Description" horizontal>
-              <b-input type="textarea" v-model="form.description" required />
+              <div style = 'width: 25rem;'>
+                <b-input type="textarea" v-model="form.description" required />
+              </div>
             </b-field>
               <b-field label="Analyst(s)" horizontal>
               <b-select v-model="form.analyst">
@@ -38,7 +40,7 @@
               </b-select>
             </b-field>
             </b-field>
-            <b-field label="Systems" horizontal>
+            <b-field label="System(s)" horizontal>
               <b-select v-model="form.system">
                 <option v-for="(system, index) in type" :key="index" :value="system">
                   {{ system }}
@@ -61,10 +63,14 @@
             </b-field>
             <hr>
             <b-field label="No. of Subtask" horizontal>
-              <b-input v-model="form.subtask" required />
+              <div style = 'width: 25rem;'>
+                <b-input v-model="form.subtask" required />
+              </div>
             </b-field>
             <b-field label="No. of Findings" horizontal>
-              <b-input v-model="form.findings" required />
+              <div style = 'width: 25rem;'>
+                <b-input v-model="form.findings" required />
+              </div>
             </b-field>
             <hr>
             <b-field label="Due Date:" horizontal>
@@ -92,7 +98,20 @@
           </b-field>
           </form>
         </card-component>
+        </div>
       </tiles>
+      <b-field horizontal>
+        <b-field grouped>
+          <div class="control">
+            <b-button native-type="submit" type="is-primary">Save</b-button>
+          </div>
+          <div class="control">
+            <router-link slot="right" to="/tasks" class="button is-primary is-outlined">
+             Cancel
+            </router-link>
+          </div>
+        </b-field>
+      </b-field>
     </section>
   </div>
 </template>
@@ -129,7 +148,7 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.tasks.name
       } else {
-        lastCrumb = 'Task View'
+        lastCrumb = 'New Task'
       }
 
       return [
@@ -142,7 +161,7 @@ export default {
       if (this.isProfileExists) {
         return this.tasks.name
       } else {
-        return 'Task Detailed View'
+        return 'New Task'
       }
     },
     heroRouterLinkTo () {
@@ -163,7 +182,7 @@ export default {
       if (this.isProfileExists) {
         return 'Task Basic Information'
       } else {
-        return 'Task Details'
+        return 'New Task'
       }
     }
   },
@@ -195,7 +214,7 @@ export default {
               this.form.created_date = new Date(item.created_mm_dd_yyyy)
               this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
             } else {
-              this.$router.push({ name: 'tasks.new' })
+              this.$router.push({ name: 'task.new' })
             }
           })
           .catch(e => {

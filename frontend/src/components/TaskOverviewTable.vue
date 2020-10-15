@@ -11,12 +11,14 @@
       :striped="true"
       :hoverable="true"
       default-sort="name"
-      :data='tasks'>
-
+      :data='clients'>
+      <b-table-column label="ID" field="id" sortable v-slot="props">
+        {{ props.row.id }}
+      </b-table-column>
       <b-table-column label="Title" field="title" sortable v-slot="props">
         {{ props.row.title }}
       </b-table-column>
-      <b-table-column label="System" field="systems" sortable v-slot="props">
+      <b-table-column label="System" field="system" sortable v-slot="props">
         {{ props.row.system }}
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
@@ -34,20 +36,19 @@
       <b-table-column label="No. of Findings" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>
       </b-table-column>
-      <b-table-column label="Due Date (DD-MM-YYYY)" v-slot="props">
+      <b-table-column label="Due Date" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
-          <router-link :to="{name:'tasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Task Detailed View">
+          <router-link :to="{name:'task.view', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Task Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Task">
+          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Archive Task">
             <b-icon icon="trash-can" size="is-small"/>
           </button>
         </div>
       </b-table-column>
-
       <section class="section" slot="empty">
         <div class="content has-text-grey has-text-centered">
           <template v-if="isLoading">
@@ -89,7 +90,7 @@ export default {
     return {
       isModalActive: false,
       trashObject: null,
-      tasks: [],
+      clients: [],
       isLoading: false,
       paginated: false,
       perPage: 10,
@@ -116,7 +117,7 @@ export default {
             if (r.data.data.length > this.perPage) {
               this.paginated = true
             }
-            this.tasks = r.data.data
+            this.clients = r.data.data
           }
         })
         .catch(e => {
