@@ -15,9 +15,9 @@
               <b-input type="textarea" v-model="form.description" reaadonly />
             </b-field>
             <b-field label="Progress" horizontal>
-              <b-select v-model="form.progress">
-                <option v-for="(status, index) in progress" :key="index" :value="progress">
-                  {{ progress }}
+             <b-select v-model="form.subtask_progress">
+                <option v-for="(subtask_progress, index) in subtask_progresses" :key="index" :value="subtask_progress">
+                  {{ subtask_progress }}
                 </option>
               </b-select>
             </b-field>
@@ -99,7 +99,12 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      task_progress: null,
+      task_progresses: [
+        '1',
+        '2'
+      ]
     }
   },
   computed: {

@@ -27,23 +27,23 @@
               <b-input type="textarea" v-model="form.long" reaadonly />
             </b-field>
             <b-field label="Status" horizontal>
-              <b-select v-model="form.status">
-                <option v-for="(status, index) in status" :key="index" :value="status">
-                  {{ status }}
+              <b-select v-model="form.finding_status">
+                <option v-for="(finding_status, index) in finding_statuses" :key="index" :value="finding_status">
+                  {{ finding_status }}
                 </option>
               </b-select>
             </b-field>
             <b-field label="Type" horizontal>
-              <b-select v-model="form.type">
-                <option v-for="(type, index) in type" :key="index" :value="type">
-                  {{ type }}
+              <b-select v-model="form.finding_type">
+                <option v-for="(finding_type, index) in finding_types" :key="index" :value="finding_type">
+                  {{ finding_type }}
                 </option>
               </b-select>
             </b-field>
             <b-field label="Classification" horizontal>
-              <b-select v-model="form.classification">
-                <option v-for="(classification, index) in classification" :key="index" :value="classification">
-                  {{ classification }}
+              <b-select v-model="form.finding_classification">
+                <option v-for="(finding_classification, index) in finding_classifications" :key="index" :value="finding_classification">
+                  {{ finding_classification }}
                 </option>
               </b-select>
             </b-field>
@@ -83,25 +83,25 @@
           <card-component v-if="isProfileExists" title="Finding Impact" icon="chart-donut" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
              <b-field label="Confidentiality" horizontal>
-              <b-select v-model="form.confidentiality">
-                <option v-for="(confidentiality, index) in confidentiality" :key="index" :value="confidentiality">
-                  {{ confidentiality }}
+              <b-select v-model="form.finding_confidentiality">
+                <option v-for="(finding_confidentiality, index) in finding_confidentialities" :key="index" :value="finding_confidentiality">
+                  {{ finding_confidentiality }}
                 </option>
               </b-select>
+             </b-field>
               <b-field label="Integrity" horizontal>
-              <b-select v-model="form.integrity">
-                <option v-for="(integrity, index) in type" :key="index" :value="integrity">
-                  {{ integrity }}
+               <b-select v-model="form.finding_integrity">
+                <option v-for="(finding_integrity, index) in finding_integrities" :key="index" :value="finding_integrity">
+                  {{ finding_integrity }}
                 </option>
               </b-select>
-            </b-field>
+              </b-field>
               <b-field label="Availability" horizontal>
-              <b-select v-model="form.availability">
-                <option v-for="(availability, index) in availability" :key="index" :value="availability">
-                  {{ availability }}
+              <b-select v-model="form.finding_availability">
+                <option v-for="(finding_availability, index) in finding_availabilities" :key="index" :value="finding_availability">
+                  {{ finding_availability }}
                 </option>
               </b-select>
-            </b-field>
             </b-field>
         </card-component>
           </form>
@@ -261,7 +261,55 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      finding_status: null,
+      finding_type: null,
+      finding_classification: null,
+      finding_confidentiality: null,
+      finding_integrity: null,
+      finding_availability: null,
+      finding_statuses: [
+        'Open',
+        'Closed'
+      ],
+      finding_types: [
+        'Credentials Complexity',
+        'Manufacturer Default Creds',
+        'Lack of Authentication',
+        'Plain Text Protocols',
+        'Plain Text Web Login',
+        'Encryption',
+        'Authentication Bypass',
+        'Port Security',
+        'Access Control',
+        'Least Privilege',
+        'Privilege Escalation',
+        'Missing Patches',
+        'Physical Security',
+        'Information Disclosure'
+      ],
+      finding_classifications: [
+        'Vulnerability',
+        'Information'
+      ],
+      finding_confidentialities: [
+        'Low',
+        'Medium',
+        'High',
+        'Information'
+      ],
+      finding_integrities: [
+        'Low',
+        'Medium',
+        'High',
+        'Information'
+      ],
+      finding_availabilities: [
+        'Low',
+        'Medium',
+        'High',
+        'Information'
+      ]
     }
   },
   computed: {
