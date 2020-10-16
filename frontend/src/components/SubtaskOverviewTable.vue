@@ -37,7 +37,7 @@
             <b-icon icon="information" size="is-small"/>
           </router-link>
           <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Archive Subtask">
-            <b-icon icon="trash-can" size="is-small"/>
+            <b-icon icon="archive" size="is-small"/>
           </button>
         </div>
       </b-table-column>
