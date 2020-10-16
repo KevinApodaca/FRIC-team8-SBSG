@@ -10,11 +10,16 @@
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced" title="Findings Overview Table" icon="file-find">
         <refresh-button slot="button"/>
-        <card-toolbar slot="toolbar">
+          <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-            <button class="button is-rounded is-danger">Delete</button>
-            <button class="button is-rounded is-success">Save</button>
-            <button class="button is-rounded">Cancel</button>
+              <button class="button is-rounded is-link is-outlined">ERB Report</button>
+              <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
+              <button class="button is-rounded is-link is-outlined">Final Report</button>
+            </div>
+        </card-toolbar>
+        <card-toolbar slot="toolbar">
+          <div slot="left" class="buttons has-addons">
+            <button class="button is-rounded is-info is-outline">Archive</button>
           </div>
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >
@@ -30,13 +35,6 @@
           </form>
         </card-toolbar>
         <finding-overview-table data-url="/data-sources/findings.json" :checkable="true"/>
-         <card-toolbar slot="toolbar">
-            <div slot="right" class="buttons has-addons">
-            <button class="button is-rounded is-link is-outlined">ERB Report</button>
-            <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
-            <button class="button is-rounded is-link is-outlined">Final Report</button>
-          </div>
-        </card-toolbar>
       </card-component>
     </section>
   </div>
