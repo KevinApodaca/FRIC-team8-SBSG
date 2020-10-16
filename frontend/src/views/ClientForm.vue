@@ -17,13 +17,13 @@
             <b-field label="Event Description" horizontal>
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
-             <b-field label="Event Type" horizontal>
-            <b-select v-model="form.event_type">
-              <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
-                {{ event_type }}
-              </option>
-            </b-select>
-          </b-field>
+            <b-field label="Event Type" horizontal>
+              <b-select v-model="form.event_type">
+                <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
+                  {{ event_type }}
+                </option>
+              </b-select>
+            </b-field>
             <b-field label="Event Version" horizontal>
               <b-input v-model="form.version" reaadonly />
             </b-field>
@@ -38,18 +38,22 @@
               <b-input v-model="form.sctg" required />
             </b-field>
             <hr>
-               <b-field label="Event Classification" horizontal>
-            <b-select v-model="form.event_classification">
-              <option v-for="(event_classification, index) in event_classifications" :key="index" :value="event_classification">
-                {{ event_classification }}
-              </option>
-            </b-select>
-          </b-field>
+            <b-field label="Event Classification" horizontal>
+              <b-select v-model="form.event_classification">
+                <option v-for="(event_classification, index) in event_classifications" :key="index" :value="event_classification">
+                  {{ event_classification }}
+                </option>
+              </b-select>
+            </b-field>
            <b-field label="Declassification Date" horizontal>
               <b-input v-model="form.declassified_date" required />
             </b-field>
            <b-field label="Customer Name" horizontal>
               <b-input v-model="form.login" required />
+            </b-field>
+            <hr>
+            <b-field label="Derived From" horizontal>
+              <b-input v-model="form.derived_from" placeholder="analyst initials" required />
             </b-field>
           </form>
         </card-component>
