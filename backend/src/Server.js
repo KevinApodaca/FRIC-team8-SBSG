@@ -9,7 +9,13 @@ const app = express()
 app.use(express.json())
 app.use(bodyParser.json({ limit: '500mb', extended: true }))
 
-
+/* 
+  Grab the analyst IP address.
+  Potentially add this to the analyst object and send it to frontend as response.
+*/
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+  console.log("Analyst IP address: " + add);
+})
 /*
   Handles CORS
   Might need to come back
