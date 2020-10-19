@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Systems
-      <button type="submit" class="button is-info is-small" title="About Events" @click="systemHelp">
+      <button type="submit" class="button is-info is-small" title="About Systems" @click="systemHelp">
         <b-icon icon="help" custom-size="default"/>
       </button>
       <router-link slot="right" to="/createsystem-form" class="button">

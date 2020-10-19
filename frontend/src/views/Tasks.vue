@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Tasks
+      <button type="submit" class="button is-info is-small" title="About Tasks" @click="taskHelp">
+        <b-icon icon="help" custom-size="default"/>
+      </button>
       <router-link slot="right" to='/createtask-form' class="button">
         New Task
       </router-link>
@@ -74,6 +77,7 @@ import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import Notification from '@/components/Notification'
+import swal from 'sweetalert'
 export default {
   name: 'Task',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, Notification },
@@ -86,6 +90,10 @@ export default {
     }
   },
   methods: {
+    taskHelp () {
+      swal('About Tasks', 'Tasks are things that analyst must complete, they can be issues that need to be fixed, actions to take, etc. Tasks may have subtasks and findings, as well as priority level. ', 'info'
+      )
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',
