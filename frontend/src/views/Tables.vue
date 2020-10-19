@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Event
+      <button type="submit" class="button is-info is-small" title="About Events" @click="eventHelp">
+        <b-icon icon="help" custom-size="default"/>
+      </button>
       <router-link slot="right" to="/create-event" class="button">
         New Event
       </router-link>
@@ -41,6 +44,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
+import swal from 'sweetalert'
 export default {
   name: 'Event',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, ClientsTableSample },
@@ -53,6 +57,10 @@ export default {
     }
   },
   methods: {
+    eventHelp () {
+      swal('About Events', 'Events are a period time in which CEAD will test a set of systems. Events have a set of systems to test, along with findings related to them. ', 'info'
+      )
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',
