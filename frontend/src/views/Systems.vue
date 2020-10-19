@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Systems
+      <button type="submit" class="button is-info is-small" title="About Events" @click="systemHelp">
+        <b-icon icon="help" custom-size="default"/>
+      </button>
       <router-link slot="right" to="/createsystem-form" class="button">
         New System
       </router-link>
@@ -40,6 +43,7 @@ import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import SystemOverviewTable from '@/components/SystemOverviewTable'
+import swal from 'sweetalert'
 
 export default {
   name: 'System',
@@ -53,6 +57,10 @@ export default {
     }
   },
   methods: {
+    systemHelp () {
+      swal('About Systems', 'Systems are the hardware and software that CEAD will test during an event. Systems have a set of tasks to be completed, and findings related to the system. ', 'info'
+      )
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',
