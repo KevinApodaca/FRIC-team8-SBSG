@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Archive
-      <button type="submit" class="button is-info is-small" title="About Archives" @click="archiveHelp">
+      <button type="submit" class="button is-light is-info is-small" title="About Archives" @click="archiveHelp">
         <b-icon icon="help" custom-size="default"/>
       </button>
       <router-link slot="right" to="/" class="button">

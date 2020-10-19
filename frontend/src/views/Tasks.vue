@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Tasks
-      <button type="submit" class="button is-info is-small" title="About Tasks" @click="taskHelp">
+      <button type="submit" class="button is-light is-info is-small" title="About Tasks" @click="taskHelp">
         <b-icon icon="help" custom-size="default"/>
       </button>
       <router-link slot="right" to='/createtask-form' class="button">

@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Findings
-      <button type="submit" class="button is-info is-small" title="About Findings" @click="findingHelp">
+      <button type="submit" class="button is-light is-info is-small" title="About Findings" @click="findingHelp">
         <b-icon icon="help" custom-size="default"/>
       </button>
       <router-link slot="right" to="/create-finding" class="button">

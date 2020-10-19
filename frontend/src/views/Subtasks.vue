@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Subtasks
-      <button type="submit" class="button is-info is-small" title="About Subtasks" @click="subtaskHelp">
+      <button type="submit" class="button is-light is-info is-small" title="About Subtasks" @click="subtaskHelp">
         <b-icon icon="help" custom-size="default"/>
       </button>
       <router-link slot="right" to="/subtasks-form" class="button">
