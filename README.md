@@ -51,6 +51,7 @@ Currently supports
 - Brave
 - Opera
 - Edge
+- Min
 
 ## Reporting Issues
 
