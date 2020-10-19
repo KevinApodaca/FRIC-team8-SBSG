@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Archive
+      <button type="submit" class="button is-info is-small" title="About Archives" @click="archiveHelp">
+        <b-icon icon="help" custom-size="default"/>
+      </button>
       <router-link slot="right" to="/" class="button">
         New Archive
       </router-link>
@@ -83,6 +86,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
+import swal from 'sweetalert'
 export default {
   name: 'Archive',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, SubtaskOverviewTable, FindingOverviewTable, SystemOverviewTable },
@@ -95,6 +99,10 @@ export default {
     }
   },
   methods: {
+    archiveHelp () {
+      swal('About Archives', 'Archives are a sort of snapshot of artifacts of FRIC. This feature is used to store away artifacts such as findings, tasks, systems, etc for potential use at a later time. ', 'info'
+      )
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',
