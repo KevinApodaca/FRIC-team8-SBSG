@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Configuration Content
+      <button type="submit" class="button is-light is-info is-small" title="About Configuration" @click="configurationHelp">
+        <b-icon icon="help" custom-size="default"/>
+      </button>
     </hero-bar>
     <section class="section is-main-section">
       <!-- Table 1 -->
@@ -79,6 +82,7 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import FindingTypeTable from '@/components/config-tables/FindingTypeTable'
 import FindingImpactLevelTable from '@/components/config-tables/FindingImpactLevelTable'
+import swal from 'sweetalert'
 export default {
   name: 'ConfigurationContent',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingTypeTable, FindingImpactLevelTable },
@@ -91,6 +95,10 @@ export default {
     }
   },
   methods: {
+    configurationHelp () {
+      swal('About Configuration', 'Configuration of Content is used to change the possible values for artifacts across the FRIC system. Changes should only be made by the lead analyst and will have side effects for the rest of the application ', 'info'
+      )
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',

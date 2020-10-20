@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Findings
+      <button type="submit" class="button is-light is-info is-small" title="About Findings" @click="findingHelp">
+        <b-icon icon="help" custom-size="default"/>
+      </button>
       <router-link slot="right" to="/create-finding" class="button">
         New Finding
       </router-link>
@@ -48,6 +51,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
+import swal from 'sweetalert'
 export default {
   name: 'Event',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable },
@@ -60,6 +64,10 @@ export default {
     }
   },
   methods: {
+    findingHelp () {
+      swal('About Findings', 'Findings are vulnerabilities. A finding will either lead to a true vulerability or just a data point that the client should be made aware of', 'info'
+      )
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',

@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Subtasks
+      <button type="submit" class="button is-light is-info is-small" title="About Subtasks" @click="subtaskHelp">
+        <b-icon icon="help" custom-size="default"/>
+      </button>
       <router-link slot="right" to="/subtasks-form" class="button">
         New Subtask
       </router-link>
@@ -44,6 +47,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
+import swal from 'sweetalert'
 export default {
   name: 'Event',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable },
@@ -56,6 +60,10 @@ export default {
     }
   },
   methods: {
+    subtaskHelp () {
+      swal('About Subtasks', 'Subtasks are smaller issues that need to be done in order to complete a task. They must be created from a task and can have findings.', 'info'
+      )
+    },
     actionSample () {
       this.$buefy.toast.open({
         message: 'Feed has been refreshed',
