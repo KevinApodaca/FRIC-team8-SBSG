@@ -30,3 +30,18 @@
 ## Try Out
 1. Using free time to hop on voice calls and discuss and throw ideas around.
 2. Social events to bond as a team.
+
+
+# Sprint Retro 10/20/2020
+
+## Keep the Same as
+1. Discord channels for work, encourages collaboration, learning, and focus.
+2. Separation of dicussion into the respective channels, more focused conversations.
+3. Quality of team organization, constant feedback.
+4. Jira has a better workflow than Trello. More extensible and has integrations.
+
+## Do More of
+1. Reading emails more often.
+2. Reminder of work left to be completed for the sprints. If there are any unassigned tickets, remind @all that there is work people can pick up. Possible git bot.
+
+## Try Out
