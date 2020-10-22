@@ -83,45 +83,6 @@ export default {
             to: '/findings',
             label: 'Findings',
             icon: 'file-find'
-          },
-          {
-            label: 'Submenu (Test)',
-            icon: 'view-list',
-            menuSecondaryKey: 'submenu-1',
-            menuSecondaryIcon: 'view-list',
-            menuSecondaryLabel: 'Example',
-            menuSecondary: [
-              'Something',
-              [
-                {
-                  icon: 'view-list',
-                  href: '#void',
-                  label: 'Sub-item Test'
-                },
-                {
-                  icon: 'view-list',
-                  href: '#void',
-                  label: 'Sub-item Test2'
-                }
-              ],
-              'Dropdown',
-              [
-                {
-                  label: 'Submenus',
-                  icon: 'view-list',
-                  menu: [
-                    {
-                      href: '#void',
-                      label: 'Sub-item Test'
-                    },
-                    {
-                      href: '#void',
-                      label: 'Sub-item Test2'
-                    }
-                  ]
-                }
-              ]
-            ]
           }
         ],
         'Other',
