@@ -95,7 +95,6 @@ export default {
       isProfileExists: false,
       event_type: null,
       event_classification: null,
-      customer_name: null,
       event_types: [
         'CVPA',
         'CVI',
