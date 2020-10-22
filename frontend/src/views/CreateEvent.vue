@@ -49,7 +49,7 @@
               <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.declassified_date"></b-datepicker>
             </b-field>
            <b-field label="Customer Name" horizontal>
-              <b-input v-model="form.login" required />
+              <b-input v-model="form.customer_name" required />
             </b-field>
           </form>
         </card-component>
@@ -167,7 +167,8 @@ export default {
         city: null,
         created_date: new Date(),
         created_mm_dd_yyyy: null,
-        progress: 0
+        progress: 0,
+        customer_name: null
       }
     },
     getData () {

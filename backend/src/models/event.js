@@ -47,7 +47,7 @@ module.exports = mongoose => {
       type: Date,
       default: '',
     },
-    login: {
+    customer_name: {
       type: String,
     },
     archive:{
