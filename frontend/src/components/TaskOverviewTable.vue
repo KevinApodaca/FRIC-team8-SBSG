@@ -42,7 +42,10 @@
           <router-link :to="{name:'tasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Task Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Archive Task">
+          <button v-if= "titleFunction('Archive - FRIC Tool')" class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete Task">
+            <b-icon icon="archive" size="is-small"/>
+          </button>
+          <button v-else class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Archive Task">
             <b-icon icon="archive" size="is-small"/>
           </button>
         </div>
@@ -105,6 +108,7 @@ export default {
       return null
     }
   },
+
   mounted () {
     if (this.dataUrl) {
       this.isLoading = true
@@ -142,6 +146,14 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
+    }
+  },
+  function: {
+    titleFunction (title) {
+      var x = document.getElementsByTagName('TITLE')[0].text
+      console.log('hello')
+      console.log(x)
+      return x === title
     }
   }
 }
