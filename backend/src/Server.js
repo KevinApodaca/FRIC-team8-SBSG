@@ -1,6 +1,8 @@
 import { PORT } from './config/constants'
 import { eventRouter } from './routes'
 import { systemRouter } from './routes'
+import { taskRouter } from './routes'
+import { subtaskRouter } from './routes'
 import { transactionRouter } from './routes'
 const bodyParser = require('body-parser')
 const express = require('express')
@@ -34,6 +36,8 @@ app.use((req, res, next) => {
 
 app.use('/events', eventRouter)
 app.use('/systems', systemRouter)
+app.use('/tasks', taskRouter)
+app.use('/subtasks', subtaskRouter)
 app.use('/transactions',transactionRouter)
 
 const db = require('./models')
