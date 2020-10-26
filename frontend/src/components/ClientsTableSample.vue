@@ -145,7 +145,7 @@ export default {
     async logAction () {
       var trans = {
         initials: 'K.A',
-        action: 'K.A archived ' + this.trashObject.name
+        action: 'K.A archived event ' + this.trashObject.name
       }
       LogServices.logAction(trans)
         .then(response => {

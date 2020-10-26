@@ -49,7 +49,7 @@
               <b-input v-model="form.declassified_date" required />
             </b-field>
            <b-field label="Customer Name" horizontal>
-              <b-input v-model="form.login" required />
+              <b-input v-model="form.customer_name" required />
             </b-field>
             <hr>
             <b-field label="Derived From" horizontal>
@@ -206,6 +206,7 @@ export default {
         EventService.getEventSingle(this.id)
           .then(response => {
             if (response.status === 200) {
+              this.isProfileExists = true
               this.$set(this, 'form', response.data)
             }
           })
@@ -219,6 +220,7 @@ export default {
       EventService.modifyEvent(this.form, this.id)
         .then(response => {
           if (response.status === 200) {
+            this.isProfileExists = true
             console.log('Succesfully made the changes')
             this.logAction()
           }
@@ -252,7 +254,6 @@ export default {
   watch: {
     id (newValue) {
       this.isProfileExists = false
-      this.oldForm = this.form
       if (!newValue) {
         this.form = this.getClearFormObject()
       } else {

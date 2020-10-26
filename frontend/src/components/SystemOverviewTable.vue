@@ -57,7 +57,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import SystemService from '@/services/SystemServices'
+import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
 
 export default {
@@ -84,6 +85,12 @@ export default {
       checkedRows: []
     }
   },
+  created () {
+    if (this.dataUrl) {
+      this.isLoading = true
+      this.getSystemData()
+    }
+  },
   computed: {
     trashObjectName () {
       if (this.trashObject) {
@@ -93,41 +100,28 @@ export default {
       return null
     }
   },
-  mounted () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      axios
-        .get(this.dataUrl)
-        .then(r => {
-          this.isLoading = false
-          if (r.data.length > this.perPage) {
-            this.paginated = true
-          }
-          this.systems = r.data
-        })
-        .catch(e => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
-    }
-  },
   methods: {
+    async getSystemData () {
+      SystemService.getSystems()
+        .then(response => {
+          if (response.status === 200) {
+            this.isLoading = false
+            this.$set(this, 'systems', response.data)
+            if (response.data.length > this.perPage) {
+              this.paginated = true
+            }
+          }
+        })
+    },
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      axios.delete('http://localhost:3000/systems/' + this.trashObject.id)
+      SystemService.deleteSystem(this.trashObject.id)
         .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          this.$buefy.toast.open({
-            message: `Error: ${error.message}`,
-            type: 'is-danger',
-            queue: false
-          })
+          if (response.status === 200) {
+            console.log(response.data.message)
+            this.logAction()
+          }
         })
     },
     trashConfirm () {
@@ -139,6 +133,18 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
+    },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A archived system ' + this.trashObject.name
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response)
+          }
+        })
     }
   }
 }
