@@ -40,7 +40,7 @@ app.use('/systems', systemRouter)
 app.use('/tasks', taskRouter)
 app.use('/subtasks', subtaskRouter)
 app.use('/transactions',transactionRouter)
-app.use('/', homeRouter)
+app.use('/home', homeRouter)
 
 const db = require('./models')
 db.mongoose
