@@ -99,7 +99,7 @@ import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import AnalystsTable from '@/components/AnalystsTable'
 import EventService from '@/services/EventServices'
-// import LogServices from '@/services/LogTransactionServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'ClientForm',
@@ -178,6 +178,7 @@ export default {
     }
   },
   created () {
+    this.getOldForm()
     this.getData()
   },
   methods: {
@@ -192,12 +193,19 @@ export default {
         progress: 0
       }
     },
+    async getOldForm () {
+      if (this.id) {
+        EventService.getEventSingle(this.id)
+          .then(response => {
+            this.oldForm = response.data
+          })
+      }
+    },
     async getData () {
       if (this.id) {
         EventService.getEventSingle(this.id)
           .then(response => {
             if (response.status === 200) {
-              this.oldForm = response.data
               this.$set(this, 'form', response.data)
             }
           })
@@ -208,22 +216,35 @@ export default {
     },
     async submit () {
       this.isLoading = true
-      const newForm = this.compareForms()
-      console.log('Lookig at the changes')
-      console.log(newForm)
-      // LogServices.logAction()
-      //   .then(response => {
-      //     if (response.status === 200) {
-      //       console.log('Succesfully logged')
-      //     }
-      //   })
+      EventService.modifyEvent(this.form, this.id)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Succesfully made the changes')
+            this.logAction()
+          }
+        })
+    },
+    async logAction () {
+      const changes = this.compareForms()
+      var trans = {
+        initials: 'K.A',
+        action: changes
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Succesfully logged')
+          }
+        })
     },
     compareForms () {
-      console.log('compareForms')
-      var changes = []
+      var changes = 'K.A made following chanages to ' +
+                      'properties on event ' + this.oldForm.name
       for (const property in this.form) {
-        console.log('New form ' + this.form[property])
-        console.log('Old form ' + this.oldForm[property])
+        if (this.form[property] !== this.oldForm[property]) {
+          changes += '\n ' + property + ': from ' + this.oldForm[property] +
+                      ' to ' + this.form[property]
+        }
       }
       return changes
     }
