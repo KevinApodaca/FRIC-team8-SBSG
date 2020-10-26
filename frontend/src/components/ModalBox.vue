@@ -2,10 +2,10 @@
   <b-modal :active.sync="isModalActive" has-modal-card>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Confirm action</p>
+        <p class="modal-card-title">Want to delete this item?</p>
       </header>
       <section class="modal-card-body">
-        <p>This will permanently remove <b>{{ trashObjectName }}</b></p>
+        <p>This will permanently remove the item.<b>{{ trashObjectName }}</b></p>
         <p>This cannot be undone.</p>
       </section>
       <footer class="modal-card-foot">

@@ -70,7 +70,7 @@
 
 <script>
 import axios from 'axios'
-import ModalBox from '@/components/ModalBox'
+import ModalBox from '@/components/ModalArchiveBox'
 
 export default {
   name: 'TaskOverviewTable',
@@ -155,6 +155,16 @@ export default {
 
       if (lastPart === 'tasks') {
         return 'Archive Task'
+      } else {
+        return 'Delete Task'
+      }
+    },
+    locationModal () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      if (lastPart === 'tasks') {
+        return '@/components/ModalArchiveBox'
       } else {
         return 'Delete Task'
       }
