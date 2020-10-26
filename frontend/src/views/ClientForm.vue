@@ -92,14 +92,14 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-// import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import AnalystsTable from '@/components/AnalystsTable'
+import EventService from '@/services/EventServices'
+// import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'ClientForm',
@@ -113,6 +113,7 @@ export default {
     return {
       isLoading: false,
       form: this.getClearFormObject(),
+      oldForm: null,
       createdReadable: null,
       isProfileExists: false,
       event_type: null,
@@ -191,67 +192,46 @@ export default {
         progress: 0
       }
     },
-    getData () {
+    async getData () {
       if (this.id) {
-        axios
-          .get('http://localhost:3000/events/' + this.id)
-          .then(r => {
-            // const item = find(r.data.data, item => item.id === parseInt(this.id))
-            const item = r.data
-            if (item) {
-              this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'client.new' })
+        EventService.getEventSingle(this.id)
+          .then(response => {
+            if (response.status === 200) {
+              this.oldForm = response.data
+              this.$set(this, 'form', response.data)
             }
-          })
-          .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
           })
       }
     },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-      axios.patch('http://localhost:3000/events/' + this.id, this.form)
-        .then(response => {
-          console.log(response)
-          if (response.status === 200) {
-            var trans = {
-              initials: 'K.A',
-              time: Date.now(),
-              action: 'K.A made changes to ' + this.form.name
-            }
-            axios.post('http://localhost:3000/transactions/', trans)
-              .then(res => {
-                console.log(res)
-              })
-              .catch(error => {
-                this.$buefy.toast.open({
-                  message: `Error: ${error.message}`,
-                  type: 'is-danger',
-                  queue: false
-                })
-              })
-          }
-        })
-        .catch(error => {
-          console.log(error.message)
-        })
+      const newForm = this.compareForms()
+      console.log('Lookig at the changes')
+      console.log(newForm)
+      // LogServices.logAction()
+      //   .then(response => {
+      //     if (response.status === 200) {
+      //       console.log('Succesfully logged')
+      //     }
+      //   })
+    },
+    compareForms () {
+      console.log('compareForms')
+      var changes = []
+      for (const property in this.form) {
+        console.log('New form ' + this.form[property])
+        console.log('Old form ' + this.oldForm[property])
+      }
+      return changes
     }
   },
   watch: {
     id (newValue) {
       this.isProfileExists = false
-
+      this.oldForm = this.form
       if (!newValue) {
         this.form = this.getClearFormObject()
       } else {

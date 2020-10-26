@@ -78,6 +78,8 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
+import EventService from '@/services/EventServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'EventForm',
@@ -199,38 +201,25 @@ export default {
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-      console.log('Hello There')
-      console.log(this.form)
-      axios.post('http://localhost:3000/events/', this.form)
+      EventService.createEvent(this.form)
         .then(response => {
-          console.log(response)
           if (response.status === 200) {
-            var trans = {
-              initials: 'K.A',
-              time: Date.now(),
-              action: 'K.A created Event ' + this.form.name
-            }
-            axios.post('http://localhost:3000/transactions/', trans)
-              .then(res => {
-                console.log(res)
-              })
-              .catch(error => {
-                this.$buefy.toast.open({
-                  message: `Error: ${error.message}`,
-                  type: 'is-danger',
-                  queue: false
-                })
-              })
+            this.logAction()
           }
         })
-        .catch(error => {
-          this.$buefy.toast.open({
-            message: `Error: ${error.message}`,
-            type: 'is-danger',
-            queue: false
-          })
+    },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A createtd ' + this.form.name
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
         })
     }
   },
