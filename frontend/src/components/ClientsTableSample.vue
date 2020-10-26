@@ -128,9 +128,17 @@ export default {
         .then(clients => {
           if (clients.status === 200) {
             console.log(clients.data.message)
+            this.removeRow(trashObject)
             this.logAction()
           }
         })
+    },
+    removeRow (trashObject) {
+      for (const index in this.clients) {
+        if (this.clients[index].id === trashObject.id) {
+          this.clients.splice(index, 1)
+        }
+      }
     },
     trashConfirm () {
       this.isModalActive = false

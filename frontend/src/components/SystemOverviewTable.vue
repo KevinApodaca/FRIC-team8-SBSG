@@ -106,23 +106,32 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.isLoading = false
-            this.$set(this, 'systems', response.data)
             if (response.data.length > this.perPage) {
               this.paginated = true
             }
+            this.$set(this, 'systems', response.data)
           }
         })
     },
-    trashModal (trashObject) {
+    async trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
       SystemService.deleteSystem(this.trashObject.id)
         .then(response => {
           if (response.status === 200) {
+            this.removeRow(trashObject)
             console.log(response.data.message)
             this.logAction()
           }
         })
+    },
+    removeRow (trashObject) {
+      console.log('removeItem')
+      for (const index in this.systems) {
+        if (this.systems[index].id === trashObject.id) {
+          this.systems.splice(index, 1)
+        }
+      }
     },
     trashConfirm () {
       this.isModalActive = false
