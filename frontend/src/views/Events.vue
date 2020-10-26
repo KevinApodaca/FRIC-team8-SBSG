@@ -46,7 +46,7 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
 export default {
-  name: 'Event',
+  name: 'Events',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, ClientsTableSample },
   computed: {
     titleStack () {
