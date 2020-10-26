@@ -71,9 +71,7 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -114,51 +112,24 @@ export default {
   },
   computed: {
     titleStack () {
-      let lastCrumb
-
-      if (this.isProfileExists) {
-        lastCrumb = this.tasks.name
-      } else {
-        lastCrumb = 'Event View'
-      }
-
       return [
         'Lead Analyst',
         'Event',
-        lastCrumb
+        'Event View'
       ]
     },
     heroTitle () {
-      if (this.isProfileExists) {
-        return this.tasks.name
-      } else {
-        return 'Create Event'
-      }
+      return 'Create Event'
     },
     heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'events.new' }
-      } else {
-        return '/'
-      }
+      return '/'
     },
     heroRouterLinkLabel () {
-      if (this.isProfileExists) {
-        return 'New Event'
-      } else {
-        return 'Home'
-      }
+      return 'New Event'
     },
     formCardTitle () {
-      if (this.isProfileExists) {
-        return 'Event Information'
-      } else {
-        return 'New Event'
-      }
+      return 'New Event'
     }
-  },
-  created () {
-    this.getData()
   },
   methods: {
     getClearFormObject () {
@@ -171,31 +142,6 @@ export default {
         created_mm_dd_yyyy: null,
         progress: 0,
         customer_name: null
-      }
-    },
-    getData () {
-      if (this.id) {
-        axios
-          .get('/data-sources/clients.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
-              this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'events.new' })
-            }
-          })
-          .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
-          })
       }
     },
     input (v) {
@@ -221,17 +167,6 @@ export default {
             console.log('Successfully logged')
           }
         })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
-      }
     }
   }
 }

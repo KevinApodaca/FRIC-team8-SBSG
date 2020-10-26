@@ -75,13 +75,13 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
+import SystemService from '@/services/SystemServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'CreateSystem',
@@ -96,7 +96,6 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false,
       system_confidentiality: null,
       system_integrity: null,
       system_availability: null,
@@ -122,51 +121,24 @@ export default {
   },
   computed: {
     titleStack () {
-      let lastCrumb
-
-      if (this.isProfileExists) {
-        lastCrumb = this.form.name
-      } else {
-        lastCrumb = 'New System'
-      }
-
       return [
         'Analyst',
         'System',
-        lastCrumb
+        'New System'
       ]
     },
     heroTitle () {
-      if (this.isProfileExists) {
-        return this.form.name
-      } else {
-        return 'Create System'
-      }
+      return 'Create System'
     },
     heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'system.new' }
-      } else {
-        return '/'
-      }
+      return '/'
     },
     heroRouterLinkLabel () {
-      if (this.isProfileExists) {
-        return 'New System'
-      } else {
-        return 'Home'
-      }
+      return 'Home'
     },
     formCardTitle () {
-      if (this.isProfileExists) {
-        return 'System Information'
-      } else {
-        return 'New System'
-      }
+      return 'New System'
     }
-  },
-  created () {
-    this.getData()
   },
   methods: {
     getClearFormObject () {
@@ -180,76 +152,30 @@ export default {
         progress: 0
       }
     },
-    getData () {
-      if (this.id) {
-        axios
-          .get('/data-sources/systems.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
-              this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'system.new' })
-            }
-          })
-          .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
-          })
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-      axios.post('http://localhost:3000/systems/', this.form)
+      SystemService.createSystem(this.form)
         .then(response => {
-          console.log(response)
           if (response.status === 200) {
-            var trans = {
-              initials: 'K.A',
-              time: Date.now(),
-              action: 'K.A created System ' + this.form.name
-            }
-            axios.post('http://localhost:3000/transactions/', trans)
-              .then(res => {
-                console.log(res)
-              })
-              .catch(error => {
-                this.$buefy.toast.open({
-                  message: `Error: ${error.message}`,
-                  type: 'is-danger',
-                  queue: false
-                })
-              })
+            console.log('Successfully created system')
+            this.logAction()
           }
         })
-        .catch(error => {
-          this.$buefy.toast.open({
-            message: `Error: ${error.message}`,
-            type: 'is-danger',
-            queue: false
-          })
-        })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
+    },
+    async logAction () {
+      var trans = {
+        initals: 'K.A',
+        action: 'K.A created system' + this.form.name
       }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
+        })
     }
   }
 }
