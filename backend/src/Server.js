@@ -4,6 +4,7 @@ import { systemRouter } from './routes'
 import { taskRouter } from './routes'
 import { subtaskRouter } from './routes'
 import { transactionRouter } from './routes'
+import { homeRouter } from './routes'
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
@@ -39,6 +40,7 @@ app.use('/systems', systemRouter)
 app.use('/tasks', taskRouter)
 app.use('/subtasks', subtaskRouter)
 app.use('/transactions',transactionRouter)
+app.use('/', homeRouter)
 
 const db = require('./models')
 db.mongoose
