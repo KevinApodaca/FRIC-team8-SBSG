@@ -57,12 +57,12 @@
        <b-field horizontal>
             <b-field grouped>
               <div class="control">
-                <router-link to="/tables">
+                <router-link to="/events">
                   <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
                 </router-link>
               </div>
               <div class="control">
-                <router-link slot="right" to="/tables" class="button is-primary is-outlined">Cancel</router-link>
+                <router-link slot="right" to="/events" class="button is-primary is-outlined">Cancel</router-link>
               </div>
             </b-field>
           </b-field>
