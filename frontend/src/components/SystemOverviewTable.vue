@@ -30,7 +30,7 @@
           <router-link :to="{name:'system.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="System Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete System">
+          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItem()">
             <b-icon icon="trash-can" size="is-small"/>
           </button>
         </div>
@@ -115,6 +115,12 @@ export default {
     }
   },
   methods: {
+    getLastPart (url) {
+      var parts = url.split('/')
+      return (url.lastIndexOf('/') !== url.length - 1
+        ? parts[parts.length - 1]
+        : parts[parts.length - 2])
+    },
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
@@ -139,6 +145,16 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
+    },
+    removeItem () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      if (lastPart === 'systems') {
+        return 'Archive System'
+      } else {
+        return 'Delete System'
+      }
     }
   }
 }
