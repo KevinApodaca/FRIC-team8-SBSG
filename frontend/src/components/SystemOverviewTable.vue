@@ -112,6 +112,9 @@ export default {
             this.$set(this, 'systems', response.data)
           }
         })
+        .catch(e => {
+          this.displayError(e)
+        })
     },
     async trashModal (trashObject) {
       this.trashObject = trashObject
@@ -123,6 +126,9 @@ export default {
             console.log(response.data.message)
             this.logAction()
           }
+        })
+        .catch(e => {
+          this.displayError(e)
         })
     },
     removeRow (trashObject) {
@@ -154,6 +160,15 @@ export default {
             console.log(response)
           }
         })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   }
 }

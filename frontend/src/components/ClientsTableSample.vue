@@ -90,7 +90,8 @@ export default {
       isLoading: false,
       paginated: false,
       perPage: 10,
-      checkedRows: []
+      checkedRows: [],
+      isConfirmed: true
     }
   },
   created () {
@@ -132,6 +133,15 @@ export default {
             this.logAction()
           }
         })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     },
     removeRow (trashObject) {
       for (const index in this.clients) {
@@ -142,6 +152,7 @@ export default {
     },
     trashConfirm () {
       this.isModalActive = false
+      this.isConfirmed = false
       this.$buefy.snackbar.open({
         message: 'Confirmed',
         queue: false
@@ -160,6 +171,9 @@ export default {
           if (response.status === 200) {
             console.log(response)
           }
+        })
+        .catch(e => {
+          this.displayError(e)
         })
     }
   }

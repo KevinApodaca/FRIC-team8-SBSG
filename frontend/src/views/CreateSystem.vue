@@ -164,6 +164,9 @@ export default {
             this.logAction()
           }
         })
+        .catch(e => {
+          this.displayError(e)
+        })
     },
     async logAction () {
       var trans = {
@@ -176,6 +179,15 @@ export default {
             console.log('Successfully logged')
           }
         })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   }
 }

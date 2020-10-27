@@ -191,6 +191,9 @@ export default {
           .then(response => {
             this.oldForm = response.data
           })
+          .catch(e => {
+            this.displayError(e)
+          })
       }
     },
     async getData () {
@@ -201,6 +204,9 @@ export default {
               this.isProfileExists = true
               this.$set(this, 'form', response.data)
             }
+          })
+          .catch(e => {
+            this.displayError(e)
           })
       }
     },
@@ -216,6 +222,9 @@ export default {
             this.logAction()
           }
         })
+        .catch(e => {
+          this.displayError(e)
+        })
     },
     async logAction () {
       const changes = this.compareForms()
@@ -229,8 +238,11 @@ export default {
             console.log('Successfully logged')
           }
         })
+        .catch(e => {
+          this.displayError(e)
+        })
     },
-    compareForms () {
+    showDiffs () {
       var changes = 'K.A made following chanages to ' +
                       'properties on system ' + this.oldForm.name
       for (const property in this.form) {
@@ -240,6 +252,12 @@ export default {
         }
       }
       return changes
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   },
   watch: {
