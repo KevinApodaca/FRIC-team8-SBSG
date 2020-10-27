@@ -70,7 +70,7 @@
 
 <script>
 import axios from 'axios'
-import ModalBox from '@/components/ModalArchiveBox'
+import ModalBox from '@/components/ModalBox'
 
 export default {
   name: 'TaskOverviewTable',
