@@ -103,7 +103,7 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.isLoading = false
-            this.items = response.data
+            this.items = response.data.reverse()
           }
           this.$nextTick(() => {
             if (this.ps) {
