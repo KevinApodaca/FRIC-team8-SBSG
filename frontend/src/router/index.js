@@ -41,7 +41,7 @@ const routes = [
     meta: {
       title: 'Edit Task'
     },
-    path: '/task-form/:id',
+    path: '/tasks/:id',
     name: 'tasks.edit',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -204,19 +204,11 @@ const routes = [
   },
   {
     meta: {
-      title: 'New Client'
-    },
-    path: '/client/new',
-    name: 'client.new',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue')
-  },
-  {
-    meta: {
       title: 'Edit Event'
     },
-    path: '/client/:id',
+    path: '/events/:id',
     name: 'client.edit',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue'),
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/EventForm.vue'),
     props: true
   },
   {

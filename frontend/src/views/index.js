@@ -159,19 +159,11 @@ const routes = [
   },
   {
     meta: {
-      title: 'New Client'
-    },
-    path: '/client/new',
-    name: 'client.new',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue')
-  },
-  {
-    meta: {
       title: 'Edit Event'
     },
-    path: '/client/:id',
+    path: '/events/:id',
     name: 'client.edit',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue'),
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/EventForm.vue'),
     props: true
   },
   {
