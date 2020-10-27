@@ -102,7 +102,7 @@ import EventService from '@/services/EventServices'
 import LogServices from '@/services/LogTransactionServices'
 
 export default {
-  name: 'ClientForm',
+  name: 'EventForm',
   components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
   props: {
     id: {
@@ -152,7 +152,7 @@ export default {
       if (this.isProfileExists) {
         return this.form.name
       } else {
-        return 'Create Event'
+        return 'Event Detailed View'
       }
     },
     heroRouterLinkTo () {

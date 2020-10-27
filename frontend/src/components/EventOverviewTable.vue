@@ -70,7 +70,7 @@ import EventService from '@/services/EventServices'
 import LogServices from '@/services/LogTransactionServices'
 
 export default {
-  name: 'ClientsTableSample',
+  name: 'EventOverviewTable',
   components: { ModalBox },
   props: {
     dataUrl: {
