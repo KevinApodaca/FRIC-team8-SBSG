@@ -140,3 +140,17 @@
   2. Get ahead on backend models for next deliverable
   3. Come up with more method signatures for class activities
 - Meeting's Overall Score: 10 / 10
+
+## 10/26/2020
+
+- Objective: Standup and status update
+- Start Time: 7:00pm
+- End Time: 8:00pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Conduct status update, discuss refactoring of backend, demo current work, resolve install issues.
+- Meeting Summary: We went through standup, demoed what we were working on, and discussed how the refactor of the backend would affect the project. Discuss plans to dockerize the application.
+- Action Items:
+  1. Fix frontend bugs
+  2. Client demo
+  3. Dockerize app
+- Meeting's Overall Score: 9.6 / 10

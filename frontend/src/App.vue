@@ -60,7 +60,7 @@ export default {
         'Main Menu',
         [
           {
-            to: '/tables',
+            to: '/events',
             label: 'Event',
             icon: 'slot-machine'
           },

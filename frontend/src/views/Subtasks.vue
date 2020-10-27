@@ -54,7 +54,7 @@ export default {
   computed: {
     titleStack () {
       return [
-        'Analyst',
+        'Lead Analyst',
         'Subtasks'
       ]
     }

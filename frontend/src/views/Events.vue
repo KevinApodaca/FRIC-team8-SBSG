@@ -30,7 +30,7 @@
             </div>
           </form>
         </card-toolbar>
-        <clients-table-sample data-url='http://localhost:3000/events/all' :checkable="true"/>
+        <event-overview-table data-url='http://localhost:3000/events/all' :checkable="true"/>
       </card-component>
     </section>
   </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import ClientsTableSample from '@/components/ClientsTableSample'
+import EventOverviewTable from '@/components/EventOverviewTable'
 import CardComponent from '@/components/CardComponent'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
@@ -46,8 +46,8 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
 export default {
-  name: 'Event',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, ClientsTableSample },
+  name: 'Events',
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, EventOverviewTable },
   computed: {
     titleStack () {
       return [

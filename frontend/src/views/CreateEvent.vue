@@ -57,12 +57,12 @@
        <b-field horizontal>
             <b-field grouped>
               <div class="control">
-                <router-link to="/tables">
+                <router-link to="/events">
                   <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
                 </router-link>
               </div>
               <div class="control">
-                <router-link slot="right" to="/tables" class="button is-primary is-outlined">Cancel</router-link>
+                <router-link slot="right" to="/events" class="button is-primary is-outlined">Cancel</router-link>
               </div>
             </b-field>
           </b-field>
@@ -71,13 +71,13 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
+import EventService from '@/services/EventServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'EventForm',
@@ -112,51 +112,24 @@ export default {
   },
   computed: {
     titleStack () {
-      let lastCrumb
-
-      if (this.isProfileExists) {
-        lastCrumb = this.tasks.name
-      } else {
-        lastCrumb = 'Event View'
-      }
-
       return [
         'Lead Analyst',
         'Event',
-        lastCrumb
+        'Event View'
       ]
     },
     heroTitle () {
-      if (this.isProfileExists) {
-        return this.tasks.name
-      } else {
-        return 'Create Event'
-      }
+      return 'Create Event'
     },
     heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'events.new' }
-      } else {
-        return '/'
-      }
+      return '/'
     },
     heroRouterLinkLabel () {
-      if (this.isProfileExists) {
-        return 'New Event'
-      } else {
-        return 'Home'
-      }
+      return 'New Event'
     },
     formCardTitle () {
-      if (this.isProfileExists) {
-        return 'Event Information'
-      } else {
-        return 'New Event'
-      }
+      return 'New Event'
     }
-  },
-  created () {
-    this.getData()
   },
   methods: {
     getClearFormObject () {
@@ -171,78 +144,41 @@ export default {
         customer_name: null
       }
     },
-    getData () {
-      if (this.id) {
-        axios
-          .get('/data-sources/clients.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
-              this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'events.new' })
-            }
-          })
-          .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
-          })
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-      console.log('Hello There')
-      console.log(this.form)
-      axios.post('http://localhost:3000/events/', this.form)
+      EventService.createEvent(this.form)
         .then(response => {
-          console.log(response)
           if (response.status === 200) {
-            var trans = {
-              initials: 'K.A',
-              time: Date.now(),
-              action: 'K.A created Event ' + this.form.name
-            }
-            axios.post('http://localhost:3000/transactions/', trans)
-              .then(res => {
-                console.log(res)
-              })
-              .catch(error => {
-                this.$buefy.toast.open({
-                  message: `Error: ${error.message}`,
-                  type: 'is-danger',
-                  queue: false
-                })
-              })
+            this.logAction()
           }
         })
-        .catch(error => {
-          this.$buefy.toast.open({
-            message: `Error: ${error.message}`,
-            type: 'is-danger',
-            queue: false
-          })
+        .catch(e => {
+          this.displayError(e)
         })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A created event ' + this.form.name
       }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   }
 }

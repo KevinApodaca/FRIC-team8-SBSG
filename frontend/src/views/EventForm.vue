@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" :to="heroRouterLinkTo" class="button">
-        {{ heroRouterLinkLabel }}
+      <router-link slot="right" to="/events" class="button">
+        Cancel
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -49,7 +49,7 @@
               <b-input v-model="form.declassified_date" required />
             </b-field>
            <b-field label="Customer Name" horizontal>
-              <b-input v-model="form.login" required />
+              <b-input v-model="form.customer_name" required />
             </b-field>
             <hr>
             <b-field label="Derived From" horizontal>
@@ -76,12 +76,12 @@
       <b-field horizontal>
         <b-field grouped>
           <div class="control">
-            <router-link to="/tables">
+            <router-link to="/events">
               <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
             </router-link>
           </div>
           <div class="control">
-            <router-link slot="right" to="/tables" class="button is-primary is-outlined">
+            <router-link slot="right" to="/events" class="button is-primary is-outlined">
              Cancel
             </router-link>
           </div>
@@ -92,17 +92,17 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-// import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import AnalystsTable from '@/components/AnalystsTable'
+import EventService from '@/services/EventServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
-  name: 'ClientForm',
+  name: 'EventForm',
   components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
   props: {
     id: {
@@ -113,6 +113,7 @@ export default {
     return {
       isLoading: false,
       form: this.getClearFormObject(),
+      oldForm: null,
       createdReadable: null,
       isProfileExists: false,
       event_type: null,
@@ -151,7 +152,7 @@ export default {
       if (this.isProfileExists) {
         return this.form.name
       } else {
-        return 'Create Event'
+        return 'Event Detailed View'
       }
     },
     heroRouterLinkTo () {
@@ -177,6 +178,7 @@ export default {
     }
   },
   created () {
+    this.getOldForm()
     this.getData()
   },
   methods: {
@@ -191,67 +193,85 @@ export default {
         progress: 0
       }
     },
-    getData () {
+    async getOldForm () {
       if (this.id) {
-        axios
-          .get('http://localhost:3000/events/' + this.id)
-          .then(r => {
-            // const item = find(r.data.data, item => item.id === parseInt(this.id))
-            const item = r.data
-            if (item) {
+        EventService.getEventSingle(this.id)
+          .then(response => {
+            this.oldForm = response.data
+          })
+          .catch(e => {
+            this.displayError(e)
+          })
+      }
+    },
+    async getData () {
+      if (this.id) {
+        EventService.getEventSingle(this.id)
+          .then(response => {
+            if (response.status === 200) {
               this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'client.new' })
+              this.$set(this, 'form', response.data)
             }
           })
           .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
+            this.displayError(e)
           })
       }
     },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-      axios.patch('http://localhost:3000/events/' + this.id, this.form)
+      EventService.modifyEvent(this.form, this.id)
         .then(response => {
-          console.log(response)
           if (response.status === 200) {
-            var trans = {
-              initials: 'K.A',
-              time: Date.now(),
-              action: 'K.A made changes to ' + this.form.name
-            }
-            axios.post('http://localhost:3000/transactions/', trans)
-              .then(res => {
-                console.log(res)
-              })
-              .catch(error => {
-                this.$buefy.toast.open({
-                  message: `Error: ${error.message}`,
-                  type: 'is-danger',
-                  queue: false
-                })
-              })
+            this.isProfileExists = true
+            console.log('Succesfully made the changes')
+            this.logAction()
           }
         })
-        .catch(error => {
-          console.log(error.message)
+        .catch(e => {
+          this.displayError(e)
         })
+    },
+    async logAction () {
+      const changes = this.compareForms()
+      var trans = {
+        initials: 'K.A',
+        action: changes
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Succesfully logged')
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    showDiffs () {
+      var changes = 'K.A made the following changes to ' +
+                      'properties on event ' + this.oldForm.name
+      for (const property in this.form) {
+        if (this.form[property] !== this.oldForm[property]) {
+          changes += '\n ' + property + ': from ' + this.oldForm[property] +
+                      ' to ' + this.form[property]
+        }
+      }
+      return changes
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   },
   watch: {
     id (newValue) {
       this.isProfileExists = false
-
       if (!newValue) {
         this.form = this.getClearFormObject()
       } else {
