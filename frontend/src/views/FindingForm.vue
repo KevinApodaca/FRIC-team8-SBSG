@@ -3,9 +3,6 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" :to="heroRouterLinkTo" class="button">
-        {{ heroRouterLinkLabel }}
-      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
@@ -349,16 +346,9 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.name
+        return 'Finding Detailed View'
       } else {
         return 'Create Finding'
-      }
-    },
-    heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'finding.new' }
-      } else {
-        return '/'
       }
     },
     heroRouterLinkLabel () {
