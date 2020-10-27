@@ -142,7 +142,7 @@ export default {
     trashConfirm () {
       this.isModalActive = false
       this.$buefy.snackbar.open({
-        message: 'Confirmed',
+        message: 'Confirmed.',
         queue: false
       })
     },
