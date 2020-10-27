@@ -65,8 +65,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
+import EventService from '@/services/EventServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'ClientsTableSample',
@@ -89,7 +90,14 @@ export default {
       isLoading: false,
       paginated: false,
       perPage: 10,
-      checkedRows: []
+      checkedRows: [],
+      isConfirmed: true
+    }
+  },
+  created () {
+    if (this.dataUrl) {
+      this.isLoading = true
+      this.getEventData()
     }
   },
   computed: {
@@ -101,49 +109,50 @@ export default {
       return null
     }
   },
-  mounted () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      axios
-        .get(this.dataUrl)
-        .then(r => {
-          this.isLoading = false
-          if (r.data.length > this.perPage) {
-            this.paginated = true
-          }
-          this.clients = r.data
-        })
-        .catch(e => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
-    }
-  },
   methods: {
-    trashModal (trashObject) {
+    async getEventData () {
+      EventService.getEvents()
+        .then(clients => {
+          if (clients.status === 200) {
+            this.isLoading = false
+            this.$set(this, 'clients', clients.data)
+            if (clients.data.length > this.perPage) {
+              this.paginated = true
+            }
+          }
+        })
+    },
+    async trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      axios.delete('http://localhost:3000/events/' + this.trashObject.id)
-        .then(response => {
-          console.log(response)
-          // this.fireDelete(trashObject)
-          // this.tableData.splice(this.tableData.indexOf(trashObject), 1)
-          // this.photos.splice(trashObject, 1)
-          // this.organisations.splice(trashObject, 1)
+      EventService.deleteEvent(this.trashObject.id)
+        .then(clients => {
+          if (clients.status === 200) {
+            console.log(clients.data.message)
+            this.removeRow(trashObject)
+            this.logAction()
+          }
         })
-        .catch(error => {
-          this.$buefy.toast.open({
-            message: `Error: ${error.message}`,
-            type: 'is-danger',
-            queue: false
-          })
+        .catch(e => {
+          this.displayError(e)
         })
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
+    removeRow (trashObject) {
+      for (const index in this.clients) {
+        if (this.clients[index].id === trashObject.id) {
+          this.clients.splice(index, 1)
+        }
+      }
     },
     trashConfirm () {
       this.isModalActive = false
+      this.isConfirmed = false
       this.$buefy.snackbar.open({
         message: 'Confirmed',
         queue: false
@@ -151,6 +160,21 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
+    },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A archived event ' + this.trashObject.name
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   }
 }

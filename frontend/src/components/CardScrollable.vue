@@ -27,6 +27,8 @@ import CardComponent from '@/components/CardComponent'
 import CardToolbar from '@/components/CardToolbar'
 import MediaItem from '@/components/MediaItem'
 import RefreshButton from '@/components/RefreshButton'
+import LogServices from '@/services/LogTransactionServices'
+
 export default {
   name: 'CardScrollable',
   components: { RefreshButton, MediaItem, CardToolbar, CardComponent },
@@ -97,25 +99,23 @@ export default {
         labelIcon: 'shuffle-variant'
       }
 
-      axios
-        .get(this.dataUrl)
-        .then(r => {
-          this.isLoading = false
-
-          if (r.data) {
-            if (r.data.data) {
-              this.items = r.data.data
-            }
-            if (r.data.status) {
-              this.status = r.data.status
-            }
+      LogServices.getTransactions()
+        .then(response => {
+          if (response.status === 200) {
+            this.isLoading = false
+            this.items = response.data.reverse()
           }
-
           this.$nextTick(() => {
             if (this.ps) {
               this.ps.update()
             }
           })
+        })
+
+      axios
+        .get(this.dataUrl)
+        .then(r => {
+          this.status = r.data.status
         })
         .catch(e => {
           this.isLoading = false

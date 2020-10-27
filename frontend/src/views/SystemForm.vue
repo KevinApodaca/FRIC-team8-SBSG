@@ -78,13 +78,13 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-// import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
+import SystemService from '@/services/SystemServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'SystemForm',
@@ -98,6 +98,7 @@ export default {
     return {
       isLoading: false,
       form: this.getClearFormObject(),
+      oldForm: null,
       createdReadable: null,
       isProfileExists: false,
       system_confidentiality: null,
@@ -169,6 +170,7 @@ export default {
     }
   },
   created () {
+    this.getOldData()
     this.getData()
   },
   methods: {
@@ -183,28 +185,28 @@ export default {
         progress: 0
       }
     },
-    getData () {
+    async getOldData () {
       if (this.id) {
-        axios
-          .get('http://localhost:3000/systems/' + this.id)
-          .then(r => {
-            // const item = find(r.data.data, item => item.id === parseInt(this.id))
-            const item = r.data
-            if (item) {
+        SystemService.getSystemSingle(this.id)
+          .then(response => {
+            this.oldForm = response.data
+          })
+          .catch(e => {
+            this.displayError(e)
+          })
+      }
+    },
+    async getData () {
+      if (this.id) {
+        SystemService.getSystemSingle(this.id)
+          .then(response => {
+            if (response.status === 200) {
               this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'system.new' })
+              this.$set(this, 'form', response.data)
             }
           })
           .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
+            this.displayError(e)
           })
       }
     },
@@ -213,28 +215,49 @@ export default {
     },
     submit () {
       this.isLoading = true
-      console.log(this.form)
-      axios.patch('http://localhost:3000/systems/' + this.id, this.form)
+      SystemService.modifySystem(this.form, this.id)
         .then(response => {
-          console.log(response)
           if (response.status === 200) {
-            var trans = {
-              initials: 'K.A',
-              time: Date.now(),
-              action: 'K.A made changes to ' + this.form.name
-            }
-            axios.post('http://localhost:3000/transactions/', trans)
-              .then(res => {
-                console.log(res)
-              })
-              .catch(error => {
-                console.log(error.message)
-              })
+            console.log('Successfully made changes')
+            this.logAction()
           }
         })
-        .catch(error => {
-          console.log(error.message)
+        .catch(e => {
+          this.displayError(e)
         })
+    },
+    async logAction () {
+      const changes = this.compareForms()
+      var trans = {
+        initial: 'K.A',
+        action: changes
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    showDiffs () {
+      var changes = 'K.A made the following changes to ' +
+                      'properties on system ' + this.oldForm.name
+      for (const property in this.form) {
+        if (this.form[property] !== this.oldForm[property]) {
+          changes += '\n ' + property + ': from ' + this.oldForm[property] +
+                      ' to ' + this.form[property]
+        }
+      }
+      return changes
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   },
   watch: {

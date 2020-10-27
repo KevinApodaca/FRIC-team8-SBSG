@@ -8,12 +8,12 @@
     <div class="media-content">
       <div class="content">
         <p class="media-meta">
-          <strong>{{ item.name }}</strong>
-          <small v-if="item.login">@{{ item.login }}</small>
-          <small class="has-text-grey">{{ item.ago }}</small>
+          <strong>{{ item.initials }}</strong>
+          <!-- <small v-if="item.login">@{{ item.login }}</small> -->
+          <small class="has-text-grey">{{ item.time }}</small>
         </p>
         <p>
-          {{ item.text }}
+          {{ item.action }}
         </p>
       </div>
       <nav v-if="hasShareButtons" class="level is-mobile">
