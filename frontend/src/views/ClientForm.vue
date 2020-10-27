@@ -252,7 +252,7 @@ export default {
         })
     },
     showDiffs () {
-      var changes = 'K.A made following changes to ' +
+      var changes = 'K.A made the following changes to ' +
                       'properties on event ' + this.oldForm.name
       for (const property in this.form) {
         if (this.form[property] !== this.oldForm[property]) {
