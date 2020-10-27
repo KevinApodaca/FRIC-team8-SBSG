@@ -37,7 +37,7 @@
             <b-icon icon="information" size="is-small"/>
           </router-link>
           <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItem()">
-            <b-icon icon="archive" size="is-small"/>
+            <b-icon :icon="iconType()" size="is-small"/>
           </button>
         </div>
       </b-table-column>
@@ -150,6 +150,16 @@ export default {
         return 'Archive Subtask'
       } else {
         return 'Delete Subtsask'
+      }
+    },
+    iconType () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      if (lastPart === 'subtasks') {
+        return 'archive'
+      } else {
+        return 'trash-can'
       }
     }
   }
