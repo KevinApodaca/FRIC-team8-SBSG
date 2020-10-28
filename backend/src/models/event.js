@@ -22,6 +22,11 @@ module.exports = mongoose => {
       type: String,
       default: "",
     },
+    created_Date: {
+      type: String,
+      default: new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-') + ": " + 
+      new Date().toTimeString().split(" ")[0],
+    },
     created_mm_dd_yyyy: {
       type: Date,
       default: ""
