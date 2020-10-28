@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" :to="heroRouterLinkTo" class="button">
-        {{ heroRouterLinkLabel }}
+      <router-link slot="right" to="/findings" class="button">
+        Cancel
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -336,22 +336,22 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.name
+        lastCrumb = this.form.title
       } else {
         lastCrumb = 'New Finding'
       }
 
       return [
         'Analyst',
-        'Finding',
+        'Findings',
         lastCrumb
       ]
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.name
+        return this.form.title
       } else {
-        return 'Create Finding'
+        return 'Finding Detailed View'
       }
     },
     heroRouterLinkTo () {
