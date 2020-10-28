@@ -42,7 +42,7 @@
           <router-link :to="{name:'tasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Task Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-info" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItemAction()">
+          <button :class="setRemoveItemColor()" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItemAction()">
             <b-icon :icon="iconType()" size="is-small"/>
           </button>
         </div>
@@ -154,6 +154,12 @@ export default {
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
       return (lastPart === 'tasks') ? 'archive' : 'trash-can'
+    },
+    setRemoveItemColor () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      return (lastPart === 'tasks') ? 'button is-small is-info' : 'button is-small is-danger'
     }
   }
 }
