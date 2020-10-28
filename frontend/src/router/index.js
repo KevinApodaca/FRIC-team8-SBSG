@@ -61,6 +61,39 @@ const routes = [
   },
   {
     meta: {
+      title: 'Subtasks'
+    },
+    path: '/subtasks',
+    name: 'subtasks',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "task" */ '../views/Subtasks.vue')
+  },
+  {
+    meta: {
+      title: 'Edit Subtask'
+    },
+    path: '/subtasks/:id',
+    name: 'subtasks.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "task-form" */ '../views/SubtaskForm.vue')
+  },
+  {
+    meta: {
+      title: 'Create Subtask'
+    },
+    path: '/createsubtask-form',
+    name: 'createsubtask.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "createtask-form" */ '../views/CreateSubtask.vue')
+  },
+  {
+    meta: {
       title: 'Create Event'
     },
     path: '/create-event',
@@ -113,39 +146,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "tables" */ '../views/CreateFinding.vue')
-  },
-  {
-    meta: {
-      title: 'Subtasks'
-    },
-    path: '/subtasks',
-    name: 'subtasks',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tables" */ '../views/Subtasks.vue')
-  },
-  {
-    meta: {
-      title: 'Create Subtask'
-    },
-    path: '/subtasks-form',
-    name: 'subtasks',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tables" */ '../views/SubtaskForm.vue')
-  },
-  {
-    meta: {
-      title: 'View Subtasks'
-    },
-    path: '/subtasks-view',
-    name: 'subtasks',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tables" */ '../views/SubtaskView.vue')
   },
   {
     meta: {
@@ -227,15 +227,6 @@ const routes = [
     path: '/systems/:id',
     name: 'system.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/SystemForm.vue'),
-    props: true
-  },
-  {
-    meta: {
-      title: 'Edit Subtask'
-    },
-    path: '/subtasks/:task',
-    name: 'subtasks.edit',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/SubtaskView.vue'),
     props: true
   },
   {

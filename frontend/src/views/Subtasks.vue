@@ -6,7 +6,7 @@
       <button type="submit" class="button is-light is-info is-small" title="About Subtasks" @click="subtaskHelp">
         <b-icon icon="help" custom-size="default"/>
       </button>
-      <router-link slot="right" to="/subtasks-form" class="button">
+      <router-link slot="right" to="/createsubtask-form" class="button">
         New Subtask
       </router-link>
     </hero-bar>

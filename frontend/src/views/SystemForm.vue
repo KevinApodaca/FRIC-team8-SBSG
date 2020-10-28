@@ -197,8 +197,8 @@ export default {
       }
     },
     async getData () {
-      if (this.id) {
-        SystemService.getSystemSingle(this.id)
+      if (this.task) {
+        SystemService.getSystemSingle(this.task)
           .then(response => {
             if (response.status === 200) {
               this.isProfileExists = true
