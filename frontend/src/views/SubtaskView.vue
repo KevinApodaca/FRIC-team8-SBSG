@@ -80,7 +80,7 @@ import CardComponent from '@/components/CardComponent'
 import AnalystsTable from '@/components/AnalystsTable'
 
 export default {
-  name: 'ClientForm',
+  name: 'SubtaskForm',
   components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
   props: {
     id: {
