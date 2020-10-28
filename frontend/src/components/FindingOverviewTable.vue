@@ -48,8 +48,8 @@
           <router-link :to="{name:'finding.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Finding Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-info" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Archive Finding">
-            <b-icon icon="archive" size="is-small"/>
+          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItem()">
+            <b-icon :icon="iconType()" size="is-small"/>
           </button>
         </div>
       </b-table-column>
@@ -135,6 +135,12 @@ export default {
     }
   },
   methods: {
+    getLastPart (url) {
+      var parts = url.split('/')
+      return (url.lastIndexOf('/') !== url.length - 1
+        ? parts[parts.length - 1]
+        : parts[parts.length - 2])
+    },
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
@@ -148,6 +154,18 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
+    },
+    removeItem () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      return (lastPart === 'findings') ? 'Archive Finding' : 'Delete Finding'
+    },
+    iconType () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      return (lastPart === 'findings') ? 'archive' : 'trash-can'
     }
   }
 }

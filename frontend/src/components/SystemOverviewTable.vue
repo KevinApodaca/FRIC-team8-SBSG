@@ -30,8 +30,8 @@
           <router-link :to="{name:'system.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="System Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-info" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover title="Delete System">
-            <b-icon icon="trash-can" size="is-small"/>
+          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItem()">
+            <b-icon :icon="iconType()" size="is-small"/>
           </button>
         </div>
       </b-table-column>
@@ -57,8 +57,7 @@
 </template>
 
 <script>
-import SystemService from '@/services/SystemServices'
-import LogServices from '@/services/LogTransactionServices'
+import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
 
 export default {
@@ -85,12 +84,6 @@ export default {
       checkedRows: []
     }
   },
-  created () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      this.getSystemData()
-    }
-  },
   computed: {
     trashObjectName () {
       if (this.trashObject) {
@@ -100,44 +93,48 @@ export default {
       return null
     }
   },
-  methods: {
-    async getSystemData () {
-      SystemService.getSystems()
-        .then(response => {
-          if (response.status === 200) {
-            this.isLoading = false
-            if (response.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.$set(this, 'systems', response.data)
+  mounted () {
+    if (this.dataUrl) {
+      this.isLoading = true
+      axios
+        .get(this.dataUrl)
+        .then(r => {
+          this.isLoading = false
+          if (r.data.length > this.perPage) {
+            this.paginated = true
           }
+          this.systems = r.data
         })
         .catch(e => {
-          this.displayError(e)
+          this.isLoading = false
+          this.$buefy.toast.open({
+            message: `Error: ${e.message}`,
+            type: 'is-danger'
+          })
         })
+    }
+  },
+  methods: {
+    getLastPart (url) {
+      var parts = url.split('/')
+      return (url.lastIndexOf('/') !== url.length - 1
+        ? parts[parts.length - 1]
+        : parts[parts.length - 2])
     },
-    async trashModal (trashObject) {
+    trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      SystemService.deleteSystem(this.trashObject.id)
+      axios.delete('http://localhost:3000/systems/' + this.trashObject.id)
         .then(response => {
-          if (response.status === 200) {
-            this.removeRow(trashObject)
-            console.log(response.data.message)
-            this.logAction()
-          }
+          console.log(response)
         })
-        .catch(e => {
-          this.displayError(e)
+        .catch(error => {
+          this.$buefy.toast.open({
+            message: `Error: ${error.message}`,
+            type: 'is-danger',
+            queue: false
+          })
         })
-    },
-    removeRow (trashObject) {
-      console.log('removeItem')
-      for (const index in this.systems) {
-        if (this.systems[index].id === trashObject.id) {
-          this.systems.splice(index, 1)
-        }
-      }
     },
     trashConfirm () {
       this.isModalActive = false
@@ -149,26 +146,17 @@ export default {
     trashCancel () {
       this.isModalActive = false
     },
-    async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A archived system ' + this.trashObject.name
-      }
-      LogServices.logAction(trans)
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response)
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+    removeItem () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      return (lastPart === 'systems') ? 'Archive System' : 'Delete System'
     },
-    displayError (e) {
-      this.$buefy.toast.open({
-        message: `Error: ${e.message}`,
-        type: 'is-danger'
-      })
+    iconType () {
+      var url = window.location.href
+      var lastPart = url.substr(url.lastIndexOf('/') + 1)
+
+      return (lastPart === 'systems') ? 'archive' : 'trash-can'
     }
   }
 }
