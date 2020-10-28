@@ -172,7 +172,7 @@ export default {
       TaskService.createTask(this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully created system')
+            console.log('Successfully created task')
             this.logAction()
           }
         })

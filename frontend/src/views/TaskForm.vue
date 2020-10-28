@@ -208,13 +208,9 @@ export default {
       }
     },
     async getData () {
-      console.log(this.id)
       if (this.id) {
-        console.log(this.id)
         TaskService.getTaskSingle(this.id)
           .then(response => {
-            console.log('Check')
-            console.log(response)
             if (response.status === 200) {
               this.isProfileExists = true
               this.$set(this, 'form', response.data)
