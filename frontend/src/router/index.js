@@ -41,6 +41,17 @@ const routes = [
     meta: {
       title: 'Edit Task'
     },
+    path: '/tasks/:id',
+    name: 'task.edit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "task-form" */ '../views/TaskForm.vue')
+  },
+  {
+    meta: {
+      title: 'Task-Form'
+    },
     path: '/task-form/:id',
     name: 'tasks.edit',
     // route level code-splitting

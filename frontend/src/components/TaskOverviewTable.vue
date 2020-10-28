@@ -69,7 +69,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import TaskService from '@/services/TaskServices'
+import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
 
 export default {
@@ -96,6 +97,12 @@ export default {
       checkedRows: []
     }
   },
+  created () {
+    if (this.dataUrl) {
+      this.isLoading = true
+      this.getTaskData()
+    }
+  },
   computed: {
     trashObjectName () {
       if (this.trashObject) {
@@ -105,33 +112,44 @@ export default {
       return null
     }
   },
-  mounted () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      axios
-        .get(this.dataUrl)
-        .then(r => {
-          this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
+  methods: {
+    async getTaskData () {
+      TaskService.getTasks()
+        .then(response => {
+          if (response.status === 200) {
+            this.isLoading = false
+            if (response.data.length > this.perPage) {
               this.paginated = true
             }
-            this.tasks = r.data.data
+            this.$set(this, 'tasks', response.data)
           }
         })
         .catch(e => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
+          this.displayError(e)
         })
-    }
-  },
-  methods: {
-    trashModal (trashObject) {
+    },
+    async trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
+      TaskService.deleteTask(this.trashObject.id)
+        .then(response => {
+          if (response.status === 200) {
+            this.removeRow(trashObject)
+            console.log(response.data.message)
+            this.logAction()
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    removeRow (trashObject) {
+      console.log('removeItem')
+      for (const index in this.tasks) {
+        if (this.tasks[index].id === trashObject.id) {
+          this.tasks.splice(index, 1)
+        }
+      }
     },
     trashConfirm () {
       this.isModalActive = false
@@ -142,6 +160,27 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
+    },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A archived task ' + this.trashObject.name
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   }
 }

@@ -63,7 +63,7 @@
             </div>
           </form>
         </card-toolbar>
-        <task-overview-table data-url="/data-sources/tasks.json" :checkable="true"/>
+        <task-overview-table data-url="http://localhost:3000/tasks/all" :checkable="true"/>
       </card-component>
     </section>
   </div>
