@@ -42,7 +42,7 @@
           <router-link :to="{name:'tasks.edit', params: {id: props.row.id}}" class="button is-small is-primary" v-b-tooltip.hover title="Task Detailed View">
             <b-icon icon="information" size="is-small"/>
           </router-link>
-          <button class="button is-small is-info" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItem()">
+          <button class="button is-small is-info" type="button" @click.prevent="trashModal(props.row)" v-b-tooltip.hover :title="removeItemAction()">
             <b-icon :icon="iconType()" size="is-small"/>
           </button>
         </div>
@@ -143,7 +143,7 @@ export default {
     trashCancel () {
       this.isModalActive = false
     },
-    removeItem () {
+    removeItemAction () {
       var url = window.location.href
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
