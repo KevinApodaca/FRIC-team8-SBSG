@@ -98,10 +98,7 @@ export default {
     }
   },
   created () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      this.getTaskData()
-    }
+    this.getTaskData()
   },
   computed: {
     trashObjectName () {
