@@ -91,6 +91,7 @@ export default {
     return {
       isLoading: false,
       form: this.getClearFormObject(),
+      oldForm: null,
       createdReadable: null,
       isProfileExists: false
     }
@@ -100,19 +101,20 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.name
+        lastCrumb = this.form.title
       } else {
-        lastCrumb = 'Subtask View'
+        lastCrumb = 'New Subtask'
       }
 
       return [
+        'Analyst',
         'Subtasks',
         lastCrumb
       ]
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.name
+        return this.form.title
       } else {
         return 'Create Event'
       }
@@ -133,7 +135,7 @@ export default {
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Event Basic Information'
+        return 'Subtask Information'
       } else {
         return 'New Event'
       }
