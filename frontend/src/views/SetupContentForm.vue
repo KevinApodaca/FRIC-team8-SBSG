@@ -37,7 +37,9 @@
          <b-field horizontal>
             <b-field grouped>
               <div class="control">
-                <b-button type="is-primary" @click="submit">Submit</b-button>
+                <router-link slot="right" to='/' class="button">
+                submit
+                </router-link>
               </div>
               <div class="control">
                 <b-button type="is-primary is-outlined" @click="reset">Cancel</b-button>

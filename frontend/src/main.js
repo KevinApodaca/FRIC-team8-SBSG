@@ -13,7 +13,7 @@ import store from './store'
 import './registerServiceWorker'
 
 /* Vue. Main component */
-import App from './App.vue'
+import SetupContentForm from './views/SetupContentForm.vue'
 
 /* Default title tag */
 const defaultDocumentTitle = 'FRIC Tool'
@@ -38,7 +38,7 @@ Vue.use(Buefy)
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(SetupContentForm),
   mounted () {
     document.documentElement.classList.remove('has-spinner-active')
   }
