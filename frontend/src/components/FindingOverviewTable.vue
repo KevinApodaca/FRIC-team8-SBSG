@@ -23,10 +23,10 @@
         {{ props.row.system }}
       </b-table-column>
       <b-table-column label="Task" field="task" sortable v-slot="props">
-        {{ props.row.task }}
+        {{ props.row.tasks }}
       </b-table-column>
       <b-table-column label="Subtask" field="subtask" sortable v-slot="props">
-        {{ props.row.subtask }}
+        {{ props.row.subtasks }}
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
         {{ props.row.analyst }}
@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
+import FindingServices from '@/services/FindingServices'
 
 export default {
   name: 'FindingOverviewTable',
@@ -112,29 +112,26 @@ export default {
     }
   },
   mounted () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      axios
-        .get(this.dataUrl)
-        .then(r => {
+    this.isLoading = true
+    FindingServices.getFindings()
+      .then(response => {
+        if (response.status === 200) {
+          this.findings = response.data
           this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.findings = r.data.data
-          }
-        })
-        .catch(e => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
-    }
+        }
+      })
+      .catch(e => {
+        this.isLoading = false
+        this.displayError(e)
+      })
   },
   methods: {
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
