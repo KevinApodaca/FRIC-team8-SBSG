@@ -68,7 +68,7 @@
               </div>
             </b-field>
             <hr>
-           <b-field label="Declassification Date" horizontal>
+           <b-field label="Due Date" horizontal>
               <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.created"></b-datepicker>
             </b-field>
           </form>
