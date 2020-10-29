@@ -1,6 +1,6 @@
 {
   "name": "fric-backend",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Backend services for the FRIC tool, including the express server and the mongoDB database.",
   "main": "Server.js",
   "scripts": {
