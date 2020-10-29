@@ -25,7 +25,7 @@
             </b-select>
           </b-field>
             <b-field label="Due Date" horizontal>
-              <b-input v-model="form.duedate" reaadonly />
+              <b-input v-model="form.due_date" reaadonly />
             </b-field>
             <b-field label="Analyst" horizontal>
               <b-input v-model="form.analyst" required />

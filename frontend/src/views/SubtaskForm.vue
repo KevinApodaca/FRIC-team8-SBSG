@@ -22,7 +22,7 @@
               </b-select>
             </b-field>
             <b-field label="Due Date" horizontal required>
-              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.duedate"></b-datepicker>
+              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.due_date"></b-datepicker>
             </b-field>
             <hr>
           </form>

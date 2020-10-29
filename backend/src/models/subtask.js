@@ -5,7 +5,7 @@ module.exports = mongoose => {
           type: Number,
           default: 0
         },
-        duedate: {
+        due_date: {
           type: String,
           default: ''
         },

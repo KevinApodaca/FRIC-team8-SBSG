@@ -29,7 +29,7 @@
         <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>
       </b-table-column>
       <b-table-column label="Due Date (DD-MM-YYYY)" v-slot="props">
-        <small class="has-text-grey is-abbr-like" :title="props.row.duedate">{{ props.row.duedate }}</small>
+        <small class="has-text-grey is-abbr-like" :title="props.row.due_date">{{ props.row.due_date }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
@@ -91,10 +91,7 @@ export default {
     }
   },
   created () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      this.getSubtaskData()
-    }
+    this.getSubtaskData()
   },
   computed: {
     trashObjectName () {
@@ -137,7 +134,6 @@ export default {
         })
     },
     removeRow (trashObject) {
-      console.log('removeItem')
       for (const index in this.subtasks) {
         if (this.subtasks[index].id === trashObject.id) {
           this.subtasks.splice(index, 1)
