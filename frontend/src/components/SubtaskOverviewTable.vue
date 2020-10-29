@@ -175,7 +175,7 @@ export default {
       var url = window.location.href
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
-      return (lastPart === 'systems') ? 'Archive Subtask' : 'Delete Subtask'
+      return (lastPart === 'subtasks') ? 'Archive Subtask' : 'Delete Subtask'
     },
     iconType () {
       var url = window.location.href
