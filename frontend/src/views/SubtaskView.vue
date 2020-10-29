@@ -99,7 +99,6 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        console.log(this.form.title)
         return this.form.title
       } else {
         return 'Create Subtask'
