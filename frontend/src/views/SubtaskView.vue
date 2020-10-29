@@ -210,7 +210,7 @@ export default {
     },
     showDiffs () {
       var changes = 'K.A made the following changes to ' +
-                      'properties on subtask ' + this.oldForm.name
+                      'properties on subtask ' + this.oldForm.title
       for (const property in this.form) {
         if (this.form[property] !== this.oldForm[property]) {
           changes += '\n ' + property + ': from ' + this.oldForm[property] +

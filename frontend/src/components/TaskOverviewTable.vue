@@ -141,7 +141,6 @@ export default {
         })
     },
     removeRow (trashObject) {
-      console.log('removeItem')
       for (const index in this.tasks) {
         if (this.tasks[index].id === trashObject.id) {
           this.tasks.splice(index, 1)
@@ -161,7 +160,7 @@ export default {
     async logAction () {
       var trans = {
         initials: 'K.A',
-        action: 'K.A archived task ' + this.trashObject.name
+        action: 'K.A archived task ' + this.trashObject.title
       }
       LogServices.logAction(trans)
         .then(response => {
