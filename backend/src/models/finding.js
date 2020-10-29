@@ -7,7 +7,7 @@ module.exports = mongoose => {
         },
         analyst: {
           type: String,
-          default: ''
+          default: 'K.A'
         },
         title: {
           type: String,
@@ -23,7 +23,7 @@ module.exports = mongoose => {
         },
         subtasks: {
           type: String,
-          default: ''
+          default: '0'
         },
         status: {
           type: String,
