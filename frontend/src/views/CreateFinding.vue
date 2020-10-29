@@ -211,7 +211,9 @@
       <b-field horizontal>
         <b-field grouped>
           <div class="control">
-            <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+            <router-link to="/findings">
+              <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+            </router-link>
           </div>
           <div class="control">
             <router-link slot="right" to="/findings" class="button is-primary is-outlined">
@@ -225,14 +227,14 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
+import FindingServices from '@/services/FindingServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'CreateFinding',
@@ -376,9 +378,6 @@ export default {
       }
     }
   },
-  created () {
-    this.getData()
-  },
   methods: {
     getClearFormObject () {
       return {
@@ -391,56 +390,43 @@ export default {
         progress: 0
       }
     },
-    getData () {
-      if (this.id) {
-        axios
-          .get('/data-sources/findings.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
-              this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'finding.new' })
-            }
-          })
-          .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
-          })
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'Finding has been created',
-          queue: false
+      FindingServices.createFinding(this.form)
+        .then(response => {
+          this.isLoading = false
+          console.log('Status: ' + response.status)
+          this.logAction()
         })
-      }, 500)
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    displayError (e) {
+      this.$buefy.snackbar.open({
+        message: e.message,
+        queue: false
+      })
+    },
+    async logAction () {
+      console.log('Loging action')
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A created finding ' + this.form.host
       }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+            console.log(response)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   }
 }

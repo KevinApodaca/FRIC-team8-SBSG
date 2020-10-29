@@ -17,31 +17,31 @@
         {{ props.row.id }}
       </b-table-column>
       <b-table-column label="Title" field="title" sortable v-slot="props">
-        {{ props.row.title }}
+        {{ props.row.host }}
       </b-table-column>
       <b-table-column label="System" field="system" sortable v-slot="props">
         {{ props.row.system }}
       </b-table-column>
       <b-table-column label="Task" field="task" sortable v-slot="props">
-        {{ props.row.task }}
+        {{ props.row.tasks }}
       </b-table-column>
       <b-table-column label="Subtask" field="subtask" sortable v-slot="props">
-        {{ props.row.subtask }}
+        {{ props.row.subtasks }}
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
         {{ props.row.analyst }}
       </b-table-column>
-      <b-table-column label="Status" field="status" sortable v-slot="props">
-        {{ props.row.status }}
+      <b-table-column label="Status" field="finding_status" sortable v-slot="props">
+        {{ props.row.finding_status }}
       </b-table-column>
       <b-table-column label="Classification" field="classification" sortable v-slot="props">
-        {{ props.row.classification }}
+        {{ props.row.finding_classification }}
       </b-table-column>
       <b-table-column label="Type" field="type" sortable v-slot="props">
-        {{ props.row.type }}
+        {{ props.row.finding_type }}
       </b-table-column>
       <b-table-column label="Risk" field="risk" sortable v-slot="props">
-        {{ props.row.risk }}
+        {{ props.row.impact_level }}
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
@@ -75,8 +75,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
+import FindingServices from '@/services/FindingServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'FindingOverviewTable',
@@ -112,32 +113,42 @@ export default {
     }
   },
   mounted () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      axios
-        .get(this.dataUrl)
-        .then(r => {
+    this.isLoading = true
+    FindingServices.getFindings()
+      .then(response => {
+        if (response.status === 200) {
+          this.findings = response.data
           this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.findings = r.data.data
-          }
-        })
-        .catch(e => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
-    }
+        }
+      })
+      .catch(e => {
+        this.isLoading = false
+        this.displayError(e)
+      })
   },
   methods: {
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
+      FindingServices.deleteFinding(this.trashObject.id)
+        .then(response => {
+          console.log('Deleted Successfully')
+          this.logAction()
+          this.removeRow(trashObject)
+        })
+    },
+    removeRow (trashObject) {
+      for (const index in this.findings) {
+        if (this.findings[index].id === trashObject.id) {
+          this.findings.splice(index, 1)
+        }
+      }
     },
     trashConfirm () {
       this.isModalActive = false
@@ -166,6 +177,21 @@ export default {
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
       return (lastPart === 'findings') ? 'button is-small is-info' : 'button is-small is-danger'
+    },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A archived finding ' + this.trashObject.host
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   }
 }
