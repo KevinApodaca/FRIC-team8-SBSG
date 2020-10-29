@@ -25,17 +25,25 @@
             </b-select>
           </b-field>
             <b-field label="Due Date" horizontal>
-              <b-input v-model="form.due_date" reaadonly />
+              <div style="width: 15rem;">
+                <b-input v-model="form.due_date" reaadonly />
+              </div>
             </b-field>
             <b-field label="Analyst" horizontal>
-              <b-input v-model="form.analyst" required />
+              <div style="width: 10rem;">
+                <b-input v-model="form.analyst" required />
+              </div>
             </b-field>
             <hr>
             <b-field label="Collaborator" horizontal>
-              <b-input v-model="form.organization" required />
+              <div style="width: 10rem;">
+                <b-input v-model="form.organization" required />
+              </div>
             </b-field>
             <b-field label="Tasks" horizontal>
-              <b-input v-model="form.task" required />
+              <div style="width: 10rem;">
+                <b-input v-model="form.task" required />
+              </div>
             </b-field>
             <hr>
                <b-field label="Subtasks" horizontal>
