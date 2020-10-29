@@ -2,14 +2,14 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      Subtask Detailed View
+      {{ heroTitle }}
       <router-link slot="right" to="/subtasks/" class="button">
-        Back to Subtasks
+        Cancel
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
-        <card-component :title="formCardTitle" icon="slot-machine" class="tile is-child">
+        <card-component :title="formCardTitle" icon="view-list" class="tile is-child">
           <form @submit.prevent="submit">
             <b-field label="Title" horizontal>
               <b-input v-model="form.title" required />
@@ -50,20 +50,6 @@
             </b-field>
           </form>
         </card-component>
-        <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
-          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-          <b-field label="Lead Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
-              </div>
-          </b-field>
-          <b-field label="Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
-              </div>
-          </b-field>
-          <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
-        </card-component>
       </tiles>
     </section>
   </div>
@@ -77,11 +63,10 @@ import Tiles from '@/components/Tiles'
 import SubtaskService from '@/services/SubtaskServices'
 import CardComponent from '@/components/CardComponent'
 import LogServices from '@/services/LogTransactionServices'
-import AnalystsTable from '@/components/AnalystsTable'
 
 export default {
   name: 'SubtaskForm',
-  components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
+  components: { CardComponent, Tiles, HeroBar, TitleBar },
   props: {
     id: {
       default: null
@@ -114,9 +99,10 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
+        console.log(this.form.title)
         return this.form.title
       } else {
-        return 'Create Event'
+        return 'Create Subtask'
       }
     },
     heroRouterLinkTo () {
@@ -128,7 +114,7 @@ export default {
     },
     heroRouterLinkLabel () {
       if (this.isProfileExists) {
-        return 'New Event'
+        return 'New Subtask'
       } else {
         return 'Home'
       }
@@ -137,7 +123,7 @@ export default {
       if (this.isProfileExists) {
         return 'Subtask Information'
       } else {
-        return 'New Event'
+        return 'New Subtask'
       }
     }
   },
