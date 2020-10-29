@@ -182,7 +182,7 @@ export default {
       var url = window.location.href
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
-      return (lastPart === 'systems') ? 'Archive Task' : 'Delete Task'
+      return (lastPart === 'tasks') ? 'Archive Task' : 'Delete Task'
     },
     iconType () {
       var url = window.location.href
