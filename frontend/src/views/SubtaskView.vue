@@ -25,7 +25,7 @@
             </b-select>
           </b-field>
             <b-field label="Due Date" horizontal>
-              <b-input v-model="form.created" reaadonly />
+              <b-input v-model="form.duedate" reaadonly />
             </b-field>
             <b-field label="Analyst" horizontal>
               <b-input v-model="form.analyst" required />
@@ -70,13 +70,13 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
+import SubtaskService from '@/services/SubtaskServices'
 import CardComponent from '@/components/CardComponent'
+import LogServices from '@/services/LogTransactionServices'
 import AnalystsTable from '@/components/AnalystsTable'
 
 export default {
@@ -119,7 +119,7 @@ export default {
     },
     heroRouterLinkTo () {
       if (this.isProfileExists) {
-        return { name: 'client.new' }
+        return { name: 'subtask.new' }
       } else {
         return '/'
       }
@@ -141,6 +141,7 @@ export default {
   },
   created () {
     this.getData()
+    this.getOldData()
   },
   methods: {
     getClearFormObject () {
@@ -154,28 +155,28 @@ export default {
         progress: 0
       }
     },
-    getData () {
+    async getOldData () {
       if (this.id) {
-        axios
-          .get('/data-sources/clients.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
+        SubtaskService.getSubtaskSingle(this.id)
+          .then(response => {
+            this.oldForm = response.data
+          })
+          .catch(e => {
+            this.displayError(e)
+          })
+      }
+    },
+    async getData () {
+      if (this.id) {
+        SubtaskService.getSubtaskSingle(this.id)
+          .then(response => {
+            if (response.status === 200) {
               this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'client.new' })
+              this.$set(this, 'form', response.data)
             }
           })
           .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
+            this.displayError(e)
           })
       }
     },
@@ -184,15 +185,50 @@ export default {
     },
     submit () {
       this.isLoading = true
-
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'Demo only',
-          queue: false
+      console.log(this.id)
+      SubtaskService.modifySubtask(this.form, this.id)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully made changes')
+            this.logAction()
+          }
         })
-      }, 500)
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    async logAction () {
+      const changes = this.compareForms()
+      var trans = {
+        initial: 'K.A',
+        action: changes
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    showDiffs () {
+      var changes = 'K.A made the following changes to ' +
+                      'properties on subtask ' + this.oldForm.name
+      for (const property in this.form) {
+        if (this.form[property] !== this.oldForm[property]) {
+          changes += '\n ' + property + ': from ' + this.oldForm[property] +
+                      ' to ' + this.form[property]
+        }
+      }
+      return changes
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   },
   watch: {

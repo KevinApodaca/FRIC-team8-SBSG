@@ -5,6 +5,10 @@ module.exports = mongoose => {
           type: Number,
           default: 0
         },
+        duedate: {
+          type: String,
+          default: ''
+        },
         system: {
           type: String,
           default: ''

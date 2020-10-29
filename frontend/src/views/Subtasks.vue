@@ -31,7 +31,7 @@
             </div>
           </form>
         </card-toolbar>
-        <finding-overview-table data-url="/data-sources/subtasks.json" :checkable="true"/>
+        <subtask-overview-table data-url="http://localhost:3000/subtasks/all" :checkable="true"/>
          <card-toolbar slot="toolbar">
         </card-toolbar>
       </card-component>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import FindingOverviewTable from '@/components/SubtaskOverviewTable'
+import SubtaskOverviewTable from '@/components/SubtaskOverviewTable'
 import CardComponent from '@/components/CardComponent'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
@@ -49,8 +49,8 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
 export default {
-  name: 'Event',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable },
+  name: 'Subtask',
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, SubtaskOverviewTable },
   computed: {
     titleStack () {
       return [

@@ -107,7 +107,7 @@ const routes = [
     meta: {
       title: 'Subtasks Form'
     },
-    path: '/subtasks-form',
+    path: '/subtasks-form/:id',
     name: 'subtasks',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -188,7 +188,7 @@ const routes = [
     meta: {
       title: 'Edit Subtask'
     },
-    path: '/subtasks/:task',
+    path: '/subtasks/:id',
     name: 'subtasks.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/SubtaskView.vue'),
     props: true
