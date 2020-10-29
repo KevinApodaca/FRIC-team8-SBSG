@@ -17,7 +17,7 @@
         {{ props.row.id }}
       </b-table-column>
       <b-table-column label="Title" field="title" sortable v-slot="props">
-        {{ props.row.title }}
+        {{ props.row.host }}
       </b-table-column>
       <b-table-column label="System" field="system" sortable v-slot="props">
         {{ props.row.system }}
@@ -31,17 +31,17 @@
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
         {{ props.row.analyst }}
       </b-table-column>
-      <b-table-column label="Status" field="status" sortable v-slot="props">
-        {{ props.row.status }}
+      <b-table-column label="Status" field="finding_status" sortable v-slot="props">
+        {{ props.row.finding_status }}
       </b-table-column>
       <b-table-column label="Classification" field="classification" sortable v-slot="props">
-        {{ props.row.classification }}
+        {{ props.row.finding_classification }}
       </b-table-column>
       <b-table-column label="Type" field="type" sortable v-slot="props">
-        {{ props.row.type }}
+        {{ props.row.finding_type }}
       </b-table-column>
       <b-table-column label="Risk" field="risk" sortable v-slot="props">
-        {{ props.row.risk }}
+        {{ props.row.impact_level }}
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
@@ -77,6 +77,7 @@
 <script>
 import ModalBox from '@/components/ModalBox'
 import FindingServices from '@/services/FindingServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'FindingOverviewTable',
@@ -135,6 +136,19 @@ export default {
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
+      FindingServices.deleteFinding(this.trashObject.id)
+        .then(response => {
+          console.log('Deleted Successfully')
+          this.logAction()
+          this.removeRow(trashObject)
+        })
+    },
+    removeRow (trashObject) {
+      for (const index in this.findings) {
+        if (this.findings[index].id === trashObject.id) {
+          this.findings.splice(index, 1)
+        }
+      }
     },
     trashConfirm () {
       this.isModalActive = false
@@ -145,6 +159,21 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
+    },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A archived finding ' + this.trashObject.host
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   }
 }

@@ -234,6 +234,7 @@ import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'CreateFinding',
@@ -398,6 +399,7 @@ export default {
         .then(response => {
           this.isLoading = false
           console.log('Status: ' + response.status)
+          this.logAction()
         })
         .catch(e => {
           this.displayError(e)
@@ -408,6 +410,23 @@ export default {
         message: e.message,
         queue: false
       })
+    },
+    async logAction () {
+      console.log('Loging action')
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A created finding ' + this.form.host
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+            console.log(response)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   }
 }
