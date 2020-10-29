@@ -4,6 +4,8 @@ import { systemRouter } from './routes'
 import { taskRouter } from './routes'
 import { subtaskRouter } from './routes'
 import { transactionRouter } from './routes'
+import { analystRouter } from './routes'
+
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
@@ -11,7 +13,7 @@ const app = express()
 app.use(express.json())
 app.use(bodyParser.json({ limit: '500mb', extended: true }))
 
-/* 
+/*
   Grab the analyst IP address.
   Potentially add this to the analyst object and send it to frontend as response.
 */
@@ -39,6 +41,7 @@ app.use('/systems', systemRouter)
 app.use('/tasks', taskRouter)
 app.use('/subtasks', subtaskRouter)
 app.use('/transactions',transactionRouter)
+app.use('/analysts',analystRouter)
 
 const db = require('./models')
 db.mongoose

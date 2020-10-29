@@ -11,5 +11,6 @@ db.systems = require('./system.js')(mongoose)
 db.tasks = require('./task.js')(mongoose)
 db.subtasks = require('./subtask.js')(mongoose)
 db.transaction = require('./transactions.js')(mongoose)
+db.analyst = require('./analyst.js')(mongoose)
 
 module.exports = db

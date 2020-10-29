@@ -53,17 +53,14 @@
 </template>
 
 <script>
-import axios from 'axios'
+import AnalystService from '@/services/AnalystServices'
 import ModalBox from '@/components/ModalBox'
 
 export default {
   name: 'AnalystsTable',
   components: { ModalBox },
   props: {
-    dataUrl: {
-      type: String,
-      default: null
-    },
+    dataUrl: [],
     checkable: {
       type: Boolean,
       default: false
@@ -85,35 +82,28 @@ export default {
       if (this.trashObject) {
         return this.trashObject.name
       }
-
       return null
     }
-
   },
-  mounted () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      axios
-        .get(this.dataUrl)
-        .then(r => {
-          this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.clients = r.data.data
-          }
-        })
-        .catch(e => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
-    }
+  async mounted () {
+    await AnalystService.getAnalystFromEvent(this.dataUrl)
+      .then(response => {
+        this.$set(this, 'clients', response.data)
+      })
+      .catch(e => {
+        this.displayError(e)
+      })
+    console.log('This after computing the AnalystService')
+    console.log(this.clients)
+    this.isLoading = false
   },
   methods: {
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
@@ -131,3 +121,37 @@ export default {
   }
 }
 </script>
+<!-- async created () {
+  this.isLoading = true
+  console.log('Is loading before: ' + this.isLoading)
+  await this.eventAnalyst()
+  console.log('Is loading after: ' + this.isLoading)
+  console.log(this.clients)
+}, -->
+
+<!-- async eventAnalyst () {
+  if (this.dataUrl) {
+    await AnalystService.getAnalystFromEvent(this.dataUrl)
+      .then(response => {
+        this.$set(this, 'clients', response.data)
+        // this.clients = response.data
+        // this.isLoading = false
+      })
+      .catch(e => {
+        console.log(e.message)
+        this.displayError(e)
+      })
+    this.isLoading = false
+  }
+}, -->
+
+<!-- // .then(response => {
+//   // this.$set(this, 'clients', response.data)
+//   this.clients = response.data
+//   console.log('This after response')
+//   this.isLoading = false
+// })
+// .catch(e => {
+//   console.log(e.message)
+//   this.displayError(e)
+// }) -->

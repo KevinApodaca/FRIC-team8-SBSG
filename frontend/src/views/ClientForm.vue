@@ -70,7 +70,7 @@
                 <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
               </div>
           </b-field>
-          <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
+          <analysts-table v-if="isFormEmpty" :data-url="form.analyst" :checkable="true"/>
         </card-component>
       </tiles>
       <b-field horizontal>
@@ -112,10 +112,11 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: [],
       oldForm: null,
       createdReadable: null,
       isProfileExists: false,
+      isFormEmpty: false,
       event_type: null,
       event_classification: null,
       event_types: [
@@ -178,6 +179,7 @@ export default {
     }
   },
   created () {
+    this.isProfileExists = true
     this.getOldForm()
     this.getData()
   },
@@ -209,8 +211,9 @@ export default {
         EventService.getEventSingle(this.id)
           .then(response => {
             if (response.status === 200) {
-              this.isProfileExists = true
-              this.$set(this, 'form', response.data)
+              // this.$set(this, 'form', response.data)
+              this.form = response.data
+              this.isFormEmpty = true
             }
           })
           .catch(e => {

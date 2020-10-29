@@ -70,6 +70,7 @@ module.exports = mongoose => {
       type: Number,
       default: 0,
     },
+    analyst: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
     avatar:{
       type: String,
       default: "https://avatars.dicebear.com/v2/gridy/Sigmund-Abbott.svg",
