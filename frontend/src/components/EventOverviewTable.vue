@@ -30,7 +30,7 @@
       <b-table-column cell-class="is-progress-col" label="Progress" field="progress" sortable v-slot="props">
         <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
       </b-table-column>
-      <b-table-column label="Created (DD-MM-YYYY)" v-slot="props">
+      <b-table-column label="Created (DD-MM-YYYY hh:mm:ss)" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.created_Date">{{ props.row.created_Date }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
