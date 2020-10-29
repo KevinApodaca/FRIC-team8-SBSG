@@ -153,7 +153,7 @@ export default {
     async logAction () {
       var trans = {
         initials: 'K.A',
-        action: 'K.A archived subtask ' + this.trashObject.name
+        action: 'K.A archived subtask ' + this.trashObject.title
       }
       LogServices.logAction(trans)
         .then(response => {

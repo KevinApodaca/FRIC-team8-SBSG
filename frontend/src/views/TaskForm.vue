@@ -155,7 +155,7 @@ export default {
       if (this.isProfileExists) {
         return this.form.title
       } else {
-        return 'Task Detailed View'
+        return 'Create Task'
       }
     },
     heroRouterLinkTo () {
@@ -176,7 +176,7 @@ export default {
       if (this.isProfileExists) {
         return 'Task Information'
       } else {
-        return 'Task Details'
+        return 'New Task'
       }
     }
   },
