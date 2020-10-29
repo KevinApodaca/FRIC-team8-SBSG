@@ -62,7 +62,7 @@
             <hr>
             <b-field label="No. of Subtask" horizontal>
               <div style = "width: 5rem;">
-                <b-input v-model="form.subtask" required />
+                <b-input v-model="form.subtasks" required />
               </div>
             </b-field>
             <b-field label="No. of Findings" horizontal>
