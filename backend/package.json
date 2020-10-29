@@ -25,6 +25,7 @@
   "dependencies": {
     "error-ex": "git+https://github.com/Qix-/node-error-ex.git",
     "express": "^4.17.1",
+    "mongodb": "^3.6.2",
     "mongoose": "^5.10.9",
     "nodemon": "^2.0.4"
   }

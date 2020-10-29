@@ -1,141 +1,115 @@
 <template>
   <div>
-    <title-bar :title-stack="titleStack"/>
-    <hero-bar-main/>
+    <title-bar :title-stack="titleStack" />
     <section class="section is-main-section">
-      <tiles>
-        <card-widget class="tile is-child" type="is-primary" icon="playlist-edit" :number="15" :previous-number="8" previous-period="Aug, 2020" label="Current Tasks"/>
-        <card-widget class="tile is-child" type="is-success" icon="chart-timeline-variant" :number="55" :previous-number="40" previous-period="Aug, 2020" suffix="%" label="Event Progress"/>
-        <card-widget class="tile is-child" type="is-danger" icon="file-find" :number="32" :previous-number="6" label="Current Findings" previous-period="Aug, 2020"/>
-      </tiles>
-
-   <!--    <card-component title="Performance" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
-        <div v-if="defaultChart.chartData" class="chart-area">
-          <line-chart style="height: 100%"
-                      ref="bigChart"
-                      chart-id="big-line-chart"
-                      :chart-data="defaultChart.chartData"
-                      :extra-options="defaultChart.extraOptions">
-          </line-chart>
-        </div>
-      </card-component> -->
-
-      <div class="columns is-desktop">
-        <div class="column">
-          <card-scrollable data-url="/data-sources/stuff-updates.json" title="Recent Changes" icon="animation-outline" :has-dismiss="true"/>
-        </div>
-      </div>
+      <card-component title="Finding and Reporting Information Console (FRIC)">
+        <notification class="is-info">
+          <div>
+            <b-icon icon="buffer" customize-size="default" />
+            <b>There is no existing event in your local system</b>
+          </div>
+        </notification>
+        <b-field label="Please input your initials:" horizontal>
+          <b-field>
+            <b-input placeholder="Enter your initials here" required />
+          </b-field>
+        </b-field>
+        <b-field label="Please select an option:" class="has-check" horizontal>
+          <radio-picker
+            :options="{
+              new: 'Create a new event (any existing event will be archived)',
+            }"
+            v-model="customElementsForm.radio"
+          ></radio-picker>
+        </b-field>
+        <b-field label="" class="has-check" horizontal>
+          <radio-picker
+            :options="{
+              sync:
+                'First time sync with lead analyst. Please enter the lead analyst’s IP',
+            }"
+            v-model="customElementsForm.radio"
+          ></radio-picker>
+        </b-field>
+        <b-field label="" horizontal>
+          <b-input placeholder="Enter lead's initials here" required />
+        </b-field>
+         <b-field horizontal>
+            <b-field grouped>
+              <div class="control">
+                <router-link slot="right" to='/' class="button">
+                submit
+                </router-link>
+              </div>
+              <div class="control">
+                <b-button type="is-primary is-outlined" @click="reset">Cancel</b-button>
+              </div>
+            </b-field>
+          </b-field>
+      </card-component>
     </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import * as chartConfig from '@/components/Charts/chart.config'
 import TitleBar from '@/components/TitleBar'
-import Tiles from '@/components/Tiles'
-import CardWidget from '@/components/CardWidget'
-import HeroBarMain from '@/components/HeroBarMain'
-import CardScrollable from '@/components/CardScrollable'
+import CardComponent from '@/components/CardComponent'
+import mapValues from 'lodash/mapValues'
+import Notification from '@/components/Notification'
+import RadioPicker from '@/components/RadioPicker'
 export default {
-  name: 'home',
-  components: {
-    CardScrollable,
-    HeroBarMain,
-    CardWidget,
-    Tiles,
-    TitleBar
-  },
+  name: 'SetupContentForm',
+  components: { RadioPicker, CardComponent, Notification, TitleBar },
   data () {
     return {
-      defaultChart: {
-        chartData: null,
-        extraOptions: chartConfig.chartOptionsMain
-      }
+      isLoading: false,
+      form: {
+        name: null,
+        email: null,
+        phone: null,
+        department: null,
+        subject: null,
+        question: null
+      },
+      customElementsForm: {
+        checkbox: [],
+        radio: null,
+        switch: true,
+        file: null
+      },
+      departments: ['Help1', 'Help2', 'Help3']
     }
   },
-  computed: {
-    titleStack () {
-      return [
-        'Analyst',
-        'Home'
-      ]
-    }
-  },
-  mounted () {
-    this.fillChartData()
-
-    this.$buefy.snackbar.open({
-      message: 'Welcome back',
-      queue: false
-    })
-  },
+  computed: {},
   methods: {
-    randomChartData (n) {
-      const data = []
-
-      for (let i = 0; i < n; i++) {
-        data.push(Math.round(Math.random() * 200))
-      }
-
-      return data
+    submit () {
+      this.$buefy.snackbar.open({
+        message: 'Setup submitted'
+      })
     },
-    fillChartData () {
-      this.defaultChart.chartData = {
-        datasets: [
-          {
-            fill: false,
-            borderColor: chartConfig.chartColors.default.primary,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.primary,
-            pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.primary,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: this.randomChartData(9)
-          },
-          {
-            fill: false,
-            borderColor: chartConfig.chartColors.default.info,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.info,
-            pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.info,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: this.randomChartData(9)
-          },
-          {
-            fill: false,
-            borderColor: chartConfig.chartColors.default.danger,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.danger,
-            pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.danger,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: this.randomChartData(9)
-          }
-        ],
-        labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09']
-      }
+    reset () {
+      this.form = mapValues(this.form, (item) => {
+        if (item && typeof item === 'object') {
+          return []
+        }
+        return null
+      })
+
+      this.$buefy.snackbar.open({
+        message: 'Setup cancelled',
+        queue: false
+      })
     },
-    actionSample () {
-      this.$buefy.toast.open({
-        message: 'Some action',
-        type: 'is-info',
+    synced () {
+      this.form = mapValues(this.form, (item) => {
+        if (item && typeof item === 'object') {
+          return []
+        }
+        return null
+      })
+
+      this.$buefy.snackbar.open({
+        message: 'Sync succesful',
         queue: false
       })
     }
