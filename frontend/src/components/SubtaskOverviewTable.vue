@@ -11,7 +11,7 @@
       :striped="true"
       :hoverable="true"
       default-sort="name"
-      :data='clients'>
+      :data='subtasks'>
 
       <b-table-column label="Title" field="title" sortable v-slot="props">
         {{ props.row.title }}
@@ -29,7 +29,7 @@
         <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>
       </b-table-column>
       <b-table-column label="Due Date (DD-MM-YYYY)" v-slot="props">
-        <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
+        <small class="has-text-grey is-abbr-like" :title="props.row.due_date">{{ props.row.due_date }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
@@ -62,7 +62,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import SubtaskService from '@/services/SubtaskServices'
+import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
 
 export default {
@@ -82,12 +83,15 @@ export default {
     return {
       isModalActive: false,
       trashObject: null,
-      clients: [],
+      subtasks: [],
       isLoading: false,
       paginated: false,
       perPage: 10,
       checkedRows: []
     }
+  },
+  created () {
+    this.getSubtaskData()
   },
   computed: {
     trashObjectName () {
@@ -98,33 +102,43 @@ export default {
       return null
     }
   },
-  mounted () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      axios
-        .get(this.dataUrl)
-        .then(r => {
-          this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
+  methods: {
+    async getSubtaskData () {
+      SubtaskService.getSubtasks()
+        .then(response => {
+          if (response.status === 200) {
+            this.isLoading = false
+            if (response.data.length > this.perPage) {
               this.paginated = true
             }
-            this.clients = r.data.data
+            this.$set(this, 'subtasks', response.data)
           }
         })
         .catch(e => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
+          this.displayError(e)
         })
-    }
-  },
-  methods: {
-    trashModal (trashObject) {
+    },
+    async trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
+      SubtaskService.deleteSubtask(this.trashObject.id)
+        .then(response => {
+          if (response.status === 200) {
+            this.removeRow(trashObject)
+            console.log(response.data.message)
+            this.logAction()
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    removeRow (trashObject) {
+      for (const index in this.subtasks) {
+        if (this.subtasks[index].id === trashObject.id) {
+          this.subtasks.splice(index, 1)
+        }
+      }
     },
     trashConfirm () {
       this.isModalActive = false
@@ -136,11 +150,32 @@ export default {
     trashCancel () {
       this.isModalActive = false
     },
+    async logAction () {
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A archived subtask ' + this.trashObject.name
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
     removeItemAction () {
       var url = window.location.href
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
-      return (lastPart === 'subtasks') ? 'Archive Subtask' : 'Delete Subtsask'
+      return (lastPart === 'subtasks') ? 'Archive Subtask' : 'Delete Subtask'
     },
     iconType () {
       var url = window.location.href
