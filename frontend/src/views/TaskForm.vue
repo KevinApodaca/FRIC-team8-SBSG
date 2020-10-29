@@ -140,9 +140,9 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.name
+        lastCrumb = this.form.title
       } else {
-        lastCrumb = 'Task View'
+        lastCrumb = 'New Task'
       }
 
       return [
@@ -153,7 +153,7 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.name
+        return this.form.title
       } else {
         return 'Task Detailed View'
       }
@@ -174,7 +174,7 @@ export default {
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Task Basic Information'
+        return 'Task Information'
       } else {
         return 'Task Details'
       }
@@ -256,7 +256,7 @@ export default {
     },
     showDiffs () {
       var changes = 'K.A made the following changes to ' +
-                      'properties on task ' + this.oldForm.name
+                      'properties on task ' + this.oldForm.title
       for (const property in this.form) {
         if (this.form[property] !== this.oldForm[property]) {
           changes += '\n ' + property + ': from ' + this.oldForm[property] +
