@@ -113,8 +113,6 @@ export default {
             this.isLoading = false
             if (response.data.length > this.perPage) {
               this.paginated = true
-              console.log(this.data)
-              console.log('tast')
             }
             this.$set(this, 'subtasks', response.data)
           }
