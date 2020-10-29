@@ -1,9 +1,9 @@
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
-        subtask: {
-          type: Number,
-          default: 0
+        subtasks: {
+          type: String,
+          default: ''
         },
         system: {
           type: String,
@@ -21,7 +21,7 @@ module.exports = mongoose => {
           type: String,
           default: ''
         },
-        finding: {
+        findings: {
           type: String,
           default: ''
         },
