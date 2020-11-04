@@ -45,3 +45,14 @@
 2. Reminder of work left to be completed for the sprints. If there are any unassigned tickets, remind @all that there is work people can pick up. Possible git bot.
 
 ## Try Out
+
+# Sprint Retro 11/03/2020
+
+## Keep the Same as
+1. Separation of dicussion on discord channels.
+2. Collaboration amongst tickets, encourages learning amongst members.
+
+## Do More of
+1. Reading provided articles and resources from members to keep up to date about technologies we are using.
+
+## Try Out
