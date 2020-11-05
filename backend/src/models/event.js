@@ -24,7 +24,7 @@ module.exports = mongoose => {
     },
     created_Date: {
       type: String,
-      default: new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-') + ": " + 
+      default: new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-') + ": " +
       new Date().toTimeString().split(" ")[0],
     },
     created_mm_dd_yyyy: {
@@ -74,11 +74,7 @@ module.exports = mongoose => {
     progress: {
       type: Number,
       default: 0,
-    },
-    avatar:{
-      type: String,
-      default: "https://avatars.dicebear.com/v2/gridy/Sigmund-Abbott.svg",
-    },
+    }
   },
   {collection: 'event'}
   )

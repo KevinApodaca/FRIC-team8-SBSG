@@ -13,11 +13,6 @@
       default-sort="name"
       :data='clients'>
 
-      <b-table-column cell-class="has-no-head-mobile is-image-cell" v-slot="props">
-        <div class="image">
-          <img :src="props.row.avatar" class="is-rounded">
-        </div>
-      </b-table-column>
       <b-table-column label="Event Name" field="name" sortable v-slot="props">
         {{ props.row.name }}
       </b-table-column>
