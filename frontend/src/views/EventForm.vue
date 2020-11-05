@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" to="/events" class="button">
-        Cancel
+      <router-link slot="right" :to="heroRouterLinkTo" class="button">
+        {{ heroRouterLinkLabel }}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -156,18 +156,10 @@ export default {
       }
     },
     heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'client.new' }
-      } else {
-        return '/'
-      }
+      return '/events'
     },
     heroRouterLinkLabel () {
-      if (this.isProfileExists) {
-        return 'New Event'
-      } else {
-        return 'Home'
-      }
+      return 'Back'
     },
     formCardTitle () {
       if (this.isProfileExists) {

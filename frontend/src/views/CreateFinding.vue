@@ -358,14 +358,14 @@ export default {
       if (this.isProfileExists) {
         return { name: 'finding.new' }
       } else {
-        return '/'
+        return '/findings'
       }
     },
     heroRouterLinkLabel () {
       if (this.isProfileExists) {
         return 'New Finding'
       } else {
-        return 'Home'
+        return 'Back'
       }
     },
     formCardTitle () {

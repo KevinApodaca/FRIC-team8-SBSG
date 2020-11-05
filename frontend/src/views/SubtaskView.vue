@@ -4,7 +4,7 @@
     <hero-bar>
       Subtask Detailed View
       <router-link slot="right" to="/subtasks/" class="button">
-        Back to Subtasks
+        Back
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
