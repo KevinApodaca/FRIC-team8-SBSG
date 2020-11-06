@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Subtask Detailed View
-      <router-link slot="right" to="/subtasks/" class="button">
-        Back
+      <router-link slot="right" :to="heroRouterLinkTo" class="button">
+        {{ heroRouterLinkLabel }}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -121,14 +121,14 @@ export default {
       if (this.isProfileExists) {
         return { name: 'client.new' }
       } else {
-        return '/'
+        return '/subtasks'
       }
     },
     heroRouterLinkLabel () {
       if (this.isProfileExists) {
         return 'New Event'
       } else {
-        return 'Home'
+        return 'Back'
       }
     },
     formCardTitle () {
