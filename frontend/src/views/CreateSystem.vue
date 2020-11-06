@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
+      <router-link slot="right" :to="heroRouterLinkTo" class="button">
+        {{ heroRouterLinkLabel }}
+      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
@@ -131,10 +134,10 @@ export default {
       return 'Create System'
     },
     heroRouterLinkTo () {
-      return '/'
+      return '/systems'
     },
     heroRouterLinkLabel () {
-      return 'Home'
+      return 'Back'
     },
     formCardTitle () {
       return 'New System'

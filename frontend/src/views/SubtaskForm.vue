@@ -3,6 +3,9 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
+      <router-link slot="right" :to="heroRouterLinkTo" class="button">
+        {{ heroRouterLinkLabel }}
+      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
@@ -133,18 +136,10 @@ export default {
       }
     },
     heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'subtasks.new' }
-      } else {
-        return '/'
-      }
+      return '/subtasks'
     },
     heroRouterLinkLabel () {
-      if (this.isProfileExists) {
-        return 'Create Subtask'
-      } else {
-        return 'Subtasks'
-      }
+      return 'Back'
     },
     formCardTitle () {
       if (this.isProfileExists) {

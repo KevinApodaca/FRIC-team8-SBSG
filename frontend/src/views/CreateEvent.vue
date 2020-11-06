@@ -122,10 +122,10 @@ export default {
       return 'Create Event'
     },
     heroRouterLinkTo () {
-      return '/'
+      return '/events'
     },
     heroRouterLinkLabel () {
-      return 'New Event'
+      return 'Back'
     },
     formCardTitle () {
       return 'New Event'
