@@ -2,7 +2,7 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      Subtask Detailed View
+      {{ heroTitle }}
       <router-link slot="right" :to="heroRouterLinkTo" class="button">
         {{ heroRouterLinkLabel }}
       </router-link>
@@ -114,7 +114,7 @@ export default {
       if (this.isProfileExists) {
         return this.form.name
       } else {
-        return 'Create Event'
+        return 'Subtask Detailed View'
       }
     },
     heroRouterLinkTo () {
