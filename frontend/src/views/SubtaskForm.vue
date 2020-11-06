@@ -25,7 +25,7 @@
               </b-select>
             </b-field>
             <b-field label="Due Date" horizontal required>
-              <b-input b-type="date" v-model="form.duedate" placeholder="DDMMYYYY" />
+              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.due_date"></b-datepicker>
             </b-field>
             <hr>
           </form>
@@ -66,7 +66,9 @@
       <b-field horizontal>
         <b-field grouped>
           <div class="control">
-            <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+            <router-link to='/subtasks'>
+              <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+            </router-link>
           </div>
           <div class="control">
             <router-link slot="right" to="/subtasks" class="button is-primary is-outlined">
@@ -80,12 +82,12 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
+import SubtaskService from '@/services/SubtaskServices'
+import LogServices from '@/services/LogTransactionServices'
 import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 
@@ -128,7 +130,7 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.subtasks.name
+        return this.form.name
       } else {
         return 'Create Subtask'
       }
@@ -149,6 +151,7 @@ export default {
   },
   created () {
     this.getData()
+    this.getOldData()
   },
   methods: {
     getClearFormObject () {
@@ -162,56 +165,42 @@ export default {
         progress: 0
       }
     },
-    getData () {
-      if (this.id) {
-        axios
-          .get('/data-sources/subtasks.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
-              this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'subtasks.new' })
-            }
-          })
-          .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
-          })
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'Subtask has been updated',
-          queue: false
+      SubtaskService.createSubtask(this.form)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully created subtask')
+            this.logAction()
+          }
         })
-      }, 500)
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    async logAction () {
+      var trans = {
+        initals: 'K.A',
+        action: 'K.A created subtask ' + this.form.title
       }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   }
 }

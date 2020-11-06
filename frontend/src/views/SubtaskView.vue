@@ -9,7 +9,7 @@
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
-        <card-component :title="formCardTitle" icon="slot-machine" class="tile is-child">
+        <card-component :title="formCardTitle" icon="view-list" class="tile is-child">
           <form @submit.prevent="submit">
             <b-field label="Title" horizontal>
               <b-input v-model="form.title" required />
@@ -25,17 +25,25 @@
             </b-select>
           </b-field>
             <b-field label="Due Date" horizontal>
-              <b-input v-model="form.created" reaadonly />
+              <div style="width: 15rem;">
+                <b-input v-model="form.due_date" reaadonly />
+              </div>
             </b-field>
             <b-field label="Analyst" horizontal>
-              <b-input v-model="form.analyst" required />
+              <div style="width: 10rem;">
+                <b-input v-model="form.analyst" required />
+              </div>
             </b-field>
             <hr>
             <b-field label="Collaborator" horizontal>
-              <b-input v-model="form.organization" required />
+              <div style="width: 10rem;">
+                <b-input v-model="form.organization" required />
+              </div>
             </b-field>
             <b-field label="Tasks" horizontal>
-              <b-input v-model="form.task" required />
+              <div style="width: 10rem;">
+                <b-input v-model="form.task" required />
+              </div>
             </b-field>
             <hr>
                <b-field label="Subtasks" horizontal>
@@ -50,38 +58,23 @@
             </b-field>
           </form>
         </card-component>
-        <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
-          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-          <b-field label="Lead Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
-              </div>
-          </b-field>
-          <b-field label="Analysts">
-            <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
-              </div>
-          </b-field>
-          <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
-        </card-component>
       </tiles>
     </section>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
+import SubtaskService from '@/services/SubtaskServices'
 import CardComponent from '@/components/CardComponent'
-import AnalystsTable from '@/components/AnalystsTable'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'SubtaskForm',
-  components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
+  components: { CardComponent, Tiles, HeroBar, TitleBar },
   props: {
     id: {
       default: null
@@ -91,6 +84,7 @@ export default {
     return {
       isLoading: false,
       form: this.getClearFormObject(),
+      oldForm: null,
       createdReadable: null,
       isProfileExists: false
     }
@@ -100,47 +94,49 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.name
+        lastCrumb = this.form.title
       } else {
-        lastCrumb = 'Subtask View'
+        lastCrumb = 'New Subtask'
       }
 
       return [
+        'Analyst',
         'Subtasks',
         lastCrumb
       ]
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.name
+        return this.form.title
       } else {
         return 'Subtask Detailed View'
       }
     },
     heroRouterLinkTo () {
       if (this.isProfileExists) {
-        return { name: 'client.new' }
+        return { name: 'subtask.new' }
       } else {
         return '/subtasks'
       }
     },
     heroRouterLinkLabel () {
       if (this.isProfileExists) {
-        return 'New Event'
+        return 'New Subtask'
       } else {
         return 'Back'
       }
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Event Basic Information'
+        return 'Subtask Information'
       } else {
-        return 'New Event'
+        return 'New Subtask'
       }
     }
   },
   created () {
     this.getData()
+    this.getOldData()
   },
   methods: {
     getClearFormObject () {
@@ -154,28 +150,28 @@ export default {
         progress: 0
       }
     },
-    getData () {
+    async getOldData () {
       if (this.id) {
-        axios
-          .get('/data-sources/clients.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
+        SubtaskService.getSubtaskSingle(this.id)
+          .then(response => {
+            this.oldForm = response.data
+          })
+          .catch(e => {
+            this.displayError(e)
+          })
+      }
+    },
+    async getData () {
+      if (this.id) {
+        SubtaskService.getSubtaskSingle(this.id)
+          .then(response => {
+            if (response.status === 200) {
               this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'client.new' })
+              this.$set(this, 'form', response.data)
             }
           })
           .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
+            this.displayError(e)
           })
       }
     },
@@ -184,15 +180,50 @@ export default {
     },
     submit () {
       this.isLoading = true
-
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'Demo only',
-          queue: false
+      console.log(this.id)
+      SubtaskService.modifySubtask(this.form, this.id)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully made changes')
+            this.logAction()
+          }
         })
-      }, 500)
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    async logAction () {
+      const changes = this.compareForms()
+      var trans = {
+        initial: 'K.A',
+        action: changes
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    showDiffs () {
+      var changes = 'K.A made the following changes to ' +
+                      'properties on subtask ' + this.oldForm.title
+      for (const property in this.form) {
+        if (this.form[property] !== this.oldForm[property]) {
+          changes += '\n ' + property + ': from ' + this.oldForm[property] +
+                      ' to ' + this.form[property]
+        }
+      }
+      return changes
+    },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
     }
   },
   watch: {

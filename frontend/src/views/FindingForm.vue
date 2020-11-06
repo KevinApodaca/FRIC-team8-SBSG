@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" :to="heroRouterLinkTo" class="button">
-        {{ heroRouterLinkLabel }}
+      <router-link slot="right" to="/findings" class="button">
+        Cancel
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -211,7 +211,9 @@
       <b-field horizontal>
         <b-field grouped>
           <div class="control">
+            <router-link to='/findings'>
             <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
+            </router-link>
           </div>
           <div class="control">
             <router-link slot="right" to="/findings" class="button is-primary is-outlined">
@@ -225,14 +227,14 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
-import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
+import FindingServices from '@/services/FindingServices'
+import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'FindingForm',
@@ -246,6 +248,7 @@ export default {
     return {
       isLoading: false,
       form: this.getClearFormObject(),
+      oldForm: [],
       createdReadable: null,
       isProfileExists: false,
       finding_status: null,
@@ -336,22 +339,22 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.name
+        lastCrumb = this.form.title
       } else {
         lastCrumb = 'New Finding'
       }
 
       return [
         'Analyst',
-        'Finding',
+        'Findings',
         lastCrumb
       ]
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.name
+        return this.form.title
       } else {
-        return 'Create Finding'
+        return 'Finding Detailed View'
       }
     },
     heroRouterLinkTo () {
@@ -370,6 +373,7 @@ export default {
   },
   created () {
     this.getData()
+    this.getOldData()
   },
   methods: {
     getClearFormObject () {
@@ -383,45 +387,72 @@ export default {
         progress: 0
       }
     },
-    getData () {
+    async getOldData () {
       if (this.id) {
-        axios
-          .get('/data-sources/findings.json')
-          .then(r => {
-            const item = find(r.data.data, item => item.id === parseInt(this.id))
-
-            if (item) {
-              this.isProfileExists = true
-              this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
-            } else {
-              this.$router.push({ name: 'finding.new' })
-            }
-          })
-          .catch(e => {
-            this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
-              type: 'is-danger',
-              queue: false
-            })
+        FindingServices.getFindingSingle(this.id)
+          .then(response => {
+            console.log('found the shit')
+            this.oldForm = response.data
           })
       }
+    },
+    async getData () {
+      if (this.id) {
+        FindingServices.getFindingSingle(this.id)
+          .then(response => {
+            console.log('found the shit')
+            this.isProfileExists = true
+            this.form = response.data
+          })
+      }
+    },
+    async logAction () {
+      const changes = this.showDiffs()
+      var trans = {
+        initial: 'K.A',
+        action: changes
+      }
+      LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    showDiffs () {
+      var changes = 'K.A made the following changes to ' +
+                      'properties on finding ' + this.oldForm.host
+      for (const property in this.form) {
+        if (this.form[property] !== this.oldForm[property]) {
+          changes += '\n ' + property + ': from ' + this.oldForm[property] +
+                      ' to ' + this.form[property]
+        }
+      }
+      return changes
     },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
+    async submit () {
       this.isLoading = true
-
-      setTimeout(() => {
-        this.isLoading = false
-
-        this.$buefy.snackbar.open({
-          message: 'Finding has been updated',
-          queue: false
+      FindingServices.modifyFinding(this.form, this.id)
+        .then(response => {
+          if (response.status === 200) {
+            this.logAction()
+          }
         })
-      }, 500)
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   },
   watch: {

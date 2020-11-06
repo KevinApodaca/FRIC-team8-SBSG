@@ -13,11 +13,6 @@
       default-sort="name"
       :data='clients'>
 
-      <b-table-column cell-class="has-no-head-mobile is-image-cell" v-slot="props">
-        <div class="image">
-          <img :src="props.row.avatar" class="is-rounded">
-        </div>
-      </b-table-column>
       <b-table-column label="Event Name" field="name" sortable v-slot="props">
         {{ props.row.name }}
       </b-table-column>
@@ -30,8 +25,8 @@
       <b-table-column cell-class="is-progress-col" label="Progress" field="progress" sortable v-slot="props">
         <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
       </b-table-column>
-      <b-table-column label="Created (DD-MM-YYYY)" v-slot="props">
-        <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
+      <b-table-column label="Created (DD-MM-YYYY hh:mm:ss)" v-slot="props">
+        <small class="has-text-grey is-abbr-like" :title="props.row.created_Date">{{ props.row.created_Date }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">

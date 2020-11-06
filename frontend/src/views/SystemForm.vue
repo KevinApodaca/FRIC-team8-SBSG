@@ -219,7 +219,7 @@ export default {
         })
     },
     async logAction () {
-      const changes = this.compareForms()
+      const changes = this.showDiffs()
       var trans = {
         initial: 'K.A',
         action: changes
