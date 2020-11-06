@@ -140,7 +140,7 @@ const routes = [
     meta: {
       title: 'Edit Subtask'
     },
-    path: '/subtasks/:id',
+    path: '/subtasks/:task',
     name: 'subtasks.edit',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

@@ -2,76 +2,69 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      {{ heroTitle }}
+      Subtask Detailed View
+      <router-link slot="right" to="/subtasks/" class="button">
+        Back to Subtasks
+      </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
-        <card-component :title="formCardTitle" icon="view-list" class="tile is-child">
+        <card-component :title="formCardTitle" icon="slot-machine" class="tile is-child">
           <form @submit.prevent="submit">
-             <b-field label="Title" horizontal>
+            <b-field label="Title" horizontal>
               <b-input v-model="form.title" required />
             </b-field>
-            <b-field label="Description" horizontal required>
-              <b-input type="textarea" v-model="form.description" reaadonly />
+            <b-field label="Description" horizontal>
+              <b-input type="textarea" v-model="form.description" required />
             </b-field>
-            <b-field label="Progress" horizontal>
-             <b-select v-model="form.subtask_progress">
-                <option v-for="(subtask_progress, index) in subtask_progresses" :key="index" :value="subtask_progress">
-                  {{ subtask_progress }}
-                </option>
-              </b-select>
+             <b-field label="Progress" horizontal>
+            <b-select v-model="form.progress">
+              <option v-for="(department, index) in departments" :key="index" :value="department">
+                {{ department }}
+              </option>
+            </b-select>
+          </b-field>
+            <b-field label="Due Date" horizontal>
+              <b-input v-model="form.created" reaadonly />
             </b-field>
-            <b-field label="Due Date" horizontal required>
-              <b-input b-type="date" v-model="form.duedate" placeholder="DDMMYYYY" />
+            <b-field label="Analyst" horizontal>
+              <b-input v-model="form.analyst" required />
             </b-field>
             <hr>
+            <b-field label="Collaborator" horizontal>
+              <b-input v-model="form.organization" required />
+            </b-field>
+            <b-field label="Tasks" horizontal>
+              <b-input v-model="form.task" required />
+            </b-field>
+            <hr>
+               <b-field label="Subtasks" horizontal>
+            <b-select v-model="form.classification">
+              <option v-for="(classification, index) in departments" :key="index" :value="department">
+                {{ department }}
+              </option>
+            </b-select>
+          </b-field>
+           <b-field label="Attachments" horizontal>
+              <b-input v-model="form.declassified_date" required />
+            </b-field>
           </form>
         </card-component>
-        <card-component title="Collaboration" icon="file-find" class="tile is-child">
-           <b-field label="Analyst(s)" horizontal>
-              <b-select v-model="form.analyst">
-                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
-                  {{ analyst }}
-                </option>
-              </b-select>
-            <b-field label="Collaborator(s)" horizontal>
-              <b-select v-model="form.collaborator">
-                <option v-for="(collaborator, index) in collaborator" :key="index" :value="collaborator">
-                  {{ collaborator }}
-                </option>
-              </b-select>
-            </b-field>
-            <b-field label="Task(s)" horizontal required>
-              <b-select v-model="form.tasks">
-                <option v-for="(tasks, index) in tasks" :key="index" :value="tasks">
-                  {{ tasks }}
-                </option>
-              </b-select>
-            </b-field>
-              <b-field label="Subtask(s)" horizontal>
-              <b-select v-model="form.subtasks">
-                <option v-for="(subtasks, index) in task" :key="index" :value="subtasks">
-                  {{ subtasks }}
-                </option>
-              </b-select>
-            </b-field>
-            </b-field>
-            <hr>
-            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop/></card-component>
+        <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
+          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+          <b-field label="Lead Analysts">
+            <div class="control">
+                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
+              </div>
+          </b-field>
+          <b-field label="Analysts">
+            <div class="control">
+                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
+              </div>
+          </b-field>
+          <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
         </card-component>
       </tiles>
-      <b-field horizontal>
-        <b-field grouped>
-          <div class="control">
-            <b-button native-type="submit" type="is-primary" @click="submit">Submit</b-button>
-          </div>
-          <div class="control">
-            <router-link slot="right" to="/subtasks" class="button is-primary is-outlined">
-             Cancel
-            </router-link>
-          </div>
-        </b-field>
-      </b-field>
     </section>
   </div>
 </template>
@@ -84,11 +77,11 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
-import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
+import AnalystsTable from '@/components/AnalystsTable'
 
 export default {
   name: 'SubtaskForm',
-  components: { CardComponent, Tiles, HeroBar, TitleBar, FilePickerDragAndDrop },
+  components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
   props: {
     id: {
       default: null
@@ -99,12 +92,7 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false,
-      task_progress: null,
-      task_progresses: [
-        '1',
-        '2'
-      ]
+      isProfileExists: false
     }
   },
   computed: {
@@ -112,43 +100,42 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.subtasks.name
+        lastCrumb = this.form.name
       } else {
         lastCrumb = 'Subtask View'
       }
 
       return [
-        'Analyst',
         'Subtasks',
         lastCrumb
       ]
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.subtasks.name
+        return this.form.name
       } else {
-        return 'Create Subtask'
+        return 'Create Event'
       }
     },
     heroRouterLinkTo () {
       if (this.isProfileExists) {
-        return { name: 'subtasks.new' }
+        return { name: 'client.new' }
       } else {
         return '/'
       }
     },
     heroRouterLinkLabel () {
       if (this.isProfileExists) {
-        return 'Create Subtask'
+        return 'New Event'
       } else {
-        return 'Subtasks'
+        return 'Home'
       }
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Subtask Detailed View'
+        return 'Event Basic Information'
       } else {
-        return 'New Subtask'
+        return 'New Event'
       }
     }
   },
@@ -170,7 +157,7 @@ export default {
     getData () {
       if (this.id) {
         axios
-          .get('/data-sources/subtasks.json')
+          .get('/data-sources/clients.json')
           .then(r => {
             const item = find(r.data.data, item => item.id === parseInt(this.id))
 
@@ -180,7 +167,7 @@ export default {
               this.form.created_date = new Date(item.created_mm_dd_yyyy)
               this.createdReadable = dayjs(new Date(item.created_mm_dd_yyyy)).format('MMM D, YYYY')
             } else {
-              this.$router.push({ name: 'subtasks.new' })
+              this.$router.push({ name: 'client.new' })
             }
           })
           .catch(e => {
@@ -202,7 +189,7 @@ export default {
         this.isLoading = false
 
         this.$buefy.snackbar.open({
-          message: 'Subtask has been updated',
+          message: 'Demo only',
           queue: false
         })
       }, 500)
