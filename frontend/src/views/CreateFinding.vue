@@ -21,10 +21,10 @@
               <b-input v-model="form.ip" required />
             </b-field>
             <b-field label="Description" horizontal>
-              <b-input v-model="form.desc" reaadonly />
+              <b-input v-model="form.finding_desc" reaadonly />
             </b-field>
             <b-field label="Long Description" horizontal>
-              <b-input type="textarea" v-model="form.long" reaadonly />
+              <b-input type="textarea" v-model="form.finding_long" reaadonly />
             </b-field>
             <b-field label="Status" horizontal>
               <b-select v-model="form.finding_status">
@@ -135,10 +135,10 @@
           <card-component title="Mitigation" icon="engine" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
                <b-field label="Brief Description" vertical>
-              <b-input v-model="form.desc" reaadonly />
+              <b-input v-model="form.mitigation_desc" reaadonly />
             </b-field>
             <b-field label="Long Description" vertical>
-              <b-input type="textarea" v-model="form.long" reaadonly />
+              <b-input type="textarea" v-model="form.mitigation_long" reaadonly />
             </b-field>
         </card-component>
         <!-- Threat Relevance Information Component Card -->
@@ -169,7 +169,7 @@
           <card-component title="Impact" icon="equalizer" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
               <b-field label="Impact Description" vertical>
-                <b-input type="textarea" v-model="form.desc" reaadonly />
+                <b-input type="textarea" v-model="form.impact_desc" reaadonly />
               </b-field>
               <b-field label="Impact Level" vertical>
                 <b-select v-model="form.impact_level">
