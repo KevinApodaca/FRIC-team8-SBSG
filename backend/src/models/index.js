@@ -12,5 +12,6 @@ db.tasks = require('./task.js')(mongoose)
 db.subtasks = require('./subtask.js')(mongoose)
 db.transaction = require('./transactions.js')(mongoose)
 db.findings = require('./finding.js')(mongoose)
+db.analyst = require('./analyst.js')(mongoose)
 
 module.exports = db

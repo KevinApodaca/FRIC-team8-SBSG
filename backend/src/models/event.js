@@ -18,13 +18,14 @@ module.exports = mongoose => {
       type: String,
       default: "",
     },
+    analyst: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
     created: {
       type: String,
       default: "",
     },
     created_Date: {
       type: String,
-      default: new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-') + ": " + 
+      default: new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-') + ": " +
       new Date().toTimeString().split(" ")[0],
     },
     created_mm_dd_yyyy: {

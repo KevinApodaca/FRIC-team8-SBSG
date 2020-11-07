@@ -5,6 +5,7 @@ import { taskRouter } from './routes'
 import { subtaskRouter } from './routes'
 import { transactionRouter } from './routes'
 import { findingRouter } from './routes'
+import { analystRouter } from './routes'
 
 const bodyParser = require('body-parser')
 const express = require('express')
@@ -42,6 +43,7 @@ app.use('/tasks', taskRouter)
 app.use('/subtasks', subtaskRouter)
 app.use('/transactions',transactionRouter)
 app.use('/findings',findingRouter)
+app.use('/analysts',analystRouter)
 
 const db = require('./models')
 db.mongoose
