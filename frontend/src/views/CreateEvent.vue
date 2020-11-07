@@ -78,6 +78,7 @@ import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import EventService from '@/services/EventServices'
 import LogServices from '@/services/LogTransactionServices'
+// import AnalystService from '@/services/AnalystServices'
 
 export default {
   name: 'EventForm',
@@ -90,7 +91,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: {},
       createdReadable: null,
       isProfileExists: false,
       event_type: null,
@@ -132,24 +133,13 @@ export default {
     }
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0,
-        customer_name: null
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
     async submit () {
       this.isLoading = true
-      EventService.createEvent(this.form)
+      this.form.derived = 'K.A'
+      await EventService.createEvent(this.form)
         .then(response => {
           if (response.status === 200) {
             this.logAction()

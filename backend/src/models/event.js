@@ -5,6 +5,10 @@ module.exports = mongoose => {
       type: String,
       default: ''
     },
+    derived: {
+      type: String,
+      default: ''
+    },
     description: {
       type: String,
       default: ''

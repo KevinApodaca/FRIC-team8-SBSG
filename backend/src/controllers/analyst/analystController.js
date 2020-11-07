@@ -96,12 +96,11 @@ export class AnalystController {
 
     Analyst.find({ _id : { $in : ids }})
     .then(data => {
-      console.log(data)
       res.send(data)
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message + listOfAnalyst || 'Some error occurred while retrieving Analysts.' + listOfAnalyst
+        message: err.message || 'Some error occurred while retrieving Analysts.' + listOfAnalyst
       })
     })
   }

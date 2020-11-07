@@ -53,7 +53,7 @@
             </b-field>
             <hr>
             <b-field label="Derived From" horizontal>
-              <b-input v-model="form.derived_from" placeholder="analyst initials" required />
+              <b-input v-model="form.derived" placeholder="analyst initials" required />
             </b-field>
           </form>
         </card-component>
