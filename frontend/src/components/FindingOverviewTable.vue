@@ -14,7 +14,7 @@
       :data='findings'>
 
       <b-table-column label="ID" field="id" sortable v-slot="props">
-        {{ props.row.id }}
+        {{ props.row.id_form }}
       </b-table-column>
       <b-table-column label="Title" field="title" sortable v-slot="props">
         {{ props.row.host }}
