@@ -18,6 +18,7 @@ module.exports = mongoose => {
       type: String,
       default: "",
     },
+    analyst: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
     created: {
       type: String,
       default: "",

@@ -4,6 +4,7 @@ import { router as transactionRouter } from './transaction/transaction'
 import { router as taskRouter } from './task/task'
 import { router as subtaskRouter } from './subtask/subtask'
 import { router as findingRouter } from './finding/finding'
+import { router as analystRouter } from './analyst/analyst'
 
 export {
   eventRouter,
@@ -11,5 +12,6 @@ export {
   transactionRouter,
   taskRouter,
   subtaskRouter,
-  findingRouter
+  findingRouter,
+  analystRouter
 }
