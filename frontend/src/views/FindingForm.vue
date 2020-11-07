@@ -12,7 +12,7 @@
         <card-component :title="formCardTitle" icon="file-find" class="tile is-child">
           <form @submit.prevent="submit">
             <b-field label="ID" horizontal>
-              <b-input v-model="form.id" required />
+              <b-input v-model="form.id_form" required />
             </b-field>
             <b-field label="Host Name" horizontal>
               <b-input v-model="form.host" required />
@@ -399,7 +399,6 @@ export default {
       if (this.id) {
         FindingServices.getFindingSingle(this.id)
           .then(response => {
-            console.log('found the shit')
             this.oldForm = response.data
           })
       }
@@ -408,7 +407,6 @@ export default {
       if (this.id) {
         FindingServices.getFindingSingle(this.id)
           .then(response => {
-            console.log('found the shit')
             this.isProfileExists = true
             this.form = response.data
           })

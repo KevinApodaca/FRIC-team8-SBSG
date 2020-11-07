@@ -1,6 +1,10 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
     {
+       id_form: {
+         type: String,
+         default: ''
+       },
         system: {
           type: String,
           default: ''
