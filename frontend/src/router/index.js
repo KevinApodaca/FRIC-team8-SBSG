@@ -244,7 +244,7 @@ const routes = [
     },
     path: '/subtasks/:id',
     name: 'subtasks.edit',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/SubtaskView.vue'),
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/SubtaskForm.vue'),
     props: true
   },
   {

@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" :to="heroRouterLinkLabel" class="button">
-        {{ heroRouterLinkTo }}
+      <router-link slot="right" :to="heroRouterLinkTo" class="button">
+        {{ heroRouterLinkLabel }}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -159,14 +159,10 @@ export default {
       }
     },
     heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'task.new' }
-      } else {
-        return 'Back'
-      }
+      return '/tasks'
     },
     heroRouterLinkLabel () {
-      return '/tasks'
+      return 'Back'
     },
     formCardTitle () {
       if (this.isProfileExists) {

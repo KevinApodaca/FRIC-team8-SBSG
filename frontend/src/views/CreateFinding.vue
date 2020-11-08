@@ -357,18 +357,10 @@ export default {
       }
     },
     heroRouterLinkTo () {
-      if (this.isProfileExists) {
-        return { name: 'finding.new' }
-      } else {
-        return '/findings'
-      }
+      return '/findings'
     },
     heroRouterLinkLabel () {
-      if (this.isProfileExists) {
-        return 'New Finding'
-      } else {
-        return 'Back'
-      }
+      return 'Back'
     },
     formCardTitle () {
       if (this.isProfileExists) {
