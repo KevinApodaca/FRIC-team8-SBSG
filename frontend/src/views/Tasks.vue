@@ -82,6 +82,7 @@ import CardToolbar from '@/components/CardToolbar'
 import Notification from '@/components/Notification'
 import swal from 'sweetalert'
 import TextEditor from '@/components/TextEditor'
+
 export default {
   name: 'Task',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, Notification, TextEditor },

@@ -56,6 +56,7 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
 import TextEditor from '@/components/TextEditor'
+
 export default {
   name: 'Event',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable, TextEditor },
