@@ -47,7 +47,7 @@
                 </option>
               </b-select>
             </b-field>
-            <card-component title="Evidence" icon="cloud-upload"><file-picker-drag-and-drop/> </card-component>
+            <card-component title="Evidence" icon="cloud-upload"><file-picker-drag-and-drop :file-export='files'/> </card-component>
             <b-field label="System" horizontal>
               <b-select v-model="form.system">
                 <option v-for="(system, index) in system" :key="index" :value="system">
@@ -235,6 +235,7 @@ import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
 import LogServices from '@/services/LogTransactionServices'
+import FileServices from '@/services/FileServices'
 
 export default {
   name: 'CreateFinding',
@@ -247,6 +248,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      files: [],
       form: this.getClearFormObject(),
       createdReadable: null,
       isProfileExists: false,
@@ -387,6 +389,18 @@ export default {
     },
     async submit () {
       this.isLoading = true
+      console.log('File object')
+      console.log(this.files)
+      const formData = new FormData()
+      formData.append('upload', this.files[0])
+      console.log(formData)
+
+      FileServices.createFile(formData)
+        .then(response => {
+          console.log('Response')
+          console.log(response)
+        })
+
       FindingServices.createFinding(this.form)
         .then(response => {
           this.isLoading = false
