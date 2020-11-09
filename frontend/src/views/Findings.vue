@@ -39,6 +39,9 @@
         </card-toolbar>
         <finding-overview-table data-url="/data-sources/findings.json" :checkable="true"/>
       </card-component>
+       <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
+        <TextEditor id="findingsNotes"/>
+      </card-component>
     </section>
   </div>
 
@@ -52,9 +55,10 @@ import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
+import TextEditor from '@/components/TextEditor'
 export default {
   name: 'Event',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable, TextEditor },
   computed: {
     titleStack () {
       return [

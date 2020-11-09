@@ -22,7 +22,7 @@ export default {
       editorText: '',
       editorOptions: {
         hideModeSwitch: true,
-        minHeight: '300px',
+        minHeight: '200px',
         language: 'en_US',
         useCommandShortcut: true,
         useDefaultHTMLSanitizer: true,
