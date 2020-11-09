@@ -11,26 +11,21 @@
       <tiles>
         <card-component :title="formCardTitle" icon="view-list" class="tile is-child">
           <form @submit.prevent="submit">
-            <b-field label="Title" horizontal>
+             <b-field label="Title" horizontal>
               <b-input v-model="form.title" required />
             </b-field>
-            <b-field label="Description" horizontal>
-              <b-input type="textarea" v-model="form.description" required />
+            <b-field label="Description" horizontal required>
+              <b-input type="textarea" v-model="form.description" reaadonly />
             </b-field>
             <b-field label="Progress" horizontal>
-              <b-select v-model="form.progress">
-                <option v-for="(department, index) in departments" :key="index" :value="department">
-                  {{ department }}
+             <b-select v-model="form.subtask_progress">
+                <option v-for="(subtask_progress, index) in subtask_progresses" :key="index" :value="subtask_progress">
+                  {{ subtask_progress }}
                 </option>
               </b-select>
             </b-field>
             <b-field label="Due Date" horizontal required>
-              <b-datepicker icon="calendar-today"><b-input v-model="form.due_date" reaadonly /></b-datepicker>
-            </b-field>
-            <b-field label="Due Date" horizontal>
-              <div style="width: 15rem;">
-                <b-input v-model="form.due_date" reaadonly />
-              </div>
+              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.due_date"></b-datepicker>
             </b-field>
           </form>
         </card-component>
@@ -91,8 +86,8 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import SubtaskService from '@/services/SubtaskServices'
-import CardComponent from '@/components/CardComponent'
 import LogServices from '@/services/LogTransactionServices'
+import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 
 export default {
@@ -107,9 +102,13 @@ export default {
     return {
       isLoading: false,
       form: this.getClearFormObject(),
-      oldForm: null,
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      task_progress: null,
+      task_progresses: [
+        '1',
+        '2'
+      ]
     }
   },
   computed: {
@@ -117,9 +116,9 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.title
+        lastCrumb = this.subtasks.name
       } else {
-        lastCrumb = 'New Subtask'
+        lastCrumb = 'Subtask View'
       }
 
       return [
@@ -130,9 +129,9 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.title
+        return this.form.name
       } else {
-        return 'Subtask Detailed View'
+        return 'Create Subtask'
       }
     },
     heroRouterLinkTo () {
@@ -143,7 +142,7 @@ export default {
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Subtask Information'
+        return 'Subtask Detailed View'
       } else {
         return 'New Subtask'
       }
@@ -165,41 +164,15 @@ export default {
         progress: 0
       }
     },
-    async getOldData () {
-      if (this.id) {
-        SubtaskService.getSubtaskSingle(this.id)
-          .then(response => {
-            this.oldForm = response.data
-          })
-          .catch(e => {
-            this.displayError(e)
-          })
-      }
-    },
-    async getData () {
-      if (this.id) {
-        SubtaskService.getSubtaskSingle(this.id)
-          .then(response => {
-            if (response.status === 200) {
-              this.isProfileExists = true
-              this.$set(this, 'form', response.data)
-            }
-          })
-          .catch(e => {
-            this.displayError(e)
-          })
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-      console.log(this.id)
-      SubtaskService.modifySubtask(this.form, this.id)
+      SubtaskService.createSubtask(this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully made changes')
+            console.log('Successfully created subtask')
             this.logAction()
           }
         })
@@ -208,10 +181,9 @@ export default {
         })
     },
     async logAction () {
-      const changes = this.compareForms()
       var trans = {
-        initial: 'K.A',
-        action: changes
+        initals: 'K.A',
+        action: 'K.A created subtask ' + this.form.title
       }
       LogServices.logAction(trans)
         .then(response => {
@@ -223,33 +195,11 @@ export default {
           this.displayError(e)
         })
     },
-    showDiffs () {
-      var changes = 'K.A made the following changes to ' +
-                      'properties on subtask ' + this.oldForm.title
-      for (const property in this.form) {
-        if (this.form[property] !== this.oldForm[property]) {
-          changes += '\n ' + property + ': from ' + this.oldForm[property] +
-                      ' to ' + this.form[property]
-        }
-      }
-      return changes
-    },
     displayError (e) {
       this.$buefy.toast.open({
         message: `Error: ${e.message}`,
         type: 'is-danger'
       })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
-      }
     }
   }
 }
