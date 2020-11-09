@@ -5,7 +5,7 @@
     :html="editorHtml"
     :visible="editorVisible"
     height="400px"
-    mode="wysiwyg"/>
+    initialEditType="wysiwyg"/>
 </template>
 
 <script>
