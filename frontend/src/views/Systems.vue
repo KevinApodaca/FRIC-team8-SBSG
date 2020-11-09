@@ -10,7 +10,6 @@
         New System
       </router-link>
     </hero-bar>
-    <TextEditor id="myEditor"/>
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced" title="System Overview Table" icon="state-machine">
         <refresh-button slot="button"/>
@@ -32,6 +31,9 @@
           </form>
         </card-toolbar>
         <system-overview-table data-url='http://localhost:3000/systems/all' :checkable="true"/>
+      </card-component>
+      <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
+        <TextEditor id="myEditor"/>
       </card-component>
     </section>
   </div>

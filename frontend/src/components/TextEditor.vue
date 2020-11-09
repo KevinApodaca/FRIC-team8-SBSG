@@ -4,7 +4,7 @@
     :options="editorOptions"
     :html="editorHtml"
     :visible="editorVisible"
-    height="400px"
+    height="200px"
     initialEditType="wysiwyg"/>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     return {
       editorText: '',
       editorOptions: {
-        hideModeSwitch: false,
+        hideModeSwitch: true,
         minHeight: '300px',
         language: 'en_US',
         useCommandShortcut: true,
