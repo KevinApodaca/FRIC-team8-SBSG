@@ -10,6 +10,7 @@
         New System
       </router-link>
     </hero-bar>
+    <TextEditor id="myEditor"/>
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced" title="System Overview Table" icon="state-machine">
         <refresh-button slot="button"/>
@@ -44,10 +45,11 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import SystemOverviewTable from '@/components/SystemOverviewTable'
 import swal from 'sweetalert'
+import TextEditor from '@/components/TextEditor'
 
 export default {
   name: 'System',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, SystemOverviewTable },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, SystemOverviewTable, TextEditor },
   computed: {
     titleStack () {
       return [
