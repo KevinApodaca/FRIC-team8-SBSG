@@ -24,9 +24,6 @@
                 </option>
               </b-select>
             </b-field>
-            <b-field label="Due Date" horizontal required>
-              <b-datepicker icon="calendar-today"><b-input v-model="form.due_date" reaadonly /></b-datepicker>
-            </b-field>
             <b-field label="Due Date" horizontal>
               <div style="width: 15rem;">
                 <b-input v-model="form.due_date" reaadonly />

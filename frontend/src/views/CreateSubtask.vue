@@ -118,7 +118,7 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.subtasks.name
       } else {
-        lastCrumb = 'Subtask View'
+        lastCrumb = 'New Subtask'
       }
 
       return [
@@ -141,11 +141,7 @@ export default {
       return 'Back'
     },
     formCardTitle () {
-      if (this.isProfileExists) {
-        return 'Subtask Detailed View'
-      } else {
-        return 'New Subtask'
-      }
+      return 'Subtask Detailed View'
     }
   },
   created () {
