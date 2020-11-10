@@ -65,6 +65,9 @@
         </card-toolbar>
         <task-overview-table data-url="http://localhost:3000/tasks/all" :checkable="true"/>
       </card-component>
+       <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
+        <TextEditor id="tasksNotes"/>
+      </card-component>
     </section>
   </div>
 </template>
@@ -78,9 +81,11 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import Notification from '@/components/Notification'
 import swal from 'sweetalert'
+import TextEditor from '@/components/TextEditor'
+
 export default {
   name: 'Task',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, Notification },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, Notification, TextEditor },
   computed: {
     titleStack () {
       return [
