@@ -72,7 +72,7 @@
             </b-field>
             <hr>
            <b-field label="Due Date" horizontal>
-              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.created"></b-datepicker>
+              <b-datepicker icon="calendar-today" id= placeholder="Select Date..." v-model="form.created"></b-datepicker>
             </b-field>
           </form>
         </card-component>

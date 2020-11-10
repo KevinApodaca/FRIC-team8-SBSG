@@ -58,7 +58,7 @@
           </form>
         </card-component>
 
-        <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
+      <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
           <b-field label="Lead Analysts">
             <div class="control">
@@ -170,7 +170,7 @@ export default {
     }
   },
   created () {
-    this.getOldForm()
+    this.getOldData()
     this.getData()
   },
   methods: {
@@ -185,7 +185,7 @@ export default {
         progress: 0
       }
     },
-    async getOldForm () {
+    async getOldData () {
       if (this.id) {
         EventService.getEventSingle(this.id)
           .then(response => {
@@ -228,7 +228,7 @@ export default {
         })
     },
     async logAction () {
-      const changes = this.compareForms()
+      const changes = this.showDiffs()
       var trans = {
         initials: 'K.A',
         action: changes
@@ -262,6 +262,7 @@ export default {
     }
   },
   watch: {
+
     id (newValue) {
       this.isProfileExists = false
       if (!newValue) {

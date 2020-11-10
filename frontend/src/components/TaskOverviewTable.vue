@@ -195,6 +195,10 @@ export default {
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
       return (lastPart === 'tasks') ? 'button is-small is-info' : 'button is-small is-danger'
+    },
+    dateFormat () {
+      var date = this.from.created
+      return date
     }
   }
 }
