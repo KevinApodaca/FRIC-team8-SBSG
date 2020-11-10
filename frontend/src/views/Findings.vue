@@ -15,9 +15,9 @@
         <refresh-button slot="button"/>
           <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-              <button class="button is-rounded is-link is-outlined">ERB Report</button>
-              <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
-              <button class="button is-rounded is-link is-outlined">Final Report</button>
+              <button class="button is-rounded is-link is-outlined" @click="generateERBReport">ERB Report</button>
+              <button class="button is-rounded is-link is-outlined" @click="generateRiskMatrixReport">Risk Matrix</button>
+              <button class="button is-rounded is-link is-outlined" @click="generateFinalReport">Final Report</button>
             </div>
         </card-toolbar>
         <card-toolbar slot="toolbar">
@@ -56,7 +56,9 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
 import TextEditor from '@/components/TextEditor'
+import jsPDF from 'jspdf'
 
+/* jshint undef:false, newcap: false, unused:false */
 export default {
   name: 'Event',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable, TextEditor },
@@ -72,6 +74,13 @@ export default {
     findingHelp () {
       swal('About Findings', 'Findings are vulnerabilities. A finding will either lead to a true vulerability or just a data point that the client should be made aware of', 'info'
       )
+    },
+    /* jshint undef:false, newcap: false, unused:false */
+    generateERBReport () {
+      const ERBReport = new jsPDF()
+      ERBReport.setFontSize(22)
+      ERBReport.text('Hello World', 10, 10)
+      ERBReport.save('ERB_Report.pdf')
     },
     actionSample () {
       this.$buefy.toast.open({
