@@ -31,9 +31,9 @@
               </b-select>
             </b-field>
               <b-field label="Related Task(s)" horizontal>
-              <b-select v-model="form.tasks">
-                <option v-for="(tasks, index) in tasks" :key="index" :value="tasks">
-                  {{ tasks }}
+              <b-select v-model="form.related_tasks">
+                <option v-for="(related_tasks, index) in related_tasks" :key="index" :value="related_tasks">
+                  {{ related_tasks }}
                 </option>
               </b-select>
             </b-field>
@@ -120,6 +120,7 @@ export default {
       createdReadable: null,
       isProfileExists: false,
       systems_for_task: null,
+      related_tasks: null,
       task_priority: null,
       task_progress: null,
       task_priorities: [
@@ -167,6 +168,7 @@ export default {
   },
   created () {
     this.getSystems()
+    this.getRelatedTasks()
   },
   methods: {
     getClearFormObject () {
@@ -200,6 +202,12 @@ export default {
       SystemService.getSystems()
         .then(response => {
           this.systems_for_task = response.data.map(system => system.name)
+        })
+    },
+    async getRelatedTasks () {
+      TaskService.getTasks()
+        .then(response => {
+          this.related_tasks = response.data.map(task => task.title)
         })
     },
     async logAction () {
