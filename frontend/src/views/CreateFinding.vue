@@ -110,9 +110,9 @@
         <card-component title="Analyst Information" icon="account-circle" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
            <b-field label="Analyst" horizontal>
-              <b-select v-model="form.analyst">
-                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
-                  {{ analyst }}
+              <b-select v-model="form.analysts_for_findings">
+                <option v-for="(analysts_for_findings, index) in analysts_for_findings" :key="index" :value="analysts_for_findings">
+                  {{ analysts_for_findings }}
                 </option>
               </b-select>
               <b-field label="Collaborator" horizontal>
@@ -238,6 +238,7 @@ import LogServices from '@/services/LogTransactionServices'
 import SystemService from '@/services/SystemServices'
 import TaskService from '@/services/TaskServices'
 import SubtaskService from '@/services/SubtaskServices'
+import AnalystService from '@/services/AnalystServices'
 
 export default {
   name: 'CreateFinding',
@@ -257,6 +258,7 @@ export default {
       tasks_for_findings: null,
       subtasks_for_findings: null,
       related_findings: null,
+      analysts_for_findings: null,
       finding_status: null,
       finding_type: null,
       finding_classification: null,
@@ -382,6 +384,7 @@ export default {
     this.getTasks()
     this.getSubtasks()
     this.getFindings()
+    this.getAnalysts()
   },
   methods: {
     getClearFormObject () {
@@ -438,6 +441,12 @@ export default {
       FindingServices.getFindings()
         .then(response => {
           this.related_findings = response.data.map(finding => finding.title)
+        })
+    },
+    async getAnalysts () {
+      AnalystService.getAnalysts()
+        .then(response => {
+          this.analysts_for_findings = response.data.map(analyst => analyst.initials)
         })
     },
     async logAction () {
