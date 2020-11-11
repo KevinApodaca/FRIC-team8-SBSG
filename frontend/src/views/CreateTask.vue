@@ -18,9 +18,9 @@
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
               <b-field label="Analyst(s)" horizontal>
-              <b-select v-model="form.analyst">
-                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
-                  {{ analyst }}
+              <b-select v-model="form.analysts_for_task">
+                <option v-for="(analysts_for_task, index) in analysts_for_task" :key="index" :value="analysts_for_task">
+                  {{ analysts_for_task }}
                 </option>
               </b-select>
               <b-field label="Collaborator(s)" horizontal>
@@ -102,6 +102,7 @@ import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import TaskService from '@/services/TaskServices'
 import SystemService from '@/services/SystemServices'
+import AnalystService from '@/services/AnalystServices'
 import CardComponent from '@/components/CardComponent'
 import LogServices from '@/services/LogTransactionServices'
 
@@ -121,6 +122,7 @@ export default {
       isProfileExists: false,
       systems_for_task: null,
       related_tasks: null,
+      analysts_for_task: null,
       task_priority: null,
       task_progress: null,
       task_priorities: [
@@ -169,6 +171,7 @@ export default {
   created () {
     this.getSystems()
     this.getRelatedTasks()
+    this.getAnalysts()
   },
   methods: {
     getClearFormObject () {
@@ -208,6 +211,12 @@ export default {
       TaskService.getTasks()
         .then(response => {
           this.related_tasks = response.data.map(task => task.title)
+        })
+    },
+    async getAnalysts () {
+      AnalystService.getAnalysts()
+        .then(response => {
+          this.analysts_for_task = response.data.map(analyst => analyst.initials)
         })
     },
     async logAction () {
