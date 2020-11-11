@@ -85,6 +85,7 @@ import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
+import TaskService from '@/services/TaskServices'
 import SubtaskService from '@/services/SubtaskServices'
 import LogServices from '@/services/LogTransactionServices'
 import CardComponent from '@/components/CardComponent'
@@ -111,7 +112,8 @@ export default {
         'In Progress',
         'Complete',
         'Not Applicable'
-      ]
+      ],
+      tasks: null
     }
   },
   computed: {
@@ -148,8 +150,7 @@ export default {
     }
   },
   created () {
-    this.getData()
-    this.getOldData()
+    this.getTask()
   },
   methods: {
     input (v) {
@@ -166,6 +167,12 @@ export default {
         })
         .catch(e => {
           this.displayError(e)
+        })
+    },
+    async getTask () {
+      TaskService.getTasks()
+        .then(response => {
+          this.tasks = response.data.map(task => task.title)
         })
     },
     async logAction () {
