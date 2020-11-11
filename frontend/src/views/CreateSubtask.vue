@@ -105,6 +105,7 @@ export default {
       form: {},
       createdReadable: null,
       isProfileExists: false,
+      tasks: null,
       subtask_progress: [
         'Not Started',
         'Assigned',
@@ -112,8 +113,7 @@ export default {
         'In Progress',
         'Complete',
         'Not Applicable'
-      ],
-      tasks: null
+      ]
     }
   },
   computed: {
@@ -150,7 +150,7 @@ export default {
     }
   },
   created () {
-    this.getTask()
+    this.getTasks()
   },
   methods: {
     input (v) {
@@ -169,7 +169,7 @@ export default {
           this.displayError(e)
         })
     },
-    async getTask () {
+    async getTasks () {
       TaskService.getTasks()
         .then(response => {
           this.tasks = response.data.map(task => task.title)
