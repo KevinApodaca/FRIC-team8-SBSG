@@ -185,6 +185,9 @@ export default {
         progress: 0
       }
     },
+    add () {
+      return ''
+    },
     async getOldForm () {
       if (this.id) {
         EventService.getEventSingle(this.id)
