@@ -1,38 +1,38 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
     {
-       id_form: {
-         type: String,
-         default: ''
-       },
-        system: {
-          type: String,
-          default: ''
-        },
-        analyst: {
-          type: String,
-          default: 'K.A'
-        },
-        title: {
-          type: String,
-          default: ''
-        },
-        findings: {
-          type: String,
-          default: ''
-        },
-        tasks: {
-          type: Number,
-          default: 0
-        },
-        subtasks: {
-          type: String,
-          default: '0'
-        },
-        status: {
-          type: String,
-          default: ''
-        },
+      id_form: {
+        type: String,
+        default: ''
+      },
+      system: {
+        type: String,
+        default: ''
+      },
+      analyst: {
+        type: String,
+        default: 'K.A'
+      },
+      title: {
+        type: String,
+        default: ''
+      },
+      findings: {
+        type: String,
+        default: ''
+      },
+      tasks: {
+        type: Number,
+        default: 0
+      },
+      subtasks: {
+        type: String,
+        default: '0'
+      },
+      status: {
+        type: String,
+        default: ''
+      },
       classification: {
         type: String,
         default: ''
@@ -79,6 +79,26 @@ module.exports = mongoose => {
         default: ''
       },
       score: {
+        type: String,
+        default: ''
+      },
+      finding_desc: {
+        type: String,
+        default: ''
+      },
+      finding_long: {
+        type: String,
+        default: ''
+      },
+      mitigation_desc: {
+        type: String,
+        default: ''
+      },
+      mitigation_long: {
+        type: String,
+        default: ''
+      },
+      impact_desc: {
         type: String,
         default: ''
       },
