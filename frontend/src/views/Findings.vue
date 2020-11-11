@@ -27,7 +27,7 @@
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >
               <div class="control">
-                <input class="input" type="text" placeholder="Search for an event...">
+                <input class="input" type="text" placeholder="Search for a finding...">
               </div>
               <div class="control">
                 <button type="submit" class="button is-primary">
@@ -58,7 +58,7 @@ import swal from 'sweetalert'
 import TextEditor from '@/components/TextEditor'
 
 export default {
-  name: 'Event',
+  name: 'Findings',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable, TextEditor },
   computed: {
     titleStack () {
