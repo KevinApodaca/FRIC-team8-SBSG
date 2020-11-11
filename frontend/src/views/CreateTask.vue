@@ -39,9 +39,9 @@
             </b-field>
             </b-field>
             <b-field label="System(s)" horizontal>
-              <b-select v-model="form.system">
-                <option v-for="(system, index) in type" :key="index" :value="system">
-                  {{ system }}
+              <b-select v-model="form.systems_for_task">
+                <option v-for="(systems_for_task, index) in systems_for_task" :key="index" :value="systems_for_task">
+                  {{ systems_for_task }}
                 </option>
               </b-select>
             </b-field>
@@ -101,6 +101,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import TaskService from '@/services/TaskServices'
+import SystemService from '@/services/SystemServices'
 import CardComponent from '@/components/CardComponent'
 import LogServices from '@/services/LogTransactionServices'
 
@@ -118,6 +119,7 @@ export default {
       form: this.getClearFormObject(),
       createdReadable: null,
       isProfileExists: false,
+      systems_for_task: null,
       task_priority: null,
       task_progress: null,
       task_priorities: [
@@ -163,6 +165,9 @@ export default {
       return 'New Task'
     }
   },
+  created () {
+    this.getSystems()
+  },
   methods: {
     getClearFormObject () {
       return {
@@ -189,6 +194,12 @@ export default {
         })
         .catch(e => {
           this.displayError(e)
+        })
+    },
+    async getSystems () {
+      SystemService.getSystems()
+        .then(response => {
+          this.systems_for_task = response.data.map(system => system.name)
         })
     },
     async logAction () {
