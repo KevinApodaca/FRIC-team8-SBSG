@@ -18,9 +18,9 @@
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
             <b-field label="Progress" horizontal>
-              <b-select v-model="form.progress">
-                <option v-for="(department, index) in departments" :key="index" :value="department">
-                  {{ department }}
+              <b-select v-model="form.subtask_progress">
+                <option v-for="(subtask_progress, index) in subtask_progress" :key="index" :value="subtask_progress">
+                  {{ subtask_progress }}
                 </option>
               </b-select>
             </b-field>
@@ -103,10 +103,18 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: {},
       oldForm: null,
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      subtask_progress: [
+        'Not Started',
+        'Assigned',
+        'Transferred',
+        'In Progress',
+        'Complete',
+        'Not Applicable'
+      ]
     }
   },
   computed: {
@@ -151,17 +159,6 @@ export default {
     this.getOldData()
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
-      }
-    },
     async getOldData () {
       if (this.id) {
         SubtaskService.getSubtaskSingle(this.id)
@@ -205,7 +202,7 @@ export default {
         })
     },
     async logAction () {
-      const changes = this.compareForms()
+      const changes = this.showDiffs()
       var trans = {
         initial: 'K.A',
         action: changes

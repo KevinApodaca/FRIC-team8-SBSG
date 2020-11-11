@@ -18,8 +18,8 @@
               <b-input type="textarea" v-model="form.description" reaadonly />
             </b-field>
             <b-field label="Progress" horizontal>
-             <b-select v-model="form.subtask_progress">
-                <option v-for="(subtask_progress, index) in subtask_progresses" :key="index" :value="subtask_progress">
+              <b-select v-model="form.subtask_progress">
+                <option v-for="(subtask_progress, index) in subtask_progress" :key="index" :value="subtask_progress">
                   {{ subtask_progress }}
                 </option>
               </b-select>
@@ -101,13 +101,16 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: {},
       createdReadable: null,
       isProfileExists: false,
-      task_progress: null,
-      task_progresses: [
-        '1',
-        '2'
+      subtask_progress: [
+        'Not Started',
+        'Assigned',
+        'Transferred',
+        'In Progress',
+        'Complete',
+        'Not Applicable'
       ]
     }
   },
@@ -149,17 +152,6 @@ export default {
     this.getOldData()
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },

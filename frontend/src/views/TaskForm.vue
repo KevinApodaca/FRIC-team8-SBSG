@@ -127,11 +127,11 @@ export default {
         'High'
       ],
       task_progresses: [
-        'not started',
-        'transferred',
-        'in progress',
-        'complete',
-        'not applicable'
+        'Not Started',
+        'Transferred',
+        'In Progress',
+        'Complete',
+        'Not Applicable'
       ]
     }
   },
@@ -231,7 +231,7 @@ export default {
         })
     },
     async logAction () {
-      const changes = this.compareForms()
+      const changes = this.showDiffs()
       var trans = {
         initial: 'K.A',
         action: changes
