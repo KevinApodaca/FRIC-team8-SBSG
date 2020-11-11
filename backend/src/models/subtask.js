@@ -17,6 +17,15 @@ module.exports = mongoose => {
           type: String,
           default: ''
         },
+        description: {
+          type: String,
+          default: ''
+        },
+        subtask_progress: {
+          type: String,
+          enum: ['Not Started', 'Assigned', 'Transferred', 'In Progress', 'Complete', 'Not Applicable'],
+          default: 'Not Started',
+        },
         title: {
           type: String,
           default: ''
