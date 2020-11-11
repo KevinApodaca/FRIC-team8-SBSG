@@ -54,7 +54,7 @@
             </b-field>
               <b-field label="Subtask(s)" horizontal>
               <b-select v-model="form.subtasks">
-                <option v-for="(subtasks, index) in task" :key="index" :value="subtasks">
+                <option v-for="(subtasks, index) in subtasks" :key="index" :value="subtasks">
                   {{ subtasks }}
                 </option>
               </b-select>
@@ -88,6 +88,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import SubtaskService from '@/services/SubtaskServices'
+import TaskService from '@/services/TaskServices'
 import CardComponent from '@/components/CardComponent'
 import LogServices from '@/services/LogTransactionServices'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
@@ -107,6 +108,8 @@ export default {
       oldForm: null,
       createdReadable: null,
       isProfileExists: false,
+      tasks: null,
+      subtasks: null,
       subtask_progress: [
         'Not Started',
         'Assigned',
@@ -157,6 +160,8 @@ export default {
   created () {
     this.getData()
     this.getOldData()
+    this.getTasks()
+    this.getSubtasks()
   },
   methods: {
     async getOldData () {
@@ -199,6 +204,18 @@ export default {
         })
         .catch(e => {
           this.displayError(e)
+        })
+    },
+    async getTasks () {
+      TaskService.getTasks()
+        .then(response => {
+          this.tasks = response.data.map(task => task.title)
+        })
+    },
+    async getSubtasks () {
+      SubtaskService.getSubtasks()
+        .then(response => {
+          this.subtasks = response.data.map(subtask => subtask.title)
         })
     },
     async logAction () {
