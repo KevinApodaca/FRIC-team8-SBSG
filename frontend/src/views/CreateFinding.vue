@@ -440,7 +440,7 @@ export default {
     async getFindings () {
       FindingServices.getFindings()
         .then(response => {
-          this.related_findings = response.data.map(finding => finding.title)
+          this.related_findings = response.data.map(finding => finding.id_form)
         })
     },
     async getAnalysts () {
