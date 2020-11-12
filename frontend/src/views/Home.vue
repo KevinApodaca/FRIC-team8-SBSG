@@ -38,7 +38,7 @@ import CardWidget from '@/components/CardWidget'
 import HeroBarMain from '@/components/HeroBarMain'
 import CardScrollable from '@/components/CardScrollable'
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     CardScrollable,
     HeroBarMain,
