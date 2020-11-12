@@ -14,33 +14,21 @@
       <notification class="is-info">
         <div>
           <b-icon icon="bell" custom-size="default"/>
-          <b>Notification</b><br>
-    <table class="table">
-  <thead>
-    <tr>
-      <th><abbr title="TT">Task Title</abbr></th>
-      <th><abbr title="TDD">Task Due Date</abbr></th>
-      <th><abbr title="ST">Subtask Title</abbr></th>
-      <th><abbr title="SDD">Subtask Due Date</abbr></th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <th>Find bugs</th>
-      <th>07/12/2020</th>
-      <th>Find why fix didn't work</th>
-      <th>07/12/2020</th>
-    </tr>
-    <tr>
-      <th>Exploit login</th>
-      <th>08/11/2020</th>
-      <th>Grab all data views</th>
-      <th>08/11/2020</th>
-    </tr>
-  </tfoot>
-  <tbody>
-  </tbody>
-</table>
+          <b>Notification</b>
+        <br>
+    <b-table
+      :loading="isLoading"
+      :paginated="paginated"
+      :per-page="perPage"
+      :striped="true"
+      :hoverable="true"
+      default-sort="name"
+      :data='tasks'>
+
+      <b-table-column v-slot="props">
+        <b> Task {{ props.row.title }} is due on {{ props.row.created}} </b>
+      </b-table-column>
+    </b-table>
         </div>
       </notification>
       <card-component class="has-table has-mobile-sort-spaced" title="Task Overview Table" icon="playlist-edit">
@@ -73,6 +61,7 @@
 </template>
 
 <script>
+import TaskService from '@/services/TaskServices'
 import TaskOverviewTable from '@/components/TaskOverviewTable'
 import CardComponent from '@/components/CardComponent'
 import TitleBar from '@/components/TitleBar'
@@ -86,6 +75,20 @@ import TextEditor from '@/components/TextEditor'
 export default {
   name: 'Task',
   components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, Notification, TextEditor },
+  data () {
+    return {
+      isModalActive: false,
+      tasks: [],
+      isLoading: false,
+      piginated: false,
+      perPage: 10,
+      checkedRows: [],
+      isDismissed: false
+    }
+  },
+  created () {
+    this.getTaskData()
+  },
   computed: {
     titleStack () {
       return [
@@ -105,6 +108,21 @@ export default {
         type: 'is-info',
         queue: false
       })
+    },
+    async getTaskData () {
+      TaskService.getTasks()
+        .then(response => {
+          if (response.status === 200) {
+            this.isLoading = false
+            if (response.data.length > this.perPage) {
+              this.paginated = true
+            }
+            this.$set(this, 'tasks', response.data)
+          }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
     }
   }
 }
