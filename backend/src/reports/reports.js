@@ -1,6 +1,10 @@
 const officegen = require('officegen')
 const fs = require('fs')
 
+var today = new Date()
+var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+
 const pptx = officegen('pptx')
 pptx.setDocTitle('Powerpoint slide')
 pptx.setSlideSize('screen16x9')
@@ -34,7 +38,9 @@ slides.addText('{{evemt.name}} + {{evemt.type}}', {
   font_size: 20,
   align: 'left',
   x: '4%',
-  y: '65%'
+  y: '65%',
+  cx: '100%',
+  cy: '100%'
 })
 slides.addText('Name of Presenter', {
   font_face: 'Arial',
@@ -59,7 +65,7 @@ slides.addText('Cyber Experimentation & Analysis Division', {
   cx: '100%',
   cy: '100%'
 })
-slides.addText('{{generated.At}}', {
+slides.addText(date + ' at ' + time, {
   font_face: 'Arial',
   font_size: 8,
   x: '4%',
@@ -131,7 +137,7 @@ var headerRow = [
           opts: {
               font_face   : "Arial",
               font_size   : 18,
-              align       : "c",
+              align       : "center",
               bold        : true,
               font_color  : 'ffffff',
               fill_color  : '32362c'
@@ -143,7 +149,7 @@ var headerRow = [
           opts: {
               font_face   : "Arial",
               font_size   : 18,
-              align       : "c",
+              align       : "center",
               bold        : true,
               font_color  : 'ffffff',
               fill_color  : '32362c'
@@ -156,7 +162,7 @@ var headerRow = [
           opts: {
               font_face   : "Arial",
               font_size   : 18,
-              align       : "c",
+              align       : "center",
               bold        : true,
               font_color  : 'ffffff',
               fill_color  : '32362c'
@@ -168,7 +174,7 @@ var headerRow = [
           opts: {
               font_face   : "Arial",
               font_size   : 18,
-              align       : "c",
+              align       : "center",
               bold        : true,
               font_color  : 'ffffff',
               fill_color  : '32362c'
@@ -180,7 +186,7 @@ var headerRow = [
           opts: {
               font_face   : "Arial",
               font_size   : 18,
-              align       : "c",
+              align       : "center",
               bold        : true,
               font_color  : 'ffffff',
               fill_color  : '32362c'
@@ -194,48 +200,50 @@ var dataRows = [
       val: 'findings.finding_id',
       opts: {
         font_face: 'Arial',
-        align: 'l'
+        align: 'center',
+        fill_color: 'cccecc'
       }
     },
     {
       val: 'findings.system_name',
       opts: {
         font_face: 'Arial',
-        align: 'l'
+        align: 'center',
+        fill_color: 'cccecc'
       }
     },
     {
       val: 'findings.finding_name',
       opts: {
         font_face: 'Arial',
-        align: 'l'
+        align: 'center',
+        fill_color: 'cccecc'
       }
     },
     {
       val: 'findings.finding_impact',
       opts: {
         font_face: 'Arial',
-        align: 'r',
-        bold: 1,
-        fill_color: '00a65a'
+        align: 'center',
+        fill_color: 'cccecc'
       }
     },
     {
       val: 'findings.finding_risk',
       opts: {
         font_face: 'Arial',
-        align: 'r',
-        bold: 1,
-        fill_color: 'cccccc'
+        align: 'center',
+        fill_color: 'cccecc'
       }
     }
 ]
 
-var columnDefinition = [1000000, 1000000, 1000000, 1000000]
+var columnDefinition = [170000, 170000, 170000, 170000, 170000]
 
 slide3.addTable([headerRow, dataRows], {
   font_size: 10,
   font_face: 'Arial',
+  x: '4%',
   columnWidths: columnDefinition
 })
 
