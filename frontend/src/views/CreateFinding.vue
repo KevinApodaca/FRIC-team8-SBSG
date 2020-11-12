@@ -475,12 +475,6 @@ export default {
         .catch(e => {
           this.displayError(e)
         })
-    },
-    displayError (e) {
-      this.$buefy.snackbar.open({
-        message: e.message,
-        queue: false
-      })
     }
   }
 }
