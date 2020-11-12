@@ -47,7 +47,7 @@
                 </option>
               </b-select>
             </b-field>
-            <card-component title="Evidence" icon="cloud-upload"><file-picker-drag-and-drop/> </card-component>
+            <card-component title="Evidence" icon="cloud-upload"><file-picker-drag-and-drop :file-export='files'/> </card-component>
             <b-field label="System" horizontal>
               <b-select v-model="form.systems_for_findings">
                 <option v-for="(systems_for_findings, index) in systems_for_findings" :key="index" :value="systems_for_findings">
@@ -235,6 +235,7 @@ import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
 import LogServices from '@/services/LogTransactionServices'
+import FileServices from '@/services/FileServices'
 import SystemService from '@/services/SystemServices'
 import TaskService from '@/services/TaskServices'
 import SubtaskService from '@/services/SubtaskServices'
@@ -251,6 +252,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      files: [],
       form: this.getClearFormObject(),
       createdReadable: null,
       isProfileExists: false,
@@ -403,10 +405,18 @@ export default {
     },
     async submit () {
       this.isLoading = true
-      FindingServices.createFinding(this.form)
+
+      await FileServices.upLoadFiles(this.files)
+        .then(res => {
+          this.form.filename = res
+        })
+        .catch(err => {
+          this.displayError(err)
+        })
+
+      await FindingServices.createFinding(this.form)
         .then(response => {
           this.isLoading = false
-          console.log('Status: ' + response.status)
           this.logAction()
         })
         .catch(e => {
@@ -455,7 +465,7 @@ export default {
         initials: 'K.A',
         action: 'K.A created finding ' + this.form.host
       }
-      LogServices.logAction(trans)
+      await LogServices.logAction(trans)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully logged')
@@ -465,6 +475,12 @@ export default {
         .catch(e => {
           this.displayError(e)
         })
+    },
+    displayError (e) {
+      this.$buefy.snackbar.open({
+        message: e.message,
+        queue: false
+      })
     }
   }
 }

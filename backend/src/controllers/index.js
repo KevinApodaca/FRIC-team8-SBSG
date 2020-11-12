@@ -5,6 +5,7 @@ import { TaskController } from './task/taskController'
 import { SubtaskController } from './subtask/subtaskController'
 import { FindingController } from './finding/findingController'
 import { AnalystController } from './analyst/analystController'
+import { FileController } from './file/fileController'
 
 const eventController = new EventController()
 const systemController = new SystemController()
@@ -13,6 +14,7 @@ const taskController = new TaskController()
 const subtaskController = new SubtaskController()
 const findingController = new FindingController()
 const analystController = new AnalystController()
+const fileController = new FileController()
 
 export {
   eventController,
@@ -21,5 +23,6 @@ export {
   taskController,
   subtaskController,
   findingController,
-  analystController
+  analystController,
+  fileController
 }

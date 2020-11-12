@@ -6,10 +6,12 @@ import { subtaskRouter } from './routes'
 import { transactionRouter } from './routes'
 import { findingRouter } from './routes'
 import { analystRouter } from './routes'
+import { fileRouter } from './routes'
 
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
+
 
 app.use(express.json())
 app.use(bodyParser.json({ limit: '500mb', extended: true }))
@@ -44,6 +46,8 @@ app.use('/subtasks', subtaskRouter)
 app.use('/transactions',transactionRouter)
 app.use('/findings',findingRouter)
 app.use('/analysts',analystRouter)
+app.use('/files',fileRouter)
+
 
 const db = require('./models')
 db.mongoose

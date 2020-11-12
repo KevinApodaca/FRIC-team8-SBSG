@@ -42,12 +42,18 @@
 <script>
 export default {
   name: 'FilePickerDragAndDrop',
+  props: {
+    fileExport: []
+  },
   data () {
     return {
-      dropFiles: []
+      dropFiles: this.getFiles()
     }
   },
   methods: {
+    getFiles () {
+      return this.fileExport
+    },
     deleteDropFile (index) {
       this.dropFiles.splice(index, 1)
     }
