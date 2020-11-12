@@ -160,7 +160,7 @@ export default {
       if (this.isProfileExists) {
         return this.form.title
       } else {
-        return 'Create Task'
+        return 'Task Detailed View'
       }
     },
     heroRouterLinkTo () {
