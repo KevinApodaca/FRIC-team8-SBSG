@@ -14,6 +14,10 @@ router.get('/all', (req, res) => {
   systemController.findAllSystems(req, res)
 })
 
+router.get('/multiple/systems', (req, res) => {
+  systemController.findAllSystemsInArray(req, res)
+})
+
 router.get('/:systemId', (req, res) => {
   systemController.read(req, res)
 })

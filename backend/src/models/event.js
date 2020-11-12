@@ -22,6 +22,7 @@ module.exports = mongoose => {
       type: String,
       default: "",
     },
+    system_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'system' }],
     analyst: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
     created: {
       type: String,

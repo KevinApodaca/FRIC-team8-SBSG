@@ -40,18 +40,21 @@ module.exports = mongoose => {
         description: {
           type: String,
           default: ""
-        }
+        },
+        parent: { type: mongoose.Schema.Types.ObjectId, ref: 'system' },
+        analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+        collaboration: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+        finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
     },
     {collection: 'task'}
     )
-  
+
     schema.method('toJSON', function () {
       const { __v, _id, ...object } = this.toObject()
       object.id = _id
       return object
     })
-  
+
     const task = mongoose.model('task', schema)
     return task
   }
-  

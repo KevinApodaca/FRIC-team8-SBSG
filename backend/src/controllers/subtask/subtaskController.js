@@ -88,4 +88,19 @@ export class SubtaskController {
         })
       })
   }
+
+  findAllSubtasksInArray (req, res) {
+    const listOfSubtask = req.query.arr
+    const ids = listOfSubtask.map(id => mongoose.Types.ObjectId(id.toString()))
+
+    Subtask.find({ _id : { $in : ids }})
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while retrieving Subtasks.'
+      })
+    })
+  }
 }

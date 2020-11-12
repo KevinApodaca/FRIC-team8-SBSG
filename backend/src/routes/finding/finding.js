@@ -14,6 +14,10 @@ router.get('/all', (req, res) => {
   findingController.findAllFindings(req, res)
 })
 
+router.get('/multiple/findings', (req, res) => {
+  findingController.findAllFindingsInArray(req, res)
+})
+
 router.get('/:findingId', (req, res) => {
   findingController.read(req, res)
 })

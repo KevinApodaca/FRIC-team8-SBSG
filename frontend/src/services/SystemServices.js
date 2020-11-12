@@ -1,4 +1,5 @@
 import axios from 'axios'
+const qs = require('qs')
 
 export default {
   async getSystems () {
@@ -23,6 +24,18 @@ export default {
 
   async modifySystem (newForm, eventId) {
     const res = await axios.patch('http://localhost:3000/systems/' + eventId, newForm)
+    return res
+  },
+
+  async getMultipleSystems (multipleSystems) {
+    const res = await axios.get('http://localhost:3000/findings/multiple/systems', {
+      params: {
+        arr: multipleSystems
+      },
+      paramsSerializer: function (params) {
+        return qs.stringify(params, { arrayFormat: 'repeat' })
+      }
+    })
     return res
   }
 }

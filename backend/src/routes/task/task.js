@@ -14,6 +14,10 @@ router.get('/all', (req, res) => {
     taskController.findAllTasks(req, res)
 })
 
+router.get('/multiple/tasks', (req, res) => {
+  taskController.findAllTasksInArray(req, res)
+})
+
 router.get('/:taskId', (req, res) => {
     taskController.read(req, res)
 })

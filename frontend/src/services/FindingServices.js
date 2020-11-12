@@ -1,4 +1,5 @@
 import axios from 'axios'
+const qs = require('qs')
 
 export default {
   async getFindings () {
@@ -23,6 +24,18 @@ export default {
 
   async modifyFinding (newForm, findingId) {
     const res = await axios.patch('http://localhost:3000/findings/' + findingId, newForm)
+    return res
+  },
+
+  async getMultipleFindings (multipleFindings) {
+    const res = await axios.get('http://localhost:3000/findings/multiple/findings', {
+      params: {
+        arr: multipleFindings
+      },
+      paramsSerializer: function (params) {
+        return qs.stringify(params, { arrayFormat: 'repeat' })
+      }
+    })
     return res
   }
 }

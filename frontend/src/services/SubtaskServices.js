@@ -1,4 +1,5 @@
 import axios from 'axios'
+const qs = require('qs')
 
 export default {
   async getSubtasks () {
@@ -23,6 +24,18 @@ export default {
 
   async modifySubtask (newForm, subtaskId) {
     const res = await axios.patch('http://localhost:3000/subtasks/' + subtaskId, newForm)
+    return res
+  },
+
+  async getMultipleSubtasks (multipleSubtasks) {
+    const res = await axios.get('http://localhost:3000/findings/multiple/subtasks', {
+      params: {
+        arr: multipleSubtasks
+      },
+      paramsSerializer: function (params) {
+        return qs.stringify(params, { arrayFormat: 'repeat' })
+      }
+    })
     return res
   }
 }

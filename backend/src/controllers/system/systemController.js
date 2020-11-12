@@ -88,4 +88,19 @@ export class SystemController {
         })
       })
   }
+
+  findAllSystemsInArray (req, res) {
+    const listOfSystems = req.query.arr
+    const ids = listOfSystems.map(id => mongoose.Types.ObjectId(id.toString()))
+
+    System.find({ _id : { $in : ids }})
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while retrieving Systems.'
+      })
+    })
+  }
 }

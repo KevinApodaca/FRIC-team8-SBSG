@@ -14,6 +14,10 @@ router.get('/all', (req, res) => {
     subtaskController.findAllSubtasks(req, res)
 })
 
+router.get('/multiple/subtasks', (req, res) => {
+  subtaskController.findAllSubtasksInArray(req, res)
+})
+
 router.get('/:subtaskId', (req, res) => {
     subtaskController.read(req, res)
 })

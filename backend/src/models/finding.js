@@ -103,7 +103,12 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
-      collaborator: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
+      created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+      collaborator: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+      system_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'system' }],
+      task_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'task' }],
+      subtask_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtask' }],
+      finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
       finding_type: {
         type: String,
         enum: [

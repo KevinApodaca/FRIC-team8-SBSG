@@ -88,4 +88,19 @@ export class FindingController {
         })
       })
   }
+
+  findAllFindingsInArray (req, res) {
+    const listOfFinding = req.query.arr
+    const ids = listOfFinding.map(id => mongoose.Types.ObjectId(id.toString()))
+
+    Finding.find({ _id : { $in : ids }})
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while retrieving Findings.'
+      })
+    })
+  }
 }

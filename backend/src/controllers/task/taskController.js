@@ -88,4 +88,19 @@ export class TaskController {
         })
       })
   }
+
+  findAllTasksInArray (req, res) {
+    const listOfTasks = req.query.arr
+    const ids = listOfTasks.map(id => mongoose.Types.ObjectId(id.toString()))
+
+    Tasks.find({ _id : { $in : ids }})
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while retrieving Tasks.'
+      })
+    })
+  }
 }
