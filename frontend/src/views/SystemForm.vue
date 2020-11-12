@@ -221,7 +221,7 @@ export default {
     async logAction () {
       const changes = this.showDiffs()
       var trans = {
-        initial: 'K.A',
+        initials: 'K.A',
         action: changes
       }
       LogServices.logAction(trans)
