@@ -170,7 +170,7 @@ export default {
     }
   },
   created () {
-    this.getOldForm()
+    this.getOldData()
     this.getData()
   },
   methods: {
@@ -188,7 +188,7 @@ export default {
     add () {
       return ''
     },
-    async getOldForm () {
+    async getOldData () {
       if (this.id) {
         EventService.getEventSingle(this.id)
           .then(response => {
@@ -231,7 +231,7 @@ export default {
         })
     },
     async logAction () {
-      const changes = this.compareForms()
+      const changes = this.showDiffs()
       var trans = {
         initials: 'K.A',
         action: changes
