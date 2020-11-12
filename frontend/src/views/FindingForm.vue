@@ -47,7 +47,7 @@
                 </option>
               </b-select>
             </b-field>
-            <card-component title="Evidence" icon="cloud-upload"><file-picker-drag-and-drop/> </card-component>
+            <card-component title="Evidence" icon="cloud-upload"><file-picker-drag-and-drop :file-export='files'/> </card-component>
             <b-field label="System" horizontal>
               <b-select v-model="form.system">
                 <option v-for="(system, index) in system" :key="index" :value="system">
@@ -235,6 +235,7 @@ import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
 import LogServices from '@/services/LogTransactionServices'
+import FileServices from '@/services/FileServices'
 
 export default {
   name: 'FindingForm',
@@ -249,6 +250,7 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       oldForm: [],
+      files: [],
       createdReadable: null,
       isProfileExists: false,
       finding_status: null,
@@ -339,7 +341,7 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.title
+        lastCrumb = this.form.host
       } else {
         lastCrumb = 'New Finding'
       }
@@ -352,7 +354,7 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.title
+        return this.form.host
       } else {
         return 'Finding Detailed View'
       }
@@ -389,7 +391,7 @@ export default {
     },
     async getOldData () {
       if (this.id) {
-        FindingServices.getFindingSingle(this.id)
+        await FindingServices.getFindingSingle(this.id)
           .then(response => {
             this.oldForm = response.data
           })
@@ -397,11 +399,20 @@ export default {
     },
     async getData () {
       if (this.id) {
-        FindingServices.getFindingSingle(this.id)
+        await FindingServices.getFindingSingle(this.id)
           .then(response => {
+            console.log('Done getting Finding')
             this.isProfileExists = true
             this.form = response.data
           })
+
+        await FileServices.getMultipleFiles(this.form.filename)
+          .then(response => {
+            console.log('Grabbing Files')
+            console.log(response.data)
+            this.files = response.data
+          })
+        console.log(this.files)
       }
     },
     async logAction () {

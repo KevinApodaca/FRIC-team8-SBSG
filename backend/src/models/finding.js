@@ -82,6 +82,7 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
+      filename: [String],
       finding_desc: {
         type: String,
         default: ''

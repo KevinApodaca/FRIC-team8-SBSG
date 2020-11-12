@@ -160,7 +160,7 @@ export default {
       if (this.isProfileExists) {
         return this.form.title
       } else {
-        return 'Create Task'
+        return 'Task Detailed View'
       }
     },
     heroRouterLinkTo () {
@@ -259,7 +259,7 @@ export default {
     async logAction () {
       const changes = this.showDiffs()
       var trans = {
-        initial: 'K.A',
+        initials: 'K.A',
         action: changes
       }
       LogServices.logAction(trans)
