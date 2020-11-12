@@ -174,7 +174,7 @@ export default {
     async logAction () {
       var trans = {
         initals: 'K.A',
-        action: 'K.A created system' + this.form.name
+        action: 'K.A created system ' + this.form.name
       }
       LogServices.logAction(trans)
         .then(response => {

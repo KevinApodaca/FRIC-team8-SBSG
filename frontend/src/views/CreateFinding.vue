@@ -460,7 +460,6 @@ export default {
         })
     },
     async logAction () {
-      console.log('Loging action')
       var trans = {
         initials: 'K.A',
         action: 'K.A created finding ' + this.form.host
