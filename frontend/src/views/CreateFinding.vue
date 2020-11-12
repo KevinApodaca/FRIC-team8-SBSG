@@ -389,23 +389,36 @@ export default {
     },
     async submit () {
       this.isLoading = true
-      console.log('File object')
-      console.log(this.files)
-      const formData = new FormData()
-      formData.append('upload', this.files[0])
-      console.log(formData)
 
-      FileServices.createFile(formData)
-        .then(response => {
-          console.log('Response')
-          console.log(response)
+      await FileServices.upLoadFiles(this.files)
+        .then(res => {
+          this.form.filename = res
+        })
+        .catch(err => {
+          this.displayError(err)
         })
 
-      FindingServices.createFinding(this.form)
+      await FindingServices.createFinding(this.form)
         .then(response => {
           this.isLoading = false
-          console.log('Status: ' + response.status)
           this.logAction()
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    async logAction () {
+      console.log('Loging action')
+      var trans = {
+        initials: 'K.A',
+        action: 'K.A created finding ' + this.form.host
+      }
+      await LogServices.logAction(trans)
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Successfully logged')
+            console.log(response)
+          }
         })
         .catch(e => {
           this.displayError(e)
@@ -416,23 +429,6 @@ export default {
         message: e.message,
         queue: false
       })
-    },
-    async logAction () {
-      console.log('Loging action')
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A created finding ' + this.form.host
-      }
-      LogServices.logAction(trans)
-        .then(response => {
-          if (response.status === 200) {
-            console.log('Successfully logged')
-            console.log(response)
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
     }
   }
 }

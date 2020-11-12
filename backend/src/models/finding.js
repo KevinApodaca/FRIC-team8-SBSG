@@ -82,6 +82,7 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
+      filename: [String],
       collaborator: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
       finding_type: {
         type: String,

@@ -31,6 +31,7 @@ const storage = new GridFsStorage({
         const filename = buf.toString('hex') + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
+          actualFileName: file.originalname,
           bucketName: 'uploads'
         };
         resolve(fileInfo);
@@ -45,8 +46,8 @@ export const router = express.Router({
   strict: true
 })
 
-router.post('/', upload.single('upload') ,(req, res) => {
-  return res.status(200).json({file: req.file})
+router.post('/', upload.array('upload',10) ,(req, res) => {
+  return res.status(200).json({file: req.files})
 })
 
 router.get('/', (req, res) => {
@@ -62,7 +63,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:filename', (req, res) => {
-
+  console.log('hello again')
   gfs.files.findOne({filename: req.params.filename}, (err, file) => {
     //Checks if files exits
     if (!file || file.length === 0){
@@ -71,6 +72,16 @@ router.get('/:filename', (req, res) => {
 
     // Files exists
     return res.status(200).json(file)
+  })
+})
+
+router.get('/multiple/Files', (req, res) => {
+  gfs.files.find({ filename: { $in: req.query.arr }}).toArray((err, files) => {
+    if (!files || files.length === 0) {
+      return res.status(404).json({err: 'No files exist'})
+    }
+
+    return res.json(files)
   })
 })
 
