@@ -117,7 +117,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: {},
       oldForm: null,
       createdReadable: null,
       isProfileExists: false,
@@ -185,17 +185,6 @@ export default {
     this.getAnalysts()
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
-      }
-    },
     async getOldData () {
       if (this.id) {
         TaskService.getTaskSingle(this.id)
@@ -208,7 +197,10 @@ export default {
       }
     },
     async getData () {
+      console.log('inside getData()') // this will print the message
+      console.log('outside if: ' + this.id) // this will return null
       if (this.id) {
+        console.log('inside if: ' + this.id) // this will not print
         TaskService.getTaskSingle(this.id)
           .then(response => {
             if (response.status === 200) {
