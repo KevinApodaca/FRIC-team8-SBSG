@@ -93,7 +93,7 @@ slide2.addText('SCOPE', {
   x: '20%',
   y: '7%'
 })
-slide2.addText('Systems assessed during the CVPA are as follows:',{
+slide2.addText('Systems assessed during the {{event.type}} are as follows:',{
   font_face: 'Arial',
   font_size: 18,
   bold: true,
