@@ -26,6 +26,7 @@
     "error-ex": "git+https://github.com/Qix-/node-error-ex.git",
     "express": "^4.17.1",
     "mongoose": "^5.10.9",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "officegen": "^0.6.4"
   }
 }
