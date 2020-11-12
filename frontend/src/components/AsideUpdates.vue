@@ -2,11 +2,11 @@
   <div>
     <aside-updates-item v-for="item in tasks" :key="item.id" :status="item.status" :icon="item.playlist-edit">
         <span class="tag is-light is-danger tag is-rounded">Task</span>
-        <p>{{ item.title }}, is due on: {{item.created}}</p>
+        <p>{{ item.title }}, is due on: {{ item.created }}</p>
     </aside-updates-item>
     <aside-updates-item v-for="item in subtasks" :key="item.id" :status="item.status" :icon="item.playlist-edit">
       <span class="tag is-light is-warning tag is-rounded">Subtask</span>
-      <p>{{ item.title }}, is due on: {{item.due_date}}</p>
+      <p>{{ item.title }}, is due on: {{ item.due_date }}</p>
     </aside-updates-item>
   </div>
 </template>
