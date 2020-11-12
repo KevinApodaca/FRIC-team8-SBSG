@@ -246,6 +246,51 @@ slide3.addTable([headerRow, dataRows], {
   x: '4%',
   columnWidths: columnDefinition
 })
+// Column chart
+slide4  = pptx.makeNewSlide()
+slide4.addImage('./assets/img/army-logo-small.png', {
+  x: '4%',
+  y: '4%'
+})
+slide4.addImage('./assets/img/combat-logo-small.png', {
+   x: '12%',
+   y: '5%'
+})
+slide4.addImage('./assets/img/devcom-logo-small.png', {
+   x: '85%',
+   y: '5%'
+})
+slide4.addText('FINDINGS HISTOGRAM', {
+  font_face: 'Arial',
+  font_size: 20,
+  bold: true,
+  x: '20%',
+  y: '7%',
+  cx: '100%',
+  cy: '100%'
+})
+/* slide4.addChart(
+  {
+      title: 'Column Chart',
+      renderType: 'column',
+      valAxisTitle: 'Costs/Revenues ($)',
+      catAxistTitle: 'Category',
+      valAxisNumFmt: '$0',
+            valAxisMaxValue: 24,
+    data: [
+      {
+        name: 'Income',
+        labels: ['2005', '2006', '2007', '2008', '2009'],
+        values: [23.5, 26.2, 30.1, 29.5, 24.6]
+      },
+      {
+        name: 'Expense',
+        labels: ['2005, 2006', '2007', '2008', '2009'],
+        values: [18.1, 22.8, 23.9, 25.1, 25]
+      }]
+  }
+) */
+
 
 const out = fs.createWriteStream('ERB-Report.pptx')
 
