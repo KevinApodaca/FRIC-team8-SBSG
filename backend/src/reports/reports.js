@@ -29,7 +29,7 @@ slides.addText('U.S. ARMY COMBAT CAPABILITIES DEVELOPMENT COMMAND -\n DATA & ANA
   cx: '85%',
   cy: '10%'
 })
-slides.addText('{{evenst.name}}', {
+slides.addText('{{evemt.name}} + {{evemt.type}}', {
   font_face: 'Arial',
   font_size: 20,
   align: 'left',
@@ -96,11 +96,13 @@ slide2.addText('Systems assessed during the CVPA are as follows:',{
   cx: '100%',
   cy: '100%'
 })
-slide2.addText('System {{systens.name}}', {
+slide2.addText('-' + 'systems[i].systemName', {
   font_face: 'Arial',
   font_size: 16,
   x: '8%',
-  y: '25%'
+  y: '25%',
+  cx: '92%',
+  cy: '2cm'
 })
 
 slide3  = pptx.makeNewSlide()
@@ -189,32 +191,39 @@ var headerRow = [
 
 var dataRows = [
     {
-      val: 'Midwest',
+      val: 'findings.finding_id',
       opts: {
-        font_face: 'Verdana',
+        font_face: 'Arial',
         align: 'l'
       }
     },
     {
-      val: 'MW',
+      val: 'findings.system_name',
       opts: {
-        font_face: 'Verdana',
+        font_face: 'Arial',
         align: 'l'
       }
     },
     {
-      val: 2000000,
+      val: 'findings.finding_name',
       opts: {
-        font_face: 'Verdana',
+        font_face: 'Arial',
+        align: 'l'
+      }
+    },
+    {
+      val: 'findings.finding_impact',
+      opts: {
+        font_face: 'Arial',
         align: 'r',
         bold: 1,
         fill_color: '00a65a'
       }
     },
     {
-      val: 45,
+      val: 'findings.finding_risk',
       opts: {
-        font_face: 'Verdana',
+        font_face: 'Arial',
         align: 'r',
         bold: 1,
         fill_color: 'cccccc'
