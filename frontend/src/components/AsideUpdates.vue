@@ -1,7 +1,8 @@
 <template>
   <div>
     <aside-updates-item v-for="item in tasks" :key="item.id" :status="item.status" :icon="item.playlist-edit">
-        <span class="tag is-warning tag is-rounded">Warning</span>
+        <span class="tag is-warning tag is-rounded">Reminder</span>
+
         <p>Task: {{ item.title }}, is due on: {{item.created}} {{items.text}}</p>
     </aside-updates-item>
   </div>
