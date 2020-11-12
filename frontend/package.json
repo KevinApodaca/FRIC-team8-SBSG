@@ -1,6 +1,6 @@
 {
   "name": "fric-tool",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "the Findings and Report Information Console is a senior project developed by Team 8 (SBSG) of the University of Texas at El Paso's Fall 2020 CS4311 course for the CEAD clients.",
   "private": true,
   "scripts": {
