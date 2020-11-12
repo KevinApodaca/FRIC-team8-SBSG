@@ -27,7 +27,7 @@
           <form slot="right" @submit.prevent="actionSample">
             <div class="field has-addons" >
               <div class="control">
-                <input class="input" type="text" placeholder="Search for an event...">
+                <input class="input" type="text" placeholder="Search for a finding...">
               </div>
               <div class="control">
                 <button type="submit" class="button is-primary">
@@ -38,6 +38,9 @@
           </form>
         </card-toolbar>
         <finding-overview-table data-url="/data-sources/findings.json" :checkable="true"/>
+      </card-component>
+       <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
+        <TextEditor id="findingsNotes"/>
       </card-component>
     </section>
   </div>
@@ -52,9 +55,11 @@ import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
+import TextEditor from '@/components/TextEditor'
+
 export default {
-  name: 'Event',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable },
+  name: 'Findings',
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, FindingOverviewTable, TextEditor },
   computed: {
     titleStack () {
       return [

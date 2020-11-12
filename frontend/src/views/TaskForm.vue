@@ -18,9 +18,9 @@
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
               <b-field label="Analyst(s)" horizontal>
-              <b-select v-model="form.analyst">
-                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
-                  {{ analyst }}
+              <b-select v-model="form.analysts_for_task">
+                <option v-for="(analysts_for_task, index) in analysts_for_task" :key="index" :value="analysts_for_task">
+                  {{ analysts_for_task }}
                 </option>
               </b-select>
               <b-field label="Collaborator(s)" horizontal>
@@ -31,17 +31,17 @@
               </b-select>
             </b-field>
               <b-field label="Related Task(s)" horizontal>
-              <b-select v-model="form.tasks">
-                <option v-for="(tasks, index) in tasks" :key="index" :value="tasks">
-                  {{ tasks }}
+              <b-select v-model="form.related_tasks">
+                <option v-for="(related_tasks, index) in related_tasks" :key="index" :value="related_tasks">
+                  {{ related_tasks }}
                 </option>
               </b-select>
             </b-field>
             </b-field>
             <b-field label="Systems" horizontal>
-              <b-select v-model="form.system">
-                <option v-for="(system, index) in type" :key="index" :value="system">
-                  {{ system }}
+              <b-select v-model="form.systems_for_task">
+                <option v-for="(systems_for_task, index) in systems_for_task" :key="index" :value="systems_for_task">
+                  {{ systems_for_task }}
                 </option>
               </b-select>
             </b-field>
@@ -101,6 +101,8 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import TaskService from '@/services/TaskServices'
+import SystemService from '@/services/SystemServices'
+import AnalystService from '@/services/AnalystServices'
 import CardComponent from '@/components/CardComponent'
 import LogServices from '@/services/LogTransactionServices'
 
@@ -119,6 +121,9 @@ export default {
       oldForm: null,
       createdReadable: null,
       isProfileExists: false,
+      systems_for_task: null,
+      related_tasks: null,
+      analysts_for_task: null,
       task_priority: null,
       task_progress: null,
       task_priorities: [
@@ -127,11 +132,11 @@ export default {
         'High'
       ],
       task_progresses: [
-        'not started',
-        'transferred',
-        'in progress',
-        'complete',
-        'not applicable'
+        'Not Started',
+        'Transferred',
+        'In Progress',
+        'Complete',
+        'Not Applicable'
       ]
     }
   },
@@ -175,6 +180,9 @@ export default {
   created () {
     this.getData()
     this.getOldData()
+    this.getSystems()
+    this.getRelatedTasks()
+    this.getAnalysts()
   },
   methods: {
     getClearFormObject () {
@@ -230,8 +238,26 @@ export default {
           this.displayError(e)
         })
     },
+    async getSystems () {
+      SystemService.getSystems()
+        .then(response => {
+          this.systems_for_task = response.data.map(system => system.name)
+        })
+    },
+    async getRelatedTasks () {
+      TaskService.getTasks()
+        .then(response => {
+          this.related_tasks = response.data.map(task => task.title)
+        })
+    },
+    async getAnalysts () {
+      AnalystService.getAnalysts()
+        .then(response => {
+          this.analysts_for_task = response.data.map(analyst => analyst.initials)
+        })
+    },
     async logAction () {
-      const changes = this.compareForms()
+      const changes = this.showDiffs()
       var trans = {
         initial: 'K.A',
         action: changes

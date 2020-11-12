@@ -11,11 +11,11 @@
       <tiles>
         <card-component :title="formCardTitle" icon="view-list" class="tile is-child">
           <form @submit.prevent="submit">
-            <b-field label="Title" horizontal>
+             <b-field label="Title" horizontal>
               <b-input v-model="form.title" required />
             </b-field>
-            <b-field label="Description" horizontal>
-              <b-input type="textarea" v-model="form.description" required />
+            <b-field label="Description" horizontal required>
+              <b-input type="textarea" v-model="form.description" reaadonly />
             </b-field>
             <b-field label="Progress" horizontal>
               <b-select v-model="form.subtask_progress">
@@ -24,18 +24,16 @@
                 </option>
               </b-select>
             </b-field>
-            <b-field label="Due Date" horizontal>
-              <div style="width: 15rem;">
-                <b-input v-model="form.due_date" reaadonly />
-              </div>
+            <b-field label="Due Date" horizontal required>
+              <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.due_date"></b-datepicker>
             </b-field>
           </form>
         </card-component>
         <card-component title="Collaboration" icon="file-find" class="tile is-child">
            <b-field label="Analyst(s)" horizontal>
-              <b-select v-model="form.analysts_for_subtask">
-                <option v-for="(analysts_for_subtask, index) in analysts_for_subtask" :key="index" :value="analysts_for_subtask">
-                  {{ analysts_for_subtask }}
+              <b-select v-model="form.analyst">
+                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
+                  {{ analyst }}
                 </option>
               </b-select>
             <b-field label="Collaborator(s)" horizontal>
@@ -54,7 +52,7 @@
             </b-field>
               <b-field label="Subtask(s)" horizontal>
               <b-select v-model="form.subtasks">
-                <option v-for="(subtasks, index) in subtasks" :key="index" :value="subtasks">
+                <option v-for="(subtasks, index) in task" :key="index" :value="subtasks">
                   {{ subtasks }}
                 </option>
               </b-select>
@@ -87,11 +85,10 @@ import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
-import SubtaskService from '@/services/SubtaskServices'
 import TaskService from '@/services/TaskServices'
-import AnalystService from '@/services/AnalystServices'
-import CardComponent from '@/components/CardComponent'
+import SubtaskService from '@/services/SubtaskServices'
 import LogServices from '@/services/LogTransactionServices'
+import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 
 export default {
@@ -106,12 +103,9 @@ export default {
     return {
       isLoading: false,
       form: {},
-      oldForm: null,
       createdReadable: null,
       isProfileExists: false,
       tasks: null,
-      subtasks: null,
-      analysts_for_subtask: null,
       subtask_progress: [
         'Not Started',
         'Assigned',
@@ -127,7 +121,7 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.title
+        lastCrumb = this.subtasks.name
       } else {
         lastCrumb = 'New Subtask'
       }
@@ -140,9 +134,9 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.title
+        return this.form.name
       } else {
-        return 'Subtask Detailed View'
+        return 'Create Subtask'
       }
     },
     heroRouterLinkTo () {
@@ -152,56 +146,22 @@ export default {
       return 'Back'
     },
     formCardTitle () {
-      if (this.isProfileExists) {
-        return 'Subtask Information'
-      } else {
-        return 'New Subtask'
-      }
+      return 'Subtask Detailed View'
     }
   },
   created () {
-    this.getData()
-    this.getOldData()
     this.getTasks()
-    this.getSubtasks()
-    this.getAnalysts()
   },
   methods: {
-    async getOldData () {
-      if (this.id) {
-        SubtaskService.getSubtaskSingle(this.id)
-          .then(response => {
-            this.oldForm = response.data
-          })
-          .catch(e => {
-            this.displayError(e)
-          })
-      }
-    },
-    async getData () {
-      if (this.id) {
-        SubtaskService.getSubtaskSingle(this.id)
-          .then(response => {
-            if (response.status === 200) {
-              this.isProfileExists = true
-              this.$set(this, 'form', response.data)
-            }
-          })
-          .catch(e => {
-            this.displayError(e)
-          })
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    submit () {
+    async submit () {
       this.isLoading = true
-      console.log(this.id)
-      SubtaskService.modifySubtask(this.form, this.id)
+      SubtaskService.createSubtask(this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully made changes')
+            console.log('Successfully created subtask')
             this.logAction()
           }
         })
@@ -215,23 +175,10 @@ export default {
           this.tasks = response.data.map(task => task.title)
         })
     },
-    async getSubtasks () {
-      SubtaskService.getSubtasks()
-        .then(response => {
-          this.subtasks = response.data.map(subtask => subtask.title)
-        })
-    },
-    async getAnalysts () {
-      AnalystService.getAnalysts()
-        .then(response => {
-          this.analysts_for_subtask = response.data.map(analyst => analyst.initials)
-        })
-    },
     async logAction () {
-      const changes = this.showDiffs()
       var trans = {
-        initial: 'K.A',
-        action: changes
+        initals: 'K.A',
+        action: 'K.A created subtask ' + this.form.title
       }
       LogServices.logAction(trans)
         .then(response => {
@@ -243,33 +190,11 @@ export default {
           this.displayError(e)
         })
     },
-    showDiffs () {
-      var changes = 'K.A made the following changes to ' +
-                      'properties on subtask ' + this.oldForm.title
-      for (const property in this.form) {
-        if (this.form[property] !== this.oldForm[property]) {
-          changes += '\n ' + property + ': from ' + this.oldForm[property] +
-                      ' to ' + this.form[property]
-        }
-      }
-      return changes
-    },
     displayError (e) {
       this.$buefy.toast.open({
         message: `Error: ${e.message}`,
         type: 'is-danger'
       })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
-      }
     }
   }
 }

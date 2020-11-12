@@ -154,3 +154,31 @@
   2. Client demo
   3. Dockerize app
 - Meeting's Overall Score: 9.6 / 10
+
+## 11/09/2020
+
+- Objective: Weekly standup, updates, demos
+- Start Time: 7:00pm
+- End Time: 8:00pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Conduct status update, backlog refinement, demoing projects
+- Meeting Summary: We went through standup, demoed what we were working on with reports, notes section widget.
+- Action Items:
+  1. Generate Reports
+  2. Client demo
+  3. Send client memo
+- Meeting's Overall Score: 9.7 / 10
+
+## 11/10/2020
+
+- Objective: Weekly standup, updates, demos, new ideas
+- Start Time: 7:00pm
+- End Time: 9:17pm
+- Attendees: Kevin Apodaca, Richard Quinn, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Conduct status update, demo issues and bugs we're facing.
+- Meeting Summary: We went through standup, showed and fixed some bugs we faced, and as a team managed to implement new methods to retrieve relevant data from backend, and show it in the frontend components where they were needed.
+- Action Items:
+  1. Continue with this new method of retrieving data.
+  2. Tackle syncing data
+  3. Fix associations between artifacts.
+- Meeting's Overall Score: 15 / 10
