@@ -182,3 +182,17 @@
   2. Tackle syncing data
   3. Fix associations between artifacts.
 - Meeting's Overall Score: 15 / 10
+
+## 11/11/2020 - 11/12/2020
+
+- Objective: (Optional Meeting) coding together and fixing issues
+- Start Time: 9:00pm
+- End Time: 3:30am
+- Attendees: Kevin Apodaca, Alex Ortega, Agustin Cortez, Adrian Gonzalez
+- Meeting Agenda: Just work on issues together
+- Meeting Summary: We closed out around 9 tickets quickly by talking amongst each other and throwing ideas around.
+- Action Items:
+  1. Client demo
+  2. Fix reports
+  3. Fix associations between artifacts.
+- Meeting's Overall Score: 20 / 10
