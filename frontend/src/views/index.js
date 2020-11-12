@@ -116,17 +116,6 @@ const routes = [
   },
   {
     meta: {
-      title: 'View Subtasks'
-    },
-    path: '/subtasks-view',
-    name: 'subtasks',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tables" */ '../views/SubtaskView.vue')
-  },
-  {
-    meta: {
       title: 'Sync'
     },
     path: '/forms',
@@ -191,15 +180,6 @@ const routes = [
     path: '/tasks/:id',
     name: 'tasks.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/TaskForm.vue'),
-    props: true
-  },
-  {
-    meta: {
-      title: 'Edit Subtask'
-    },
-    path: '/subtasks/:id',
-    name: 'subtasks.edit',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/SubtaskView.vue'),
     props: true
   },
   {
