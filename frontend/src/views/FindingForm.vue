@@ -367,7 +367,7 @@ export default {
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Finding Basic Information'
+        return 'Finding Information'
       } else {
         return 'New Finding'
       }
