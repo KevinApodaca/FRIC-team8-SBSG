@@ -135,11 +135,12 @@ export default {
         'High'
       ],
       task_progresses: [
-        'not started',
-        'transferred',
-        'in progress',
-        'complete',
-        'not applicable'
+        'Not Started',
+        'Assigned',
+        'Transferred',
+        'In Progress',
+        'Complete',
+        'Not Applicable'
       ]
     }
   },
