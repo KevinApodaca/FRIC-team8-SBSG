@@ -190,7 +190,7 @@ export default {
     },
     async logAction () {
       var trans = {
-        initals: 'K.A',
+        initials: 'K.A',
         action: 'K.A created subtask ' + this.form.title
       }
       LogServices.logAction(trans)
