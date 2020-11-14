@@ -33,7 +33,7 @@
         <event-overview-table data-url='http://localhost:3000/events/all' :checkable="true"/>
       </card-component>
       <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
-        <TextEditor id="findingsNotes"/>
+        <TextEditor id="eventsNotes"/>
       </card-component>
     </section>
   </div>
