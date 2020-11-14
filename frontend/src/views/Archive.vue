@@ -28,7 +28,7 @@
         <task-overview-table data-url="/data-sources/tasks.json" :checkable="true"/>
       </card-component>
        <!-- Subtask Overview -->
-      <card-component class="has-table has-mobile-sort-spaced" title="Archived Subtasks" icon="playlist-edit">
+      <card-component class="has-table has-mobile-sort-spaced" title="Archived Subtasks" icon="view-list">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
           <form slot="right" @submit.prevent="actionSample">
@@ -42,7 +42,7 @@
         <subtask-overview-table data-url="/data-sources/subtasks.json" :checkable="true"/>
       </card-component>
        <!-- Findings Overview -->
-      <card-component class="has-table has-mobile-sort-spaced" title="Archived Findings" icon="playlist-edit">
+      <card-component class="has-table has-mobile-sort-spaced" title="Archived Findings" icon="file-find">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
           <form slot="right" @submit.prevent="actionSample">
@@ -56,7 +56,7 @@
         <finding-overview-table data-url="/data-sources/findings.json" :checkable="true"/>
       </card-component>
        <!-- Systems Overview -->
-      <card-component class="has-table has-mobile-sort-spaced" title="Archived Systems" icon="playlist-edit">
+      <card-component class="has-table has-mobile-sort-spaced" title="Archived Systems" icon="state-machine">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
           <form slot="right" @submit.prevent="actionSample">
