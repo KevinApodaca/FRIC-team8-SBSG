@@ -148,7 +148,7 @@ export default {
       return 'Back'
     },
     formCardTitle () {
-      return 'Subtask Detailed View'
+      return 'New Subtask'
     }
   },
   created () {
