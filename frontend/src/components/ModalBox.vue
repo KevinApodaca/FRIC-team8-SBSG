@@ -4,7 +4,7 @@
       <header class="modal-card-head">
         <p class="modal-card-title">Confirm action</p>
       </header>
-      <section class="modal-card-body" v-if="messagePrompt() == 1">
+      <section class="modal-card-body" v-if="messagePrompt() == 'delete'">
         <p>This item will be removed.</p>
         <p>This cannot be undone.</p>
       </section>
@@ -14,7 +14,7 @@
       </section>
       <footer class="modal-card-foot">
         <button class="button" type="button" @click="cancel">Cancel</button>
-        <button class="button is-danger" @click="confirm" v-if="messagePrompt() == 1">Delete</button>
+        <button class="button is-danger" @click="confirm" v-if="messagePrompt() == 'delete'">Delete</button>
         <button class="button is-info" @click="confirm" v-else>Archive</button>
       </footer>
     </div>
@@ -50,7 +50,9 @@ export default {
       var url = window.location.href
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
 
-      return (lastPart === 'archive') ? 1 : 0
+      // if user is in the archive page, the items will be deleted
+      // delete will return to show a delete prompt
+      return (lastPart === 'archive') ? 'delete' : 'archive'
     }
   },
   watch: {
