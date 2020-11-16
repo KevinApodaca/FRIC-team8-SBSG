@@ -1,5 +1,8 @@
 <h1 align="center"> Findings and Reporting Information Console - FRIC </h1>
 
+---
+https://img.shields.io/codefactor/grade/github/KevinApodaca/https://github.com/KevinApodaca/FRIC-team8-SBSG.git
+
 ## Scope of Product
 The Cyber Experimentation & Analysis Division (CEAD) recognizes the complexity and the time it takes to manage task assignments, progress, vulnerability discovery during a cyber engagement and generate custom reports that presents the discovered vulnerabilities and potential issues to CEAD’s target audience. They want a system that would aid the management of task, collection of evidence, and report generation during a cyber engagement.
 
