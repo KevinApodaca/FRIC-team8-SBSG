@@ -56,3 +56,15 @@
 1. Reading provided articles and resources from members to keep up to date about technologies we are using.
 
 ## Try Out
+
+# Sprint Retro 11/16/2020
+
+## Keep the Same as
+1. use of `Recordit` to see the changes that have been made.
+2. Collaborative programming in discord channels help increase productivity and interaction
+
+## Do More of
+1. Pull requests with CodeFactor
+
+## Try Out
+1. Social events with the bois
