@@ -1,67 +1,32 @@
-<h1 align="center"> Findings and Reporting Information Console - FRIC </h1>
+---
+description: >-
+  Documentation for the FRIC tool, developed as the final senior capstone
+  project for the CS 4311 class at the University of Texas at El Paso during the
+  Fall 2020 semester by Team 8(SBSG)
+---
 
-[![CodeFactor](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg/badge?s=acb59e049c14218072eb3bde141bc7207113f122)](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg)
+# Findings and Reporting Information Console \(FRIC\)
 
-## Scope of Product
-The Cyber Experimentation & Analysis Division (CEAD) recognizes the complexity and the time it takes to manage task assignments, progress, vulnerability discovery during a cyber engagement and generate custom reports that presents the discovered vulnerabilities and potential issues to CEAD’s target audience. They want a system that would aid the management of task, collection of evidence, and report generation during a cyber engagement.
+## Getting Super Powers
 
-The University of Texas at El Paso (UTEP) and CEAD are collaborating to develop Findings and Reporting Information Console (FRIC) system that will provide the ability to manage task assignment and progress, and facilitate the collection of evidence on existing vulnerabilities, and generation of custom reports.
+Becoming a super hero is a fairly straight forward process:
 
-This is the FRIC system, as developed by Team 8 (SBSG) of the Fall 2020 CS 4311 cohort at the University of Texas at El Paso. FRIC uses the following technologies for its development.
+```
+$ give me super-powers
+```
 
-* PWA/SPA — Single page app
-* Built with Vue.js, Buefy & Bulma
-* SCSS sources with variables
-* Mobile Responsive
+{% hint style="info" %}
+ Super-powers are granted randomly so please submit an issue if you're not happy with yours.
+{% endhint %}
 
-## Table of Contents
+Once you're strong enough, save the world:
 
-* [Quick Start](#quick-start)
-* [Browser Support](#browser-support)
-* [Reporting Issues](#reporting-issues)
-* [Licensing](#licensing)
-* [Useful Links](#useful-links)
+{% code title="hello.sh" %}
+```bash
+# Ain't no code for that yet, sorry
+echo 'You got to trust me on this, I saved the world'
+```
+{% endcode %}
 
-## Quick Start
 
-#### Get the repo
 
-Download the source code with `git clone https://github.com/KevinApodaca/FRIC-team8-SBSG.git` 
-
-#### Install
-
-To install all dependencies for the frontend ui: `cd` to project's frontend directory and run `npm install`
-
-To install all dependencies for the backend services: `cd` to project's backend directory and run `npm install`
-
-#### Serve
-
-To pre-compile & hot-reload for development run `npm run serve`in the frontend directory
-
-To start the Express server and the MongoDB instance, run `npm start` in the backend directory
-
-#### Build
-
-Production-ready with minified bundle `npm run build`
-
-## Browser Support
-
-Currently supports 
-- Firefox
-- Chrome
-- Safari
-- Brave
-- Opera
-- Edge
-- Min
-
-## Reporting Issues
-
-## Licensing
-
-## Useful Links
-
-- [Vue.js Guide](https://vuejs.org/v2/guide/)
-- [Vue CLI Guide](https://cli.vuejs.org/guide/)
-- [Buefy](https://buefy.org)
-- [Bulma](https://bulma.io)
