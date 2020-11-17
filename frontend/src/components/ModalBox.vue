@@ -49,9 +49,6 @@ export default {
     messagePrompt () {
       var url = window.location.href
       var lastPart = url.substr(url.lastIndexOf('/') + 1)
-
-      // if user is in the archive page, the items will be deleted
-      // delete will return to show a delete prompt
       return (lastPart === 'archive') ? 'delete' : 'archive'
     }
   },
