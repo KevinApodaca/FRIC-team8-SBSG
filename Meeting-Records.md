@@ -196,3 +196,18 @@
   2. Fix reports
   3. Fix associations between artifacts.
 - Meeting's Overall Score: 20 / 10
+
+## 11/16/2020
+
+- Objective: Sprint retro, planning
+- Start Time: 7:00pm
+- End Time: 8:15pm
+- Attendees: Kevin Apodaca, Alex Ortega, Agustin Cortez, Adrian Gonzalez, Richard Quinn
+- Meeting Agenda: Plan for sprint 7
+- Meeting Summary: We closed sprint 6, did a sprint retro, planned for next deliverable
+- Action Items:
+  1. Ask about testing for codebase (unit tests)
+  2. Create and generate reports
+  3. Archive functionality
+  4. Fix bugs
+- Meeting's Overall Score: 9 / 10
