@@ -32,6 +32,9 @@
         </card-toolbar>
         <event-overview-table data-url='http://localhost:3000/events/all' :checkable="true"/>
       </card-component>
+      <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
+        <TextEditor id="eventsNotes"/>
+      </card-component>
     </section>
   </div>
 
@@ -45,9 +48,11 @@ import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
+import TextEditor from '@/components/TextEditor'
+
 export default {
   name: 'Events',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, EventOverviewTable },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, EventOverviewTable, TextEditor },
   computed: {
     titleStack () {
       return [

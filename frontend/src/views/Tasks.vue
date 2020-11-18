@@ -11,26 +11,6 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <notification class="is-info">
-        <div>
-          <b-icon icon="bell" custom-size="default"/>
-          <b>Notification</b>
-        <br>
-    <b-table
-      :loading="isLoading"
-      :paginated="paginated"
-      :per-page="perPage"
-      :striped="true"
-      :hoverable="true"
-      default-sort="name"
-      :data='tasks'>
-
-      <b-table-column v-slot="props">
-        <b> Task {{ props.row.title }} is due on {{ props.row.created}} </b>
-      </b-table-column>
-    </b-table>
-        </div>
-      </notification>
       <card-component class="has-table has-mobile-sort-spaced" title="Task Overview Table" icon="playlist-edit">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
@@ -68,13 +48,12 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
-import Notification from '@/components/Notification'
 import swal from 'sweetalert'
 import TextEditor from '@/components/TextEditor'
 
 export default {
   name: 'Task',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, Notification, TextEditor },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, TaskOverviewTable, TextEditor },
   data () {
     return {
       isModalActive: false,
@@ -92,7 +71,7 @@ export default {
   computed: {
     titleStack () {
       return [
-        'Lead Analyst',
+        'Analyst',
         'Task'
       ]
     }

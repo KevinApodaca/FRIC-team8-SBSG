@@ -59,7 +59,7 @@
             </b-field>
             </b-field>
             <hr>
-            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop/></card-component>
+            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop :file-export='files'/></card-component>
         </card-component>
       </tiles>
       <b-field horizontal>
@@ -86,6 +86,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import TaskService from '@/services/TaskServices'
+import FileServices from '@/services/FileServices'
 import SubtaskService from '@/services/SubtaskServices'
 import LogServices from '@/services/LogTransactionServices'
 import CardComponent from '@/components/CardComponent'
@@ -106,6 +107,7 @@ export default {
       createdReadable: null,
       isProfileExists: false,
       tasks: null,
+      files: [],
       subtask_progress: [
         'Not Started',
         'Assigned',
@@ -146,7 +148,7 @@ export default {
       return 'Back'
     },
     formCardTitle () {
-      return 'Subtask Detailed View'
+      return 'New Subtask'
     }
   },
   created () {
@@ -158,6 +160,17 @@ export default {
     },
     async submit () {
       this.isLoading = true
+      console.log(this.files)
+      await FileServices.upLoadFiles(this.files)
+        .then(res => {
+          console.log('inside the .then')
+          console.log(res)
+          this.form.filename = res
+        })
+        .catch(err => {
+          this.displayError(err)
+        })
+
       SubtaskService.createSubtask(this.form)
         .then(response => {
           if (response.status === 200) {
@@ -177,7 +190,7 @@ export default {
     },
     async logAction () {
       var trans = {
-        initals: 'K.A',
+        initials: 'K.A',
         action: 'K.A created subtask ' + this.form.title
       }
       LogServices.logAction(trans)

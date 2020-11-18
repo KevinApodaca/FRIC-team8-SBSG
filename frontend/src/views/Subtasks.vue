@@ -35,6 +35,9 @@
          <card-toolbar slot="toolbar">
         </card-toolbar>
       </card-component>
+      <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
+        <TextEditor id="subtasksNotes"/>
+      </card-component>
     </section>
   </div>
 
@@ -48,13 +51,15 @@ import HeroBar from '@/components/HeroBar'
 import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
+import TextEditor from '@/components/TextEditor'
+
 export default {
   name: 'Subtask',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, SubtaskOverviewTable },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, SubtaskOverviewTable, TextEditor },
   computed: {
     titleStack () {
       return [
-        'Lead Analyst',
+        'Analyst',
         'Subtasks'
       ]
     }

@@ -59,6 +59,7 @@
                 </option>
               </b-select>
             </b-field>
+            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop :file-export='files'/></card-component>
             <hr>
             <b-field label="No. of Subtasks" horizontal>
               <div style = "width: 5rem;">
@@ -101,14 +102,16 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import TaskService from '@/services/TaskServices'
+import FileServices from '@/services/FileServices'
 import SystemService from '@/services/SystemServices'
 import AnalystService from '@/services/AnalystServices'
 import CardComponent from '@/components/CardComponent'
 import LogServices from '@/services/LogTransactionServices'
+import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 
 export default {
   name: 'TaskForm',
-  components: { CardComponent, Tiles, HeroBar, TitleBar },
+  components: { CardComponent, Tiles, HeroBar, TitleBar, FilePickerDragAndDrop },
   props: {
     id: {
       default: null
@@ -125,17 +128,19 @@ export default {
       analysts_for_task: null,
       task_priority: null,
       task_progress: null,
+      files: [],
       task_priorities: [
         'Low',
         'Medium',
         'High'
       ],
       task_progresses: [
-        'not started',
-        'transferred',
-        'in progress',
-        'complete',
-        'not applicable'
+        'Not Started',
+        'Assigned',
+        'Transferred',
+        'In Progress',
+        'Complete',
+        'Not Applicable'
       ]
     }
   },
@@ -190,7 +195,18 @@ export default {
     },
     async submit () {
       this.isLoading = true
-      TaskService.createTask(this.form)
+      console.log(this.files)
+      await FileServices.upLoadFiles(this.files)
+        .then(res => {
+          console.log('inside the .then')
+          console.log(res)
+          this.form.filename = res
+        })
+        .catch(err => {
+          this.displayError(err)
+        })
+
+      await TaskService.createTask(this.form)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully created task')
@@ -221,7 +237,7 @@ export default {
     },
     async logAction () {
       var trans = {
-        initals: 'K.A',
+        initials: 'K.A',
         action: 'K.A created task ' + this.form.title
       }
       LogServices.logAction(trans)

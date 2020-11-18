@@ -341,7 +341,7 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.title
+        lastCrumb = this.form.host
       } else {
         lastCrumb = 'New Finding'
       }
@@ -354,7 +354,7 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.title
+        return this.form.host
       } else {
         return 'Finding Detailed View'
       }
@@ -367,7 +367,7 @@ export default {
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Finding Basic Information'
+        return 'Finding Information'
       } else {
         return 'New Finding'
       }

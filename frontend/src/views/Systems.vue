@@ -32,6 +32,9 @@
         </card-toolbar>
         <system-overview-table data-url='http://localhost:3000/systems/all' :checkable="true"/>
       </card-component>
+      <card-component class="has-mobile-sort-spaced" title="Your Notes" icon="note-outline">
+        <TextEditor id="systemsNotes"/>
+      </card-component>
     </section>
   </div>
 </template>
@@ -44,10 +47,11 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import SystemOverviewTable from '@/components/SystemOverviewTable'
 import swal from 'sweetalert'
+import TextEditor from '@/components/TextEditor'
 
 export default {
   name: 'System',
-  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, SystemOverviewTable },
+  components: { CardToolbar, RefreshButton, HeroBar, TitleBar, CardComponent, SystemOverviewTable, TextEditor },
   computed: {
     titleStack () {
       return [
