@@ -55,7 +55,6 @@ module.exports = mongoose => {
         analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
         collaboration: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
         finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
-        delete_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
     },
     {collection: 'subtask'}
     )

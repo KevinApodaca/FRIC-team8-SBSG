@@ -26,6 +26,22 @@ router.patch('/:systemId', (req, res) => {
   systemController.update(req, res)
 })
 
+router.patch('/task/:systemId', (req, res) => {
+  systemController.updateArrayTask(req, res)
+})
+
+router.patch('/finding/:systemId', (req, res) => {
+  systemController.updateArrayFinding(req, res)
+})
+
+router.patch('/remove/task/:systemId', (req, res) => {
+  systemController.removeTask(req, res)
+})
+
+router.patch('/remove/finding/:systemId', (req, res) => {
+  systemController.removeFinding(req, res)
+})
+
 router.delete('/:systemId', (req, res) => {
   systemController.delete(req, res)
 })

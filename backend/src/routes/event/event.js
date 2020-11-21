@@ -22,6 +22,22 @@ router.patch('/:eventId', (req, res) => {
   eventController.update(req, res)
 })
 
+router.patch('/system/:eventId', (req, res) => {
+  eventController.updateArraySystem(req, res)
+})
+
+router.patch('/analyst/:eventId', (req, res) => {
+  eventController.updateArrayAnalyst(req, res)
+})
+
+router.patch('/remove/system/:eventId', (req, res) => {
+  eventController.removeSystem(req, res)
+})
+
+router.patch('/remove/analyst/:eventId', (req, res) => {
+  eventController.removeAnalyst(req, res)
+})
+
 router.delete('/:eventId', (req, res) => {
   eventController.delete(req, res)
 })

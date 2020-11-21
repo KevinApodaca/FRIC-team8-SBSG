@@ -27,6 +27,26 @@ export default {
     return res
   },
 
+  async addTask (newForm, eventId) {
+    const res = await axios.patch('http://localhost:3000/systems/task/' + eventId, newForm)
+    return res
+  },
+
+  async addFinding (newForm, eventId) {
+    const res = await axios.patch('http://localhost:3000/systems/finding/' + eventId, newForm)
+    return res
+  },
+
+  async removeTask (newForm, eventId) {
+    const res = await axios.patch('http://localhost:3000/systems/remove/task/' + eventId, newForm)
+    return res
+  },
+
+  async removeFinding (newForm, eventId) {
+    const res = await axios.patch('http://localhost:3000/systems/remove/finding/' + eventId, newForm)
+    return res
+  },
+
   async getMultipleSystems (multipleSystems) {
     const res = await axios.get('http://localhost:3000/findings/multiple/systems', {
       params: {
