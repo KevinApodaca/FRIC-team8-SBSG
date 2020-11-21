@@ -53,9 +53,9 @@
               </b-select>
             </b-field>
             <b-field label="Progress" horizontal>
-             <b-select v-model="form.task_progress">
-                <option v-for="(task_progress, index) in task_progresses" :key="index" :value="task_progresses">
-                  {{ task_progress }}
+             <b-select v-model="form.task_progresses">
+                <option v-for="(task_progresses, index) in task_progresses" :key="index" :value="task_progresses">
+                  {{ task_progresses }}
                 </option>
               </b-select>
             </b-field>
