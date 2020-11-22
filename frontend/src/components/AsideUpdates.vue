@@ -1,5 +1,5 @@
 <template>
-  <div style="height:850px;overflow:auto">
+  <div style="height:620px;overflow:auto;overflow-x: hidden">
     <aside-updates-item v-for="item in tasks" :key="item.id" :status="item.status" :icon="item.playlist-edit">
         <span class="tag is-light is-danger tag is-rounded">Task</span>
         <p><a href="http://localhost:8080/#/tasks"> {{ item.title }}</a>, is due on: {{ item.created }}</p>
