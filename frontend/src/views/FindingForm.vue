@@ -14,9 +14,6 @@
             <b-field label="ID" horizontal>
               <b-input v-model="form.id_form" required />
             </b-field>
-            <b-field label="Title" horizontal>
-              <b-input v-model="form.finding_title" required />
-            </b-field>
             <b-field label="Host Name" horizontal>
               <b-input v-model="form.host" required />
             </b-field>
@@ -256,7 +253,6 @@ export default {
       files: [],
       createdReadable: null,
       isProfileExists: false,
-      finding_title: null,
       finding_status: null,
       finding_type: null,
       finding_classification: null,
@@ -345,7 +341,7 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.finding_title
+        lastCrumb = this.form.host
       } else {
         lastCrumb = 'New Finding'
       }
@@ -358,7 +354,7 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.finding_title
+        return this.form.host
       } else {
         return 'Finding Detailed View'
       }
@@ -426,7 +422,7 @@ export default {
     },
     showDiffs () {
       var changes = 'K.A made the following changes to ' +
-                      'properties on finding ' + this.oldForm.finding_title
+                      'properties on finding ' + this.oldForm.host
       for (const property in this.form) {
         if (this.form[property] !== this.oldForm[property]) {
           changes += '\n ' + property + ': from ' + this.oldForm[property] +
