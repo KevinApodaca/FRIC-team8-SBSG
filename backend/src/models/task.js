@@ -41,9 +41,11 @@ module.exports = mongoose => {
           type: String,
           default: ""
         },
-        parent: { type: mongoose.Schema.Types.ObjectId, ref: 'system' },
+        parent: { type: mongoose.Schema.Types.ObjectId },
         analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
-        collaboration: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+        collaborator: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+        task_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'task' }],
+        subtask_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtask' }],
         finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
     },
     {collection: 'task'}

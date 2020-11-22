@@ -54,7 +54,7 @@ export class SystemController {
       })
   }
 
-  updateArrayTask (req, res) {
+  updateArray (req, res) {
     if (!req.body) {
       return res.status(400).send({
         message: 'Data is Empty :('
@@ -78,55 +78,7 @@ export class SystemController {
       })
   }
 
-  updateArrayFinding (req, res) {
-    if (!req.body) {
-      return res.status(400).send({
-        message: 'Data is Empty :('
-      })
-    }
-
-    const id = req.params.systemId
-
-    System.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
-      .then(data => {
-        if (!data) {
-          res.status(404).send({
-            message: `Cannot update System with id=${id}!`
-          })
-        } else res.send({ message: 'System was updated successfully.' })
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: 'Error updating System with id=' + id + " " + err.message
-        })
-      })
-  }
-
-  removeTask (req, res) {
-    if (!req.body) {
-      return res.status(400).send({
-        message: 'Data is Empty :('
-      })
-    }
-
-    const id = req.params.systemId
-
-    System.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
-      .then(data => {
-        if (!data) {
-          res.status(404).send({
-            message: `Cannot update System with id=${id}!`
-          })
-        } else res.send({ message: 'System was updated successfully.' })
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: 'Error updating System with id=' + id + " " + err.message
-        })
-      })
-  }
-
-  removeFinding (req, res) {
+  removeItemInArray (req, res) {
     if (!req.body) {
       return res.status(400).send({
         message: 'Data is Empty :('

@@ -103,12 +103,6 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
-      created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
-      collaborator: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
-      system_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'system' }],
-      task_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'task' }],
-      subtask_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtask' }],
-      finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
       finding_type: {
         type: String,
         enum: [
@@ -127,7 +121,7 @@ module.exports = mongoose => {
           'Physical Security',
           'Information Disclosure'
         ],
-        default: 'Credentials Complexity'
+        default: ' '
       },
       finding_classification: {
         type: String,
@@ -135,7 +129,7 @@ module.exports = mongoose => {
           'Vulnerability',
           'Information'
         ],
-        default: 'Information'
+        default: ' '
       },
       finding_confidentiality : {
         type: String,
@@ -145,7 +139,7 @@ module.exports = mongoose => {
           'High',
           'Information'
         ],
-        default: 'Information'
+        default: ' '
       },
       finding_integrity: {
         type: String,
@@ -155,7 +149,7 @@ module.exports = mongoose => {
           'High',
           'Information'
         ],
-        default: 'Information'
+        default: ' '
       },
       finding_availability : {
         type: String,
@@ -165,7 +159,7 @@ module.exports = mongoose => {
           'High',
           'Information'
         ],
-        default: 'Information'
+        default: ' '
       },
       finding_posture: {
         type: String,
@@ -176,7 +170,7 @@ module.exports = mongoose => {
           'Nearsider',
           'Nearsider-outsider'
         ],
-        default: 'Insider'
+        default: ' '
       },
       threat_relevance: {
         type: String,
@@ -187,7 +181,7 @@ module.exports = mongoose => {
           'Predicted',
           'Possible'
         ],
-        default: 'Confirmed'
+        default: ' '
       },
       effectiveness_rating: {
         type: String,
@@ -198,7 +192,7 @@ module.exports = mongoose => {
           'Low (1-3)',
           'Very low (0)'
         ],
-        default: 'Very high (10)'
+        default: ' '
       },
       impact_level: {
         type: String,
@@ -210,8 +204,15 @@ module.exports = mongoose => {
           'VL',
           'Information'
         ],
-        default: 'Information'
+        default: ' '
       },
+      parent: { type: mongoose.Schema.Types.ObjectId },
+      created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+      collaborator: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+      system_association: { type: mongoose.Schema.Types.ObjectId, ref: 'system' },
+      task_association: { type: mongoose.Schema.Types.ObjectId, ref: 'task' },
+      subtask_association: { type: mongoose.Schema.Types.ObjectId, ref: 'subtask' },
+      finding_association: { type: mongoose.Schema.Types.ObjectId, ref: 'finding' },
     },
     {collection: 'finding'}
   )

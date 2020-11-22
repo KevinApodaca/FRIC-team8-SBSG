@@ -50,7 +50,7 @@ module.exports = mongoose => {
           type: String,
           default: ''
         },
-        parent: { type: mongoose.Schema.Types.ObjectId, ref: 'task' },
+        parent: { type: mongoose.Schema.Types.ObjectId },
         created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
         analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
         collaboration: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },

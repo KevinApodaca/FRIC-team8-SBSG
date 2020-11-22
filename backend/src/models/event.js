@@ -22,8 +22,6 @@ module.exports = mongoose => {
       type: String,
       default: "",
     },
-    system_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'system' }],
-    analyst: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
     created: {
       type: String,
       default: "",
@@ -80,7 +78,12 @@ module.exports = mongoose => {
     progress: {
       type: Number,
       default: 0,
-    }
+    },
+    system_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'system' }],
+    task_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'task' }],
+    subtask_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtask' }],
+    finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
+    analyst: [{ type: mongoose.Schema.Types.ObjectId, ref: 'analyst' }],
   },
   {collection: 'event'}
   )

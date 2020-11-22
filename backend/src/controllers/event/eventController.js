@@ -54,7 +54,7 @@ export class EventController {
       })
   }
 
-  updateArraySystem (req, res) {
+  updateArray (req, res) {
     if (!req.body) {
       return res.status(400).send({
         message: 'Data is Empty :('
@@ -79,7 +79,7 @@ export class EventController {
   }
 
 
-  updateArrayAnalyst (req, res) {
+  removeItemInArray (req, res) {
     if (!req.body) {
       return res.status(400).send({
         message: 'Data is Empty :('
@@ -88,7 +88,7 @@ export class EventController {
 
     const id = req.params.eventId
 
-    Event.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+    Event.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({
@@ -102,6 +102,7 @@ export class EventController {
         })
       })
   }
+
 
   delete (req, res) {
     const id = req.params.eventId
@@ -121,54 +122,6 @@ export class EventController {
       .catch(err => {
         res.status(500).send({
           message: 'Could not delete Event with id=' + id + err.message
-        })
-      })
-  }
-
-  removeSystem (req, res) {
-    if (!req.body) {
-      return res.status(400).send({
-        message: 'Data is Empty :('
-      })
-    }
-
-    const id = req.params.eventId
-
-    Event.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
-      .then(data => {
-        if (!data) {
-          res.status(404).send({
-            message: `Cannot update Event with id=${id}!`
-          })
-        } else res.send({ message: 'Event was updated successfully.' })
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: 'Error updating Event with id=' + id + " " + err.message
-        })
-      })
-  }
-
-  removeAnalyst (req, res) {
-    if (!req.body) {
-      return res.status(400).send({
-        message: 'Data is Empty :('
-      })
-    }
-
-    const id = req.params.eventId
-
-    Event.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
-      .then(data => {
-        if (!data) {
-          res.status(404).send({
-            message: `Cannot update Event with id=${id}!`
-          })
-        } else res.send({ message: 'Event was updated successfully.' })
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: 'Error updating Event with id=' + id + " " + err.message
         })
       })
   }

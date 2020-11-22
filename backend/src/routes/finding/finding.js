@@ -26,6 +26,10 @@ router.patch('/:findingId', (req, res) => {
   findingController.update(req, res)
 })
 
+router.patch('/all/parents/:parentId', (req, res) => {
+  findingController.changeParent(req, res)
+})
+
 router.delete('/:findingId', (req, res) => {
   findingController.delete(req, res)
 })

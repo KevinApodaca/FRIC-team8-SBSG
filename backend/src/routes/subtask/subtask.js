@@ -26,6 +26,18 @@ router.patch('/:subtaskId', (req, res) => {
     subtaskController.update(req, res)
 })
 
+router.patch('/addItem/:subtaskId', (req, res) => {
+    subtaskController.updateArray(req, res)
+})
+
+router.patch('/removeItem/:subtaskId', (req, res) => {
+    subtaskController.removeItem(req, res)
+})
+
+router.patch('/all/parents/:parentId', (req, res) => {
+    subtaskController.changeParent(req, res)
+})
+
 router.delete('/:subtaskId', (req, res) => {
     subtaskController.delete(req, res)
 })

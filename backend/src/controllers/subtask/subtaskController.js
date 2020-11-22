@@ -54,6 +54,78 @@ export class SubtaskController {
       })
   }
 
+  updateArray (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.subtaskId
+
+    Subtask.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update subtask with id=${id}!`
+          })
+        } else res.send({ message: 'Subtask was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating subtask with id=' + id + err.message
+        })
+      })
+  }
+
+  removeItem (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.subtaskId
+
+    Subtask.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update subtask with id=${id}!`
+          })
+        } else res.send({ message: 'Subtask was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating subtask with id=' + id + err.message
+        })
+      })
+  }
+
+  changeParent (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.parentId
+
+    Subtask.updateMany({parent: id}, req.body, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update Subtask with id=${id}!`
+          })
+        } else res.send({ message: 'Subtask was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating Subtask with id=' + id + " " + err.message
+        })
+      })
+  }
+
   delete (req, res) {
     const id = req.params.subtaskId
 

@@ -54,6 +54,31 @@ export class FindingController {
       })
   }
 
+
+  changeParent (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.parentId
+
+    Finding.updateMany({parent: id}, req.body, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update Finding with id=${id}!`
+          })
+        } else res.send({ message: 'Finding was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating Finding with id=' + id + " " + err.message
+        })
+      })
+  }
+
   delete (req, res) {
     const id = req.params.findingId
 

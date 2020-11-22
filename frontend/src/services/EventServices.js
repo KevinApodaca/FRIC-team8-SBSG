@@ -26,41 +26,63 @@ export default {
     return res
   },
 
-  async addAnalyst (analystId, eventId) {
-    const analyst = this.analyst_json(analystId)
-    const res = await axios.patch('http://localhost:3000/events/analyst/' + eventId, analyst)
+  async addAnalyst (eventId, analystId) {
+    const analyst = { analyst_association: analystId }
+    const res = await axios.patch('http://localhost:3000/events/addItem/' + eventId, analyst)
     return res
   },
 
-  async addSystem (systemId, eventId) {
-    const system = this.system_json(systemId)
-    const res = await axios.patch('http://localhost:3000/events/system/' + eventId, system)
+  async addSystem (eventId, systemId) {
+    const system = { system_association: systemId }
+    const res = await axios.patch('http://localhost:3000/events/addItem/' + eventId, system)
     return res
   },
 
-  async removeAnalyst (analystId, eventId) {
-    const analyst = this.analyst_json(analystId)
-    const res = await axios.patch('http://localhost:3000/events/remove/analyst/' + eventId, analyst)
+  async addTask (eventId, taskId) {
+    const task = { task_association: taskId }
+    const res = await axios.patch('http://localhost:3000/events/addItem/' + eventId, task)
     return res
   },
 
-  async removeSystem (systemId, eventId) {
-    const system = this.system_json(systemId)
-    const res = await axios.patch('http://localhost:3000/events/remove/system/' + eventId, system)
+  async addSubtask (eventId, subtaskId) {
+    const subtask = { subtask_association: subtaskId }
+    const res = await axios.patch('http://localhost:3000/events/addItem/' + eventId, subtask)
     return res
   },
 
-  system_json (id) {
-    const system = {
-      system_association: id
-    }
-    return system
+  async addFinding (eventId, findingId) {
+    const finding = { finding_association: findingId }
+    const res = await axios.patch('http://localhost:3000/events/addItem/' + eventId, finding)
+    return res
   },
 
-  analyst_json (id) {
-    const system = {
-      analyst_association: id
-    }
-    return system
+  async removeAnalyst (eventId, analystId) {
+    const analyst = { analyst_association: analystId }
+    const res = await axios.patch('http://localhost:3000/events/removeItem/' + eventId, analyst)
+    return res
+  },
+
+  async removeSystem (eventId, systemId) {
+    const system = { system_association: systemId }
+    const res = await axios.patch('http://localhost:3000/events/removeItem/' + eventId, system)
+    return res
+  },
+
+  async removeTask (eventId, taskId) {
+    const task = { task_association: taskId }
+    const res = await axios.patch('http://localhost:3000/events/removeItem/' + eventId, task)
+    return res
+  },
+
+  async removeSubtask (eventId, subtaskId) {
+    const subtask = { subtask_association: subtaskId }
+    const res = await axios.patch('http://localhost:3000/events/removeItem/' + eventId, subtask)
+    return res
+  },
+
+  async removeFinding (eventId, findingId) {
+    const finding = { finding_association: findingId }
+    const res = await axios.patch('http://localhost:3000/events/removeItem/' + eventId, finding)
+    return res
   }
 }

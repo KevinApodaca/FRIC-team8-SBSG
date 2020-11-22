@@ -7,8 +7,8 @@ export default {
     return res
   },
 
-  async getSystemSingle (eventId) {
-    const res = await axios.get('http://localhost:3000/systems/' + eventId)
+  async getSystemSingle (systemId) {
+    const res = await axios.get('http://localhost:3000/systems/' + systemId)
     return res
   },
 
@@ -17,38 +17,54 @@ export default {
     return res
   },
 
-  async deleteSystem (eventId) {
-    const res = await axios.delete('http://localhost:3000/systems/' + eventId)
+  async deleteSystem (systemId) {
+    const res = await axios.delete('http://localhost:3000/systems/' + systemId)
     return res
   },
 
-  async modifySystem (newForm, eventId) {
-    const res = await axios.patch('http://localhost:3000/systems/' + eventId, newForm)
+  async modifySystem (systemId, newForm) {
+    const res = await axios.patch('http://localhost:3000/systems/' + systemId, newForm)
     return res
   },
 
-  async addTask (newForm, eventId) {
-    const res = await axios.patch('http://localhost:3000/systems/task/' + eventId, newForm)
+  async addTask (systemId, taskId) {
+    const task = { task_association: taskId }
+    const res = await axios.patch('http://localhost:3000/systems/addItem/' + systemId, task)
     return res
   },
 
-  async addFinding (newForm, eventId) {
-    const res = await axios.patch('http://localhost:3000/systems/finding/' + eventId, newForm)
+  async addSubtask (systemId, subtaskId) {
+    const subtask = { subtask_association: subtaskId }
+    const res = await axios.patch('http://localhost:3000/systems/addItem/' + systemId, subtask)
     return res
   },
 
-  async removeTask (newForm, eventId) {
-    const res = await axios.patch('http://localhost:3000/systems/remove/task/' + eventId, newForm)
+  async addFinding (systemId, findingId) {
+    const finding = { finding_association: findingId }
+    const res = await axios.patch('http://localhost:3000/systems/addItem/' + systemId, finding)
     return res
   },
 
-  async removeFinding (newForm, eventId) {
-    const res = await axios.patch('http://localhost:3000/systems/remove/finding/' + eventId, newForm)
+  async removeTask (systemId, taskId) {
+    const task = { task_association: taskId }
+    const res = await axios.patch('http://localhost:3000/systems/removeItem/' + systemId, task)
+    return res
+  },
+
+  async removeSubtask (systemId, subtaskId) {
+    const subtask = { subtask_association: subtaskId }
+    const res = await axios.patch('http://localhost:3000/systems/removeItem/' + systemId, subtask)
+    return res
+  },
+
+  async removeFinding (systemId, findingId) {
+    const finding = { finding_association: findingId }
+    const res = await axios.patch('http://localhost:3000/systems/removeItem/' + systemId, finding)
     return res
   },
 
   async getMultipleSystems (multipleSystems) {
-    const res = await axios.get('http://localhost:3000/findings/multiple/systems', {
+    const res = await axios.get('http://localhost:3000/systems/multiple/systems', {
       params: {
         arr: multipleSystems
       },

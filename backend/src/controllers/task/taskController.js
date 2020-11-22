@@ -54,6 +54,100 @@ export class TaskController {
       })
   }
 
+  updateArray (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.taskId
+
+    Task.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update task with id=${id}!`
+          })
+        } else res.send({ message: 'Task was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating task with id=' + id + " " + err.message
+        })
+      })
+  }
+
+  removeItem (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.taskId
+
+    Task.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update task with id=${id}!`
+          })
+        } else res.send({ message: 'Task was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating task with id=' + id + " " + err.message
+        })
+      })
+  }
+
+  changeParent (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.parentId
+
+    Task.updateMany({parent: id}, req.body, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update task with id=${id}!`
+          })
+        } else res.send({ message: 'Task was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating task with id=' + id + " " + err.message
+        })
+      })
+  }
+
+  removeInstancesOfId (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    Task.updateMany({}, {$pull: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update task with id=${id}!`
+          })
+        } else res.send({ message: 'Task was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating task with id=' + id + " " + err.message
+        })
+      })
+  }
+
   delete (req, res) {
     const id = req.params.taskId
 

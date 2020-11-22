@@ -27,8 +27,20 @@ export default {
     return res
   },
 
+  async addFinding (subtaskId, findingId) {
+    const finding = { finding_association: findingId }
+    const res = await axios.patch('http://localhost:3000/subtasks/addItem/' + subtaskId, finding)
+    return res
+  },
+
+  async removeFinding (subtaskId, findingId) {
+    const finding = { finding_association: findingId }
+    const res = await axios.patch('http://localhost:3000/subtasks/removeItem/' + subtaskId, finding)
+    return res
+  },
+
   async getMultipleSubtasks (multipleSubtasks) {
-    const res = await axios.get('http://localhost:3000/findings/multiple/subtasks', {
+    const res = await axios.get('http://localhost:3000/subtasks/multiple/subtasks', {
       params: {
         arr: multipleSubtasks
       },
