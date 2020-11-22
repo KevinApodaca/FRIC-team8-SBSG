@@ -107,8 +107,8 @@
               </b-select>
             </b-field>
         </card-component>
-          </form>
-        </card-component>
+        </form>
+         <hr>
         <!-- Analyst Information Component Card -->
         <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -133,7 +133,8 @@
               </b-select>
             </b-field>
             </b-field>
-            <hr>
+        </card-component>
+        <hr>
         <!-- Mitigation Information Component Card -->
           <card-component v-if="isProfileExists" title="Mitigation" icon="engine" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -144,6 +145,7 @@
               <b-input type="textarea" v-model="form.mitigation_long" reaadonly />
             </b-field>
         </card-component>
+        <hr>
         <!-- Threat Relevance Information Component Card -->
           <card-component v-if="isProfileExists" title="Threat Relevance" icon="emoticon-devil" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -182,7 +184,7 @@
                 </b-select>
               </b-field>
           </card-component>
-        </card-component>
+          <hr>
           <!-- Risk Information Component Card -->
           <card-component v-if="isProfileExists" title="Risk" icon="hazard-lights" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
@@ -192,7 +194,8 @@
             <b-field label="Likelihood" horizontal>
               <b-input v-model="form.likelihood" reaadonly />
             </b-field>
-            <hr>
+          </card-component>
+          <hr>
           <!-- Finding System Level Impact Information Component Card -->
           <card-component v-if="isProfileExists" title="Finding System Level Impact" icon="car-coolant-level" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
