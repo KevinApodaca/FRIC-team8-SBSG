@@ -345,7 +345,7 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.host
+        lastCrumb = this.form.finding_title
       } else {
         lastCrumb = 'New Finding'
       }
@@ -358,7 +358,7 @@ export default {
     },
     heroTitle () {
       if (this.isProfileExists) {
-        return this.form.host
+        return this.form.finding_title
       } else {
         return 'Finding Detailed View'
       }
@@ -426,7 +426,7 @@ export default {
     },
     showDiffs () {
       var changes = 'K.A made the following changes to ' +
-                      'properties on finding ' + this.oldForm.host
+                      'properties on finding ' + this.oldForm.finding_title
       for (const property in this.form) {
         if (this.form[property] !== this.oldForm[property]) {
           changes += '\n ' + property + ': from ' + this.oldForm[property] +
