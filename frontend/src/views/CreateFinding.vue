@@ -14,6 +14,9 @@
             <b-field label="ID" horizontal>
               <b-input v-model="form.id_form" required />
             </b-field>
+            <b-field label="Title" horizontal>
+              <b-input v-model="form.finding_title" required />
+            </b-field>
             <b-field label="Host Name" horizontal>
               <b-input v-model="form.host" required />
             </b-field>
@@ -256,6 +259,7 @@ export default {
       form: {},
       createdReadable: null,
       isProfileExists: false,
+      finding_title: null,
       systems_for_findings: null,
       tasks_for_findings: null,
       subtasks_for_findings: null,
