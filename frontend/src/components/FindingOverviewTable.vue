@@ -16,7 +16,7 @@
       <b-table-column label="ID" field="id" sortable v-slot="props">
         {{ props.row.id_form }}
       </b-table-column>
-      <b-table-column label="Title" field="name" sortable v-slot="props">
+      <b-table-column label="Title" field="title" sortable v-slot="props">
         {{ props.row.finding_title }}
       </b-table-column>
       <b-table-column label="System" field="system" sortable v-slot="props">
