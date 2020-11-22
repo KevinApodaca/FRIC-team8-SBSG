@@ -248,7 +248,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: {},
       oldForm: [],
       files: [],
       createdReadable: null,
@@ -378,17 +378,6 @@ export default {
     this.getOldData()
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
-      }
-    },
     async getOldData () {
       if (this.id) {
         await FindingServices.getFindingSingle(this.id)

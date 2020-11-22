@@ -97,7 +97,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: {},
       createdReadable: null,
       system_confidentiality: null,
       system_integrity: null,
@@ -144,17 +144,6 @@ export default {
     }
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
