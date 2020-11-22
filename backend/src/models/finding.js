@@ -5,6 +5,10 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
+      finding_title: {
+        type: String,
+        default: ''
+      },
       system: {
         type: String,
         default: ''
