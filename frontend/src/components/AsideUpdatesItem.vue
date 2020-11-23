@@ -1,6 +1,6 @@
 <template>
   <article class="media">
-    <div class="media-content">
+    <div class="media-content;overflow:auto;overflow-x:hidden">
       <div class="content">
         <slot/>
       </div>
