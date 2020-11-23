@@ -238,7 +238,7 @@ import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
 import LogServices from '@/services/LogTransactionServices'
-import FileServices from '@/services/FileServices'
+// import FileServices from '@/services/FileServices'
 import SystemService from '@/services/SystemServices'
 import TaskService from '@/services/TaskServices'
 import SubtaskService from '@/services/SubtaskServices'
@@ -399,13 +399,13 @@ export default {
     async submit () {
       this.isLoading = true
 
-      await FileServices.upLoadFiles(this.files)
-        .then(res => {
-          this.form.filename = res
-        })
-        .catch(err => {
-          this.displayError(err)
-        })
+      // await FileServices.upLoadFiles(this.files)
+      //   .then(res => {
+      //     this.form.filename = res
+      //   })
+      //   .catch(err => {
+      //     this.displayError(err)
+      //   })
 
       await FindingServices.createFinding(this.form)
         .then(response => {
@@ -453,11 +453,7 @@ export default {
         })
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A created finding ' + this.form.host
-      }
-      await LogServices.logAction(trans)
+      await LogServices.logCreatedFinding(this.form.finding_title)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully logged')

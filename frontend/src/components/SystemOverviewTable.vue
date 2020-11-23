@@ -146,7 +146,7 @@ export default {
         })
     },
     async removeFromEvent () {
-      EventService.removeSystem(this.trashObject.id, this.eventId)
+      EventService.removeSystem(this.eventId, this.trashObject.id)
         .then(response => {
           console.log(response.data.message)
         })
@@ -173,11 +173,7 @@ export default {
       this.isModalActive = false
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A archived system ' + this.trashObject.name
-      }
-      LogServices.logAction(trans)
+      LogServices.logArchiveSystem(this.trashObject.name)
         .then(response => {
           if (response.status === 200) {
             console.log(response)

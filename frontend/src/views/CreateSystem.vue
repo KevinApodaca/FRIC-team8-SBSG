@@ -159,7 +159,7 @@ export default {
         })
     },
     async addSystem () {
-      await EventService.addSystem(this.systemId, this.form.parent)
+      await EventService.addSystem(this.form.parent, this.systemId)
         .then(response => {
           console.log('Succesfully added system in Event')
         })
@@ -180,11 +180,7 @@ export default {
         })
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A created system ' + this.form.name
-      }
-      LogServices.logAction(trans)
+      LogServices.logCreatedSystem(this.form.name)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully logged')

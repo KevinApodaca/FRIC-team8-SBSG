@@ -179,11 +179,7 @@ export default {
       return (lastPart === 'findings') ? 'button is-small is-info' : 'button is-small is-danger'
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A archived finding ' + this.trashObject.host
-      }
-      LogServices.logAction(trans)
+      LogServices.logArchiveFinding(this.trashObject.finding_title)
         .then(response => {
           if (response.status === 200) {
             console.log(response)

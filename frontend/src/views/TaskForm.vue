@@ -246,12 +246,7 @@ export default {
         })
     },
     async logAction () {
-      const changes = this.showDiffs()
-      var trans = {
-        initials: 'K.A',
-        action: changes
-      }
-      LogServices.logAction(trans)
+      LogServices.logChangesFromTask(this.oldForm, this.form)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully logged')
@@ -260,17 +255,6 @@ export default {
         .catch(e => {
           this.displayError(e)
         })
-    },
-    showDiffs () {
-      var changes = 'K.A made the following changes to ' +
-                      'properties on task ' + this.oldForm.title
-      for (const property in this.form) {
-        if (this.form[property] !== this.oldForm[property]) {
-          changes += '\n ' + property + ': from ' + this.oldForm[property] +
-                      ' to ' + this.form[property]
-        }
-      }
-      return changes
     },
     displayError (e) {
       this.$buefy.toast.open({

@@ -409,12 +409,7 @@ export default {
       }
     },
     async logAction () {
-      const changes = this.showDiffs()
-      var trans = {
-        initial: 'K.A',
-        action: changes
-      }
-      LogServices.logAction(trans)
+      LogServices.logChangesFromFinding(this.oldForm, this.form)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully logged')
@@ -423,17 +418,6 @@ export default {
         .catch(e => {
           this.displayError(e)
         })
-    },
-    showDiffs () {
-      var changes = 'K.A made the following changes to ' +
-                      'properties on finding ' + this.oldForm.finding_title
-      for (const property in this.form) {
-        if (this.form[property] !== this.oldForm[property]) {
-          changes += '\n ' + property + ': from ' + this.oldForm[property] +
-                      ' to ' + this.form[property]
-        }
-      }
-      return changes
     },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')

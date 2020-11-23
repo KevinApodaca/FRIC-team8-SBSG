@@ -189,11 +189,7 @@ export default {
         })
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A created subtask ' + this.form.title
-      }
-      LogServices.logAction(trans)
+      LogServices.logCreatedSubtask(this.form.title)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully logged')

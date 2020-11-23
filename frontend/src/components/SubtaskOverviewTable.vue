@@ -151,11 +151,7 @@ export default {
       this.isModalActive = false
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A archived subtask ' + this.trashObject.title
-      }
-      LogServices.logAction(trans)
+      LogServices.logArchiveSubtask(this.trashObject.title)
         .then(response => {
           if (response.status === 200) {
             console.log(response)
