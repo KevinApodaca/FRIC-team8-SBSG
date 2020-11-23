@@ -207,7 +207,7 @@ export default {
     },
     async submit () {
       this.isLoading = true
-      EventService.modifyEvent(this.form, this.id)
+      EventService.modifyEvent(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
             this.isProfileExists = true

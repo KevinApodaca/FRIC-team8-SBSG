@@ -198,7 +198,7 @@ export default {
     submit () {
       this.isLoading = true
       console.log(this.id)
-      SubtaskService.modifySubtask(this.form, this.id)
+      SubtaskService.modifySubtask(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully made changes')

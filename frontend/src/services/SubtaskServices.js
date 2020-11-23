@@ -22,7 +22,7 @@ export default {
     return res
   },
 
-  async modifySubtask (newForm, subtaskId) {
+  async modifySubtask (subtaskId, newForm) {
     const res = await axios.patch('http://localhost:3000/subtasks/' + subtaskId, newForm)
     return res
   },

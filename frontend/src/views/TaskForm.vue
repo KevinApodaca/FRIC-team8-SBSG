@@ -216,7 +216,7 @@ export default {
     submit () {
       this.isLoading = true
       console.log(this.id)
-      TaskService.modifyTask(this.form, this.id)
+      TaskService.modifyTask(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully made changes')

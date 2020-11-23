@@ -21,7 +21,7 @@ export default {
     return res
   },
 
-  async modifyEvent (newForm, eventId) {
+  async modifyEvent (eventId, newForm) {
     const res = await axios.patch('http://localhost:3000/events/' + eventId, newForm)
     return res
   },

@@ -196,7 +196,7 @@ export default {
     },
     submit () {
       this.isLoading = true
-      SystemService.modifySystem(this.form, this.id)
+      SystemService.modifySystem(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully made changes')

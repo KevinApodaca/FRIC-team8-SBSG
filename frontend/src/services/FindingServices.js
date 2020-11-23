@@ -22,7 +22,7 @@ export default {
     return res
   },
 
-  async modifyFinding (newForm, findingId) {
+  async modifyFinding (findingId, newForm) {
     const res = await axios.patch('http://localhost:3000/findings/' + findingId, newForm)
     return res
   },
