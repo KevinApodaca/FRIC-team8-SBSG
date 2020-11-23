@@ -219,7 +219,6 @@ export default {
       TaskService.modifyTask(this.form, this.id)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully made changes')
             this.logAction()
           }
         })

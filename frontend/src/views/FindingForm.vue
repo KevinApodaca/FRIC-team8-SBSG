@@ -394,14 +394,12 @@ export default {
       if (this.id) {
         await FindingServices.getFindingSingle(this.id)
           .then(response => {
-            console.log('Done getting Finding')
             this.isProfileExists = true
             this.form = response.data
           })
 
         await FileServices.getMultipleFiles(this.form.filename)
           .then(response => {
-            console.log('Grabbing Files')
             console.log(response.data)
             this.files = response.data
           })

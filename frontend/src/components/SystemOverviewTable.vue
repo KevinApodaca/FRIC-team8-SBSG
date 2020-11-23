@@ -132,7 +132,6 @@ export default {
         })
     },
     removeRow (trashObject) {
-      console.log('removeItem')
       for (const index in this.systems) {
         if (this.systems[index].id === trashObject.id) {
           this.systems.splice(index, 1)
