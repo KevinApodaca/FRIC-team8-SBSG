@@ -455,7 +455,7 @@ export default {
     async logAction () {
       var trans = {
         initials: 'K.A',
-        action: 'K.A created finding ' + this.form.host
+        action: 'K.A created finding ' + this.form.finding_title
       }
       await LogServices.logAction(trans)
         .then(response => {
