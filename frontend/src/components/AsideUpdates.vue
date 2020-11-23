@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div style="height:620px;overflow:auto;overflow-x: hidden">
     <aside-updates-item v-for="item in tasks" :key="item.id" :status="item.status" :icon="item.playlist-edit">
         <span class="tag is-light is-danger tag is-rounded">Task</span>
-        <p>{{ item.title }}, is due on: {{ item.created }}</p>
+        <p><a href="http://localhost:8080/#/tasks"> {{ item.title }}</a>, is due on: {{ item.created }}</p>
     </aside-updates-item>
     <aside-updates-item v-for="item in subtasks" :key="item.id" :status="item.status" :icon="item.playlist-edit">
       <span class="tag is-light is-warning tag is-rounded">Subtask</span>
-      <p>{{ item.title }}, is due on: {{ item.due_date }}</p>
+      <p><a href="http://localhost:8080/#/subtasks"> {{ item.title }}</a>, is due on: {{ item.due_date }}</p>
     </aside-updates-item>
   </div>
 </template>

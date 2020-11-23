@@ -112,7 +112,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: this.getClearFormObject(),
+      form: {},
       oldForm: null,
       createdReadable: null,
       isProfileExists: false,
@@ -174,17 +174,6 @@ export default {
     this.getData()
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
-      }
-    },
     add () {
       return ''
     },

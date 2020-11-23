@@ -14,6 +14,9 @@
             <b-field label="ID" horizontal>
               <b-input v-model="form.id_form" required />
             </b-field>
+            <b-field label="Title" horizontal>
+              <b-input v-model="form.finding_title" required />
+            </b-field>
             <b-field label="Host Name" horizontal>
               <b-input v-model="form.host" required />
             </b-field>
@@ -253,9 +256,10 @@ export default {
     return {
       isLoading: false,
       files: [],
-      form: this.getClearFormObject(),
+      form: {},
       createdReadable: null,
       isProfileExists: false,
+      finding_title: null,
       systems_for_findings: null,
       tasks_for_findings: null,
       subtasks_for_findings: null,
@@ -389,17 +393,6 @@ export default {
     this.getAnalysts()
   },
   methods: {
-    getClearFormObject () {
-      return {
-        id: null,
-        name: null,
-        company: null,
-        city: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
-      }
-    },
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
