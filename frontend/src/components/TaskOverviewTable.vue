@@ -23,7 +23,7 @@
         {{ props.row.analyst }}
       </b-table-column>
       <b-table-column label="Priority" field="priority" sortable v-slot="props">
-        {{ props.row.task_priority }}
+        <small class="has-text-grey is-abbr-like" :title="props.row.task_priority"> {{ props.row.task_priority }} </small>
       </b-table-column>
       <b-table-column label="Progress" field="progress" sortable v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.task_progress"> {{props.row.task_progress }} </small>
