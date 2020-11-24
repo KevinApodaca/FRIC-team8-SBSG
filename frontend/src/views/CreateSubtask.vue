@@ -27,10 +27,8 @@
             <b-field label="Due Date" horizontal required>
               <b-datepicker icon="calendar-today" placeholder="Select Date..." v-model="form.due_date"></b-datepicker>
             </b-field>
-          </form>
-        </card-component>
-        <card-component title="Collaboration" icon="file-find" class="tile is-child">
-           <b-field label="Analyst(s)" horizontal>
+            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop :file-export='files'/></card-component>
+            <b-field label="Analyst(s)" horizontal>
               <b-select v-model="form.analyst">
                 <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
                   {{ analyst }}
@@ -58,8 +56,7 @@
               </b-select>
             </b-field>
             </b-field>
-            <hr>
-            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop :file-export='files'/></card-component>
+          </form>
         </card-component>
       </tiles>
       <b-field horizontal>
@@ -163,7 +160,6 @@ export default {
       console.log(this.files)
       await FileServices.upLoadFiles(this.files)
         .then(res => {
-          console.log('inside the .then')
           console.log(res)
           this.form.filename = res
         })
@@ -174,7 +170,6 @@ export default {
       SubtaskService.createSubtask(this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully created subtask')
             this.logAction()
           }
         })

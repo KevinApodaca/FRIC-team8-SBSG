@@ -29,10 +29,8 @@
                 <b-input v-model="form.due_date" reaadonly />
               </div>
             </b-field>
-          </form>
-        </card-component>
-        <card-component title="Collaboration" icon="file-find" class="tile is-child">
-           <b-field label="Analyst(s)" horizontal>
+            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop/></card-component>
+            <b-field label="Analyst(s)" horizontal>
               <b-select v-model="form.analysts_for_subtask">
                 <option v-for="(analysts_for_subtask, index) in analysts_for_subtask" :key="index" :value="analysts_for_subtask">
                   {{ analysts_for_subtask }}
@@ -60,8 +58,7 @@
               </b-select>
             </b-field>
             </b-field>
-            <hr>
-            <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop/></card-component>
+          </form>
         </card-component>
       </tiles>
       <b-field horizontal>
@@ -112,6 +109,7 @@ export default {
       tasks: null,
       subtasks: null,
       analysts_for_subtask: null,
+      files: [],
       subtask_progress: [
         'Not Started',
         'Assigned',
@@ -201,7 +199,6 @@ export default {
       SubtaskService.modifySubtask(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully made changes')
             this.logAction()
           }
         })

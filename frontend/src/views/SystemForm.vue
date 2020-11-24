@@ -199,7 +199,6 @@ export default {
       SystemService.modifySystem(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully made changes')
             this.logAction()
           }
         })
