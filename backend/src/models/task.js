@@ -29,7 +29,7 @@ module.exports = mongoose => {
           type: Number,
           default: 0
         },
-        task_progresses: {
+        task_progress: {
           type: String,
           enum: ['Not Started', 'Transferred', 'In Progress', 'Complete', 'Not Applicable'],
           default: 'Not Started',
@@ -49,14 +49,13 @@ module.exports = mongoose => {
     },
     {collection: 'task'}
     )
-  
+
     schema.method('toJSON', function () {
       const { __v, _id, ...object } = this.toObject()
       object.id = _id
       return object
     })
-  
+
     const task = mongoose.model('task', schema)
     return task
   }
-  
