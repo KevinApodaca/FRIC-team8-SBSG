@@ -25,10 +25,6 @@ module.exports = mongoose => {
           type: String,
           default: ''
         },
-        progress: {
-          type: Number,
-          default: 0
-        },
         task_progress: {
           type: String,
           enum: ['Not Started', 'Transferred', 'In Progress', 'Complete', 'Not Applicable'],
