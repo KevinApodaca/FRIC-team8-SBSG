@@ -46,9 +46,9 @@
               </b-select>
             </b-field>
             <b-field label="Priority" horizontal>
-              <b-select v-model="form.task_priority">
-                <option v-for="(task_priority, index) in task_priorities" :key="index" :value="task_priority">
-                  {{ task_priority }}
+              <b-select v-model="form.task_priorities">
+                <option v-for="(task_priorities, index) in task_priorities" :key="index" :value="task_priorities">
+                  {{ task_priorities }}
                 </option>
               </b-select>
             </b-field>
