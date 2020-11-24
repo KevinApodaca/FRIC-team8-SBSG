@@ -11,64 +11,63 @@
       <tiles>
         <card-component :title="formCardTitle" icon="file-find" class="tile is-child">
           <form @submit.prevent="submit">
-            <b-field label="ID" vertical>
+            <b-field label="ID" horizontal>
               <b-input v-model="form.id_form" required />
             </b-field>
-            <b-field label="Title" vertical>
+            <b-field label="Title" horizontal>
               <b-input v-model="form.finding_title" required />
             </b-field>
-            <b-field label="Host Name" vertical>
+            <b-field label="Host Name" horizontal>
               <b-input v-model="form.host" required />
             </b-field>
-            <b-field label="IP Port" vertical>
+            <b-field label="IP Port" horizontal>
               <b-input v-model="form.ip" required />
             </b-field>
-            <b-field label="Description" vertical>
+            <b-field label="Description" horizontal>
               <b-input v-model="form.finding_desc" reaadonly />
             </b-field>
-            <b-field label="Long Description" vertical>
+            <b-field label="Long Description" horizontal>
               <b-input type="textarea" v-model="form.finding_long" reaadonly />
             </b-field>
-            <b-field label="Status" vertical>
+            <b-field label="Status" horizontal>
               <b-select v-model="form.finding_status">
                 <option v-for="(finding_status, index) in finding_statuses" :key="index" :value="finding_status">
                   {{ finding_status }}
                 </option>
               </b-select>
-            </b-field>
-            <b-field label="Type" vertical>
+            <b-field label="Type" horizontal>
               <b-select v-model="form.finding_type">
                 <option v-for="(finding_type, index) in finding_types" :key="index" :value="finding_type">
                   {{ finding_type }}
                 </option>
               </b-select>
             </b-field>
-            <b-field label="Classification" vertical>
+            <b-field label="Classification" horizontal>
               <b-select v-model="form.finding_classification">
                 <option v-for="(finding_classification, index) in finding_classifications" :key="index" :value="finding_classification">
                   {{ finding_classification }}
                 </option>
               </b-select>
             </b-field>
-            <b-field label="Related Finding(s)" vertical>
+            <b-field label="Related Finding(s)" horizontal>
               <b-select v-model="form.findings">
                 <option v-for="(findings, index) in findings" :key="index" :value="findings">
                   {{ findings }}
                 </option>
               </b-select>
             </b-field>
+            </b-field>
             <card-component title="Evidence" icon="cloud-upload">
               <file-picker-drag-and-drop :file-export='files'/>
             </card-component>
-            <b-field label="System" vertical>
+            <b-field label="System" horizontal>
               <b-select v-model="form.system">
                 <option v-for="(system, index) in system" :key="index" :value="system">
                   {{ system }}
                 </option>
               </b-select>
-            </b-field>
             <label class="label is-medium is-bold has-text-info">OR</label>
-            <b-field label="Task" vertical>
+            <b-field label="Task" horizontal>
               <b-select v-model="form.task">
                 <option v-for="(task, index) in task" :key="index" :value="task">
                   {{ task }}
@@ -76,37 +75,38 @@
               </b-select>
             </b-field>
             <label class="label is-medium is-bold has-text-info">OR</label>
-             <b-field label="Subtask" vertical>
+             <b-field label="Subtask" horizontal>
               <b-select v-model="form.subtask">
                 <option v-for="(substask, index) in subtask" :key="index" :value="subtask">
                   {{ subtask }}
                 </option>
               </b-select>
              </b-field>
+            </b-field>
             <hr>
           <!-- Finging Impact Component Card -->
           <card-component v-if="isProfileExists" title="Finding Impact" icon="chart-donut" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-              <b-field label="Confidentiality" vertical>
+              <b-field label="Confidentiality" horizontal>
                 <b-select v-model="form.finding_confidentiality">
                   <option v-for="(finding_confidentiality, index) in finding_confidentialities" :key="index" :value="finding_confidentiality">
                     {{ finding_confidentiality }}
                   </option>
                 </b-select>
-              </b-field>
-              <b-field label="Integrity" vertical>
+              <b-field label="Integrity" horizontal>
                 <b-select v-model="form.finding_integrity">
                   <option v-for="(finding_integrity, index) in finding_integrities" :key="index" :value="finding_integrity">
                     {{ finding_integrity }}
                   </option>
                 </b-select>
               </b-field>
-              <b-field label="Availability" vertical>
+              <b-field label="Availability" horizontal>
                 <b-select v-model="form.finding_availability">
                   <option v-for="(finding_availability, index) in finding_availabilities" :key="index" :value="finding_availability">
                     {{ finding_availability }}
                   </option>
                 </b-select>
+            </b-field>
             </b-field>
         </card-component>
         </form>
@@ -114,36 +114,36 @@
         <!-- Analyst Information Component Card -->
         <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Analyst" vertical>
+            <b-field label="Analyst" horizontal>
               <b-select v-model="form.analyst">
                 <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
                   {{ analyst }}
                 </option>
               </b-select>
-            </b-field>
-            <b-field label="Collaborator" vertical>
+            <b-field label="Collaborator" horizontal>
               <b-select v-model="form.collaborator">
                 <option v-for="(collaborator, index) in collaborator" :key="index" :value="collaborator">
                   {{ collaborator }}
                 </option>
               </b-select>
             </b-field>
-            <b-field label="Posture" vertical>
+            <b-field label="Posture" horizontal>
               <b-select v-model="form.finding_posture">
                 <option v-for="(finding_posture, index) in finding_postures" :key="index" :value="finding_posture">
                   {{ finding_posture }}
                 </option>
               </b-select>
             </b-field>
+            </b-field>
         </card-component>
         <hr>
         <!-- Mitigation Information Component Card -->
           <card-component v-if="isProfileExists" title="Mitigation" icon="engine" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-               <b-field label="Brief Description" vertical>
+               <b-field label="Brief Description" horizontal>
               <b-input v-model="form.mitigation_desc" reaadonly />
             </b-field>
-            <b-field label="Long Description" vertical>
+            <b-field label="Long Description" horizontal>
               <b-input type="textarea" v-model="form.mitigation_long" reaadonly />
             </b-field>
         </card-component>
@@ -151,7 +151,7 @@
         <!-- Threat Relevance Information Component Card -->
           <card-component v-if="isProfileExists" title="Threat Relevance" icon="emoticon-devil" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Relevance" vertical>
+            <b-field label="Relevance" horizontal>
               <b-select v-model="form.threat_relevance">
                 <option v-for="(threat_relevance, index) in threat_relevances" :key="index" :value="threat_relevance">
                   {{ threat_relevance }}
@@ -163,7 +163,7 @@
         <!-- Countermeasure Information Component Card -->
           <card-component v-if="isProfileExists" title="Countermeasure" icon="alarm-light" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Effectiveness Rating" vertical>
+            <b-field label="Effectiveness Rating" horizontal>
               <b-select v-model="form.effectiveness_rating">
                 <option v-for="(effectiveness_rating, index) in effectiveness_ratings" :key="index" :value="effectiveness_rating">
                   {{ effectiveness_rating }}
@@ -175,10 +175,10 @@
            <!-- Impact Information Component Card -->
           <card-component v-if="isProfileExists" title="Impact" icon="equalizer" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-              <b-field label="Impact Description" vertical>
+              <b-field label="Impact Description" horizontal>
                 <b-input type="textarea" v-model="form.impact_desc" reaadonly />
               </b-field>
-              <b-field label="Impact Level" vertical>
+              <b-field label="Impact Level" horizontal>
                 <b-select v-model="form.impact_level">
                   <option v-for="(impact_level, index) in impact_levels" :key="index" :value="impact_level">
                     {{ impact_level }}
@@ -190,10 +190,10 @@
           <!-- Risk Information Component Card -->
           <card-component v-if="isProfileExists" title="Risk" icon="hazard-lights" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Risk" vertical>
+            <b-field label="Risk" horizontal>
               <b-input v-model="form.risk" reaadonly />
             </b-field>
-            <b-field label="Likelihood" vertical>
+            <b-field label="Likelihood" horizontal>
               <b-input v-model="form.likelihood" reaadonly />
             </b-field>
           </card-component>
@@ -201,16 +201,16 @@
           <!-- Finding System Level Impact Information Component Card -->
           <card-component v-if="isProfileExists" title="Finding System Level Impact" icon="car-coolant-level" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Confidentiality Finding Impact on System" vertical>
+            <b-field label="Confidentiality Finding Impact on System" horizontal>
               <b-input v-model="form.cfis" reaadonly />
             </b-field>
-            <b-field label="Integrity Finding Impact on System" vertical>
+            <b-field label="Integrity Finding Impact on System" horizontal>
               <b-input v-model="form.ifis" reaadonly />
             </b-field>
-            <b-field label="Availability Finding Impact on System" vertical>
+            <b-field label="Availability Finding Impact on System" horizontal>
               <b-input v-model="form.afis" reaadonly />
             </b-field>
-            <b-field label="Impact Score" vertical>
+            <b-field label="Impact Score" horizontal>
               <b-input v-model="form.score" reaadonly />
             </b-field>
           </card-component>
