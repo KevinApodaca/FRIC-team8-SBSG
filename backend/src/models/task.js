@@ -49,7 +49,7 @@ module.exports = mongoose => {
         },
         description: {
           type: String,
-          default: ""
+          default: ''
         }
     },
     {collection: 'task'}
