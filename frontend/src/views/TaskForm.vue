@@ -53,9 +53,9 @@
               </b-select>
             </b-field>
             <b-field label="Progress" horizontal>
-             <b-select v-model="form.task_progresses">
-                <option v-for="(task_progresses, index) in task_progresses" :key="index" :value="task_progresses">
-                  {{ task_progresses }}
+             <b-select v-model="form.task_progress">
+                <option v-for="(task_progress, index) in task_progress" :key="index" :value="task_progress">
+                  {{ task_progress }}
                 </option>
               </b-select>
             </b-field>
@@ -124,13 +124,12 @@ export default {
       systems_for_task: null,
       related_tasks: null,
       analysts_for_task: null,
-      task_progress: null,
       task_priority: [
         'Low',
         'Medium',
         'High'
       ],
-      task_progresses: [
+      task_progress: [
         'Not Started',
         'Transferred',
         'In Progress',
