@@ -32,17 +32,13 @@
            <b-field label="Test Plan" horizontal>
               <b-input v-model="form.plan" required />
             </b-field>
-          </form>
-        </card-component>
-        <card-component title="System Categorization" icon="lightbulb-group" class="tile is-child">
-          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
           <b-field label="Confidentiality" horizontal>
               <b-select v-model="form.system_confidentiality">
                 <option v-for="(system_confidentiality, index) in system_confidentialities" :key="index" :value="system_confidentiality">
                   {{ system_confidentiality }}
                 </option>
               </b-select>
-            </b-field>
           <b-field label="Integrity" horizontal>
               <b-select v-model="form.system_integrity">
                 <option v-for="(system_integrity, index) in system_integrities" :key="index" :value="system_integrity">
@@ -57,6 +53,8 @@
                 </option>
               </b-select>
             </b-field>
+          </b-field>
+          </form>
         </card-component>
     </tiles>
     <b-field horizontal>
