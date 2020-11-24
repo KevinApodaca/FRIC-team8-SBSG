@@ -43,10 +43,6 @@ module.exports = mongoose => {
           type: String,
           default: '',
         },
-        priority: {
-          type: String,
-          default: ''
-        },
         description: {
           type: String,
           default: ''
