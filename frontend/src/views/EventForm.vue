@@ -211,7 +211,6 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.isProfileExists = true
-            console.log('Succesfully made the changes')
             this.logAction()
           }
         })

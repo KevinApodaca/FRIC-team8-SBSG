@@ -160,7 +160,6 @@ export default {
       console.log(this.files)
       await FileServices.upLoadFiles(this.files)
         .then(res => {
-          console.log('inside the .then')
           console.log(res)
           this.form.filename = res
         })
@@ -171,7 +170,6 @@ export default {
       SubtaskService.createSubtask(this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully created subtask')
             this.logAction()
           }
         })

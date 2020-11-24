@@ -138,7 +138,6 @@ export default {
       this.isModalActive = true
       FindingServices.deleteFinding(this.trashObject.id)
         .then(response => {
-          console.log('Deleted Successfully')
           this.logAction()
           this.removeRow(trashObject)
         })

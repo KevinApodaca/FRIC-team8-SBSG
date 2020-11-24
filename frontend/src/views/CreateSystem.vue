@@ -152,7 +152,6 @@ export default {
       SystemService.createSystem(this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully created system')
             this.logAction()
           }
         })
