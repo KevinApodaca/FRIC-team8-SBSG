@@ -29,7 +29,7 @@ module.exports = mongoose => {
           type: Number,
           default: 0
         },
-        task_priorities: {
+        task_priority: {
           type: String,
           enum: ['Low', 'Medium', 'High'],
           default: ''
