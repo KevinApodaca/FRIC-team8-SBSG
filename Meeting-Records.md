@@ -224,3 +224,18 @@
   1. Fix db calls to get info for ERB report.
   2. Finish risk matrix.
 - Meeting's Overall Score: 9.5 / 10
+
+## 11/24/2020
+
+- Objective: Clarify what are the most important deliverables for the final demo.
+- Start Time: 6:30pm
+- End Time: 8:30pm
+- Attendees: Kevin Apodaca, Alex Ortega, Agustin Cortez, Adrian Gonzalez, Richard Quinn
+- Meeting Agenda: Standup, deliberate and assign the important deliverables and begin work on them.
+- Meeting Summary: We tested some of our tickets and ensured they were good to go, assigned each of the reports to different members, assigned other members to finish up the association of artifacts in the backend and we discussed how to split up the SDD document deliverable.
+- Action Items:
+  1. Richard will complete the Final Report template.
+  2. Agustin will finish risk matrix.
+  3. Kevin will finish ERB report and work on archiving data.
+  4. Adrian & Alex will work on adding new analysts to events and showing analyst information.
+- Meeting's Overall Score: 8 / 10
