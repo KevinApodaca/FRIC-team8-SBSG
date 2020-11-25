@@ -15,7 +15,7 @@
         <refresh-button slot="button"/>
           <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-              <button class="button is-rounded is-link is-outlined">ERB Report</button>
+              <button class="button is-rounded is-link is-outlined" @click="generateERB()">ERB Report</button>
               <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
               <button class="button is-rounded is-link is-outlined">Final Report</button>
             </div>
@@ -56,6 +56,7 @@ import RefreshButton from '@/components/RefreshButton'
 import CardToolbar from '@/components/CardToolbar'
 import swal from 'sweetalert'
 import TextEditor from '@/components/TextEditor'
+import * as Reports from '../reports/ERB-Report/reports'
 
 export default {
   name: 'Findings',
@@ -69,6 +70,9 @@ export default {
     }
   },
   methods: {
+    generateERB () {
+      Reports.generateERB()
+    },
     findingHelp () {
       swal('About Findings', 'Findings are vulnerabilities. A finding will either lead to a true vulerability or just a data point that the client should be made aware of', 'info'
       )
