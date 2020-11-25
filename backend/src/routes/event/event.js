@@ -22,6 +22,14 @@ router.patch('/:eventId', (req, res) => {
   eventController.update(req, res)
 })
 
+router.patch('/addItem/:eventId', (req, res) => {
+  eventController.updateArray(req, res)
+})
+
+router.patch('/removeItem/:eventId', (req, res) => {
+  eventController.removeItemInArray(req, res)
+})
+
 router.delete('/:eventId', (req, res) => {
   eventController.delete(req, res)
 })

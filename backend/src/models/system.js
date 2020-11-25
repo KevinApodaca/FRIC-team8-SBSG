@@ -83,7 +83,12 @@ module.exports = mongoose => {
         type: String,
         default: 'Low',
         enum: ['Low','Medium','High','Information']
-      }
+      },
+      parent: { type: mongoose.Schema.Types.ObjectId, ref: 'event' },
+      analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+      task_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'task' }],
+      subtask_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtask' }],
+      finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }]
   },
   {collection: 'system'}
   )

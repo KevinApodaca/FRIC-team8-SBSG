@@ -54,6 +54,31 @@ export class FindingController {
       })
   }
 
+
+  changeParent (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.parentId
+
+    Finding.updateMany({parent: id}, req.body, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update Finding with id=${id}!`
+          })
+        } else res.send({ message: 'Finding was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating Finding with id=' + id + " " + err.message
+        })
+      })
+  }
+
   delete (req, res) {
     const id = req.params.findingId
 
@@ -87,5 +112,20 @@ export class FindingController {
             err.message || 'Some error occurred while retrieving Findings.'
         })
       })
+  }
+
+  findAllFindingsInArray (req, res) {
+    const listOfFinding = req.query.arr
+    const ids = listOfFinding.map(id => mongoose.Types.ObjectId(id.toString()))
+
+    Finding.find({ _id : { $in : ids }})
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while retrieving Findings.'
+      })
+    })
   }
 }

@@ -81,6 +81,7 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
+import EventService from '@/services/EventServices'
 import SystemService from '@/services/SystemServices'
 import LogServices from '@/services/LogTransactionServices'
 
@@ -96,6 +97,7 @@ export default {
     return {
       isLoading: false,
       form: {},
+      systemId: null,
       createdReadable: null,
       system_confidentiality: null,
       system_integrity: null,
@@ -145,12 +147,30 @@ export default {
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
-    async submit () {
-      this.isLoading = true
-      SystemService.createSystem(this.form)
+    async getEvent () {
+      await EventService.getEvents()
+        .then(response => {
+          this.form.parent = response.data[0].id
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    async addSystem () {
+      await EventService.addSystem(this.form.parent, this.systemId)
+        .then(response => {
+          console.log('Succesfully added system in Event')
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    async createSystem () {
+      await SystemService.createSystem(this.form)
         .then(response => {
           if (response.status === 200) {
-            this.logAction()
+            console.log('Successfully created system')
+            this.systemId = response.data.id
           }
         })
         .catch(e => {
@@ -158,11 +178,7 @@ export default {
         })
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A created system ' + this.form.name
-      }
-      LogServices.logAction(trans)
+      LogServices.logCreatedSystem(this.form.name)
         .then(response => {
           if (response.status === 200) {
             console.log('Successfully logged')
@@ -171,6 +187,13 @@ export default {
         .catch(e => {
           this.displayError(e)
         })
+    },
+    async submit () {
+      this.isLoading = true
+      await this.getEvent()
+      await this.createSystem()
+      await this.addSystem()
+      await this.logAction()
     },
     displayError (e) {
       this.$buefy.toast.open({

@@ -49,18 +49,22 @@ module.exports = mongoose => {
         priority: {
           type: String,
           default: ''
-        }
+        },
+        parent: { type: mongoose.Schema.Types.ObjectId },
+        created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+        analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+        collaboration: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
+        finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
     },
     {collection: 'subtask'}
     )
-  
+
     schema.method('toJSON', function () {
       const { __v, _id, ...object } = this.toObject()
       object.id = _id
       return object
     })
-  
+
     const subtask = mongoose.model('subtask', schema)
     return subtask
   }
-  

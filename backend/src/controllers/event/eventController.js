@@ -54,6 +54,56 @@ export class EventController {
       })
   }
 
+  updateArray (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.eventId
+
+    Event.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update Event with id=${id}!`
+          })
+        } else res.send({ message: 'Event was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating Event with id=' + id + " " + err.message
+        })
+      })
+  }
+
+
+  removeItemInArray (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.eventId
+
+    Event.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update Event with id=${id}!`
+          })
+        } else res.send({ message: 'Event was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating Event with id=' + id + " " + err.message
+        })
+      })
+  }
+
+
   delete (req, res) {
     const id = req.params.eventId
 

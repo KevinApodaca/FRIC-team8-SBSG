@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import EventService from '@/services/EventServices'
 import SystemService from '@/services/SystemServices'
 import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
@@ -78,18 +79,18 @@ export default {
     return {
       isModalActive: false,
       trashObject: null,
+      evenId: null,
       systems: [],
-      isLoading: false,
+      isLoading: true,
       paginated: false,
       perPage: 10,
       checkedRows: []
     }
   },
-  created () {
-    if (this.dataUrl) {
-      this.isLoading = true
-      this.getSystemData()
-    }
+  async created () {
+    await this.getSystemData()
+    await this.getEvent()
+    this.isLoading = false
   },
   computed: {
     trashObjectName () {
@@ -101,11 +102,20 @@ export default {
     }
   },
   methods: {
+    async getEvent () {
+      await EventService.getEvents()
+        .then(response => {
+          this.eventId = response.data[0].id
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
     async getSystemData () {
-      SystemService.getSystems()
+      await SystemService.getSystems()
         .then(response => {
           if (response.status === 200) {
-            this.isLoading = false
+            // this.isLoading = false
             if (response.data.length > this.perPage) {
               this.paginated = true
             }
@@ -119,13 +129,26 @@ export default {
     async trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      SystemService.deleteSystem(this.trashObject.id)
+      await this.deleteSystem()
+      this.removeRow(trashObject)
+      await this.removeFromEvent()
+      await this.logAction()
+    },
+    async deleteSystem () {
+      await SystemService.deleteSystem(this.trashObject.id)
         .then(response => {
           if (response.status === 200) {
-            this.removeRow(trashObject)
             console.log(response.data.message)
-            this.logAction()
           }
+        })
+        .catch(e => {
+          this.displayError(e)
+        })
+    },
+    async removeFromEvent () {
+      EventService.removeSystem(this.eventId, this.trashObject.id)
+        .then(response => {
+          console.log(response.data.message)
         })
         .catch(e => {
           this.displayError(e)
@@ -149,11 +172,7 @@ export default {
       this.isModalActive = false
     },
     async logAction () {
-      var trans = {
-        initials: 'K.A',
-        action: 'K.A archived system ' + this.trashObject.name
-      }
-      LogServices.logAction(trans)
+      LogServices.logArchiveSystem(this.trashObject.name)
         .then(response => {
           if (response.status === 200) {
             console.log(response)
