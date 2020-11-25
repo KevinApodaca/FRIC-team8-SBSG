@@ -22,8 +22,8 @@
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
         {{ props.row.analyst }}
       </b-table-column>
-      <b-table-column cell-class="is-progress-col" label="Progress" field="progress" sortable v-slot="props">
-        <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
+      <b-table-column label="Progress" field="progress" sortable v-slot="props">
+        <small class="has-text-grey is-abbr-like" :title="props.row.subtask_progress"> {{ props.row.subtask_progress }}</small>
       </b-table-column>
       <b-table-column label="No. of Findings" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>

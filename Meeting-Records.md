@@ -211,3 +211,16 @@
   3. Archive functionality
   4. Fix bugs
 - Meeting's Overall Score: 9 / 10
+
+## 11/23/2020
+
+- Objective: (Optional) Talk about relations between project artifacts
+- Start Time: 7:00pm
+- End Time: 8:30pm
+- Attendees: Kevin Apodaca, Alex Ortega, Agustin Cortez, Adrian Gonzalez, Richard Quinn
+- Meeting Agenda: Troubleshoot and throw around ideas for adding relations between project artifacts.
+- Meeting Summary: We figured out a way to pull information from db to use for the reports. Currently relating the events to the systems.
+- Action Items:
+  1. Fix db calls to get info for ERB report.
+  2. Finish risk matrix.
+- Meeting's Overall Score: 9.5 / 10

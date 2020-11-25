@@ -63,7 +63,6 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:filename', (req, res) => {
-  console.log('hello again')
   gfs.files.findOne({filename: req.params.filename}, (err, file) => {
     //Checks if files exits
     if (!file || file.length === 0){
