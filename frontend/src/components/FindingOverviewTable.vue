@@ -13,35 +13,35 @@
       default-sort="name"
       :data='findings'>
 
-      <b-table-column label="ID" field="id" sortable v-slot="props">
-        {{ props.row.id_form }}
-      </b-table-column>
       <b-table-column label="Title" field="title" sortable v-slot="props">
         {{ props.row.finding_title }}
+      </b-table-column>
+      <b-table-column label="ID" field="id" sortable v-slot="props">
+        <small class="has-text-grey">{{ props.row.id_form }}</small>
       </b-table-column>
       <b-table-column label="System" field="system" sortable v-slot="props">
         {{ props.row.system }}
       </b-table-column>
       <b-table-column label="Task" field="task" sortable v-slot="props">
-        {{ props.row.tasks }}
+        <small class="has-text-grey"> {{ props.row.tasks }}</small>
       </b-table-column>
       <b-table-column label="Subtask" field="subtask" sortable v-slot="props">
-        {{ props.row.subtasks }}
+        <small class="has-text-grey"> {{ props.row.subtasks }}</small>
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
-        {{ props.row.analyst }}
+        <small class="has-text-grey"> {{ props.row.analyst }}</small>
       </b-table-column>
       <b-table-column label="Status" field="finding_status" sortable v-slot="props">
-        {{ props.row.finding_status }}
+        <small class="has-text-grey"> {{ props.row.finding_status }}</small>
       </b-table-column>
       <b-table-column label="Classification" field="classification" sortable v-slot="props">
-        {{ props.row.finding_classification }}
+        <small class="has-text-grey"> {{ props.row.finding_classification }}</small>
       </b-table-column>
       <b-table-column label="Type" field="type" sortable v-slot="props">
-        {{ props.row.finding_type }}
+        <small class="has-text-grey"> {{ props.row.finding_type }}</small>
       </b-table-column>
       <b-table-column label="Risk" field="risk" sortable v-slot="props">
-        {{ props.row.impact_level }}
+        <small class="has-text-grey"> {{ props.row.impact_level }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
