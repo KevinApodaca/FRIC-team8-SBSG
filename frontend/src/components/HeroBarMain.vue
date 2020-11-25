@@ -23,12 +23,13 @@
 
 <script>
 import { mapState } from 'vuex'
+const ip = require('ip')
 export default {
   name: 'HeroBarMain',
   data () {
     return {
       lastLoginTimeString: '12 mins ago',
-      lastLoginIpString: '192.168.1.1'
+      lastLoginIpString: ip.address()
     }
   },
   computed: {
