@@ -65,6 +65,7 @@
 
 ## Do More of
 1. Pull requests with CodeFactor
+2. Dev opsify the application for scalability and maintainability
 
 ## Try Out
 1. Social events with the bois
