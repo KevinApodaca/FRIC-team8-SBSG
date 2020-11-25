@@ -17,10 +17,10 @@
         {{ props.row.name }}
       </b-table-column>
       <b-table-column label="No. of Systems" field="systems" sortable v-slot="props">
-        {{ props.row.systems }}
+        <small class="has-text-grey">{{ props.row.systems }}</small>
       </b-table-column>
       <b-table-column label="No. of Findings" field="findings" sortable v-slot="props">
-        {{ props.row.findings }}
+        <small class="has-text-grey">{{ props.row.findings }}</small>
       </b-table-column>
       <b-table-column cell-class="is-progress-col" label="Progress" field="progress" sortable v-slot="props">
         <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
