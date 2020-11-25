@@ -17,10 +17,10 @@
         {{ props.row.title }}
       </b-table-column>
       <b-table-column label="System" field="systems" sortable v-slot="props">
-        {{ props.row.system }}
+        <small class="has-text-grey">{{ props.row.system }}</small>
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
-        {{ props.row.analyst }}
+        <small class="has-text-grey">{{ props.row.analyst }}</small>
       </b-table-column>
       <b-table-column label="Priority" field="priority" sortable v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.task_priority"> {{ props.row.task_priority }} </small>
