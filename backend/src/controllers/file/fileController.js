@@ -13,10 +13,9 @@ export class FileController {
   create (req, res, next) {
     try {
       res.status(200).send({file: req.files})
-      next()
     } catch (e) {
       res.status(500).send({message: 'Something went wrong :( ' + e})
-      next()
+
     }
   }
 
@@ -25,11 +24,9 @@ export class FileController {
       //Checks if files exits
       if (!file || file.length === 0){
         res.status(404).send({err: 'No file exist'})
-        next()
       } else {
         // Files exists
         res.status(200).send(file)
-        next()
       }
     })
   }
@@ -39,11 +36,9 @@ export class FileController {
       //Checks if files exits
       if (!files || files.length === 0){
         res.status(404).send({err: 'No files exist'})
-        next()
       } else {
         // Files exists
         res.send(files)
-        next()
       }
     })
   }
@@ -52,10 +47,8 @@ export class FileController {
     gfs.files.find({ filename: { $in: req.query.arr }}).toArray((err, files) => {
       if (!files || files.length === 0) {
         res.status(404).send({err: 'No files exist'})
-        next()
       } else {
         res.send(files)
-        next()
       }
     })
   }
@@ -64,10 +57,8 @@ export class FileController {
     gfs.remove({_id: req.params.id, root: 'uploads'}, (err, gridStore) => {
       if (err) {
         res.status(404).send({err: err})
-        next()
       } else {
         res.send({message: 'File Deleted'})
-        next()
       }
     })
   }
