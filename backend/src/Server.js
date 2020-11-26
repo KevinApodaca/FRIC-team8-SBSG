@@ -52,7 +52,7 @@ app.use('/files',fileRouter)
 
 const db = require('./models')
 db.mongoose
-  .connect(db.url)
+  .connect(db.url, {useUnifiedTopology: true, useNewUrlParser: true,})
   .then(() => {
     console.log(chalk.green('Connected to the database!'))
   })
