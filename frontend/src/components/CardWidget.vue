@@ -1,10 +1,10 @@
 <template>
-  <card-component class="is-card-widget" :icon="trendingIcon" :has-button-slot="true" :has-title-slot="true">
+  <card-component class="is-card-widget" :has-button-slot="true" :has-title-slot="true">
     <span slot="title">
-      <b>{{ previousValue }}</b> in <b>{{ previousPeriod }}</b>
+      <b>{{ previousPeriod }}</b>
     </span>
-    <button type="button" class="button is-small" slot="button" @click="buttonClick">
-      <b-icon icon="settings" custom-size="default"/>
+    <button type="button" class="button is-small" slot="button">
+      <b-icon icon="playlist-edit" custom-size="default"/>
     </button>
     <div class="level is-mobile">
       <div class="level-item">
@@ -58,21 +58,21 @@ export default {
       type: String,
       default: null
     },
-    previousNumber: {
-      type: Number,
-      default: 0
+    labelTitle: {
+      type: String,
+      default: null
     },
     previousPeriod: {
       type: String,
-      default: null
+      default: 'Tasks with status ...'
     }
   },
   computed: {
     trendingIcon () {
-      return (this.previousNumber < this.number) ? 'arrow-up-bold' : 'arrow-down-bold'
+      return 'playlist-edi'
     },
     previousValue () {
-      let valueString = (this.previousNumber < 1000) ? this.previousNumber : numeral(this.previousNumber).format('0,0')
+      let valueString = (this.labelTitle < 1000) ? this.labelTitle : numeral(this.labelTitle).format('0,0')
 
       if (this.prefix) {
         valueString = this.prefix + valueString
@@ -83,14 +83,6 @@ export default {
       }
 
       return valueString
-    }
-  },
-  methods: {
-    buttonClick () {
-      this.$buefy.snackbar.open({
-        message: 'Got click',
-        queue: false
-      })
     }
   }
 }

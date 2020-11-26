@@ -3,10 +3,13 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar-main/>
     <section class="section is-main-section">
+      <h1 class="subtitle is-3 is-bold">Progress Summary</h1>
       <tiles>
-        <card-widget class="tile is-child" type="is-primary" icon="playlist-edit" :number="15" :previous-number="8" previous-period="Aug, 2020" label="Current Tasks"/>
-        <card-widget class="tile is-child" type="is-success" icon="chart-timeline-variant" :number="55" :previous-number="40" previous-period="Aug, 2020" suffix="%" label="Event Progress"/>
-        <card-widget class="tile is-child" type="is-danger" icon="file-find" :number="32" :previous-number="6" label="Current Findings" previous-period="Aug, 2020"/>
+        <card-widget class="tile is-child" type="is-grey" icon="cancel" :number="5" label="Not Applicable"/>
+        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :number="15" label="Not Started"/>
+        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :number="4" label="Transferred"/>
+        <card-widget class="tile is-child" type="is-info" icon="progress-clock" :number="6" label="In Progress"/>
+        <card-widget class="tile is-child" type="is-success" icon="check" :number="7" label="Complete"/>
       </tiles>
 
    <!--    <card-component title="Performance" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
