@@ -3,7 +3,7 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar-main/>
     <section class="section is-main-section">
-      <h1 class="subtitle is-3 is-bold">Progress Summary</h1>
+      <h2 class="subtitle is-4 is-bold">Task Progress Summary</h2>
       <tiles>
         <card-widget class="tile is-child" type="is-grey" icon="cancel" :number="5" label="Not Applicable"/>
         <card-widget class="tile is-child" type="is-danger" icon="ray-start" :number="15" label="Not Started"/>
@@ -11,8 +11,9 @@
         <card-widget class="tile is-child" type="is-info" icon="progress-clock" :number="6" label="In Progress"/>
         <card-widget class="tile is-child" type="is-success" icon="check" :number="7" label="Complete"/>
       </tiles>
-
-   <!--    <card-component title="Performance" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
+      <hr>
+      <h2 class="subtitle is-4 is-bold">Event Progress Summary</h2>
+      <card-component title="Event Progress" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
                       ref="bigChart"
@@ -21,8 +22,8 @@
                       :extra-options="defaultChart.extraOptions">
           </line-chart>
         </div>
-      </card-component> -->
-
+      </card-component>
+      <hr>
       <div class="columns is-desktop">
         <div class="column">
           <card-scrollable data-url="/data-sources/stuff-updates.json" title="Recent Changes" icon="animation-outline" :has-dismiss="true"/>
@@ -40,6 +41,7 @@ import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import HeroBarMain from '@/components/HeroBarMain'
 import CardScrollable from '@/components/CardScrollable'
+import LineChart from '@/components/Charts/LineChart'
 export default {
   name: 'Home',
   components: {
@@ -47,7 +49,8 @@ export default {
     HeroBarMain,
     CardWidget,
     Tiles,
-    TitleBar
+    TitleBar,
+    LineChart
   },
   data () {
     return {
@@ -78,7 +81,7 @@ export default {
       const data = []
 
       for (let i = 0; i < n; i++) {
-        data.push(Math.round(Math.random() * 200))
+        data.push(Math.round(Math.random() * 50))
       }
 
       return data
@@ -99,7 +102,7 @@ export default {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: this.randomChartData(9)
+            data: this.randomChartData(20)
           },
           {
             fill: false,
@@ -114,7 +117,7 @@ export default {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: this.randomChartData(9)
+            data: this.randomChartData(48)
           },
           {
             fill: false,
@@ -129,10 +132,11 @@ export default {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: this.randomChartData(9)
+            data: this.randomChartData(24)
           }
         ],
-        labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09']
+        labels: [
+          'AlexAlex', 'BLAHSHHSHSHS', 'NewTitleHEre', 'SystemForMYNewTask', 'HelloTehreeHf', 'WithSpacingFixed', ' New System Here 234']
       }
     },
     actionSample () {

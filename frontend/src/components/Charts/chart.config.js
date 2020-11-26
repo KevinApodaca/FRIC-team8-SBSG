@@ -9,7 +9,7 @@ export const chartColors = {
 export const baseChartOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true
   },
   responsive: true
 }
