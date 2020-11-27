@@ -12,7 +12,7 @@
           <h3 class="subtitle is-spaced">
             {{ label }}
           </h3>
-          <h1 class="title">
+          <h1 class="title" id="myRock">
             <growing-number :value="number" :prefix="prefix" :suffix="suffix"/>
           </h1>
         </div>

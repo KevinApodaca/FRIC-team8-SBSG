@@ -14,6 +14,7 @@
       </tiles>
       <hr>
       <h2 class="subtitle is-4 is-bold">Event Progress Summary</h2>
+      <p id="myRock">hello</p>
       <card-component title="Event Progress" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
@@ -92,6 +93,7 @@ export default {
       console.log('total not started: ' + this.notStarted.length)
       console.log('total complete: ' + this.completed.length)
       console.log('total transferred: ' + this.transferred.length)
+      document.getElementById('myRock').innerHTML = this.notStarted.length
     },
     randomChartData (n) {
       const data = []
