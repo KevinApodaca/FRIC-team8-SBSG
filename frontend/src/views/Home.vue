@@ -4,10 +4,11 @@
     <hero-bar-main/>
     <section class="section is-main-section">
       <h2 class="subtitle is-4 is-bold">Task Progress Summary</h2>
+      <button class="button is-primary" @click="tester2()">Help</button>
       <tiles>
         <card-widget class="tile is-child" type="is-grey" icon="cancel" :number="5" label="Not Applicable"/>
-        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :number="15" label="Not Started"/>
-        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :number="4" label="Transferred"/>
+        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :number="transferred" label="Not Started"/>
+        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :number=transferred label="Transferred"/>
         <card-widget class="tile is-child" type="is-info" icon="progress-clock" :number="6" label="In Progress"/>
         <card-widget class="tile is-child" type="is-success" icon="check" :number="7" label="Complete"/>
       </tiles>
@@ -42,6 +43,7 @@ import CardWidget from '@/components/CardWidget'
 import HeroBarMain from '@/components/HeroBarMain'
 import CardScrollable from '@/components/CardScrollable'
 import LineChart from '@/components/Charts/LineChart'
+import TaskService from '../services/TaskServices'
 export default {
   name: 'Home',
   components: {
@@ -57,7 +59,10 @@ export default {
       defaultChart: {
         chartData: null,
         extraOptions: chartConfig.chartOptionsMain
-      }
+      },
+      completed: 0,
+      notStarted: 0,
+      transferred: 0
     }
   },
   computed: {
@@ -69,6 +74,7 @@ export default {
     }
   },
   mounted () {
+    this.tester2()
     this.fillChartData()
 
     this.$buefy.snackbar.open({
@@ -77,6 +83,16 @@ export default {
     })
   },
   methods: {
+    async tester2 () {
+      const respp = await TaskService.getTasks()
+      const tasks = respp.data.map(TaskService.getTaskProgress)
+      this.notStarted = tasks.filter(item => item.task_progress === 'Not Started')
+      this.completed = tasks.filter(item => item.task_progress === 'Complete')
+      this.transferred = tasks.filter(item => item.task_progress === 'Transferred')
+      console.log('total not started: ' + this.notStarted.length)
+      console.log('total complete: ' + this.completed.length)
+      console.log('total transferred: ' + this.transferred.length)
+    },
     randomChartData (n) {
       const data = []
 

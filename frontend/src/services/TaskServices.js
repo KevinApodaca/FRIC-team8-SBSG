@@ -73,5 +73,12 @@ export default {
       }
     })
     return res
+  },
+
+  getTaskProgress (task) {
+    const newObj = {
+      task_progress: task.task_progress
+    }
+    return newObj
   }
 }
