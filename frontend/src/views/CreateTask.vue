@@ -182,16 +182,11 @@ export default {
     },
     async submit () {
       this.isLoading = true
-      console.log(this.files)
-      await FileServices.upLoadFiles(this.files)
-        .then(res => {
-          console.log(res)
-          this.form.filename = res
-        })
-        .catch(err => {
-          this.displayError(err)
-        })
-
+      this.upLoadFiles()
+      this.createTask()
+    },
+    async createTask () {
+      console.log(this.form)
       await TaskService.createTask(this.form)
         .then(response => {
           if (response.status === 200) {
@@ -201,6 +196,18 @@ export default {
         .catch(e => {
           this.displayError(e)
         })
+    },
+    async upLoadFiles () {
+      if (this.files.length !== 0) {
+        console.log('Storing files')
+        await FileServices.upLoadFiles(this.files)
+          .then(res => {
+            this.form.filename = res
+          })
+          .catch(err => {
+            this.displayError(err)
+          })
+      }
     },
     async getSystems () {
       SystemService.getSystems()

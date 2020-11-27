@@ -26,7 +26,8 @@ export default {
   },
 
   async upLoadFiles (form) {
-    const formData = this.handleFile(form)
+    const files = this.handleUpperCaseName(form)
+    const formData = this.handleFile(files)
     const res = await axios.post('http://localhost:3000/files/', formData)
     const filename = this.handleResponse(res)
     return filename
@@ -44,8 +45,8 @@ export default {
 
   handleFile (files) {
     const formData = new FormData()
-
     for (const index in files) {
+      console.log(files[index])
       formData.append('upload', files[index])
     }
 
@@ -60,5 +61,11 @@ export default {
     }
 
     return arr
+  },
+
+  handleUpperCaseName(files) {
+    let newFiles
+    newFiles = files.map(file => file.name.toLowerCase())
+    return newFiles
   }
 }
