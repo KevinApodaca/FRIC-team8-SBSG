@@ -15,8 +15,8 @@ module.exports = mongoose => {
     },
     event_type: {
       type: String,
-      enum: ['CVPA', 'CVI', 'VOF'],
-      default: 'CVPA',
+      enum: ['CVPA', 'CVI', 'VOF',''],
+      default: '',
     },
     version: {
       type: String,
@@ -49,8 +49,8 @@ module.exports = mongoose => {
     },
     event_classification:{
       type: String,
-      default: 'Top Secret',
-      enum: ['Top Secret', 'Secret', 'Confidential', 'Classified','Unclassified']
+      default: '',
+      enum: ['Top Secret', 'Secret', 'Confidential', 'Classified','Unclassified','']
     },
     declassified_date:{
       type: Date,

@@ -7,7 +7,8 @@ module.exports = mongoose => {
       },
       time: {
         type: Date,
-        default: Date.now
+        default: new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-') + ": " +
+        new Date().toTimeString().split(" ")[0]
       },
       action: {
         type: String,
