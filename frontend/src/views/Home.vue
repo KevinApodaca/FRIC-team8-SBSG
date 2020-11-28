@@ -24,7 +24,7 @@
         </div>
       </card-component>
       <hr>
-            <h2 class="subtitle is-4 is-bold">Subtask Progress Summary</h2>
+      <h2 class="subtitle is-4 is-bold">Subtask Progress Summary</h2>
       <tiles>
         <card-widget class="tile is-child" type="is-grey" icon="cancel" :progress='subtask_notApplicable' :previousPeriod="Subtasks" label="Not Applicable"/>
         <card-widget class="tile is-child" type="is-danger" icon="ray-start" :progress='subtask_notStarted' label="Not Started"/>
