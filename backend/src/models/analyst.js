@@ -16,8 +16,8 @@ module.exports = mongoose => {
       title: [String],
       role: {
         type: String,
-        enum: ['Lead Analyst', 'Collaborator'],
-        default: 'Collaborator'
+        enum: ['Lead Analyst', 'Collaborator',''],
+        default: ''
       }
     },
     {collection: 'analyst'}

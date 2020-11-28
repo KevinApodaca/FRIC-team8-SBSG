@@ -71,18 +71,18 @@ module.exports = mongoose => {
       },
       system_confidentiality: {
         type: String,
-        default: 'Low',
-        enum: ['Low','Medium','High','Information']
+        default: '',
+        enum: ['Low','Medium','High','Information','']
       },
       system_integrity: {
         type: String,
-        default: 'Low',
-        enum: ['Low','Medium','High','Information']
+        default: '',
+        enum: ['Low','Medium','High','Information','']
       },
       system_availability: {
         type: String,
-        default: 'Low',
-        enum: ['Low','Medium','High','Information']
+        default: '',
+        enum: ['Low','Medium','High','Information','']
       },
       parent: { type: mongoose.Schema.Types.ObjectId, ref: 'event' },
       analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },

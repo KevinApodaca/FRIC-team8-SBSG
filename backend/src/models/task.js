@@ -27,7 +27,7 @@ module.exports = mongoose => {
         },
         task_priority: {
           type: String,
-          enum: ['Low', 'Medium', 'High'],
+          enum: ['Low', 'Medium', 'High',''],
           default: ''
         },
         task_progress: {
