@@ -1,7 +1,7 @@
 <template>
   <card-component class="is-card-widget" :has-button-slot="true" :has-title-slot="true">
     <span slot="title">
-      <b>{{ previousPeriod }}</b>
+      <b>{{ headerLabel }}</b>
     </span>
     <button type="button" class="button is-small" slot="button">
       <b-icon icon="playlist-edit" custom-size="default"/>
@@ -54,7 +54,7 @@ export default {
       type: String,
       default: null
     },
-    previousPeriod: {
+    headerLabel: {
       type: String,
       default: 'Tasks with status ...'
     }
