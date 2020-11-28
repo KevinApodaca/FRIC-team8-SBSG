@@ -49,5 +49,12 @@ export default {
       }
     })
     return res
+  },
+
+  getSubtaskProgress (subtask) {
+    const newSubtaskObj = {
+      subtask_progress: subtask.subtask_progress
+    }
+    return newSubtaskObj
   }
 }

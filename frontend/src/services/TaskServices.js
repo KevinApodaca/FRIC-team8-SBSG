@@ -76,9 +76,9 @@ export default {
   },
 
   getTaskProgress (task) {
-    const newObj = {
+    const newTaskObj = {
       task_progress: task.task_progress
     }
-    return newObj
+    return newTaskObj
   }
 }

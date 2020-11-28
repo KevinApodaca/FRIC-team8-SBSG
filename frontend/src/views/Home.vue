@@ -24,6 +24,14 @@
         </div>
       </card-component>
       <hr>
+            <h2 class="subtitle is-4 is-bold">Subtask Progress Summary</h2>
+      <tiles>
+        <card-widget class="tile is-child" type="is-grey" icon="cancel" :progress='subtask_notApplicable' :previousPeriod="Subtasks" label="Not Applicable"/>
+        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :progress='subtask_notStarted' label="Not Started"/>
+        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :progress='subtask_transferred' label="Transferred"/>
+        <card-widget class="tile is-child" type="is-info" icon="progress-clock" :progress='subtask_inProgress' label="In Progress"/>
+        <card-widget class="tile is-child" type="is-success" icon="check" :progress='subtask_completed' label="Complete"/>
+      </tiles>
       <div class="columns is-desktop">
         <div class="column">
           <card-scrollable data-url="/data-sources/stuff-updates.json" title="Recent Changes" icon="animation-outline" :has-dismiss="true"/>
@@ -43,6 +51,7 @@ import HeroBarMain from '@/components/HeroBarMain'
 import CardScrollable from '@/components/CardScrollable'
 import LineChart from '@/components/Charts/LineChart'
 import TaskService from '../services/TaskServices'
+import SubtaskService from '../services/SubtaskServices'
 export default {
   name: 'Home',
   components: {
@@ -63,7 +72,12 @@ export default {
       task_notStarted: null,
       task_transferred: null,
       task_inProgress: null,
-      task_completed: null
+      task_completed: null,
+      subtask_notApplicable: null,
+      subtask_notStarted: null,
+      subtask_transferred: null,
+      subtask_inProgress: null,
+      subtask_completed: null
     }
   },
   computed: {
@@ -76,6 +90,7 @@ export default {
   },
   mounted () {
     this.getTaskStatus()
+    this.getSubtaskStatus()
     this.fillChartData()
 
     this.$buefy.snackbar.open({
@@ -92,6 +107,15 @@ export default {
       this.task_transferred = tasks.filter(item => item.task_progress === 'Transferred')
       this.task_inProgress = tasks.filter(item => item.task_progress === 'In Progress')
       this.task_completed = tasks.filter(item => item.task_progress === 'Complete')
+    },
+    async getSubtaskStatus () {
+      const response = await SubtaskService.getSubtasks()
+      const subtasks = response.data.map(SubtaskService.getSubtaskProgress)
+      this.subtask_notApplicable = subtasks.filter(item => item.task_progress === 'Not Applicable')
+      this.subtask_notStarted = subtasks.filter(item => item.subtask_progress === 'Not Started')
+      this.subtask_transferred = subtasks.filter(item => item.subtask_progress === 'Transferred')
+      this.subtask_inProgress = subtasks.filter(item => item.subtask_progress === 'In Progress')
+      this.subtask_completed = subtasks.filter(item => item.subtask_progress === 'Complete')
     },
     randomChartData (n) {
       const data = []
