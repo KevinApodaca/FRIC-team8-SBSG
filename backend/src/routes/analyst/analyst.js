@@ -5,26 +5,26 @@ export const router = express.Router({
   strict: true
 })
 
-router.post('/', (req, res) => {
-  analystController.create(req, res)
+router.post('/', (req, res, next) => {
+  analystController.create(req, res, next)
 })
 
-router.get('/all', (req, res) => {
-  analystController.findAllAnalysts(req, res)
+router.get('/all', (req, res, next) => {
+  analystController.findAllAnalysts(req, res, next)
 })
 
-router.get('/listOfAnalyst', (req, res) => {
-  analystController.findAllAnalystInArray(req, res)
+router.get('/listOfAnalyst', (req, res, next) => {
+  analystController.findAllAnalystInArray(req, res, next)
 })
 
-router.get('/:analystId', (req, res) => {
-  analystController.read(req, res)
+router.get('/:analystId', (req, res, next) => {
+  analystController.read(req, res, next)
 })
 
-router.patch('/:analystId', (req, res) => {
-  analystController.update(req, res)
+router.patch('/:analystId', (req, res, next) => {
+  analystController.update(req, res, next)
 })
 
-router.delete('/:analystId', (req, res) => {
-  analystController.delete(req, res)
+router.delete('/:analystId', (req, res, next) => {
+  analystController.delete(req, res, next)
 })

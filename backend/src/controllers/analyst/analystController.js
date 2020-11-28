@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 const Analyst = db.analyst
 
 export class AnalystController {
-  create (req, res) {
+  create (req, res, next) {
     const analyst = new Analyst(req.body)
     analyst
       .save(analyst)
@@ -18,7 +18,7 @@ export class AnalystController {
       })
   }
 
-  read (req, res) {
+  read (req, res, next) {
     const id = req.params.analystId
     Analyst.findById(id)
       .then(data => {
@@ -31,7 +31,7 @@ export class AnalystController {
       })
   }
 
-  update (req, res) {
+  update (req, res, next) {
     if (!req.body) {
       return res.status(400).send({
         message: 'Data is Empty :('
@@ -55,7 +55,7 @@ export class AnalystController {
       })
   }
 
-  delete (req, res) {
+  delete (req, res, next) {
     const id = req.params.analystId
 
     Analyst.findByIdAndRemove(id, { useFindAndModify: false })
@@ -77,7 +77,7 @@ export class AnalystController {
       })
   }
 
-  findAllAnalysts (req, res) {
+  findAllAnalysts (req, res, next) {
     Analyst.find({})
       .then(data => {
         res.send(data)
@@ -90,7 +90,7 @@ export class AnalystController {
       })
   }
 
-  findAllAnalystInArray (req, res) {
+  findAllAnalystInArray (req, res, next) {
     const listOfAnalyst = req.query.arr
     const ids = listOfAnalyst.map(id => mongoose.Types.ObjectId(id.toString()))
 
