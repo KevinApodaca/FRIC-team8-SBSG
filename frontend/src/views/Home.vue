@@ -4,17 +4,15 @@
     <hero-bar-main/>
     <section class="section is-main-section">
       <h2 class="subtitle is-4 is-bold">Task Progress Summary</h2>
-      <button class="button is-primary" @click="tester2()">Help</button>
       <tiles>
-        <card-widget class="tile is-child" type="is-grey" icon="cancel" :number="5" label="Not Applicable"/>
-        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :number="transferred" label="Not Started"/>
-        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :number=transferred label="Transferred"/>
-        <card-widget class="tile is-child" type="is-info" icon="progress-clock" :number="6" label="In Progress"/>
-        <card-widget class="tile is-child" type="is-success" icon="check" :number="7" label="Complete"/>
+        <card-widget class="tile is-child" type="is-grey" icon="cancel" :progress='task_notApplicable' label="Not Applicable"/>
+        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :progress='task_notStarted' label="Not Started"/>
+        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :progress='task_transferred' label="Transferred"/>
+        <card-widget class="tile is-child" type="is-info" icon="progress-clock" :progress='task_inProgress' label="In Progress"/>
+        <card-widget class="tile is-child" type="is-success" icon="check" :progress='task_completed' label="Complete"/>
       </tiles>
       <hr>
       <h2 class="subtitle is-4 is-bold">Event Progress Summary</h2>
-      <p id="myRock">hello</p>
       <card-component title="Event Progress" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
@@ -61,9 +59,11 @@ export default {
         chartData: null,
         extraOptions: chartConfig.chartOptionsMain
       },
-      completed: 0,
-      notStarted: 0,
-      transferred: 0
+      task_notApplicable: null,
+      task_notStarted: null,
+      task_transferred: null,
+      task_inProgress: null,
+      task_completed: null
     }
   },
   computed: {
@@ -75,7 +75,7 @@ export default {
     }
   },
   mounted () {
-    this.tester2()
+    this.getTaskStatus()
     this.fillChartData()
 
     this.$buefy.snackbar.open({
@@ -84,16 +84,14 @@ export default {
     })
   },
   methods: {
-    async tester2 () {
-      const respp = await TaskService.getTasks()
-      const tasks = respp.data.map(TaskService.getTaskProgress)
-      this.notStarted = tasks.filter(item => item.task_progress === 'Not Started')
-      this.completed = tasks.filter(item => item.task_progress === 'Complete')
-      this.transferred = tasks.filter(item => item.task_progress === 'Transferred')
-      console.log('total not started: ' + this.notStarted.length)
-      console.log('total complete: ' + this.completed.length)
-      console.log('total transferred: ' + this.transferred.length)
-      document.getElementById('myRock').innerHTML = this.notStarted.length
+    async getTaskStatus () {
+      const response = await TaskService.getTasks()
+      const tasks = response.data.map(TaskService.getTaskProgress)
+      this.task_notApplicable = tasks.filter(item => item.task_progress === 'Not Applicable')
+      this.task_notStarted = tasks.filter(item => item.task_progress === 'Not Started')
+      this.task_transferred = tasks.filter(item => item.task_progress === 'Transferred')
+      this.task_inProgress = tasks.filter(item => item.task_progress === 'In Progress')
+      this.task_completed = tasks.filter(item => item.task_progress === 'Complete')
     },
     randomChartData (n) {
       const data = []

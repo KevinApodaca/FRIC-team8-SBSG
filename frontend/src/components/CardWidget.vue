@@ -12,8 +12,8 @@
           <h3 class="subtitle is-spaced">
             {{ label }}
           </h3>
-          <h1 class="title" id="myRock">
-            <growing-number :value="number" :prefix="prefix" :suffix="suffix"/>
+          <h1 class="title">
+            <growing-number :value="progress.length" :prefix="prefix" :suffix="suffix"/>
           </h1>
         </div>
       </div>
@@ -34,13 +34,13 @@ export default {
   name: 'CardWidget',
   components: { GrowingNumber, CardComponent },
   props: {
+    progress: {
+      type: Object,
+      default: null
+    },
     icon: {
       type: String,
       default: null
-    },
-    number: {
-      type: Number,
-      default: 0
     },
     prefix: {
       type: String,
