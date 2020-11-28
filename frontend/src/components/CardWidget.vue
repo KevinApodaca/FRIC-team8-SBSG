@@ -13,7 +13,7 @@
             {{ label }}
           </h3>
           <h1 class="title">
-            <growing-number :value="progress.length" :prefix="prefix" :suffix="suffix"/>
+            <growing-number :value="progress.length"/>
           </h1>
         </div>
       </div>
@@ -39,14 +39,6 @@ export default {
       default: null
     },
     icon: {
-      type: String,
-      default: null
-    },
-    prefix: {
-      type: String,
-      default: null
-    },
-    suffix: {
       type: String,
       default: null
     },
