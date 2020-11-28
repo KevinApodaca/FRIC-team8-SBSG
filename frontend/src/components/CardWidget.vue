@@ -60,9 +60,6 @@ export default {
     }
   },
   computed: {
-    trendingIcon () {
-      return 'playlist-edi'
-    },
     previousValue () {
       let valueString = (this.labelTitle < 1000) ? this.labelTitle : numeral(this.labelTitle).format('0,0')
 
