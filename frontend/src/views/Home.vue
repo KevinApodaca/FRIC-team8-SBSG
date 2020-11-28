@@ -26,11 +26,11 @@
       <hr>
       <h2 class="subtitle is-4 has-text-weight-semibold">Subtask Progress Summary</h2>
       <tiles>
-        <card-widget class="tile is-child" type="is-grey" icon="cancel" :progress='subtask_notApplicable' headerLabel="Subtasks with status" label="Not Applicable"/>
-        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :progress='subtask_notStarted' headerLabel="Subtasks with status" label="Not Started"/>
-        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :progress='subtask_transferred' headerLabel="Subtasks with status" label="Transferred"/>
-        <card-widget class="tile is-child" type="is-info" icon="progress-clock" :progress='subtask_inProgress' headerLabel="Subtasks with status" label="In Progress"/>
-        <card-widget class="tile is-child" type="is-success" icon="check" :progress='subtask_completed' headerLabel="Subtasks with status" label="Complete"/>
+        <card-widget class="tile is-child" type="is-grey" icon="cancel" :progress='subtask_notApplicable' headerLabel="Subtasks with status..." label="Not Applicable"/>
+        <card-widget class="tile is-child" type="is-danger" icon="ray-start" :progress='subtask_notStarted' headerLabel="Subtasks with status..." label="Not Started"/>
+        <card-widget class="tile is-child" type="is-warning is-light" icon="transfer" :progress='subtask_transferred' headerLabel="Subtasks with status..." label="Transferred"/>
+        <card-widget class="tile is-child" type="is-info" icon="progress-clock" :progress='subtask_inProgress' headerLabel="Subtasks with status..." label="In Progress"/>
+        <card-widget class="tile is-child" type="is-success" icon="check" :progress='subtask_completed' headerLabel="Subtasks with status..." label="Complete"/>
       </tiles>
       <div class="columns is-desktop">
         <div class="column">
