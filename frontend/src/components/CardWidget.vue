@@ -1,10 +1,10 @@
 <template>
-  <card-component class="is-card-widget" :icon="trendingIcon" :has-button-slot="true" :has-title-slot="true">
+  <card-component class="is-card-widget" :has-button-slot="true" :has-title-slot="true">
     <span slot="title">
-      <b>{{ previousValue }}</b> in <b>{{ previousPeriod }}</b>
+      <b>{{ headerLabel }}</b>
     </span>
-    <button type="button" class="button is-small" slot="button" @click="buttonClick">
-      <b-icon icon="settings" custom-size="default"/>
+    <button type="button" class="button is-small" slot="button">
+      <b-icon icon="playlist-edit" custom-size="default"/>
     </button>
     <div class="level is-mobile">
       <div class="level-item">
@@ -13,7 +13,7 @@
             {{ label }}
           </h3>
           <h1 class="title">
-            <growing-number :value="number" :prefix="prefix" :suffix="suffix"/>
+            <growing-number :value="progress.length"/>
           </h1>
         </div>
       </div>
@@ -34,19 +34,11 @@ export default {
   name: 'CardWidget',
   components: { GrowingNumber, CardComponent },
   props: {
+    progress: {
+      type: Object,
+      default: null
+    },
     icon: {
-      type: String,
-      default: null
-    },
-    number: {
-      type: Number,
-      default: 0
-    },
-    prefix: {
-      type: String,
-      default: null
-    },
-    suffix: {
       type: String,
       default: null
     },
@@ -58,21 +50,18 @@ export default {
       type: String,
       default: null
     },
-    previousNumber: {
-      type: Number,
-      default: 0
-    },
-    previousPeriod: {
+    labelTitle: {
       type: String,
       default: null
+    },
+    headerLabel: {
+      type: String,
+      default: 'Tasks with status ...'
     }
   },
   computed: {
-    trendingIcon () {
-      return (this.previousNumber < this.number) ? 'arrow-up-bold' : 'arrow-down-bold'
-    },
     previousValue () {
-      let valueString = (this.previousNumber < 1000) ? this.previousNumber : numeral(this.previousNumber).format('0,0')
+      let valueString = (this.labelTitle < 1000) ? this.labelTitle : numeral(this.labelTitle).format('0,0')
 
       if (this.prefix) {
         valueString = this.prefix + valueString
@@ -83,14 +72,6 @@ export default {
       }
 
       return valueString
-    }
-  },
-  methods: {
-    buttonClick () {
-      this.$buefy.snackbar.open({
-        message: 'Got click',
-        queue: false
-      })
     }
   }
 }
