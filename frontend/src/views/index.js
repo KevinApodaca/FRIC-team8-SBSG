@@ -102,6 +102,14 @@ const routes = [
   },
   {
     meta: {
+      title: 'Export'
+    },
+    path: '/export',
+    name: 'export',
+    component: () => import(/* webpackChunkName: "forms" */ '../views/ExportData.vue')
+  },
+  {
+    meta: {
       title: 'Systems'
     },
     path: '/systems',

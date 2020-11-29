@@ -95,6 +95,17 @@ const routes = [
   },
   {
     meta: {
+      title: 'Export'
+    },
+    path: '/export',
+    name: 'export',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/ExportData.vue')
+  },
+  {
+    meta: {
       title: 'Findings'
     },
     path: '/findings',
