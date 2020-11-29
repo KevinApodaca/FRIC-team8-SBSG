@@ -24,7 +24,7 @@
           <div slot="left" class="buttons has-addons">
             <button class="button is-rounded is-info is-outline">Archive</button>
           </div>
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onSearchToggle">
             <div class="field has-addons" >
               <div class="control">
                 <input class="input" type="text" placeholder="Search for a finding...">
@@ -73,9 +73,9 @@ export default {
       swal('About Findings', 'Findings are vulnerabilities. A finding will either lead to a true vulerability or just a data point that the client should be made aware of', 'info'
       )
     },
-    actionSample () {
+    onSearchToggle () {
       this.$buefy.toast.open({
-        message: 'Feed has been refreshed',
+        message: 'Search results loaded',
         type: 'is-info',
         queue: false
       })
