@@ -1,12 +1,12 @@
 
 const axios = require('axios')
 const pptxgen = require('pptxgenjs')
+const fs = require('fs')
 const pptx = new pptxgen()
 const slides = pptx.addSlide()
 const slide2  = pptx.addSlide()
 const slide3  = pptx.addSlide()
-const slide4  = pptx.addSlide()
-const fs = require('fs')
+const lastSlide  = pptx.addSlide()
 var slide2Counter_y = 32
 
 // Grabs all of the events
@@ -151,15 +151,15 @@ const createReports = (event, systems, findings) => {
      h: '12%'
   })
   slide2.addText('SCOPE', {
-    font_face: 'Arial',
-    font_size: 20,
+    fontFace: 'Arial',
+    fontSize: 20,
     bold: true,
     x: '16%',
     y: '13%'
   })
   slide2.addText('Systems assessed during the ' + event[0].event_type + ' are as follows:',{
-    font_face: 'Arial',
-    font_size: 18,
+    fontFace: 'Arial',
+    fontSize: 18,
     bold: true,
     x: '4%',
     y: '25%',
@@ -187,143 +187,155 @@ const createReports = (event, systems, findings) => {
      h: '12%'
   })
   slide3.addText('FINDINGS', {
-    font_face: 'Arial',
-    font_size: 20,
+    fontFace: 'Arial',
+    fontSize: 20,
     bold: true,
     x: '16%',
     y: '13%'
   })
-  // var headerRow = [
-  //   {
-  //     val: "ID",
-  //           opts: {
-  //               font_face   : "Arial",
-  //               font_size   : 18,
-  //               align       : "center",
-  //               bold        : true,
-  //               font_color  : 'ffffff',
-  //               fill_color  : '32362c'
-  //           }
-  //
-  //   },
-  //   {
-  //     val: "System",
-  //           opts: {
-  //               font_face   : "Arial",
-  //               font_size   : 18,
-  //               align       : "center",
-  //               bold        : true,
-  //               font_color  : 'ffffff',
-  //               fill_color  : '32362c'
-  //           }
-  //
-  //
-  //   },
-  //   {
-  //     val: "Finding",
-  //           opts: {
-  //               font_face   : "Arial",
-  //               font_size   : 18,
-  //               align       : "center",
-  //               bold        : true,
-  //               font_color  : 'ffffff',
-  //               fill_color  : '32362c'
-  //           }
-  //
-  //   },
-  //   {
-  //     val: "Impact",
-  //           opts: {
-  //               font_face   : "Arial",
-  //               font_size   : 18,
-  //               align       : "center",
-  //               bold        : true,
-  //               font_color  : 'ffffff',
-  //               fill_color  : '32362c'
-  //           }
-  //
-  //   },
-  //   {
-  //     val: "Risk",
-  //           opts: {
-  //               font_face   : "Arial",
-  //               font_size   : 18,
-  //               align       : "center",
-  //               bold        : true,
-  //               font_color  : 'ffffff',
-  //               fill_color  : '32362c'
-  //           }
-  //
-  //   }
-  // ]
-  //
-  // var dataRows = findings.map(slide3Text)
-  //
-  // const columnDefinition = [170000, 170000, 170000, 170000, 170000]
-  // var table = []
-  // table.push(headerRow)
-  //
-  // for (var index in dataRows) {
-  //   table.push(dataRows[index])
-  // }
-  //
-  // slide3.addTable(table, {
-  //   font_size: 10,
-  //   font_face: 'Arial',
-  //   x: '4%',
-  //   columnWidths: columnDefinition
-  // })
-  //
-  // // Column chart
-  // // slide4  = pptx.makeNewSlide()
-  // slide4.addImage('./assets/img/army-logo-small.png', {
-  //   x: '4%',
-  //   y: '4%'
-  // })
-  // slide4.addImage('./assets/img/combat-logo-small.png', {
-  //    x: '12%',
-  //    y: '5%'
-  // })
-  // slide4.addImage('./assets/img/devcom-logo-small.png', {
-  //    x: '85%',
-  //    y: '5%'
-  // })
-  // slide4.addText('FINDINGS HISTOGRAM', {
-  //   font_face: 'Arial',
-  //   font_size: 20,
-  //   bold: true,
-  //   x: '20%',
-  //   y: '7%',
-  //   cx: '100%',
-  //   cy: '100%'
-  // })
-  //  slide4.addChart(
-  //   {
-  //       title: 'Column Chart',
-  //       renderType: 'column',
-  //       valAxisTitle: 'Costs/Revenues ($)',
-  //       catAxistTitle: 'Category',
-  //       valAxisNumFmt: '$0',
-  //             valAxisMaxValue: 24,
-  //     data: [
-  //       {
-  //         name: 'Income',
-  //         labels: ['2005', '2006', '2007', '2008', '2009'],
-  //         values: [23.5, 26.2, 30.1, 29.5, 24.6]
-  //       },
-  //       {
-  //         name: 'Expense',
-  //         labels: ['2005, 2006', '2007', '2008', '2009'],
-  //         values: [18.1, 22.8, 23.9, 25.1, 25]
-  //       }]
-  //   }
-  // )
+
+  var headerRow = [
+    {
+      text: "ID",
+            options: {
+                fontFace : "Arial",
+                fontSize : 18,
+                align    : "left",
+                valign   :'bottom',
+                bold     : true,
+                color    :'ffffff',
+                fill: { color: '32362c' }
+            }
+
+    },
+    {
+      text: "System",
+            options: {
+                fontFace : "Arial",
+                fontSize : 18,
+                align    : "left",
+                valign   :'bottom',
+                bold     : true,
+                color    :'ffffff',
+                fill: { color: '32362c' }
+            }
 
 
-  // const out = fs.createWriteStream('ERB-Report.pptx')
-  //
-  // const closed = () => console.log('ERB report has been generated')
-  // out.on('close', closed)
+    },
+    {
+      text: "Finding",
+            options: {
+                fontFace : "Arial",
+                fontSize : 18,
+                align    : "left",
+                valign   :'bottom',
+                bold     : true,
+                color    : 'ffffff',
+                fill: { color: '32362c' }
+            }
+
+    },
+    {
+      text: "Impact",
+            options: {
+                fontFace  : "Arial",
+                fontSize  : 18,
+                align     : "left",
+                valign    : 'bottom',
+                bold      : true,
+                color     : 'ffffff',
+                fill: { color: '32362c' }
+            }
+
+    },
+    {
+      text: "Risk",
+      options: {
+          fontFace : "Arial",
+          fontSize : 18,
+          align    : "left",
+          valign   : 'bottom',
+          bold     : true,
+          color    : 'ffffff',
+          fill: { color: '32362c' }
+      }
+    }
+  ]
+
+  var dataRows = findings.map(slide3Text)
+
+  const columnDefinition = [.5, 2.5, 1.5, 1.5, 1.5]
+  var table = []
+  table.push(headerRow)
+
+  for (var index in dataRows) {
+    table.push(dataRows[index])
+  }
+
+  slide3.addTable(
+    table, {
+      x: 0.7,
+      y: 1.3,
+      w: columnDefinition.reduce((a,b) => a + b, 0),
+      colW: columnDefinition,
+      rowH: 0.40,
+      border: {pt:'1', color:'ffffff'},
+      autoPage: true,
+      autoPageRepeatHeader: true,
+      autoPageLineWeight: 1 ,
+      newSlideStartY: 1.6
+    }, {})
+
+
+
+    lastSlide.addImage({path: './assets/img/army-logo-small.png',
+      x: '4%',
+      y: '4%',
+      w: '6%',
+      h: '14%'
+    })
+    lastSlide.addImage({path: './assets/img/combat-logo-small.png',
+       x: '10%',
+       y: '5%',
+       w: '5%',
+       h: '11%'
+    })
+    lastSlide.addImage({path: './assets/img/devcom-logo-small.png',
+       x: '85%',
+       y: '5%',
+       w: '14%',
+       h: '12%'
+    })
+    lastSlide.addText('FINDINGS HISTOGRAM', {
+      fontFace: 'Arial',
+      fontSize: 20,
+      bold: true,
+      x: '16%',
+      y: '13%'
+    })
+
+
+    let dataChartAreaLine = [
+        {
+            labels: ["INFO", "VERY LOW", "LOW", "MEDIUM", "HIGH", "VERY HIGH"],
+            values: [10, 20, 15, 5, 35, 21],
+        },
+    ]
+
+  lastSlide.addChart(pptx.charts.BAR3D, dataChartAreaLine,
+    {
+      x: 1,
+      y: 1,
+      w: 8,
+      h: 4,
+      bar3DShape:'box',
+      showTitle : true,
+      title: 'Findings Risks',
+      valAxisLineShow: false,
+      valueBarColors: true,
+    });
+
+
   pptx.writeFile('ERB-Report.pptx')
       .then(fileName => {
           console.log(`created file: ${fileName}`);
@@ -333,8 +345,8 @@ const createReports = (event, systems, findings) => {
 const slide2Text = (system) => {
 
   slide2.addText('- ' + system.name, {
-    font_face: 'Arial',
-    font_size: 16,
+    fontFace: 'Arial',
+    fontSize: 16,
     x: '8%',
     y: (slide2Counter_y + '%'),
   })
@@ -344,43 +356,43 @@ const slide2Text = (system) => {
 const slide3Text = (findings) => {
   var dataRows = [
       {
-        val: findings.id_form,
-        opts: {
-          font_face: 'Arial',
-          align: 'center',
-          fill_color: 'cccecc'
+        text: findings.id_form,
+        options: {
+          fontFace: 'Arial',
+          align: 'left',
+          fill: {color: 'cccecc'}
         }
       },
       {
-        val: 'findings.system_name',
-        opts: {
-          font_face: 'Arial',
-          align: 'center',
-          fill_color: 'cccecc'
+        text: 'findings.system_name',
+        options: {
+          fontFace: 'Arial',
+          align: 'left',
+          fill: 'cccecc'
         }
       },
       {
-        val: findings.finding_title,
-        opts: {
-          font_face: 'Arial',
-          align: 'center',
-          fill_color: 'cccecc'
+        text: findings.finding_title,
+        options: {
+          fontFace: 'Arial',
+          align: 'left',
+          fill: {color: 'cccecc'}
         }
       },
       {
-        val: findings.impact_level,
-        opts: {
-          font_face: 'Arial',
-          align: 'center',
-          fill_color: 'cccecc'
+        text: findings.impact_level,
+        options: {
+          fontFace: 'Arial',
+          align: 'left',
+          fill: {color: 'cccecc'}
         }
       },
       {
-        val: findings.risk,
-        opts: {
-          font_face: 'Arial',
-          align: 'center',
-          fill_color: 'cccecc'
+        text: findings.risk,
+        options: {
+          fontFace: 'Arial',
+          align: 'left',
+          fill: {color: 'cccecc'}
         }
       }
   ]
