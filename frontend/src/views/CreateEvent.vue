@@ -24,13 +24,13 @@
                 </option>
               </b-select>
             </b-field>
-             <b-field label="Event Type" horizontal>
-            <b-select v-model="form.event_type">
-              <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
-                {{ event_type }}
-              </option>
-            </b-select>
-          </b-field>
+            <b-field label="Event Type" horizontal>
+              <b-select v-model="form.event_type">
+                <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
+                  {{ event_type }}
+                </option>
+              </b-select>
+            </b-field>
             <b-field label="Event Version" horizontal>
               <b-input v-model="form.version" reaadonly />
             </b-field>
@@ -59,20 +59,6 @@
               <b-input v-model="form.customer_name" required />
             </b-field>
             <hr>
-            <b-field label="Derived From" horizontal>
-              <b-input v-model="form.derived" placeholder="analyst initials" required />
-            </b-field>
-            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-            <b-field label="Lead Analysts">
-              <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
-              </div>
-            </b-field>
-            <b-field label="Analysts">
-              <div class="control">
-                <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
-              </div>
-            </b-field>
             <b-table ref="btable"
               :checked-rows.sync="checkedRows"
               :checkable="checkable"

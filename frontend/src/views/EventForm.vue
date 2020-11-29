@@ -62,7 +62,6 @@
             <b-field label="Derived From" horizontal>
               <b-input v-model="form.derived" placeholder="analyst initials" required />
             </b-field>
-            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Lead Analysts">
               <div class="control">
                 <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
