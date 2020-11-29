@@ -23,6 +23,7 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.10.7",
     "numeral": "^2.0.6",
+    "officegen": "^0.6.4",
     "perfect-scrollbar": "^1.5.0",
     "register-service-worker": "^1.7.1",
     "spinkit": "^1.2.5",
