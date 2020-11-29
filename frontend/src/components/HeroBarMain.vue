@@ -12,7 +12,7 @@
             <div>
               <h1 class="title is-spaced">Welcome Back, <b>{{ userName }}</b></h1>
               <h3 class="subtitle">Last login <b>{{ lastLoginTimeString }}</b> from <b>{{ lastLoginIpString }}</b></h3>
-              <p>You have <b>6 tasks</b> due today and <b>3 subtasks</b></p>
+              <p>You have <b>0 tasks</b> due today and <b>0 subtasks</b></p>
             </div>
           </div>
         </div>
