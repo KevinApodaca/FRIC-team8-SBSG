@@ -17,7 +17,7 @@
             <div slot="left" class="buttons has-addons">
             <button class="button is-rounded is-info is-outline">Archive</button>
           </div>
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onSearchToggle">
             <div class="field has-addons" >
               <div class="control">
                 <input class="input" type="text" placeholder="Search for a system...">
@@ -65,9 +65,9 @@ export default {
       swal('About Systems', 'Systems are the hardware and software that CEAD will test during an event. Systems have a set of tasks to be completed, and findings related to the system. ', 'info'
       )
     },
-    actionSample () {
+    onSearchToggle () {
       this.$buefy.toast.open({
-        message: 'Feed has been refreshed',
+        message: 'Search reults loaded',
         type: 'is-info',
         queue: false
       })

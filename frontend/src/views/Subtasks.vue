@@ -18,7 +18,7 @@
             <button class="button is-rounded is-info is-outline">Archive</button>
             <button class="button is-rounded is-success">Promote</button>
           </div>
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onSearchToggle">
             <div class="field has-addons" >
               <div class="control">
                 <input class="input" type="text" placeholder="Search for a subtask...">
@@ -69,9 +69,9 @@ export default {
       swal('About Subtasks', 'Subtasks are smaller issues that need to be done in order to complete a task. They must be created from a task and can have findings.', 'info'
       )
     },
-    actionSample () {
+    onSearchToggle () {
       this.$buefy.toast.open({
-        message: 'Feed has been refreshed',
+        message: 'Search results loaded',
         type: 'is-info',
         queue: false
       })
