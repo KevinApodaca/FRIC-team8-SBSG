@@ -17,6 +17,13 @@
             <b-field label="Event Description" horizontal>
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
+            <b-field label="Event Lead Analyst" horizontal>
+              <b-select v-model="form.analyst">
+                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
+                  {{ analyst }}
+                </option>
+              </b-select>
+            </b-field>
             <b-field label="Event Type" horizontal>
               <b-select v-model="form.event_type">
                 <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
@@ -55,23 +62,57 @@
             <b-field label="Derived From" horizontal>
               <b-input v-model="form.derived" placeholder="analyst initials" required />
             </b-field>
-          </form>
-        </card-component>
-
-        <card-component v-if="isProfileExists" title="Event Team Information" icon="account-group" class="tile is-child">
-          <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
-          <b-field label="Lead Analysts">
-            <div class="control">
+            <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
+            <b-field label="Lead Analysts">
+              <div class="control">
                 <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Lead Analysts</b-button>
               </div>
-          </b-field>
-          <b-field label="Analysts">
-            <div class="control">
+            </b-field>
+            <b-field label="Analysts">
+              <div class="control">
                 <b-button type="is-primary is-small is-outlined is-rounded" @click="add">+ Add Analysts</b-button>
               </div>
-          </b-field>
-          <analysts-table data-url="/data-sources/clients.json" :checkable="true"/>
-        </card-component>
+            </b-field>
+            <b-table ref="btable"
+              :checked-rows.sync="checkedRows"
+              :checkable="checkable"
+              :loading="isLoading"
+              :paginated="paginated"
+              :per-page="perPage"
+              :striped="true"
+              :hoverable="true"
+              default-sort="name"
+              :data='clients'>
+
+              <b-table-column label="Analyst Initials" field="initials" sortable v-slot="props">
+                {{ props.row.initials }}
+              </b-table-column>
+              <b-table-column label="First Name" field="first_name" sortable v-slot="props">
+                <small class="has-text-grey">{{ props.row.first_name }}</small>
+              </b-table-column>
+              <b-table-column label="Last Name" field="last_name" sortable v-slot="props">
+                <small class="has-text-grey">{{ props.row.last_name }}</small>
+              </b-table-column>
+
+              <section class="section" slot="empty">
+                <div class="content has-text-grey has-text-centered">
+                  <template v-if="isLoading">
+                    <p>
+                      <b-icon icon="dots-horizontal" size="is-large"/>
+                    </p>
+                    <p>Fetching data...</p>
+                    </template>
+                    <template v-else>
+                      <p>
+                        <b-icon icon="emoticon-sad" size="is-large"/>
+                      </p>
+                      <p>Nothing's here&hellip;</p>
+                    </template>
+                  </div>
+                </section>
+              </b-table>
+            </form>
+          </card-component>
       </tiles>
       <b-field horizontal>
         <b-field grouped>
@@ -97,13 +138,12 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
-import AnalystsTable from '@/components/AnalystsTable'
 import EventService from '@/services/EventServices'
 import LogServices from '@/services/LogTransactionServices'
 
 export default {
   name: 'EventForm',
-  components: { CardComponent, Tiles, HeroBar, TitleBar, AnalystsTable },
+  components: { CardComponent, Tiles, HeroBar, TitleBar },
   props: {
     id: {
       default: null
