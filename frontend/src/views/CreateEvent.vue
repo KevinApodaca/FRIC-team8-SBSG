@@ -17,13 +17,20 @@
             <b-field label="Event Description" horizontal>
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
-             <b-field label="Event Type" horizontal>
-            <b-select v-model="form.event_type">
-              <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
-                {{ event_type }}
-              </option>
-            </b-select>
-          </b-field>
+            <b-field label="Event Lead Analyst" horizontal>
+              <b-select v-model="form.analyst">
+                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
+                  {{ analyst }}
+                </option>
+              </b-select>
+            </b-field>
+            <b-field label="Event Type" horizontal>
+              <b-select v-model="form.event_type">
+                <option v-for="(event_type, index) in event_types" :key="index" :value="event_type">
+                  {{ event_type }}
+                </option>
+              </b-select>
+            </b-field>
             <b-field label="Event Version" horizontal>
               <b-input v-model="form.version" reaadonly />
             </b-field>
@@ -51,6 +58,45 @@
            <b-field label="Customer Name" horizontal>
               <b-input v-model="form.customer_name" required />
             </b-field>
+            <hr>
+            <b-table ref="btable"
+              :checked-rows.sync="checkedRows"
+              :checkable="checkable"
+              :loading="isLoading"
+              :paginated="paginated"
+              :per-page="perPage"
+              :striped="true"
+              :hoverable="true"
+              default-sort="name"
+              :data='clients'>
+
+              <b-table-column label="Analyst Initials" field="initials" sortable v-slot="props">
+                {{ props.row.initials }}
+              </b-table-column>
+              <b-table-column label="First Name" field="first_name" sortable v-slot="props">
+                <small class="has-text-grey">{{ props.row.first_name }}</small>
+              </b-table-column>
+              <b-table-column label="Last Name" field="last_name" sortable v-slot="props">
+                <small class="has-text-grey">{{ props.row.last_name }}</small>
+              </b-table-column>
+
+              <section class="section" slot="empty">
+                <div class="content has-text-grey has-text-centered">
+                  <template v-if="isLoading">
+                    <p>
+                      <b-icon icon="dots-horizontal" size="is-large"/>
+                    </p>
+                    <p>Fetching data...</p>
+                    </template>
+                    <template v-else>
+                      <p>
+                        <b-icon icon="emoticon-sad" size="is-large"/>
+                      </p>
+                      <p>Nothing's here&hellip;</p>
+                    </template>
+                  </div>
+                </section>
+              </b-table>
           </form>
         </card-component>
       </tiles>
@@ -116,7 +162,7 @@ export default {
       return [
         'Lead Analyst',
         'Event',
-        'Event View'
+        'New Event'
       ]
     },
     heroTitle () {
