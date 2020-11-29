@@ -3,7 +3,7 @@ const officegen = require('officegen')
 const fs = require('fs')
 var path = require('path')
 const { off } = require('process')
-var outDir = path.join(__dirname, './frontend/src/reports/final-report/')
+var outDir = path.join(__dirname)
 var docx = officegen({
     type: 'docx',
     orientation: 'portrait',
