@@ -26,10 +26,8 @@ import Notification from '@/components/Notification'
 import swal from 'sweetalert'
 import FileSaver from 'file-saver'
 export default {
-  name: 'Expor',
+  name: 'Export',
   components: { CardComponent, Notification },
-  computed: {
-  },
   methods: {
     async onExportFinish (artifact) {
       await FileSaver.saveAs('http://localhost:3000/' + artifact + '/all', `${artifact}.json`)
