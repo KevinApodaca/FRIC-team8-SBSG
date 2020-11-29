@@ -18,7 +18,7 @@
             <button class="button is-rounded is-info is-outline">Archive</button>
             <button class="button is-rounded is-success">Demote</button>
             </div>
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onSearchToggle">
             <div class="field has-addons" >
               <div class="control">
                 <input class="input" type="text" placeholder="Search for a task...">
@@ -81,9 +81,9 @@ export default {
       swal('About Tasks', 'Tasks are things that analyst must complete, they can be issues that need to be fixed, actions to take, etc. Tasks may have subtasks and findings, as well as priority level. ', 'info'
       )
     },
-    actionSample () {
+    onSearchToggle () {
       this.$buefy.toast.open({
-        message: 'Feed has been refreshed',
+        message: 'Search results loaded',
         type: 'is-info',
         queue: false
       })

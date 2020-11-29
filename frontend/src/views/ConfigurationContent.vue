@@ -12,7 +12,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Value Type Table" icon="cog-clockwise">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onEditTable">
             <div class="field has-addons" >
               <div class="control">
                 <button type="submit" class="button is-info">
@@ -164,7 +164,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Value Type Table Continued" icon="cog-clockwise">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onEditTable">
               <div class="control">
                 <button type="submit" class="button is-info">
                   Edit
@@ -178,7 +178,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Report Template Table" icon="folder">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onEditTable">
             <div class="field has-addons" >
               <div class="control">
                 <button type="submit" class="button is-info">
@@ -193,7 +193,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Notification Table" icon="bell">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onEditTable">
             <div class="field has-addons" >
               <div class="control">
                 <button type="submit" class="button is-info">
@@ -234,9 +234,9 @@ export default {
       swal('About Configuration', 'Configuration of Content is used to change the possible values for artifacts across the FRIC system. Changes should only be made by the lead analyst and will have side effects for the rest of the application ', 'info'
       )
     },
-    actionSample () {
+    onEditTable () {
       this.$buefy.toast.open({
-        message: 'Feed has been refreshed',
+        message: 'Table has been updated',
         type: 'is-info',
         queue: false
       })
