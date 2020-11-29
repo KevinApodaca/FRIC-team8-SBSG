@@ -30,7 +30,10 @@ export default {
   components: { CardComponent, Notification },
   methods: {
     async onExportFinish (artifact) {
-      await FileSaver.saveAs('http://localhost:3000/' + artifact + '/all', `${artifact}.json`)
+      var today = new Date()
+      var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear()
+      var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+      await FileSaver.saveAs('http://localhost:3000/' + artifact + '/all', `${artifact}_${date}_${time}.json`)
       swal('Done', 'Data was exported and archived', 'success')
     }
   }
