@@ -15,7 +15,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Archived Tasks" icon="playlist-edit">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onRestoreButton">
             <div class="field has-addons" >
               <div class="control">
                 <button type="submit" class="button is-info">
@@ -31,7 +31,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Archived Subtasks" icon="view-list">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onRestoreButton">
               <div class="control">
                 <button type="submit" class="button is-info">
                   Restore
@@ -45,7 +45,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Archived Findings" icon="file-find">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onRestoreButton">
               <div class="control">
                 <button type="submit" class="button is-info">
                   Restore
@@ -59,7 +59,7 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Archived Systems" icon="state-machine">
         <refresh-button slot="button"/>
         <card-toolbar slot="toolbar">
-          <form slot="right" @submit.prevent="actionSample">
+          <form slot="right" @submit.prevent="onRestoreButton">
             <div class="field has-addons" >
               <div class="control">
                 <button type="submit" class="button is-info">
@@ -103,9 +103,9 @@ export default {
       swal('About Archives', 'Archives are a sort of snapshot of artifacts of FRIC. This feature is used to store away artifacts such as findings, tasks, systems, etc for potential use at a later time. ', 'info'
       )
     },
-    actionSample () {
+    onRestoreButton () {
       this.$buefy.toast.open({
-        message: 'Feed has been refreshed',
+        message: 'Artifact(s) have been restored',
         type: 'is-info',
         queue: false
       })
