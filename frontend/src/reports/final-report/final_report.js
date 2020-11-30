@@ -92,7 +92,7 @@ const createFinalReport = (analysts, event, systems) => {
 
   par = docx.createP()
 
-  par.addText("Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) " + event[0].name + " " + event[0].event_type + " Report", {
+  par.addText("Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) " + systems[0].name + " " + event[0].event_type + " Report", {
       font_face: 'Calibri',
       font_size: '20',
       bold: true
@@ -148,14 +148,14 @@ const createFinalReport = (analysts, event, systems) => {
 
   par = docx.createP()
 
-  par.addText("Derived from: Enter Title of System's Security Classification Guide", {
+  par.addText(`Derived from: ${systems[0].plan}`, {
       font_face: 'Calibri',
       font_size: '10'
   })
 
   par = docx.createP()
 
-  par.addText("Declassify on: Enter Declassification Date (e.g., 04/20/2040)", {
+  par.addText(`Declassify on: ${event[0].declassified_date}`, {
       font_face: 'Calibri',
       font_size: '10'
   })
@@ -261,7 +261,7 @@ const createFinalReport = (analysts, event, systems) => {
 
   par = docx.createP()
 
-  par.addText("Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) Enter System Name Enter Event Type (e.g., CVPA, CVI, VoF, etc) Report", {
+  par.addText(`Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) ${systems[1].name} ${event[0].event_type} Report`, {
       font_face: 'Calibri',
       font_size: '20',
       bold: true
@@ -274,7 +274,7 @@ const createFinalReport = (analysts, event, systems) => {
       font_size: '14',
       bold: true
   })
-  par.addText("Lead Analyst {{Firstname}} {{Lastname}}, Analyst1 {{Firstname1}} {{Lastname1}}, Analyst2 {{Firstname2}} {{Lastname2}}, and Analyst..N {{Firstname..N}} {{Lastname..N}}", {
+  par.addText(`Lead Analyst: ${analysts[0].firstName} ${analysts[0].lastName} Analyst 1: ${analysts[1].firstName} ${analysts[1].lastName}, Analyst 2: ${analysts[2].firstName} ${analysts[2].lastName}, Analyst 3: ${analysts[3].firstName} ${analysts[3].lastName}, Analyst 4: ${analysts[4].firstName} ${analysts[4].lastName}`, {
       font_face: 'Adobe Fan Heiti Std B',
       font_size: '12'
   })
@@ -311,21 +311,21 @@ const createFinalReport = (analysts, event, systems) => {
 
   par = docx.createP()
 
-  par.addText("Classified by: Enter Lead Analyst Name", {
+  par.addText(`Classified by: ${analysts[0].firstName} ${analysts[0].lastName}`, {
       font_face: 'Calibri',
       font_size: '10'
   })
 
   par = docx.createP()
 
-  par.addText("Derived from: Enter Title of System's Security Classification Guide", {
+  par.addText(`Derived from: ${systems[1].plan}`, {
       font_face: 'Calibri',
       font_size: '10'
   })
 
   par = docx.createP()
 
-  par.addText("Declassify on: Enter Declassification Date (e.g., 04/20/2040)", {
+  par.addText(`Declassify on: ${event[0].declassified_date}`, {
       font_face: 'Calibri',
       font_size: '10'
   })
