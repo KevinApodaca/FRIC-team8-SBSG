@@ -48,7 +48,21 @@ const getSystems = async () => {
     console.error(e)
   }
 }
-const createFinalReport = (analysts, event, systems) => {
+
+// Grabs all of the findings
+const getFindings = async () => {
+  try {
+    const res = await axios.get('http://localhost:3000/findings/all')
+
+    const findings = res.data
+
+    return findings
+
+  } catch (e) {
+    console.error(e)
+  }
+}
+const createFinalReport = (analysts, event, systems, findings) => {
   var today = new Date()
   var month = new Array();
   month[0] = 'January';
@@ -680,7 +694,7 @@ const createFinalReport = (analysts, event, systems) => {
               align: 'left'
           }
       }],
-      ['Enter Event Type (e.g., CVPA, CVI, VoF, etc) Report']
+      [`${event[0].event_type} Report`]
   ]
 
   var tableStyle = {
@@ -699,7 +713,8 @@ const createFinalReport = (analysts, event, systems) => {
               cellColWidth: 10500,
               align: 'left'
           }
-      }]
+      }],
+      [event[0].event_classification]
   ]
 
   var tableStyle = {
@@ -863,7 +878,7 @@ const createFinalReport = (analysts, event, systems) => {
   par.addText('(U) Limitations....................................................................................................................10')
 
   par = docx.createListOfNumbers()
-  par.addText(' ENTER EVENT TYPE (E.G., CVPA, CVI, VOF, ETC) FINDINGS...........................................................11')
+  par.addText(`${event[0].event_type} FINDINGS...........................................................11`)
 
   par = docx.createNestedOrderedList({
       'level':2
@@ -979,7 +994,7 @@ const createFinalReport = (analysts, event, systems) => {
   par.addLineBreak()
 
   par = docx.createP()
-  par.addText('Lead Analyst Firstname Lastname, Analyst1 Firstname1 Lastname1, Analyst2 Firstname2 Lastname2, and Analyst..N Firstname..N Lastname..N', {
+  par.addText(`Lead Analyst: ${analysts[0].firstName} ${analysts[0].lastName} Analyst 1: ${analysts[1].firstName} ${analysts[1].lastName}, Analyst 2: ${analysts[2].firstName} ${analysts[2].lastName}, Analyst 3: ${analysts[3].firstName} ${analysts[3].lastName}, Analyst 4: ${analysts[4].firstName} ${analysts[4].lastName}`, {
       font_face: 'Times New Roman',
       font_size: 12
   })
@@ -1105,7 +1120,7 @@ const createFinalReport = (analysts, event, systems) => {
   par.addImage(path.resolve(__dirname, './assets/img/Capture2.PNG'))
 
   par = docx.createP()
-  par.addText('2.	ENTER EVENT TYPE (E.G., CVPA, CVI, VOF, ETC) FINDINGS',{
+  par.addText(`2.	${event[0].event_type} FINDINGS`,{
       bold: true,
       font_face: 'Calibri',
       font_size: 16
@@ -2944,7 +2959,7 @@ const createFinalReport = (analysts, event, systems) => {
     )
 }
 const main = async () => {
-  createFinalReport(await getAnalysts(), await getEvents(), await getSystems())
+  createFinalReport(await getAnalysts(), await getEvents(), await getSystems(), await getFindings())
 }
 
 main()
