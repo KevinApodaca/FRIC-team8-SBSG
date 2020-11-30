@@ -5,6 +5,7 @@ const fs = require('fs')
 var path = require('path')
 const { off } = require('process')
 const { create } = require('domain')
+const finding = require('../../../../backend/src/models/finding')
 var outDir = path.join(__dirname)
 var docx = officegen({
     type: 'docx',
@@ -1520,7 +1521,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1300
           }
       }],
-      ['Hostname1 Hostname2 Hostname3', '192.168.1.1:8080,443,9443 192.168.1.2:80,443,8443 192.168.1.3:135,139,445', '']
+      [`${finding[0].host} ${finding[1].host} ${finding[2].host}`, `${finding[0].ip} ${finding[1].ip} ${finding[2].ip}`, '']
   ]
 
   var tableStyle = {
@@ -2041,7 +2042,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText('ENTER CLASSIFICATION LEVEL FOR FINDINGS (E.G., UNCLASSIFIED, SECRET, ETC)',{
+  par.addText(`${finding[0].classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2060,7 +2061,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText('Enter classification level for findings (e.g., UNCLASSIFIED, SECRET, etc)',{
+  par.addText(`${finding[0].classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2071,7 +2072,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText('Enter classification level for findings (e.g., UNCLASSIFIED, SECRET, etc)',{
+  par.addText(`${finding[0].classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2251,7 +2252,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1300
           }
       }],
-      ['Hostname4 Hostname5 Hostname6', '192.168.1.4:8080,443,9443 192.168.1.5:80,443,8443 192.168.1.6:135,139,445', '']
+      [`${finding[3].host} ${finding[4].host} ${finding[5].host}, ${finding[3].ip} ${finding[4].ip} ${finding[5]}`, '']
   ]
 
   var tableStyle = {
@@ -2772,7 +2773,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText('ENTER CLASSIFICATION LEVEL FOR FINDINGS (E.G., UNCLASSIFIED, SECRET, ETC)',{
+  par.addText(`${finding[0].classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2791,7 +2792,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText('Enter classification level for findings (e.g., UNCLASSIFIED, SECRET, etc)',{
+  par.addText(`${finding[0].classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2802,7 +2803,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText('Enter classification level for findings (e.g., UNCLASSIFIED, SECRET, etc)',{
+  par.addText(`${finding[0].classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
