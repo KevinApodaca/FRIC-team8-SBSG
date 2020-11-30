@@ -1521,7 +1521,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1300
           }
       }],
-      [`${finding[0].host} ${finding[1].host} ${finding[2].host}`, `${finding[0].ip} ${finding[1].ip} ${finding[2].ip}`, '']
+      [`${findings[0].host} ${findings[1].host} ${findings[2].host}, ${findings[0].ip} ${findings[1].ip} ${findings[2].ip}`]
   ]
 
   var tableStyle = {
@@ -2042,7 +2042,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText(`${finding[0].classification}`,{
+  par.addText(`${findings[0].finding_classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2061,7 +2061,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText(`${finding[0].classification}`,{
+  par.addText(`${findings[0].finding_classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2072,7 +2072,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText(`${finding[0].classification}`,{
+  par.addText(`${findings[0].finding_classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2252,7 +2252,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1300
           }
       }],
-      [`${finding[3].host} ${finding[4].host} ${finding[5].host}, ${finding[3].ip} ${finding[4].ip} ${finding[5]}`, '']
+      [`${findings[3].host} ${findings[4].host} ${findings[5].host}, ${findings[3].ip} ${findings[4].ip} ${findings[5]}`, '']
   ]
 
   var tableStyle = {
@@ -2773,7 +2773,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText(`${finding[0].classification}`,{
+  par.addText(`${findings[0].finding_classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2792,7 +2792,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText(`${finding[0].classification}`,{
+  par.addText(`${findings[0].finding_classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
@@ -2803,7 +2803,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   par = docx.createP()
   par.options.align = 'center'
-  par.addText(`${finding[0].classification}`,{
+  par.addText(`${findings[0].finding_classification}`,{
       font_face: 'Times New Roman',
       font_size: '12',
       color: '008000'
