@@ -410,7 +410,7 @@ const createFinalReport = (analysts, event, systems) => {
               align: 'left'
           }
       }],
-      [date, `${event[0].event_type}, ${event[0].created_Date} - ${event[0].declassified_date}`],
+      [date, `${event[0].event_type}`, `${event[0].created_Date} - ${event[0].declassified_date}`],
   ]
 
   var tableStyle = {
@@ -527,7 +527,7 @@ const createFinalReport = (analysts, event, systems) => {
               align: 'left'
           }
       }],
-      ['Lead Analyst Firstname Lastname, Analyst1 Firstname1 Lastname1, Analyst2 Firstname2 Lastname2, and Analyst..N Firstname..N Lastname..N']
+      [`Lead Analyst: ${analysts[0].firstName} ${analysts[0].lastName} Analyst 1: ${analysts[1].firstName} ${analysts[1].lastName}, Analyst 2: ${analysts[2].firstName} ${analysts[2].lastName}, Analyst 3: ${analysts[3].firstName} ${analysts[3].lastName}, Analyst 4: ${analysts[4].firstName} ${analysts[4].lastName}`]
   ]
 
   var tableStyle = {
