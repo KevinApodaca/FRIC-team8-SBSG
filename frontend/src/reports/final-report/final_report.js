@@ -3,9 +3,6 @@ var async = require('async')
 const officegen = require('officegen')
 const fs = require('fs')
 var path = require('path')
-const { off } = require('process')
-const { create } = require('domain')
-const finding = require('../../../../backend/src/models/finding')
 var outDir = path.join(__dirname)
 var docx = officegen({
     type: 'docx',
@@ -1521,7 +1518,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1300
           }
       }],
-      [`${findings[0].host} ${findings[1].host} ${findings[2].host}, ${findings[0].ip} ${findings[1].ip} ${findings[2].ip}`]
+      [`${findings[0].host} ${findings[1].host} ${findings[2].host}`, `${findings[0].ip} ${findings[1].ip} ${findings[2].ip}`]
   ]
 
   var tableStyle = {
