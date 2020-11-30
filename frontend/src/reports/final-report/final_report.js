@@ -105,7 +105,7 @@ const createFinalReport = (analysts, event, systems) => {
       font_size: '14',
       bold: true
   })
-  par.addText("Lead Analyst {{Firstname}} {{Lastname}}, Analyst1 {{Firstname1}} {{Lastname1}}, Analyst2 {{Firstname2}} {{Lastname2}}, and Analyst..N {{Firstname..N}} {{Lastname..N}}", {
+  par.addText(`Lead Analyst: ${analysts[0].firstName} ${analysts[0].lastName} Analyst 1: ${analysts[1].firstName} ${analysts[1].lastName}, Analyst 2: ${analysts[2].firstName} ${analysts[2].lastName}, Analyst 3: ${analysts[3].firstName} ${analysts[3].lastName}, Analyst 4: ${analysts[4].firstName} ${analysts[4].lastName}`, {
       font_face: 'Adobe Fan Heiti Std B',
       font_size: '12'
   })
@@ -141,7 +141,7 @@ const createFinalReport = (analysts, event, systems) => {
 
   par = docx.createP()
 
-  par.addText("Classified by: Enter Lead Analyst Name", {
+  par.addText(`Classified by ${analysts[0].firstName} ${analysts[0].lastName}`, {
       font_face: 'Calibri',
       font_size: '10'
   })
