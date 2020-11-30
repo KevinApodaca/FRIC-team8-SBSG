@@ -1127,7 +1127,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
   })
 
   par = docx.createP()
-  par.addText('(U) Table 1 lists vulnerabilities identified and validated by CCDC DAC during the Enter Event Type (e.g., CVPA, CVI, VoF, etc) with their associated technical risk.',{
+  par.addText(`(U) Table 1 lists vulnerabilities identified and validated by CCDC DAC during the ${event[0].event_type} with their associated technical risk.`,{
       font_face: 'Times New Roman',
       font_size: 12
   })
@@ -1152,7 +1152,8 @@ const createFinalReport = (analysts, event, systems, findings) => {
                   fill: 'c5d9f1'
               }
           }
-      },{
+      },
+      {
           val: 'DESCRIPTION',
           opts: {
               b: true,
@@ -1164,7 +1165,8 @@ const createFinalReport = (analysts, event, systems, findings) => {
                   fill: 'c5d9f1'
               }
           }
-      },{
+      },
+      {
           val: 'LIKELIHOOD',
           opts: {
               b: true,
@@ -1176,7 +1178,8 @@ const createFinalReport = (analysts, event, systems, findings) => {
                   fill: 'c5d9f1'
               }
           }
-      },{
+      },
+      {
           val: 'IMPACT',
           opts: {
               b: true,
@@ -1188,7 +1191,8 @@ const createFinalReport = (analysts, event, systems, findings) => {
                   fill: 'c5d9f1'
               }
           }
-      },{
+      },
+      {
           val: 'RISK',
           opts: {
               b: true,
@@ -2958,6 +2962,52 @@ const createFinalReport = (analysts, event, systems, findings) => {
       }
     )
 }
+
+const findingsTable = (findings) => {
+    var dataRows = [
+        {
+          text: findings.id_form,
+          options: {
+            fontFace: 'Arial',
+            align: 'left',
+            fill: {color: 'cccecc'}
+          }
+        },
+        {
+          text: findings.finding_desc,
+          options: {
+            fontFace: 'Arial',
+            align: 'left',
+            fill: 'cccecc'
+          }
+        },
+        {
+          text: findings.finding_likelihood,
+          options: {
+            fontFace: 'Arial',
+            align: 'left',
+            fill: {color: 'cccecc'}
+          }
+        },
+        {
+          text: findings.impact_level,
+          options: {
+            fontFace: 'Arial',
+            align: 'left',
+            fill: {color: 'cccecc'}
+          }
+        },
+        {
+          text: findings.risk,
+          options: {
+            fontFace: 'Arial',
+            align: 'left',
+            fill: {color: 'cccecc'}
+          }
+        }
+    ]
+    return dataRows
+  }
 const main = async () => {
   createFinalReport(await getAnalysts(), await getEvents(), await getSystems(), await getFindings())
 }
