@@ -364,7 +364,7 @@ const slide3Text = (findings) => {
         }
       },
       {
-        text: 'findings.system_name',
+        text: findings.systems_for_findings,
         options: {
           fontFace: 'Arial',
           align: 'left',

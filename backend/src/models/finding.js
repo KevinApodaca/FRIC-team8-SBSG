@@ -13,6 +13,10 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
+      systems_for_findings: {
+        type: String,
+        default: ''
+      },
       analyst: {
         type: String,
         default: 'K.A'
