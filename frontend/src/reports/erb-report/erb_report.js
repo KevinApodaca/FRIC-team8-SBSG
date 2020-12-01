@@ -1,4 +1,3 @@
-
 const axios = require('axios')
 const pptxgen = require('pptxgenjs')
 const fs = require('fs')
@@ -13,12 +12,10 @@ var slide2Counter_y = 32
 const getEvents = async () => {
   try {
     const res = await axios.get('http://localhost:3000/events/all')
-
     const events = res.data
-
     return events
-
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e)
   }
 }
@@ -27,43 +24,36 @@ const getEvents = async () => {
 const getSystems = async () => {
   try {
     const res = await axios.get('http://localhost:3000/systems/all')
-
     const systems = res.data
-
     return systems
-
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e)
   }
 }
 
+// Grabs all of the findings
 const getFindings = async () => {
   try {
     const res = await axios.get('http://localhost:3000/findings/all')
-
     const findings = res.data
-
     return findings
 
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e)
   }
 }
 
 const createReports = (event, systems, findings) => {
   var today = new Date()
-  var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()
+  var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear()
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-  pptx.author = 'Brent Ely';
-  pptx.company = 'S.T.A.R. Laboratories';
-  pptx.revision = '15';
-  pptx.subject = 'Annual Report';
-  pptx.title = 'PptxGenJS Sample Presentation';
-
-  // pptx.setTitle('Powerpoint slide')
-  // pptx.setSlideSize('screen16x9')
-
-  // const slides = pptx.makeNewSlide()
+  pptx.author = 'team-8';
+  pptx.company = 'CEAD';
+  pptx.revision = '1';
+  pptx.subject = 'ERB Report';
+  pptx.title = 'ERB Report';
 
   slides.addImage({path: './assets/img/army-logo.png',
     y: '5%',
@@ -167,7 +157,6 @@ const createReports = (event, systems, findings) => {
 
   systems.map(slide2Text)
 
-
   slide3.addImage({path: './assets/img/army-logo-small.png',
     x: '4%',
     y: '4%',
@@ -263,7 +252,6 @@ const createReports = (event, systems, findings) => {
   ]
 
   var dataRows = findings.map(slide3Text)
-
   const columnDefinition = [.5, 2.5, 1.5, 1.5, 1.5]
   var table = []
   table.push(headerRow)
@@ -285,7 +273,6 @@ const createReports = (event, systems, findings) => {
       autoPageLineWeight: 1 ,
       newSlideStartY: 1.6
     }, {})
-
 
 
     lastSlide.addImage({path: './assets/img/army-logo-small.png',
@@ -314,7 +301,6 @@ const createReports = (event, systems, findings) => {
       y: '13%'
     })
 
-
     let dataChartAreaLine = [
         {
             labels: ["INFO", "VERY LOW", "LOW", "MEDIUM", "HIGH", "VERY HIGH"],
@@ -334,7 +320,6 @@ const createReports = (event, systems, findings) => {
       valAxisLineShow: false,
       valueBarColors: true,
     });
-
 
   pptx.writeFile('ERB-Report.pptx')
       .then(fileName => {
