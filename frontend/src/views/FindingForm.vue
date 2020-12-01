@@ -61,24 +61,24 @@
               <file-picker-drag-and-drop :file-export='files'/>
             </card-component>
             <b-field label="System" horizontal>
-              <b-select v-model="form.system">
-                <option v-for="(system, index) in system" :key="index" :value="system">
-                  {{ system }}
+              <b-select v-model="form.systems_for_findings">
+                <option v-for="(systems_for_findings, index) in systems_for_findings" :key="index" :value="systems_for_findings">
+                  {{ systems_for_findings }}
                 </option>
               </b-select>
             <label class="label is-medium is-bold has-text-info">OR</label>
             <b-field label="Task" horizontal>
-              <b-select v-model="form.task">
-                <option v-for="(task, index) in task" :key="index" :value="task">
-                  {{ task }}
+              <b-select v-model="form.subtasks_for_findings">
+                <option v-for="(subtasks_for_findings, index) in subtasks_for_findings" :key="index" :value="subtasks_for_findings">
+                  {{ subtasks_for_findings }}
                 </option>
               </b-select>
             </b-field>
             <label class="label is-medium is-bold has-text-info">OR</label>
              <b-field label="Subtask" horizontal>
-              <b-select v-model="form.subtask">
-                <option v-for="(substask, index) in subtask" :key="index" :value="subtask">
-                  {{ subtask }}
+              <b-select v-model="form.subtasks_for_findings">
+                <option v-for="(subtasks_for_findings, index) in subtasks_for_findings" :key="index" :value="subtasks_for_findings">
+                  {{ subtasks_for_findings }}
                 </option>
               </b-select>
              </b-field>
@@ -115,15 +115,15 @@
         <card-component v-if="isProfileExists" title="Analyst Information" icon="account-circle" class="tile is-child">
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Analyst" horizontal>
-              <b-select v-model="form.analyst">
-                <option v-for="(analyst, index) in analyst" :key="index" :value="analyst">
-                  {{ analyst }}
+              <b-select v-model="form.analysts_for_findings">
+                <option v-for="(analysts_for_findings, index) in analysts_for_findings" :key="index" :value="analyst">
+                  {{ analysts_for_findings }}
                 </option>
               </b-select>
             <b-field label="Collaborator" horizontal>
-              <b-select v-model="form.collaborator">
-                <option v-for="(collaborator, index) in collaborator" :key="index" :value="collaborator">
-                  {{ collaborator }}
+              <b-select v-model="form.analysts_for_findings">
+                <option v-for="(analysts_for_findings, index) in analysts_for_findings" :key="index" :value="analysts_for_findings">
+                  {{ analysts_for_findings }}
                 </option>
               </b-select>
             </b-field>
@@ -244,6 +244,10 @@ import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
 import LogServices from '@/services/LogTransactionServices'
 import FileServices from '@/services/FileServices'
+import SystemService from '@/services/SystemServices'
+import TaskService from '@/services/TaskServices'
+import SubtaskService from '@/services/SubtaskServices'
+import AnalystService from '@/services/AnalystServices'
 
 export default {
   name: 'FindingForm',
@@ -262,6 +266,11 @@ export default {
       createdReadable: null,
       isProfileExists: false,
       finding_title: null,
+      systems_for_findings: null,
+      tasks_for_findings: null,
+      subtasks_for_findings: null,
+      related_findings: null,
+      analysts_for_findings: null,
       finding_status: null,
       finding_type: null,
       finding_classification: null,
@@ -385,6 +394,11 @@ export default {
   created () {
     this.getData()
     this.getOldData()
+    this.getSystems()
+    this.getTasks()
+    this.getSubtasks()
+    this.getFindings()
+    this.getAnalysts()
   },
   methods: {
     async getOldData () {
@@ -394,6 +408,36 @@ export default {
             this.oldForm = response.data
           })
       }
+    },
+    async getSystems () {
+      SystemService.getSystems()
+        .then(response => {
+          this.systems_for_findings = response.data.map(system => system.name)
+        })
+    },
+    async getTasks () {
+      TaskService.getTasks()
+        .then(response => {
+          this.tasks_for_findings = response.data.map(task => task.title)
+        })
+    },
+    async getSubtasks () {
+      SubtaskService.getSubtasks()
+        .then(response => {
+          this.subtasks_for_findings = response.data.map(subtask => subtask.title)
+        })
+    },
+    async getFindings () {
+      FindingServices.getFindings()
+        .then(response => {
+          this.related_findings = response.data.map(finding => finding.id_form)
+        })
+    },
+    async getAnalysts () {
+      AnalystService.getAnalysts()
+        .then(response => {
+          this.analysts_for_findings = response.data.map(analyst => analyst.initials)
+        })
     },
     async getData () {
       if (this.id) {
