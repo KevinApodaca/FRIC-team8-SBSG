@@ -2994,7 +2994,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
   }
   par.addImage(path.resolve(__dirname, './assets/img/Capture2.PNG'))
 
-  var out = fs.createWriteStream(path.join(outDir, 'final_technical_report.docx'))
+  var out = fs.createWriteStream(path.join(outDir, 'final_report.docx'))
 
   out.on('error', function (err) {
       console.log(err)
@@ -3004,7 +3004,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
       [
         function (done) {
           out.on('close', function () {
-            console.log('Finish to create a DOCX file.')
+            console.log('Finished generating Final Report')
             done(null)
           })
           docx.generate(out)

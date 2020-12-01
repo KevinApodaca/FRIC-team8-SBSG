@@ -323,7 +323,7 @@ const createReports = (event, systems, findings) => {
 
   pptx.writeFile('ERB-Report.pptx')
       .then(fileName => {
-          console.log(`created file: ${fileName}`);
+          console.log(`Finished creating ${fileName}`);
       });
 }
 
