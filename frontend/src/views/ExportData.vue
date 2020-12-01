@@ -13,6 +13,7 @@
             <b-button type="is-danger is-rounded" expanded @click="onExportFinish('tasks')">Tasks</b-button>
             <b-button type="is-warning is-rounded" expanded @click="onExportFinish('subtasks')">Subtasks</b-button>
             <b-button type="is-success is-rounded" expanded @click="onExportFinish('findings')">Findings</b-button>
+            <b-button type="is-dark is-light is-rounded" expanded @click="onExportFinish('transactions')">Transactions</b-button>
             <b-button type="is-primary is-rounded" expanded>All</b-button>
         </div>
         </card-component>
