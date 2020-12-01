@@ -239,3 +239,17 @@
   3. Kevin will finish ERB report and work on archiving data.
   4. Adrian & Alex will work on adding new analysts to events and showing analyst information.
 - Meeting's Overall Score: 8 / 10
+
+
+## 11/30/2020
+
+- Objective: Review deliverables before demo
+- Start Time: 7:00pm
+- End Time: 8:00pm
+- Attendees: Kevin Apodaca, Alex Ortega, Agustin Cortez, Adrian Gonzalez, Richard Quinn
+- Meeting Agenda: Demo the reports and the archive functionality, also show the new git server
+- Meeting Summary: We showcased each of the reports that need to be generated. We also went over documentation and the archiving of data and discussed the questions we still had to ask for the demo.
+- Action Items:
+  1. Final demo
+  
+- Meeting's Overall Score: 10 / 10
