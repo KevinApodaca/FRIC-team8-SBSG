@@ -1,4 +1,10 @@
-<h1 align="center"> Findings and Reporting Information Console - FRIC </h1>
+<h1 align="center"> 
+  <br>
+  <img src="fric-logo.png" alt="FRIC Logo" width="200"></a>
+  <br>
+  Findings and Reporting Information Console - FRIC
+  <br>
+  </h1>
 
 [![CodeFactor](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg/badge?s=acb59e049c14218072eb3bde141bc7207113f122)](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg) [![GitHub issues](https://img.shields.io/github/issues/KevinApodaca/FRIC-team8-SBSG)](https://github.com/KevinApodaca/FRIC-team8-SBSG/issues) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 
