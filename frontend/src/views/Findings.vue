@@ -15,9 +15,9 @@
         <refresh-button slot="button"/>
           <card-toolbar slot="toolbar">
             <div slot="left" class="buttons has-addons">
-              <button class="button is-rounded is-link is-outlined">ERB Report</button>
-              <button class="button is-rounded is-link is-outlined">Risk Matrix</button>
-              <button class="button is-rounded is-link is-outlined">Final Report</button>
+              <button class="button is-rounded is-link is-outlined" @click="onGenerateReport('ERB Report')">ERB Report</button>
+              <button class="button is-rounded is-link is-outlined" @click="onGenerateReport('Risk Matrix')">Risk Matrix</button>
+              <button class="button is-rounded is-link is-outlined" @click="onGenerateReport('Final Report')">Final Report</button>
             </div>
         </card-toolbar>
         <card-toolbar slot="toolbar">
@@ -69,6 +69,9 @@ export default {
     }
   },
   methods: {
+    onGenerateReport (report) {
+      swal('Done', `The ${report} was downloaded`, 'success')
+    },
     findingHelp () {
       swal('About Findings', 'Findings are vulnerabilities. A finding will either lead to a true vulerability or just a data point that the client should be made aware of', 'info'
       )
