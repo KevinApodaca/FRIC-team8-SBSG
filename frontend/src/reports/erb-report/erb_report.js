@@ -321,7 +321,7 @@ const createReports = (event, systems, findings) => {
       valueBarColors: true,
     });
 
-  pptx.writeFile('ERB-Report.pptx')
+  pptx.writeFile('erb_report.pptx')
       .then(fileName => {
           console.log(`Finished creating ${fileName}`);
       });
