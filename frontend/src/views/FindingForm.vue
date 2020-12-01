@@ -141,10 +141,10 @@
           <card-component v-if="isProfileExists" title="Mitigation" icon="engine" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
                <b-field label="Brief Description" horizontal>
-              <b-input v-model="form.mitigation_desc" reaadonly />
+              <b-input v-model="form.mitigation_desc"/>
             </b-field>
             <b-field label="Long Description" horizontal>
-              <b-input type="textarea" v-model="form.mitigation_long" reaadonly />
+              <b-input type="textarea" v-model="form.mitigation_long"/>
             </b-field>
         </card-component>
         <hr>
@@ -176,7 +176,7 @@
           <card-component v-if="isProfileExists" title="Impact" icon="equalizer" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
               <b-field label="Impact Description" horizontal>
-                <b-input type="textarea" v-model="form.impact_desc" reaadonly />
+                <b-input type="textarea" v-model="form.impact_desc"/>
               </b-field>
               <b-field label="Impact Level" horizontal>
                 <b-select v-model="form.impact_level">
@@ -191,10 +191,10 @@
           <card-component v-if="isProfileExists" title="Risk" icon="hazard-lights" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Risk" horizontal>
-              <b-input v-model="form.risk" reaadonly />
+              <b-input v-model="form.risk"/>
             </b-field>
             <b-field label="Likelihood" horizontal>
-              <b-input v-model="form.likelihood" reaadonly />
+              <b-input v-model="form.likelihood"/>
             </b-field>
           </card-component>
           <hr>
@@ -202,16 +202,16 @@
           <card-component v-if="isProfileExists" title="Finding System Level Impact" icon="car-coolant-level" class="tile is-child">
             <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Confidentiality Finding Impact on System" horizontal>
-              <b-input v-model="form.cfis" reaadonly />
+              <b-input v-model="form.cfis"/>
             </b-field>
             <b-field label="Integrity Finding Impact on System" horizontal>
-              <b-input v-model="form.ifis" reaadonly />
+              <b-input v-model="form.ifis"/>
             </b-field>
             <b-field label="Availability Finding Impact on System" horizontal>
-              <b-input v-model="form.afis" reaadonly />
+              <b-input v-model="form.afis"/>
             </b-field>
             <b-field label="Impact Score" horizontal>
-              <b-input v-model="form.score" reaadonly />
+              <b-input v-model="form.score"/>
             </b-field>
           </card-component>
           </card-component>
