@@ -3,32 +3,18 @@ const axios = require('axios')
 const fs = require('fs')
 const { clearLine } = require('readline')
 
-// Grabs all of the events
-const getEvents = async () => {
-  try{
-    const res = await axios.get('http://localhost:3000/events/all')
 
-    const events = res.data
-    console.log(events)
-    return events
-  } catch (e) {
-    console.error(e)
-  }
-}
-
-// Grabs all of the events
+// Grabs all of the finding
 const getFindings = async () => {
-  try{
-    const res = await axios.get('http://localhost:3000/findings/all')
+try{
+const res = await axios.get('http://localhost:3000/findings/all')
 
-    const finding = res.data
-    console.log(finding)
-    return finding
-  }catch (e) {
-    console.error(e)
-  }
+const finding = res.data
+return finding
+}catch (e) {
+console.error(e)
 }
-
+}
 
 const createRiskMatrix = finding => {
 // Create an empty Excel object:
@@ -36,26 +22,23 @@ let xlsx = officegen('xlsx')
 
 // Officegen calling this function after finishing to generate the xlsx document:
 xlsx.on('finalize', function(written) {
-  console.log(
-    'Finish to create a Microsoft Excel document.'
-  )
+console.log(
+'Finished generating Risk Matrix.'
+)
 })
 
 // Officegen calling this function to report errors:
 xlsx.on('error', function(err) {
-  console.log(err)
+console.log(err)
 })
 
 let sheet = xlsx.makeNewSheet()
 sheet.name = 'RISK MATRIX'
 
-// Add data using setCell:
-// sheet.setCell('E7', 42)
 for(var i = 0; i <= finding.length+1; i++) {
-  sheet.data[i] = []
+sheet.data[i] = []
 }
 
-// The direct option - two-dimensional array:
 sheet.data[0][0] = "ID"
 sheet.data[0][1] = "IP:PORT"
 sheet.data[0][2] = "DESCRIPTION"
@@ -84,84 +67,81 @@ sheet.data[0][0].colorIndex = 5
 
 // Display the ID for all finding
 for(var index in finding){
-    sheet.color('red')
-    var i = Number(index)
-    sheet.data[i+1][0] = finding[index].id_form
+var i = Number(index)
+sheet.data[i+1][0] = finding[index].id_form
 }
 
 // Display the IP for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][1] = finding[index].ip
+var i = Number(index)
+sheet.data[i+1][1] = finding[index].ip
 }
 
 // Display the description for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][2] = finding[index].finding_desc
+var i = Number(index)
+sheet.data[i+1][2] = finding[index].finding_desc
 }
 
 // Display the Status for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][3] = finding[index].finding_status
+var i = Number(index)
+sheet.data[i+1][3] = finding[index].finding_status
 }
 
 // Display the posture for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][4] = finding[index].finding_posture
+var i = Number(index)
+sheet.data[i+1][4] = finding[index].finding_posture
 }
 
 // Display the C for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][8] = finding[index].finding_confidentiality
+var i = Number(index)
+sheet.data[i+1][8] = finding[index].finding_confidentiality
 }
 
 // Display the I for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][9] = finding[index].finding_integrity
+var i = Number(index)
+sheet.data[i+1][9] = finding[index].finding_integrity
 }
 
 // Display the A for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][10] = finding[index].finding_availability
+var i = Number(index)
+sheet.data[i+1][10] = finding[index].finding_availability
 }
 
 // Display the impact for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][11] = finding[index].impact_level
+var i = Number(index)
+sheet.data[i+1][11] = finding[index].impact_level
 }
 
 // Display the Threat for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][17] = finding[index].threat_relevance
+var i = Number(index)
+sheet.data[i+1][17] = finding[index].threat_relevance
 }
 
 // Display the likelihood for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][18] = finding[index].likelihood
+var i = Number(index)
+sheet.data[i+1][18] = finding[index].likelihood
 }
 
 // Display the Risk for all finding
 for(var index in finding){
-  var i = Number(index)
-  sheet.data[i+1][22] = finding[index].risk
+var i = Number(index)
+sheet.data[i+1][22] = finding[index].risk
 }
 
-
 // Let's generate the Excel document into a file:
-
 let out = fs.createWriteStream('riskMatrix.xlsx')
 
 out.on('error', function(err) {
-  console.log(err)
+console.log(err)
 })
 
 // Async call to generate the output file:
@@ -169,7 +149,7 @@ xlsx.generate(out)
 }
 
 const main = async () => {
-  createRiskMatrix(await getFindings())
+createRiskMatrix(await getFindings())
 }
 
 main()
