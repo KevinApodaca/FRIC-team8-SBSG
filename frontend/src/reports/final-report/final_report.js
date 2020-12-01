@@ -3,6 +3,7 @@ var async = require('async')
 const officegen = require('officegen')
 const fs = require('fs')
 var path = require('path')
+const finding = require('../../../../backend/src/models/finding')
 var outDir = path.join(__dirname)
 var docx = officegen({
     type: 'docx',
@@ -1215,7 +1216,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
 
   var table = [
       [{
-          val: '1',
+          val: findings[0].id_form,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1227,7 +1228,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               }
           }
       },{
-          val: 'Lack of Encryption',
+          val: findings[0].finding_type,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1239,7 +1240,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               }
           }
       },{
-          val: 'M',
+          val: findings[0].likelihood,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1251,7 +1252,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               }
           }
       },{
-          val: 'VH',
+          val: findings[0].impact_level,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1263,7 +1264,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               }
           }
       },{
-          val: 'H',
+          val: findings[0].risk,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1282,9 +1283,9 @@ const createFinalReport = (analysts, event, systems, findings) => {
   }
   docx.createTable (table, tableStyle)
 
-  var table = [
+ var table = [
       [{
-          val: '2',
+          val: findings[1].id_form,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1296,7 +1297,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               }
           }
       },{
-          val: 'Missing Patches',
+          val: findings[1].finding_type,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1308,7 +1309,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               }
           }
       },{
-          val: 'INFO',
+          val: findings[1].likelihood,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1316,11 +1317,11 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1550,
               align: 'center',
               shd: {
-                  fill: '0070c0'
+                  fill: 'ffbf8f'
               }
           }
       },{
-          val: 'INFO',
+          val: findings[1].impact_level,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1328,11 +1329,11 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1550,
               align: 'center',
               shd: {
-                  fill: '0070c0'
+                  fill: 'ff0000'
               }
           }
       },{
-          val: 'INFO',
+          val: findings[1].risk,
           opts: {
               b: true,
               fontFamily: 'Calibri',
@@ -1340,7 +1341,76 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1550,
               align: 'center',
               shd: {
-                  fill: '0070c0'
+                  fill: 'ffc000'
+              }
+          }
+      }]
+  ]
+  var tableStyle = {
+      borders: true,
+      borderSize: 2
+  }
+  docx.createTable (table, tableStyle)
+
+   var table = [
+      [{
+          val: findings[2].id_form,
+          opts: {
+              b: true,
+              fontFamily: 'Calibri',
+              sz: '24',
+              cellColWidth: 1550,
+              align: 'center',
+              shd: {
+                  fill: 'd9d9d9'
+              }
+          }
+      },{
+          val: findings[2].finding_type,
+          opts: {
+              b: true,
+              fontFamily: 'Calibri',
+              sz: '24',
+              cellColWidth: 6550,
+              align: 'center',
+              shd: {
+                  fill: 'd9d9d9'
+              }
+          }
+      },{
+          val: findings[2].likelihood,
+          opts: {
+              b: true,
+              fontFamily: 'Calibri',
+              sz: '24',
+              cellColWidth: 1550,
+              align: 'center',
+              shd: {
+                  fill: 'ffbf8f'
+              }
+          }
+      },{
+          val: findings[2].impact_level,
+          opts: {
+              b: true,
+              fontFamily: 'Calibri',
+              sz: '24',
+              cellColWidth: 1550,
+              align: 'center',
+              shd: {
+                  fill: 'ff0000'
+              }
+          }
+      },{
+          val: findings[2].risk,
+          opts: {
+              b: true,
+              fontFamily: 'Calibri',
+              sz: '24',
+              cellColWidth: 1550,
+              align: 'center',
+              shd: {
+                  fill: 'ffc000'
               }
           }
       }]
@@ -2249,7 +2319,7 @@ const createFinalReport = (analysts, event, systems, findings) => {
               cellColWidth: 1300
           }
       }],
-      [`${findings[3].host} ${findings[4].host} ${findings[5].host}, ${findings[3].ip} ${findings[4].ip} ${findings[5]}`, '']
+      [`${findings[3].host} ${findings[4].host} ${findings[5].host}`, `${findings[3].ip} ${findings[4].ip} ${findings[5]}`]
   ]
 
   var tableStyle = {
