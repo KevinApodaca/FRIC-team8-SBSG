@@ -46,13 +46,14 @@
       Some notable dependencies are:</p>
       <div class="content">
         <ol type="i">
-          <li>VueJS verion <em>2.6.10</em></li>
+          <li>VueJS version <em>2.6.10</em></li>
           <li>Bulma version <em>0.9.0</em></li>
           <li>Buefy version <em>0.9.3</em></li>
           <li>Mongoose version <em>5.10.7</em></li>
           <li>Axios version <em>0.20.0</em></li>
         </ol>
-        <p>For a complete list of dependencies you can look at the <code>package.json</code> file.</p>
+        <p>For a complete list of dependencies you can look at the <code>package.json</code> files for both frontend and backend folders.</p>
+        <p>For the extensive documenation please refer to the <em>FRIC Complete Documenation</em> manual that is provided in this repository.</p>
       </div>
     </div>
     <div class="error-page-action">
