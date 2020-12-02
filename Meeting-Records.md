@@ -253,3 +253,16 @@
   1. Final demo
   
 - Meeting's Overall Score: 10 / 10
+
+# 12/01/2020
+
+- Objective: Retro on final demo, plan for final deliverable
+- Start Time: 6:30pm
+- End Time: 8:30pm
+- Attendees: Kevin Apodaca, Alex Ortega, Agustin Cortez, Adrian Gonzalez, Richard Quinn
+- Meeting Agenda: Cover the feedback for final demo, start next sprint, backlog refinement, discuss SDD, discuss deadlines, discuss video and documenation for project.
+- Meeting Summary: We discussed the last client demo and planned for deliverable, created new tickets for last round of work.
+- Action Items:
+  1. Final project deliverable
+  
+- Meeting's Overall Score: 9 / 10
