@@ -132,7 +132,7 @@ export default {
     return res
   },
 
-  async logCreatedFinding  (finding) {
+  async logCreatedFinding (finding) {
     const transaction = {
       initials: 'K.A',
       action: 'K.A Created Finding ' + finding
@@ -141,7 +141,7 @@ export default {
     return res
   },
 
-  async logChangesFromFinding  (oldForm, newForm) {
+  async logChangesFromFinding (oldForm, newForm) {
     var changes = this.showDiffsForFinding(oldForm, newForm)
     const transaction = {
       initials: 'K.A',
