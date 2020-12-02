@@ -69,3 +69,15 @@
 
 ## Try Out
 1. Social events with the bois
+
+
+# Sprint Retro 12/01/2020
+
+## Keep the Same as
+1. use of `Recordit` to see the changes that have been made.
+2. Collaborative programming in discord channels help increase productivity and interaction
+
+## Do More of
+1. Continue the effort to poggers past graduation
+
+## Try Out
