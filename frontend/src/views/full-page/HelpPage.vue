@@ -5,7 +5,7 @@
         <b-icon icon="desktop-mac" custom-size="default"/>
       </router-link>
 
-      <error-content title="About FRIC" @go-back="goBack"/>
+      <help-content title="About FRIC" @go-back="goBack"/>
     </card-component>
 
   </div>
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import ErrorContent from '@/components/ErrorContent'
+import HelpContent from '@/components/HelpContent'
 import CardComponent from '@/components/CardComponent'
 
 export default {
   name: 'HelpPage',
-  components: { CardComponent, ErrorContent },
+  components: { CardComponent, HelpContent },
   props: {
     isInCard: {
       type: Boolean,

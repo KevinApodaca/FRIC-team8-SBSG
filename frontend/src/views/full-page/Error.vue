@@ -5,22 +5,22 @@
         <b-icon icon="desktop-mac" custom-size="default"/>
       </router-link>
 
-      <error-content title="Sample Error" @go-back="goBack"/>
+      <help-conttend title="Sample Error" @go-back="goBack"/>
     </card-component>
 
-    <error-content v-else title="Sample Error" @go-back="goBack"/>
+    <help-content v-else title="Sample Error" @go-back="goBack"/>
 
   </div>
 
 </template>
 
 <script>
-import ErrorContent from '@/components/ErrorContent'
+import HelpContent from '@/components/HelpContent'
 import CardComponent from '@/components/CardComponent'
 
 export default {
   name: 'Error',
-  components: { CardComponent, ErrorContent },
+  components: { CardComponent, HelpContent },
   props: {
     isInCard: {
       type: Boolean,
