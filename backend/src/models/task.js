@@ -17,7 +17,7 @@ module.exports = mongoose => {
           type: String,
           default: ''
         },
-        systems: {
+        systems_for_task: {
           type: String,
           default: ''
         },
