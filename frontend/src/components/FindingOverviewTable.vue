@@ -20,7 +20,7 @@
         <small class="has-text-grey">{{ props.row.id_form }}</small>
       </b-table-column>
       <b-table-column label="System" field="system" sortable v-slot="props">
-        {{ props.row.systems_for_findings }}
+        <small class="has-text-grey"> {{ props.row.systems_for_findings }}</small>
       </b-table-column>
       <b-table-column label="Task" field="task" sortable v-slot="props">
         <small class="has-text-grey"> {{ props.row.tasks }}</small>
