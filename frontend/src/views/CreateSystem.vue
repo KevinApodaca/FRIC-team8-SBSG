@@ -147,6 +147,13 @@ export default {
     input (v) {
       this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
+    async submit () {
+      this.isLoading = true
+      await this.getEvent()
+      await this.createSystem()
+      await this.addSystem()
+      await this.logAction()
+    },
     async getEvent () {
       await EventService.getEvents()
         .then(response => {
@@ -187,13 +194,6 @@ export default {
         .catch(e => {
           this.displayError(e)
         })
-    },
-    async submit () {
-      this.isLoading = true
-      await this.getEvent()
-      await this.createSystem()
-      await this.addSystem()
-      await this.logAction()
     },
     displayError (e) {
       this.$buefy.toast.open({
