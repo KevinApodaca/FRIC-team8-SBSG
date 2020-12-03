@@ -17,7 +17,7 @@
         {{ props.row.title }}
       </b-table-column>
       <b-table-column label="System" field="systems" sortable v-slot="props">
-        <small class="has-text-grey">{{ props.row.system }}</small>
+        <small class="has-text-grey">{{ props.row.systems_for_task }}</small>
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
         <small class="has-text-grey">{{ props.row.analyst }}</small>

@@ -213,7 +213,6 @@ export default {
     },
     submit () {
       this.isLoading = true
-      console.log(this.id)
       TaskService.modifyTask(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
