@@ -129,7 +129,6 @@ export default {
       } else {
         lastCrumb = 'New Subtask'
       }
-
       return [
         'Analyst',
         'Subtasks',

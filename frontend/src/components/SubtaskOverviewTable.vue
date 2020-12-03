@@ -98,7 +98,6 @@ export default {
       if (this.trashObject) {
         return this.trashObject.name
       }
-
       return null
     }
   },

@@ -40,7 +40,6 @@
       </card-component>
     </section>
   </div>
-
 </template>
 
 <script>
