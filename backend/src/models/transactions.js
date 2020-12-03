@@ -6,7 +6,7 @@ module.exports = mongoose => {
         default: ''
       },
       time: {
-        type: Date,
+        type: String,
         default: new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-') + ": " +
         new Date().toTimeString().split(" ")[0]
       },
