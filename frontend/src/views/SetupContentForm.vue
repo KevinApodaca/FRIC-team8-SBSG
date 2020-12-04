@@ -66,7 +66,6 @@ export default {
       }
     }
   },
-  computed: {},
   methods: {
     submit () {
       this.$buefy.snackbar.open({
