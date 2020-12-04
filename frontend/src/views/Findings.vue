@@ -73,7 +73,7 @@ export default {
       swal('Done', `The ${report} was downloaded`, 'success')
     },
     findingHelp () {
-      swal('About Findings', 'Findings are vulnerabilities. A finding will either lead to a true vulerability or just a data point that the client should be made aware of', 'info'
+      swal('About Findings', 'Findings are vulnerabilities. A finding will either lead to a true vulnerability or just a data point that the client should be made aware of', 'info'
       )
     },
     onSearchToggle () {
