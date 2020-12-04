@@ -225,7 +225,7 @@ export default {
     titleStack () {
       return [
         'Lead Analyst',
-        'Configuration'
+        'Configuration Content'
       ]
     }
   },

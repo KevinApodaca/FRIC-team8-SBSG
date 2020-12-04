@@ -56,7 +56,7 @@ export default {
     titleStack () {
       return [
         'Lead Analyst',
-        'System'
+        'Systems'
       ]
     }
   },
