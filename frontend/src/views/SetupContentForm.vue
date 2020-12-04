@@ -32,7 +32,7 @@
           ></radio-picker>
         </b-field>
         <b-field label="" horizontal>
-          <b-input placeholder="Enter lead's initials here" required />
+          <b-input placeholder="Enter lead's IP here" required />
         </b-field>
          <b-field horizontal>
             <b-field grouped>
@@ -61,21 +61,9 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: {
-        name: null,
-        email: null,
-        phone: null,
-        department: null,
-        subject: null,
-        question: null
-      },
       customElementsForm: {
-        checkbox: [],
-        radio: null,
-        switch: true,
-        file: null
-      },
-      departments: ['Help1', 'Help2', 'Help3']
+        radio: null
+      }
     }
   },
   computed: {},
