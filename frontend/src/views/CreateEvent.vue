@@ -117,14 +117,12 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import EventService from '@/services/EventServices'
 import LogServices from '@/services/LogTransactionServices'
-// import AnalystService from '@/services/AnalystServices'
 
 export default {
   name: 'EventForm',
@@ -179,9 +177,6 @@ export default {
     }
   },
   methods: {
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
-    },
     async submit () {
       this.isLoading = true
       this.form.derived = 'K.A'

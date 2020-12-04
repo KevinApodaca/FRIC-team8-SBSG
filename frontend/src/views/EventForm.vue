@@ -132,7 +132,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -240,9 +239,6 @@ export default {
             this.displayError(e)
           })
       }
-    },
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
     },
     async submit () {
       this.isLoading = true
