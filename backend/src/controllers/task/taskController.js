@@ -73,7 +73,7 @@ export class TaskController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating task with id=' + id + " " + err.message
+          message: 'Error updating task with id=' + id + ' ' + err.message
         })
       })
   }
@@ -97,7 +97,7 @@ export class TaskController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating task with id=' + id + " " + err.message
+          message: 'Error updating task with id=' + id + ' ' + err.message
         })
       })
   }
@@ -121,7 +121,7 @@ export class TaskController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating task with id=' + id + " " + err.message
+          message: 'Error updating task with id=' + id + ' ' + err.message
         })
       })
   }
@@ -143,7 +143,7 @@ export class TaskController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating task with id=' + id + " " + err.message
+          message: 'Error updating task with id=' + id + ' ' + err.message
         })
       })
   }

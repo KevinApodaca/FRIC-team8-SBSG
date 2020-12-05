@@ -20,11 +20,11 @@ module.exports = mongoose => {
     },
     version: {
       type: String,
-      default: "",
+      default: '',
     },
     created: {
       type: String,
-      default: "",
+      default: '',
     },
     created_Date: {
       type: String,
@@ -33,7 +33,7 @@ module.exports = mongoose => {
     },
     created_mm_dd_yyyy: {
       type: Date,
-      default: ""
+      default: ''
     },
     organization: {
       type: String,

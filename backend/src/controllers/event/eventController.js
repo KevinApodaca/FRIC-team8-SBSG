@@ -73,7 +73,7 @@ export class EventController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating Event with id=' + id + " " + err.message
+          message: 'Error updating Event with id=' + id + ' ' + err.message
         })
       })
   }
@@ -98,7 +98,7 @@ export class EventController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating Event with id=' + id + " " + err.message
+          message: 'Error updating Event with id=' + id + ' ' + err.message
         })
       })
   }

@@ -74,7 +74,7 @@ export class FindingController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating Finding with id=' + id + " " + err.message
+          message: 'Error updating Finding with id=' + id + ' ' + err.message
         })
       })
   }

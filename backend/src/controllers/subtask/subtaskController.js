@@ -121,7 +121,7 @@ export class SubtaskController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating Subtask with id=' + id + " " + err.message
+          message: 'Error updating Subtask with id=' + id + ' ' + err.message
         })
       })
   }

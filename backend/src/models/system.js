@@ -39,7 +39,7 @@ module.exports = mongoose => {
       },
       title: {
         type: String,
-        default: ""
+        default: ''
       },
       findings: {
         type: String,
@@ -59,7 +59,7 @@ module.exports = mongoose => {
       },
       type: {
         type: String,
-        default: ""
+        default: ''
       },
       classification:{
         type: String,

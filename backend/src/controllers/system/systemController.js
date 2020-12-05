@@ -73,7 +73,7 @@ export class SystemController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating System with id=' + id + " " + err.message
+          message: 'Error updating System with id=' + id + ' ' + err.message
         })
       })
   }
@@ -97,7 +97,7 @@ export class SystemController {
       })
       .catch(err => {
         res.status(500).send({
-          message: 'Error updating System with id=' + id + " " + err.message
+          message: 'Error updating System with id=' + id + ' ' + err.message
         })
       })
   }
