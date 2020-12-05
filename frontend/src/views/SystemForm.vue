@@ -76,7 +76,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -159,25 +158,35 @@ export default {
       }
     }
   },
-  created () {
-    this.getOldData()
-    this.getData()
+  async created () {
+    await this.getOldData()
+    await this.getData()
   },
   methods: {
+    async submit () {
+      this.isLoading = true
+      await SystemService.modifySystem(this.id, this.form)
+        .then(response => {
+          if (response.status === 200) {
+            this.logAction()
+          }
+        })
+        .catch(e => { this.displayError(e) })
+    },
     async getOldData () {
       if (this.id) {
-        SystemService.getSystemSingle(this.id)
+        await SystemService.getSystemSingle(this.id)
           .then(response => {
-            this.oldForm = response.data
+            if (response.status === 200) {
+              this.oldForm = response.data
+            }
           })
-          .catch(e => {
-            this.displayError(e)
-          })
+          .catch(e => { this.displayError(e) })
       }
     },
     async getData () {
       if (this.id) {
-        SystemService.getSystemSingle(this.id)
+        await SystemService.getSystemSingle(this.id)
           .then(response => {
             if (response.status === 200) {
               this.isProfileExists = true
@@ -189,48 +198,16 @@ export default {
           })
       }
     },
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
-    },
-    submit () {
-      this.isLoading = true
-      SystemService.modifySystem(this.id, this.form)
-        .then(response => {
-          if (response.status === 200) {
-            this.logAction()
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
-    },
     async logAction () {
-      LogServices.logChangesFromSystem(this.oldForm, this.form)
-        .then(response => {
-          if (response.status === 200) {
-            console.log('Successfully logged')
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+      await LogServices.logChangesFromSystem(this.oldForm, this.form)
+        .then(response => {})
+        .catch(e => { this.displayError(e) })
     },
     displayError (e) {
       this.$buefy.toast.open({
         message: `Error: ${e.message}`,
         type: 'is-danger'
       })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
-      }
     }
   }
 }

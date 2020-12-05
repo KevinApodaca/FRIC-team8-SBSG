@@ -87,9 +87,9 @@ export default {
       checkedRows: []
     }
   },
-  async created () {
-    await this.getSystemData()
-    await this.getEvent()
+  created () {
+    this.getSystemData()
+    this.getEvent()
     this.isLoading = false
   },
   computed: {
@@ -115,7 +115,6 @@ export default {
       await SystemService.getSystems()
         .then(response => {
           if (response.status === 200) {
-            // this.isLoading = false
             if (response.data.length > this.perPage) {
               this.paginated = true
             }
@@ -126,33 +125,39 @@ export default {
           this.displayError(e)
         })
     },
-    async trashModal (trashObject) {
-      this.trashObject = trashObject
-      this.isModalActive = true
-      await this.deleteSystem()
-      this.removeRow(trashObject)
-      await this.removeFromEvent()
-      await this.logAction()
-    },
     async deleteSystem () {
       await SystemService.deleteSystem(this.trashObject.id)
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response.data.message)
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .then(response => {})
+        .catch(e => { this.displayError(e) })
     },
     async removeFromEvent () {
       EventService.removeSystem(this.eventId, this.trashObject.id)
-        .then(response => {
-          console.log(response.data.message)
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .then(response => {})
+        .catch(e => { this.displayError(e) })
+    },
+    async logAction () {
+      await LogServices.logArchiveSystem(this.trashObject.name)
+        .then(response => {})
+        .catch(e => { this.displayError(e) })
+    },
+    async trashConfirm () {
+      this.isModalActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false
+      })
+
+      await this.deleteSystem()
+      this.removeRow(this.trashObject)
+      await this.removeFromEvent()
+      await this.logAction()
+    },
+    trashCancel () {
+      this.isModalActive = false
+    },
+    trashModal (trashObject) {
+      this.trashObject = trashObject
+      this.isModalActive = true
     },
     removeRow (trashObject) {
       for (const index in this.systems) {
@@ -160,27 +165,6 @@ export default {
           this.systems.splice(index, 1)
         }
       }
-    },
-    trashConfirm () {
-      this.isModalActive = false
-      this.$buefy.snackbar.open({
-        message: 'Confirmed',
-        queue: false
-      })
-    },
-    trashCancel () {
-      this.isModalActive = false
-    },
-    async logAction () {
-      LogServices.logArchiveSystem(this.trashObject.name)
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response)
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
     },
     displayError (e) {
       this.$buefy.toast.open({
