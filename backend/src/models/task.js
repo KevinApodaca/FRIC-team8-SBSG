@@ -5,12 +5,12 @@ module.exports = mongoose => {
           type: String,
           default: ''
         },
-        system: {
+        analyst: {
           type: String,
           default: ''
         },
-        analyst: {
-          type: String,
+        analysts_for_task:{
+          ytpe: String,
           default: ''
         },
         title: {
@@ -18,6 +18,10 @@ module.exports = mongoose => {
           default: ''
         },
         systems_for_task: {
+          type: String,
+          default: ''
+        },
+        related_tasks:{
           type: String,
           default: ''
         },

@@ -141,13 +141,11 @@ export default {
   computed: {
     titleStack () {
       let lastCrumb
-
       if (this.isProfileExists) {
         lastCrumb = this.form.title
       } else {
         lastCrumb = 'New Task'
       }
-
       return [
         'Analyst',
         'Task',
@@ -262,7 +260,6 @@ export default {
   watch: {
     id (newValue) {
       this.isProfileExists = false
-
       if (!newValue) {
         this.form = this.getClearFormObject()
       } else {
