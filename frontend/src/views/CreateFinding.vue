@@ -243,7 +243,6 @@ import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
 import LogServices from '@/services/LogTransactionServices'
-// import FileServices from '@/services/FileServices'
 import SystemService from '@/services/SystemServices'
 import TaskService from '@/services/TaskServices'
 import SubtaskService from '@/services/SubtaskServices'
@@ -403,14 +402,6 @@ export default {
     },
     async submit () {
       this.isLoading = true
-
-      // await FileServices.upLoadFiles(this.files)
-      //   .then(res => {
-      //     this.form.filename = res
-      //   })
-      //   .catch(err => {
-      //     this.displayError(err)
-      //   })
 
       await FindingServices.createFinding(this.form)
         .then(response => {
