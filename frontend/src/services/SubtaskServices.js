@@ -1,46 +1,47 @@
 import axios from 'axios'
 const qs = require('qs')
+const hostname = process.env.VUE_APP_API_HOST
 
 export default {
   async getSubtasks () {
-    const res = await axios.get('http://localhost:3000/subtasks/all')
+    const res = await axios.get(`http://${hostname}:3000/subtasks/all`)
     return res
   },
 
   async getSubtaskSingle (subtaskId) {
-    const res = await axios.get('http://localhost:3000/subtasks/' + subtaskId)
+    const res = await axios.get(`http://${hostname}:3000/subtasks/` + subtaskId)
     return res
   },
 
   async createSubtask (form) {
-    const res = await axios.post('http://localhost:3000/subtasks/', form)
+    const res = await axios.post(`http://${hostname}:3000/subtasks/`, form)
     return res
   },
 
   async deleteSubtask (subtaskId) {
-    const res = await axios.delete('http://localhost:3000/subtasks/' + subtaskId)
+    const res = await axios.delete(`http://${hostname}:3000/subtasks/` + subtaskId)
     return res
   },
 
   async modifySubtask (subtaskId, newForm) {
-    const res = await axios.patch('http://localhost:3000/subtasks/' + subtaskId, newForm)
+    const res = await axios.patch(`http://${hostname}:3000/subtasks/` + subtaskId, newForm)
     return res
   },
 
   async addFinding (subtaskId, findingId) {
     const finding = { finding_association: findingId }
-    const res = await axios.patch('http://localhost:3000/subtasks/addItem/' + subtaskId, finding)
+    const res = await axios.patch(`http://${hostname}:3000/subtasks/addItem/` + subtaskId, finding)
     return res
   },
 
   async removeFinding (subtaskId, findingId) {
     const finding = { finding_association: findingId }
-    const res = await axios.patch('http://localhost:3000/subtasks/removeItem/' + subtaskId, finding)
+    const res = await axios.patch(`http://${hostname}:3000/subtasks/removeItem/` + subtaskId, finding)
     return res
   },
 
   async getMultipleSubtasks (multipleSubtasks) {
-    const res = await axios.get('http://localhost:3000/subtasks/multiple/subtasks', {
+    const res = await axios.get(`http://${hostname}:3000/subtasks/multiple/subtasks`, {
       params: {
         arr: multipleSubtasks
       },
