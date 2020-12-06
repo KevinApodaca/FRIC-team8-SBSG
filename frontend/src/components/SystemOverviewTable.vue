@@ -89,7 +89,7 @@ export default {
   },
   created () {
     this.getSystemData()
-    this.getEvent()
+    this.getEventData()
     this.isLoading = false
   },
   computed: {
@@ -102,7 +102,7 @@ export default {
     }
   },
   methods: {
-    async getEvent () {
+    async getEventData () {
       await EventService.getEvents()
         .then(response => {
           this.eventId = response.data[0].id

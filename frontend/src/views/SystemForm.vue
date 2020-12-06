@@ -158,9 +158,9 @@ export default {
       }
     }
   },
-  async created () {
-    await this.getOldData()
-    await this.getData()
+  created () {
+    this.getOldData()
+    this.getData()
   },
   methods: {
     async submit () {
@@ -172,6 +172,7 @@ export default {
           }
         })
         .catch(e => { this.displayError(e) })
+      this.isLoading = false
     },
     async getOldData () {
       if (this.id) {
@@ -190,6 +191,7 @@ export default {
           .then(response => {
             if (response.status === 200) {
               this.isProfileExists = true
+              this.oldForm = response.data
               this.$set(this, 'form', response.data)
             }
           })
