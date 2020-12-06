@@ -124,6 +124,7 @@ export default {
       related_tasks: null,
       analysts_for_task: null,
       allSystems: [],
+      allTasks: [],
       task_priority: [
         'Low',
         'Medium',
@@ -131,6 +132,7 @@ export default {
       ],
       task_progress: [
         'Not Started',
+        'Assigned',
         'Transferred',
         'In Progress',
         'Complete',
@@ -185,6 +187,7 @@ export default {
       this.isLoading = true
       await this.newTaskForm()
       await this.addToSystem()
+      await this.addToTask()
       await this.logAction()
     },
     async getOldData () {
@@ -223,6 +226,20 @@ export default {
           .catch(e => { this.displayError(e) })
       }
     },
+    async addToTask () {
+      if (this.form.related_tasks && (this.form.related_tasks !== this.form.title) && (this.form.related_tasks !== this.oldForm.related_tasks)) {
+        const oldTaskAssociationId = this.allTasks.filter(task => task.title === this.oldForm.related_tasks)[0].id
+        const newTaskAssociationId = this.allTasks.filter(task => task.title === this.form.related_tasks)[0].id
+
+        if (oldTaskAssociationId) {
+          await TaskService.removeTask(oldTaskAssociationId, this.id)
+            .catch(e => { this.displayError(e) })
+        }
+
+        await TaskService.addTask(newTaskAssociationId, this.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
     async getSystems () {
       await SystemService.getSystems()
         .then(response => {
@@ -233,6 +250,7 @@ export default {
     async getRelatedTasks () {
       await TaskService.getTasks()
         .then(response => {
+          this.allTasks = response.data
           this.related_tasks = response.data.map(task => task.title)
         })
     },

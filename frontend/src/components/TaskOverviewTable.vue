@@ -136,6 +136,7 @@ export default {
       })
       this.removeRow(this.trashObject)
       await this.tasks.map(this.removeFromSystem)
+      await this.tasks.map(this.removeFromTask)
       await this.deleteTask()
       await this.removeFromSystem()
       await this.logAction()

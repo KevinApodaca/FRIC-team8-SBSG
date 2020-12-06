@@ -184,6 +184,7 @@ export default {
       await this.createTask()
       await this.addFiles()
       await this.addToSystem()
+      await this.addToTask()
       await this.logAction()
     },
     async createTask () {
@@ -207,6 +208,13 @@ export default {
         const systemId = this.allSystems.filter(system => system.name === this.form.systems_for_task)[0].id
         await SystemService.addTask(systemId, this.taskId)
           .then(res => {})
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async addToTask () {
+      if (this.form.related_tasks) {
+        const taskId = this.allTasks.filter(task => task.title === this.form.related_tasks)[0].id
+        await TaskService.addTask(taskId, this.taskId)
           .catch(e => { this.displayError(e) })
       }
     },
