@@ -1,20 +1,21 @@
 /* eslint-disable */
 import axios from 'axios'
 const qs = require('qs')
+const hostname = process.env.VUE_APP_API_HOST
 
 export default {
   async getFiles () {
-    const res = await axios.get('http://localhost:3000/files/')
+    const res = await axios.get(`http://${hostname}:3000/files/`)
     return res
   },
 
   async getFilesingle (fileId) {
-    const res = await axios.get('http://localhost:3000/files/' + fileId)
+    const res = await axios.get(`http://${hostname}:3000/files/` + fileId)
     return res
   },
 
   async getMultipleFiles (multipleFiles) {
-    const res = await axios.get('http://localhost:3000/files/multiple/Files', {
+    const res = await axios.get(`http://${hostname}:3000/files/multiple/Files`, {
       params: {
         arr: multipleFiles
       },
@@ -28,18 +29,18 @@ export default {
   async upLoadFiles (form) {
     const files = this.handleUpperCaseName(form)
     const formData = this.handleFile(files)
-    const res = await axios.post('http://localhost:3000/files/', formData)
+    const res = await axios.post(`http://${hostname}:3000/files/`, formData)
     const filename = this.handleResponse(res)
     return filename
   },
 
   async deleteFile (fileId) {
-    const res = await axios.delete('http://localhost:3000/files/' + fileId)
+    const res = await axios.delete(`http://${hostname}:3000/files/` + fileId)
     return res
   },
 
   async modifyFile (newForm, fileId) {
-    const res = await axios.patch('http://localhost:3000/files/' + fileId, newForm)
+    const res = await axios.patch(`http://${hostname}:3000/files/` + fileId, newForm)
     return res
   },
 
