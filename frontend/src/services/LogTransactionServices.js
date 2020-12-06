@@ -1,13 +1,14 @@
 import axios from 'axios'
+const hostname = process.env.VUE_APP_API_HOST
 
 export default {
   async logAction (transaction) {
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
   async getTransactions () {
-    const res = await axios.get('http://localhost:3000/transactions/all')
+    const res = await axios.get(`http://${hostname}:3000/transactions/all`)
     return res
   },
 
@@ -16,7 +17,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Archived Event ' + event
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -25,7 +26,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Created Event ' + event
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -35,7 +36,7 @@ export default {
       initials: 'K.A',
       action: changes
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -44,7 +45,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Archived System ' + system
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -53,7 +54,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Created System ' + system
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -63,7 +64,7 @@ export default {
       initials: 'K.A',
       action: changes
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -72,7 +73,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Archived Task ' + task
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -81,7 +82,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Created Task ' + task
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -91,7 +92,7 @@ export default {
       initials: 'K.A',
       action: changes
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -100,7 +101,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Archived Subtask ' + subtask
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -109,7 +110,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Created Subtask ' + subtask
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -119,7 +120,7 @@ export default {
       initials: 'K.A',
       action: changes
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -128,7 +129,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Archived Finding ' + finding
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -137,7 +138,7 @@ export default {
       initials: 'K.A',
       action: 'K.A Created Finding ' + finding
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
@@ -147,7 +148,7 @@ export default {
       initials: 'K.A',
       action: changes
     }
-    const res = await axios.post('http://localhost:3000/transactions/', transaction)
+    const res = await axios.post(`http://${hostname}:3000/transactions/`, transaction)
     return res
   },
 
