@@ -1,5 +1,5 @@
 /**
- * Port of the Expresss server
+ * Port of the Expresss server and Mongo host
  */
 export const PORT = process.env.PORT || 3000
 export const DATABSE_HOSTNAME = process.env.DATABASE_HOSTNAME || 'localhost'
