@@ -1,5 +1,6 @@
 const axios = require('axios')
 const pptxgen = require('pptxgenjs')
+const hostname = process.env.VUE_APP_API_HOST
 const fs = require('fs')
 const pptx = new pptxgen()
 const slides = pptx.addSlide()
@@ -11,7 +12,7 @@ var slide2Counter_y = 32
 // Grabs all of the events
 const getEvents = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/events/all')
+    const res = await axios.get(`http://${hostname}:3000/events/all`)
     const events = res.data
     return events
   }
@@ -23,7 +24,7 @@ const getEvents = async () => {
 // Grabs all of the systems
 const getSystems = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/systems/all')
+    const res = await axios.get(`http://${hostname}:3000/systems/all`)
     const systems = res.data
     return systems
   }
@@ -35,7 +36,7 @@ const getSystems = async () => {
 // Grabs all of the findings
 const getFindings = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/findings/all')
+    const res = await axios.get(`http://${hostname}:3000/findings/all`)
     const findings = res.data
     return findings
 
@@ -48,7 +49,7 @@ const getFindings = async () => {
 const createReports = (event, systems, findings) => {
   var today = new Date()
   var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear()
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+  var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
   pptx.author = 'team-8';
   pptx.company = 'CEAD';
   pptx.revision = '1';
@@ -185,11 +186,11 @@ const createReports = (event, systems, findings) => {
 
   var headerRow = [
     {
-      text: "ID",
+      text: 'ID',
             options: {
-                fontFace : "Arial",
+                fontFace : 'Arial',
                 fontSize : 18,
-                align    : "left",
+                align    : 'left',
                 valign   :'bottom',
                 bold     : true,
                 color    :'ffffff',
@@ -198,11 +199,11 @@ const createReports = (event, systems, findings) => {
 
     },
     {
-      text: "System",
+      text: 'System',
             options: {
-                fontFace : "Arial",
+                fontFace : 'Arial',
                 fontSize : 18,
-                align    : "left",
+                align    : 'left',
                 valign   :'bottom',
                 bold     : true,
                 color    :'ffffff',
@@ -212,11 +213,11 @@ const createReports = (event, systems, findings) => {
 
     },
     {
-      text: "Finding",
+      text: 'Finding',
             options: {
-                fontFace : "Arial",
+                fontFace : 'Arial',
                 fontSize : 18,
-                align    : "left",
+                align    : 'left',
                 valign   :'bottom',
                 bold     : true,
                 color    : 'ffffff',
@@ -225,11 +226,11 @@ const createReports = (event, systems, findings) => {
 
     },
     {
-      text: "Impact",
+      text: 'Impact',
             options: {
-                fontFace  : "Arial",
+                fontFace  : 'Arial',
                 fontSize  : 18,
-                align     : "left",
+                align     : 'left',
                 valign    : 'bottom',
                 bold      : true,
                 color     : 'ffffff',
@@ -238,11 +239,11 @@ const createReports = (event, systems, findings) => {
 
     },
     {
-      text: "Risk",
+      text: 'Risk',
       options: {
-          fontFace : "Arial",
+          fontFace : 'Arial',
           fontSize : 18,
-          align    : "left",
+          align    : 'left',
           valign   : 'bottom',
           bold     : true,
           color    : 'ffffff',
@@ -303,7 +304,7 @@ const createReports = (event, systems, findings) => {
 
     let dataChartAreaLine = [
         {
-            labels: ["INFO", "VERY LOW", "LOW", "MEDIUM", "HIGH", "VERY HIGH"],
+            labels: ['INFO', 'VERY LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY HIGH'],
             values: [10, 20, 15, 5, 35, 21],
         },
     ]
