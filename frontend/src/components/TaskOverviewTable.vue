@@ -20,7 +20,7 @@
         <small class="has-text-grey">{{ props.row.systems_for_task }}</small>
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
-        <small class="has-text-grey">{{ props.row.analyst }}</small>
+        <small class="has-text-grey">{{ props.row.analysts_for_task }}</small>
       </b-table-column>
       <b-table-column label="Priority" field="priority" sortable v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.task_priority"> {{ props.row.task_priority }} </small>
@@ -29,10 +29,10 @@
         <small class="has-text-grey is-abbr-like" :title="props.row.task_progress"> {{props.row.task_progress }} </small>
       </b-table-column>
       <b-table-column label="No. of Subtasks" v-slot="props">
-        <small class="has-text-grey is-abbr-like" :title="props.row.subtasks">{{ props.row.subtasks }}</small>
+        <small class="has-text-grey is-abbr-like" :title="props.row.subtasks">{{ props.row.subtask_association.length }}</small>
       </b-table-column>
       <b-table-column label="No. of Findings" v-slot="props">
-        <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>
+        <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.finding_association.length }}</small>
       </b-table-column>
       <b-table-column label="Due Date (DD-MM-YYYY)" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>

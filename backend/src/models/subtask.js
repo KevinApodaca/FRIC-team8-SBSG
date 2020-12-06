@@ -2,8 +2,16 @@ module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         task: {
-          type: Number,
-          default: 0
+          type: String,
+          default: ''
+        },
+        subtask: {
+          type: String,
+          default: ''
+        },
+        collaborator: {
+          type: String,
+          default: ''
         },
         due_date: {
           type: String,
@@ -55,6 +63,7 @@ module.exports = mongoose => {
         analyst_assigned: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
         collaboration: { type: mongoose.Schema.Types.ObjectId, ref: 'analyst' },
         finding_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
+        subtask_association: [{ type: mongoose.Schema.Types.ObjectId, ref: 'finding' }],
     },
     {collection: 'subtask'}
     )

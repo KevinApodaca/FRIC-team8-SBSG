@@ -31,7 +31,7 @@
             </b-field>
             <card-component title="Attachments" icon="cloud-upload"><file-picker-drag-and-drop/></card-component>
             <b-field label="Analyst(s)" horizontal>
-              <b-select v-model="form.analysts_for_subtask">
+              <b-select v-model="form.analyst">
                 <option v-for="(analysts_for_subtask, index) in analysts_for_subtask" :key="index" :value="analysts_for_subtask">
                   {{ analysts_for_subtask }}
                 </option>
@@ -44,14 +44,14 @@
               </b-select>
             </b-field>
             <b-field label="Task(s)" horizontal required>
-              <b-select v-model="form.tasks">
+              <b-select v-model="form.task">
                 <option v-for="(tasks, index) in tasks" :key="index" :value="tasks">
                   {{ tasks }}
                 </option>
               </b-select>
             </b-field>
               <b-field label="Subtask(s)" horizontal>
-              <b-select v-model="form.subtasks">
+              <b-select v-model="form.subtask">
                 <option v-for="(subtasks, index) in subtasks" :key="index" :value="subtasks">
                   {{ subtasks }}
                 </option>
@@ -80,7 +80,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -109,7 +108,10 @@ export default {
       tasks: null,
       subtasks: null,
       analysts_for_subtask: null,
+      collaborator: null,
       files: [],
+      allTasks: [],
+      allSubTasks: [],
       subtask_progress: [
         'Not Started',
         'Assigned',
@@ -156,17 +158,23 @@ export default {
       }
     }
   },
-  created () {
-    this.getData()
-    this.getOldData()
-    this.getTasks()
-    this.getSubtasks()
-    this.getAnalysts()
+  async created () {
+    await this.getData()
+    await this.getOldData()
+    await this.getTasks()
+    await this.getSubtasks()
+    await this.getAnalysts()
   },
   methods: {
+    async submit () {
+      this.isLoading = true
+      await this.newSubtaskForm()
+      await this.addToTask()
+      await this.addToSubtask()
+    },
     async getOldData () {
       if (this.id) {
-        SubtaskService.getSubtaskSingle(this.id)
+        await SubtaskService.getSubtaskSingle(this.id)
           .then(response => {
             this.oldForm = response.data
           })
@@ -177,79 +185,85 @@ export default {
     },
     async getData () {
       if (this.id) {
-        SubtaskService.getSubtaskSingle(this.id)
+        await SubtaskService.getSubtaskSingle(this.id)
           .then(response => {
             if (response.status === 200) {
               this.isProfileExists = true
               this.$set(this, 'form', response.data)
             }
           })
-          .catch(e => {
-            this.displayError(e)
-          })
+          .catch(e => { this.displayError(e) })
       }
     },
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
-    },
-    submit () {
-      this.isLoading = true
-      console.log(this.id)
-      SubtaskService.modifySubtask(this.id, this.form)
+    async newSubtaskForm () {
+      await SubtaskService.modifySubtask(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
             this.logAction()
           }
         })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
+    },
+    async addToTask () {
+      if ((this.form.task !== this.oldForm.task) && this.form.task) {
+        const oldTaskId = this.allTasks.filter(task => task.title === this.oldForm.task)[0].id
+        const newTaskId = this.allTasks.filter(task => task.title === this.form.task)[0].id
+        if (oldTaskId) {
+          await TaskService.removeSubtask(oldTaskId, this.id)
+            .catch(e => { this.displayError(e) })
+        }
+        await TaskService.addSubtask(newTaskId, this.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async addToSubtask () {
+      if (this.form.subtask && (this.form.subtask !== this.form.title) && (this.form.subtask !== this.oldForm.subtask)) {
+        const oldSubtaskAssociationId = this.allSubTasks.filter(subtask => subtask.title === this.oldForm.subtask)[0].id
+        const newSubtaskAssociationId = this.allSubTasks.filter(subtask => subtask.title === this.form.subtask)[0].id
+
+        if (oldSubtaskAssociationId) {
+          await SubtaskService.removeSubtask(oldSubtaskAssociationId, this.id)
+            .catch(e => { this.displayError(e) })
+        }
+
+        await SubtaskService.addSubtask(newSubtaskAssociationId, this.id)
+          .catch(e => { this.displayError(e) })
+      }
     },
     async getTasks () {
-      TaskService.getTasks()
+      await TaskService.getTasks()
         .then(response => {
+          this.allTasks = response.data
           this.tasks = response.data.map(task => task.title)
         })
     },
     async getSubtasks () {
-      SubtaskService.getSubtasks()
+      await SubtaskService.getSubtasks()
         .then(response => {
+          this.allSubTasks = response.data
           this.subtasks = response.data.map(subtask => subtask.title)
         })
     },
     async getAnalysts () {
-      AnalystService.getAnalysts()
+      await AnalystService.getAnalysts()
         .then(response => {
           this.analysts_for_subtask = response.data.map(analyst => analyst.initials)
+          this.collaborator = response.data.map(analyst => analyst.initials)
         })
     },
     async logAction () {
-      LogServices.logChangesFromSubtask(this.oldForm, this.form)
+      await LogServices.logChangesFromSubtask(this.oldForm, this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully logged')
           }
         })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
     },
     displayError (e) {
       this.$buefy.toast.open({
         message: `Error: ${e.message}`,
         type: 'is-danger'
       })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
-      }
     }
   }
 }

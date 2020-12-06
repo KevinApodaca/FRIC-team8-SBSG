@@ -42,15 +42,15 @@
               </b-select>
             </b-field>
             <b-field label="Task(s)" horizontal required>
-              <b-select v-model="form.tasks">
+              <b-select v-model="form.task">
                 <option v-for="(tasks, index) in tasks" :key="index" :value="tasks">
                   {{ tasks }}
                 </option>
               </b-select>
             </b-field>
               <b-field label="Subtask(s)" horizontal>
-              <b-select v-model="form.subtasks">
-                <option v-for="(subtasks, index) in task" :key="index" :value="subtasks">
+              <b-select v-model="form.subtask">
+                <option v-for="(subtasks, index) in subtasks" :key="index" :value="subtasks">
                   {{ subtasks }}
                 </option>
               </b-select>
@@ -78,13 +78,13 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import TaskService from '@/services/TaskServices'
 import FileServices from '@/services/FileServices'
 import SubtaskService from '@/services/SubtaskServices'
+import AnalystService from '@/services/AnalystServices'
 import LogServices from '@/services/LogTransactionServices'
 import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
@@ -103,7 +103,13 @@ export default {
       form: {},
       createdReadable: null,
       isProfileExists: false,
+      subtaskId: null,
       tasks: null,
+      subtasks: null,
+      analysts: null,
+      collaborator: null,
+      allTasks: [],
+      allSubTasks: [],
       files: [],
       subtask_progress: [
         'Not Started',
@@ -150,49 +156,75 @@ export default {
   },
   created () {
     this.getTasks()
+    this.getSubtasks()
+    this.getAnalysts()
   },
   methods: {
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
-    },
     async submit () {
       this.isLoading = true
-      console.log(this.files)
-      await FileServices.upLoadFiles(this.files)
-        .then(res => {
-          console.log(res)
-          this.form.filename = res
-        })
-        .catch(err => {
-          this.displayError(err)
-        })
-
-      SubtaskService.createSubtask(this.form)
+      await this.createSubtask()
+      await this.addFiles()
+      await this.addToTask()
+      await this.addToSubtask()
+    },
+    async createSubtask () {
+      if (this.form.task) {
+        this.form.parent = this.allTasks.filter(task => task.title === this.form.task)[0].id
+      }
+      await SubtaskService.createSubtask(this.form)
         .then(response => {
           if (response.status === 200) {
+            this.subtaskId = response.data.id
             this.logAction()
           }
         })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
+    },
+    async addFiles () {
+      if (this.files.length !== 0) {
+        await FileServices.upLoadFiles(this.files)
+          .then(res => { this.form.filename = res })
+          .catch(err => { this.displayError(err) })
+      }
+    },
+    async addToTask () {
+      if (this.form.task) {
+        const taskId = this.allTasks.filter(task => task.title === this.form.task)[0].id
+        await TaskService.addSubtask(taskId, this.subtaskId)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async addToSubtask () {
+      if (this.form.subtask && (this.form.subtask !== this.form.title)) {
+        const subtaskAssociationId = this.allSubTasks.filter(subtask => subtask.title === this.form.subtask)[0].id
+        await SubtaskService.addSubtask(subtaskAssociationId, this.subtaskId)
+          .catch(e => { this.displayError(e) })
+      }
     },
     async getTasks () {
       TaskService.getTasks()
         .then(response => {
+          this.allTasks = response.data
           this.tasks = response.data.map(task => task.title)
+        })
+    },
+    async getSubtasks () {
+      await SubtaskService.getSubtasks()
+        .then(response => {
+          this.allSubTasks = response.data
+          this.subtasks = response.data.map(subtask => subtask.title)
+        })
+    },
+    async getAnalysts () {
+      await AnalystService.getAnalysts()
+        .then(response => {
+          this.analyst = response.data.map(analyst => analyst.initials)
+          this.collaborator = response.data.map(analyst => analyst.initials)
         })
     },
     async logAction () {
       LogServices.logCreatedSubtask(this.form.title)
-        .then(response => {
-          if (response.status === 200) {
-            console.log('Successfully logged')
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
     },
     displayError (e) {
       this.$buefy.toast.open({

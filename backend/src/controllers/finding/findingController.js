@@ -54,6 +54,54 @@ export class FindingController {
       })
   }
 
+  updateArray (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.findingId
+
+    Finding.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update Finding with id=${id}!`
+          })
+        } else res.send({ message: 'Finding was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating Finding with id=' + id + err.message
+        })
+      })
+  }
+
+  removeItem (req, res) {
+    if (!req.body) {
+      return res.status(400).send({
+        message: 'Data is Empty :('
+      })
+    }
+
+    const id = req.params.findingId
+
+    Finding.findByIdAndUpdate(id, {$pull: req.body}, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update subtask with id=${id}!`
+          })
+        } else res.send({ message: 'Subtask was updated successfully.' })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: 'Error updating subtask with id=' + id + err.message
+        })
+      })
+  }
+
 
   changeParent (req, res) {
     if (!req.body) {

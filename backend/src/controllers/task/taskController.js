@@ -63,7 +63,7 @@ export class TaskController {
 
     const id = req.params.taskId
 
-    Task.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+    Task.findByIdAndUpdate(id, {$addToSet: req.body}, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({

@@ -26,7 +26,7 @@
         <small class="has-text-grey is-abbr-like" :title="props.row.subtask_progress"> {{ props.row.subtask_progress }}</small>
       </b-table-column>
       <b-table-column label="No. of Findings" v-slot="props">
-        <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.findings }}</small>
+        <small class="has-text-grey is-abbr-like" :title="props.row.findings">{{ props.row.finding_association.length }}</small>
       </b-table-column>
       <b-table-column label="Due Date (DD-MM-YYYY)" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.due_date">{{ props.row.due_date }}</small>
@@ -63,6 +63,7 @@
 
 <script>
 import SubtaskService from '@/services/SubtaskServices'
+import TaskService from '@/services/TaskServices'
 import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
 
@@ -117,20 +118,45 @@ export default {
           this.displayError(e)
         })
     },
+    async logAction () {
+      LogServices.logArchiveSubtask(this.trashObject.title)
+        .catch(e => { this.displayError(e) })
+    },
     async trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      SubtaskService.deleteSubtask(this.trashObject.id)
-        .then(response => {
-          if (response.status === 200) {
-            this.removeRow(trashObject)
-            console.log(response.data.message)
-            this.logAction()
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+    },
+    async trashConfirm () {
+      this.isModalActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false
+      })
+
+      this.removeRow(this.trashObject)
+      await this.subtasks.map(this.removeFromSubtask)
+      await this.deleteSubtask()
+      await this.removeFromTask()
+      await this.logAction()
+    },
+    async deleteSubtask () {
+      await SubtaskService.deleteSubtask(this.trashObject.id)
+        .catch(e => { this.displayError(e) })
+    },
+    async removeFromTask () {
+      if (this.trashObject.parent) {
+        await TaskService.removeSubtask(this.trashObject.parent, this.trashObject.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async removeFromSubtask (subtask) {
+      if (subtask.subtask_association.includes(this.trashObject.id)) {
+        await SubtaskService.removeSubtask(subtask.id, this.trashObject.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    trashCancel () {
+      this.isModalActive = false
     },
     removeRow (trashObject) {
       for (const index in this.subtasks) {
@@ -138,27 +164,6 @@ export default {
           this.subtasks.splice(index, 1)
         }
       }
-    },
-    trashConfirm () {
-      this.isModalActive = false
-      this.$buefy.snackbar.open({
-        message: 'Confirmed',
-        queue: false
-      })
-    },
-    trashCancel () {
-      this.isModalActive = false
-    },
-    async logAction () {
-      LogServices.logArchiveSubtask(this.trashObject.title)
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response)
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
     },
     displayError (e) {
       this.$buefy.toast.open({

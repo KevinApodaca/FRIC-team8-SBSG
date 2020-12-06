@@ -27,9 +27,21 @@ export default {
     return res
   },
 
+  async addSubtask (subtaskId, subtaskAssociationId) {
+    const subtask = { subtask_association: subtaskAssociationId }
+    const res = await axios.patch('http://localhost:3000/subtasks/addItem/' + subtaskId, subtask)
+    return res
+  },
+
   async addFinding (subtaskId, findingId) {
     const finding = { finding_association: findingId }
     const res = await axios.patch('http://localhost:3000/subtasks/addItem/' + subtaskId, finding)
+    return res
+  },
+
+  async removeSubtask (subtaskId, subtaskAssociationId) {
+    const subtask = { subtask_association: subtaskAssociationId }
+    const res = await axios.patch('http://localhost:3000/subtasks/removeItem/' + subtaskId, subtask)
     return res
   },
 
