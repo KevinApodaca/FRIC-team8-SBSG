@@ -20,7 +20,7 @@
         <small class="has-text-grey">{{ props.row.systems_for_task }}</small>
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
-        <small class="has-text-grey">{{ props.row.analysts_for_task }}</small>
+        <small class="has-text-grey">{{ props.row.analyst }}</small>
       </b-table-column>
       <b-table-column label="Priority" field="priority" sortable v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.task_priority"> {{ props.row.task_priority }} </small>
@@ -70,6 +70,7 @@
 
 <script>
 import TaskService from '@/services/TaskServices'
+import SystemService from '@/services/SystemServices'
 import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
 
@@ -97,8 +98,8 @@ export default {
       checkedRows: []
     }
   },
-  created () {
-    this.getTaskData()
+  async created () {
+    await this.getTaskData()
   },
   computed: {
     trashObjectName () {
@@ -111,7 +112,7 @@ export default {
   },
   methods: {
     async getTaskData () {
-      TaskService.getTasks()
+      await TaskService.getTasks()
         .then(response => {
           if (response.status === 200) {
             this.isLoading = false
@@ -121,24 +122,43 @@ export default {
             this.$set(this, 'tasks', response.data)
           }
         })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
     },
-    async trashModal (trashObject) {
+    async logAction () {
+      await LogServices.logArchiveTask(this.trashObject.title)
+        .catch(e => { this.displayError(e) })
+    },
+    async trashConfirm () {
+      this.isModalActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false
+      })
+      this.removeRow(this.trashObject)
+      await this.tasks.map(this.removeFromSystem)
+      await this.deleteTask()
+      await this.removeFromSystem()
+      await this.logAction()
+    },
+    async deleteTask () {
+      await TaskService.deleteTask(this.trashObject.id)
+        .catch(e => { this.displayError(e) })
+    },
+    async removeFromSystem () {
+      if (this.trashObject.parent) {
+        await SystemService.removeTask(this.trashObject.parent, this.trashObject.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async removeFromTask (task) {
+      if (task.task_association.includes(this.trashObject.id)) {
+        await TaskService.removeTask(task.id, this.trashObject.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      TaskService.deleteTask(this.trashObject.id)
-        .then(response => {
-          if (response.status === 200) {
-            this.removeRow(trashObject)
-            console.log(response.data.message)
-            this.logAction()
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
     },
     removeRow (trashObject) {
       for (const index in this.tasks) {
@@ -147,26 +167,8 @@ export default {
         }
       }
     },
-    trashConfirm () {
-      this.isModalActive = false
-      this.$buefy.snackbar.open({
-        message: 'Confirmed',
-        queue: false
-      })
-    },
     trashCancel () {
       this.isModalActive = false
-    },
-    async logAction () {
-      LogServices.logArchiveTask(this.trashObject.title)
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response)
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
     },
     displayError (e) {
       this.$buefy.toast.open({

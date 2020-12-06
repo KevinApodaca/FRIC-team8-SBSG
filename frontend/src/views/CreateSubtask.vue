@@ -154,10 +154,10 @@ export default {
       return 'New Subtask'
     }
   },
-  created () {
-    this.getTasks()
-    this.getSubtasks()
-    this.getAnalysts()
+  async created () {
+    await this.getTasks()
+    await this.getSubtasks()
+    await this.getAnalysts()
   },
   methods: {
     async submit () {

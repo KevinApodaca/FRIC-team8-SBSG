@@ -97,7 +97,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -126,7 +125,10 @@ export default {
       systems_for_task: null,
       related_tasks: null,
       analysts_for_task: null,
+      analyst: [],
       files: [],
+      allSystems: [],
+      allTasks: [],
       task_priority: [
         'Low',
         'Medium',
@@ -171,72 +173,67 @@ export default {
       return 'New Task'
     }
   },
-  created () {
-    this.getSystems()
-    this.getRelatedTasks()
-    this.getAnalysts()
+  async created () {
+    await this.getSystems()
+    await this.getRelatedTasks()
+    await this.getAnalysts()
   },
   methods: {
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
-    },
     async submit () {
       this.isLoading = true
-      this.upLoadFiles()
-      this.createTask()
+      await this.createTask()
+      await this.addFiles()
+      await this.addToSystem()
+      await this.logAction()
     },
     async createTask () {
-      console.log(this.form)
+      if (this.form.systems_for_task) {
+        const systemId = this.allSystems.filter(system => system.name === this.form.systems_for_task)[0].id
+        this.form.parent = systemId
+      }
       await TaskService.createTask(this.form)
-        .then(response => {
-          if (response.status === 200) {
-            this.logAction()
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .then(res => { this.taskId = res.data.id })
+        .catch(e => { this.displayError(e) })
     },
-    async upLoadFiles () {
+    async addFiles () {
       if (this.files.length !== 0) {
-        console.log('Storing files')
         await FileServices.upLoadFiles(this.files)
-          .then(res => {
-            this.form.filename = res
-          })
-          .catch(err => {
-            this.displayError(err)
-          })
+          .then(res => { this.form.filename = res })
+          .catch(err => { this.displayError(err) })
+      }
+    },
+    async addToSystem () {
+      if (this.form.systems_for_task) {
+        const systemId = this.allSystems.filter(system => system.name === this.form.systems_for_task)[0].id
+        await SystemService.addTask(systemId, this.taskId)
+          .then(res => {})
+          .catch(e => { this.displayError(e) })
       }
     },
     async getSystems () {
-      SystemService.getSystems()
+      await SystemService.getSystems()
         .then(response => {
+          this.allSystems = response.data
           this.systems_for_task = response.data.map(system => system.name)
         })
     },
     async getRelatedTasks () {
-      TaskService.getTasks()
+      await TaskService.getTasks()
         .then(response => {
+          this.allTasks = response.data
           this.related_tasks = response.data.map(task => task.title)
         })
     },
     async getAnalysts () {
-      AnalystService.getAnalysts()
+      await AnalystService.getAnalysts()
         .then(response => {
+          this.analyst = response.data.map(analyst => analyst.initials)
           this.analysts_for_task = response.data.map(analyst => analyst.initials)
         })
     },
     async logAction () {
-      LogServices.logCreatedTask(this.form.title)
-        .then(response => {
-          if (response.status === 200) {
-            console.log('Successfully logged')
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+      await LogServices.logCreatedTask(this.form.title)
+        .catch(e => { this.displayError(e) })
     },
     displayError (e) {
       this.$buefy.toast.open({

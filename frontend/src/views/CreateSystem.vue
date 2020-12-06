@@ -147,24 +147,13 @@ export default {
       this.isLoading = true
       await this.getEvent()
       await this.createSystem()
-      await this.addSystem()
+      await this.addSystemToEvent()
       await this.logAction()
     },
     async getEvent () {
       await EventService.getEvents()
-        .then(response => {
-          this.form.parent = response.data[0].id
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
-    },
-    async addSystem () {
-      await EventService.addSystem(this.form.parent, this.systemId)
-        .then(response => {})
-        .catch(e => {
-          this.displayError(e)
-        })
+        .then(response => { this.form.parent = response.data[0].id })
+        .catch(e => { this.displayError(e) })
     },
     async createSystem () {
       await SystemService.createSystem(this.form)
@@ -173,16 +162,15 @@ export default {
             this.systemId = response.data.id
           }
         })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
+    },
+    async addSystemToEvent () {
+      await EventService.addSystem(this.form.parent, this.systemId)
+        .catch(e => { this.displayError(e) })
     },
     async logAction () {
       await LogServices.logCreatedSystem(this.form.name)
-        .then(response => {})
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
     },
     displayError (e) {
       this.$buefy.toast.open({

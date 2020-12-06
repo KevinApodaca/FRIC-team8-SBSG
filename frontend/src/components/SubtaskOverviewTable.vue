@@ -91,8 +91,8 @@ export default {
       checkedRows: []
     }
   },
-  created () {
-    this.getSubtaskData()
+  async created () {
+    await this.getSubtaskData()
   },
   computed: {
     trashObjectName () {
@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     async getSubtaskData () {
-      SubtaskService.getSubtasks()
+      await SubtaskService.getSubtasks()
         .then(response => {
           if (response.status === 200) {
             this.isLoading = false
@@ -114,17 +114,11 @@ export default {
             this.$set(this, 'subtasks', response.data)
           }
         })
-        .catch(e => {
-          this.displayError(e)
-        })
-    },
-    async logAction () {
-      LogServices.logArchiveSubtask(this.trashObject.title)
         .catch(e => { this.displayError(e) })
     },
-    async trashModal (trashObject) {
-      this.trashObject = trashObject
-      this.isModalActive = true
+    async logAction () {
+      await LogServices.logArchiveSubtask(this.trashObject.title)
+        .catch(e => { this.displayError(e) })
     },
     async trashConfirm () {
       this.isModalActive = false
@@ -154,6 +148,10 @@ export default {
         await SubtaskService.removeSubtask(subtask.id, this.trashObject.id)
           .catch(e => { this.displayError(e) })
       }
+    },
+    trashModal (trashObject) {
+      this.trashObject = trashObject
+      this.isModalActive = true
     },
     trashCancel () {
       this.isModalActive = false

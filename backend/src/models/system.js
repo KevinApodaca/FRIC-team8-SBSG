@@ -9,6 +9,10 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
+      collaborator: {
+        type: String,
+        default: ''
+      },
       description: {
         type: String,
         default: ''

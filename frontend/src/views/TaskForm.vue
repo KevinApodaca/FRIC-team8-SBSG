@@ -18,7 +18,7 @@
               <b-input type="textarea" v-model="form.description" required />
             </b-field>
               <b-field label="Analyst(s)" horizontal>
-              <b-select v-model="form.analysts_for_task">
+              <b-select v-model="form.analyst">
                 <option v-for="(analysts_for_task, index) in analysts_for_task" :key="index" :value="analysts_for_task">
                   {{ analysts_for_task }}
                 </option>
@@ -96,7 +96,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -124,6 +123,7 @@ export default {
       systems_for_task: null,
       related_tasks: null,
       analysts_for_task: null,
+      allSystems: [],
       task_priority: [
         'Low',
         'Medium',
@@ -173,98 +173,85 @@ export default {
       }
     }
   },
-  created () {
-    this.getData()
-    this.getOldData()
-    this.getSystems()
-    this.getRelatedTasks()
-    this.getAnalysts()
+  async created () {
+    await this.getData()
+    await this.getOldData()
+    await this.getSystems()
+    await this.getRelatedTasks()
+    await this.getAnalysts()
   },
   methods: {
+    async submit () {
+      this.isLoading = true
+      await this.newTaskForm()
+      await this.addToSystem()
+      await this.logAction()
+    },
     async getOldData () {
       if (this.id) {
-        TaskService.getTaskSingle(this.id)
-          .then(response => {
-            this.oldForm = response.data
-          })
-          .catch(e => {
-            this.displayError(e)
-          })
+        await TaskService.getTaskSingle(this.id)
+          .then(response => { this.oldForm = response.data })
+          .catch(e => { this.displayError(e) })
       }
     },
     async getData () {
       if (this.id) {
-        TaskService.getTaskSingle(this.id)
+        await TaskService.getTaskSingle(this.id)
           .then(response => {
             if (response.status === 200) {
               this.isProfileExists = true
               this.$set(this, 'form', response.data)
             }
           })
-          .catch(e => {
-            this.displayError(e)
-          })
+          .catch(e => { this.displayError(e) })
       }
     },
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
+    async newTaskForm () {
+      await TaskService.modifyTask(this.id, this.form)
+        .catch(e => { this.displayError(e) })
     },
-    submit () {
-      this.isLoading = true
-      TaskService.modifyTask(this.id, this.form)
-        .then(response => {
-          if (response.status === 200) {
-            this.logAction()
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+    async addToSystem () {
+      if ((this.form.systems_for_task !== this.oldForm.systems_for_task) && this.form.systems_for_task) {
+        const oldSystemId = this.allSystems.filter(system => system.name === this.oldForm.systems_for_task)[0].id
+        const newSystemId = this.allSystems.filter(system => system.name === this.form.systems_for_task)[0].id
+
+        if (oldSystemId) {
+          await SystemService.removeTask(oldSystemId, this.id)
+            .catch(e => { this.displayError(e) })
+        }
+        await SystemService.addTask(newSystemId, this.id)
+          .catch(e => { this.displayError(e) })
+      }
     },
     async getSystems () {
-      SystemService.getSystems()
+      await SystemService.getSystems()
         .then(response => {
+          this.allSystems = response.data
           this.systems_for_task = response.data.map(system => system.name)
         })
     },
     async getRelatedTasks () {
-      TaskService.getTasks()
+      await TaskService.getTasks()
         .then(response => {
           this.related_tasks = response.data.map(task => task.title)
         })
     },
     async getAnalysts () {
-      AnalystService.getAnalysts()
+      await AnalystService.getAnalysts()
         .then(response => {
+          this.analyst = response.data.map(analyst => analyst.initials)
           this.analysts_for_task = response.data.map(analyst => analyst.initials)
         })
     },
     async logAction () {
-      LogServices.logChangesFromTask(this.oldForm, this.form)
-        .then(response => {
-          if (response.status === 200) {
-            console.log('Successfully logged')
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+      await LogServices.logChangesFromTask(this.oldForm, this.form)
+        .catch(e => { this.displayError(e) })
     },
     displayError (e) {
       this.$buefy.toast.open({
         message: `Error: ${e.message}`,
         type: 'is-danger'
       })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
-      }
     }
   }
 }
