@@ -63,7 +63,7 @@ export class EventController {
 
     const id = req.params.eventId
 
-    Event.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+    Event.findByIdAndUpdate(id, {$addToSet: req.body}, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({

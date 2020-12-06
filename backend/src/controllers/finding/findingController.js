@@ -63,7 +63,7 @@ export class FindingController {
 
     const id = req.params.findingId
 
-    Finding.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+    Finding.findByIdAndUpdate(id, {$addToSet: req.body}, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({

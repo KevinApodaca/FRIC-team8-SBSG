@@ -63,7 +63,7 @@ export class SystemController {
 
     const id = req.params.systemId
 
-    System.findByIdAndUpdate(id, {$push: req.body}, { useFindAndModify: false })
+    System.findByIdAndUpdate(id, {$addToSet: req.body}, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({
