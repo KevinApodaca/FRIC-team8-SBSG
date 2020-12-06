@@ -1,11 +1,12 @@
 const officegen = require('officegen')
 const axios = require('axios')
 const fs = require('fs')
+const hostname = process.env.VUE_APP_API_HOST
 
 // Grabs all of the findings
 const getFindings = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/findings/all')
+    const res = await axios.get(`http://${hostname}:3000/findings/all`)
     const finding = res.data
     return finding
   }
@@ -33,29 +34,29 @@ const createRiskMatrix = finding => {
     sheet.data[i] = []
   }
 
-  sheet.data[0][0] = "ID"
-  sheet.data[0][1] = "IP:PORT"
-  sheet.data[0][2] = "DESCRIPTION"
-  sheet.data[0][3] = "STATUS"
-  sheet.data[0][4] = "POSTURE"
-  sheet.data[0][5] = "C"
-  sheet.data[0][6] = "I"
-  sheet.data[0][7] = "A"
-  sheet.data[0][8] = "C"
-  sheet.data[0][9] = "I"
-  sheet.data[0][10] = "A"
-  sheet.data[0][11] = "IMP.SCORE"
-  sheet.data[0][12] = "CAT"
-  sheet.data[0][13] = "CAT SCORE"
-  sheet.data[0][14] = "CM"
-  sheet.data[0][15] = "Vs (n)"
-  sheet.data[0][16] = "Vs (q)"
-  sheet.data[0][17] = "RELEVANCE OF THREAT"
-  sheet.data[0][18] = "LIKELIHOOD"
-  sheet.data[0][19] = "IMPACT"
-  sheet.data[0][20] = "IMPACT"
-  sheet.data[0][21] = "IMPACT RATIONALE (HIDE THIS COULUMN)"
-  sheet.data[0][22] = "RISK"
+  sheet.data[0][0] = 'ID'
+  sheet.data[0][1] = 'IP:PORT'
+  sheet.data[0][2] = 'DESCRIPTION'
+  sheet.data[0][3] = 'STATUS'
+  sheet.data[0][4] = 'POSTURE'
+  sheet.data[0][5] = 'C'
+  sheet.data[0][6] = 'I'
+  sheet.data[0][7] = 'A'
+  sheet.data[0][8] = 'C'
+  sheet.data[0][9] = 'I'
+  sheet.data[0][10] = 'A'
+  sheet.data[0][11] = 'IMP.SCORE'
+  sheet.data[0][12] = 'CAT'
+  sheet.data[0][13] = 'CAT SCORE'
+  sheet.data[0][14] = 'CM'
+  sheet.data[0][15] = 'Vs (n)'
+  sheet.data[0][16] = 'Vs (q)'
+  sheet.data[0][17] = 'RELEVANCE OF THREAT'
+  sheet.data[0][18] = 'LIKELIHOOD'
+  sheet.data[0][19] = 'IMPACT'
+  sheet.data[0][20] = 'IMPACT'
+  sheet.data[0][21] = 'IMPACT RATIONALE (HIDE THIS COULUMN)'
+  sheet.data[0][22] = 'RISK'
   sheet.data[0][0].colorIndex = 5
 
   // Display the ID for all findings
