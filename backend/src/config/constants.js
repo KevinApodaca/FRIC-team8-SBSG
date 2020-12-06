@@ -9,4 +9,4 @@ export const DATABSE_HOSTNAME = process.env.DATABASE_HOSTNAME || 'localhost'
  */
 export const dbConfig = {
   url: `mongodb://${DATABSE_HOSTNAME}:27017/db`
-}`
+}
