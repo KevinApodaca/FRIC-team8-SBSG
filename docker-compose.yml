@@ -1,0 +1,19 @@
+version: "3.8"
+# Define FRIC services and containers to be run
+services:
+  frontend:
+    build: "./frontend/Dockerfile"
+    ports:
+      - "8080:8080"
+  backend:
+    build: "./backend/Dockerfile"
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+  gogs:
+    image: gogs/gogs
