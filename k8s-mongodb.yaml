@@ -1,0 +1,50 @@
+# Kubernetes setup for FRIC mongoDB database instance service.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fric-team8-sbsg-mongodb
+  labels:
+    app: fric
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fric
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: fric
+        tier: backend
+    spec:
+      volumes:
+        - name: "mongo-data"
+          emptyDir:
+            {}
+      containers:
+        - name: mongodb
+          image: mongo:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - mountPath: "/db/data"
+              name: "mongo-data"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fric-team8-sbsg-mongodb-svc
+  labels:
+    app: fric
+    tier: backend
+spec:
+  selector:
+    app: fric
+    tier: backend
+  type: ClusterIP
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP

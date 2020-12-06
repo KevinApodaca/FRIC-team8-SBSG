@@ -1,0 +1,46 @@
+# Kubernetes setup for FRIC backend services.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fric-team8-sbsg-backend
+  labels:
+    app: fric
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fric
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: fric
+        tier: frontend
+    spec:
+      containers:
+        - name: fric-api
+          image: kevinapodaca/fric:backend
+          imagePullPolicy: Always
+          env:
+            - name: DATABASE_HOSTNAME
+              value: mongodb-svc
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fric-team8-sbsg-backend-svc
+  labels:
+    app: fric
+    tier: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: fric
+    tier: backend
+  ports:
+    - port: 3000
+      targetPort: 3000
+

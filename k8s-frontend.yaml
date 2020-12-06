@@ -1,0 +1,50 @@
+# Kubernetes setup for FRIC frontend ui services.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fric-team8-sbsg-frontend
+  labels:
+    app: tfriceam8
+    tier: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fric
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: fric
+        tier: frontend
+    spec:
+      containers:
+        - name: fric-ui
+          image: kevinapodaca/fric:frontend
+          imagePullPolicy: Always
+          env:
+            - name: VUE_APP_API_HOST
+              value: fric-team8-sbsg-backend-svc
+            - name: VUE_APP_API_PORT
+              value: "3000"
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fric-team8-sbsg-frontend-svc
+  labels:
+    app: fric
+    tier: frontend
+spec:
+  type: NodePort
+  selector:
+    app: fric
+    tier: frontend
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 32000
+
