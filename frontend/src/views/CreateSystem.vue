@@ -76,7 +76,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -144,9 +143,6 @@ export default {
     }
   },
   methods: {
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
-    },
     async submit () {
       this.isLoading = true
       await this.getEvent()
@@ -165,9 +161,7 @@ export default {
     },
     async addSystem () {
       await EventService.addSystem(this.form.parent, this.systemId)
-        .then(response => {
-          console.log('Succesfully added system in Event')
-        })
+        .then(response => {})
         .catch(e => {
           this.displayError(e)
         })
@@ -176,7 +170,6 @@ export default {
       await SystemService.createSystem(this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully created system')
             this.systemId = response.data.id
           }
         })
@@ -185,12 +178,8 @@ export default {
         })
     },
     async logAction () {
-      LogServices.logCreatedSystem(this.form.name)
-        .then(response => {
-          if (response.status === 200) {
-            console.log('Successfully logged')
-          }
-        })
+      await LogServices.logCreatedSystem(this.form.name)
+        .then(response => {})
         .catch(e => {
           this.displayError(e)
         })
