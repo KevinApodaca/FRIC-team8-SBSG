@@ -161,15 +161,15 @@ export default {
       this.trashObject = trashObject
       this.isModalActive = true
     },
+    trashCancel () {
+      this.isModalActive = false
+    },
     removeRow (trashObject) {
       for (const index in this.tasks) {
         if (this.tasks[index].id === trashObject.id) {
           this.tasks.splice(index, 1)
         }
       }
-    },
-    trashCancel () {
-      this.isModalActive = false
     },
     displayError (e) {
       this.$buefy.toast.open({

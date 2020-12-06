@@ -185,9 +185,9 @@ export default {
   methods: {
     async submit () {
       this.isLoading = true
-      await this.newTaskForm()
       await this.addToSystem()
-      await this.addToTask()
+      await this.addTaskAssociation()
+      await this.newTaskForm()
       await this.logAction()
     },
     async getOldData () {
@@ -215,28 +215,43 @@ export default {
     },
     async addToSystem () {
       if ((this.form.systems_for_task !== this.oldForm.systems_for_task) && this.form.systems_for_task) {
-        const oldSystemId = this.allSystems.filter(system => system.name === this.oldForm.systems_for_task)[0].id
-        const newSystemId = this.allSystems.filter(system => system.name === this.form.systems_for_task)[0].id
+        const newSystemId = this.allSystems.find(this.newSystem)
 
-        if (oldSystemId) {
-          await SystemService.removeTask(oldSystemId, this.id)
-            .catch(e => { this.displayError(e) })
-        }
-        await SystemService.addTask(newSystemId, this.id)
+        await this.removeOldSystemAssociation()
+
+        await SystemService.addTask(newSystemId.id, this.id)
           .catch(e => { this.displayError(e) })
       }
     },
-    async addToTask () {
-      if (this.form.related_tasks && (this.form.related_tasks !== this.form.title) && (this.form.related_tasks !== this.oldForm.related_tasks)) {
-        const oldTaskAssociationId = this.allTasks.filter(task => task.title === this.oldForm.related_tasks)[0].id
-        const newTaskAssociationId = this.allTasks.filter(task => task.title === this.form.related_tasks)[0].id
+    async addTaskAssociation () {
+      const isNotItself = this.form.related_tasks !== this.form.title
+      const isNotSameParent = this.form.related_tasks !== this.oldForm.related_tasks
+      const isNotEmpty = this.form.related_tasks !== ''
 
-        if (oldTaskAssociationId) {
-          await TaskService.removeTask(oldTaskAssociationId, this.id)
-            .catch(e => { this.displayError(e) })
-        }
+      if (isNotEmpty && isNotItself && isNotSameParent) {
+        const newTaskAssociated = this.allTasks.find(this.newTask)
 
-        await TaskService.addTask(newTaskAssociationId, this.id)
+        await this.removeOldTaskAssociation()
+
+        await TaskService.addTask(newTaskAssociated.id, this.id)
+          .catch(e => { this.displayError(e) })
+      } else {
+        this.form.related_tasks = this.oldForm.related_tasks
+      }
+    },
+    async removeOldSystemAssociation () {
+      const oldSystemId = this.allSystems.find(this.oldSystemExist)
+
+      if (oldSystemId !== undefined) {
+        await SystemService.removeTask(oldSystemId.id, this.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async removeOldTaskAssociation () {
+      const oldTaskAssociated = this.allTasks.find(this.oldTaskExist)
+
+      if (oldTaskAssociated !== undefined) {
+        await TaskService.removeTask(oldTaskAssociated.id, this.id)
           .catch(e => { this.displayError(e) })
       }
     },
@@ -264,6 +279,18 @@ export default {
     async logAction () {
       await LogServices.logChangesFromTask(this.oldForm, this.form)
         .catch(e => { this.displayError(e) })
+    },
+    oldTaskExist (task) {
+      return task.title === this.oldForm.related_tasks
+    },
+    newTask (task) {
+      return task.title === this.form.related_tasks
+    },
+    oldSystemExist (system) {
+      return system.name === this.oldForm.systems_for_task
+    },
+    newSystem (system) {
+      return system.name === this.form.systems_for_task
     },
     displayError (e) {
       this.$buefy.toast.open({
