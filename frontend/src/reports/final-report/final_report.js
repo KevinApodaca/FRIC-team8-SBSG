@@ -3,6 +3,7 @@ var async = require('async')
 const officegen = require('officegen')
 const fs = require('fs')
 var path = require('path')
+const hostname = process.env.VUE_APP_API_HOST
 const finding = require('../../../../backend/src/models/finding')
 var outDir = path.join(__dirname)
 var docx = officegen({
@@ -13,7 +14,7 @@ var docx = officegen({
 // Grabs all of the analysts
 const getAnalysts = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/analysts/all')
+    const res = await axios.get(`http://${hostname}:3000/analysts/all`)
     const analysts = res.data
     return analysts
   } catch(e) {
@@ -23,7 +24,7 @@ const getAnalysts = async () => {
 // Grabs all of the events
 const getEvents = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/events/all')
+    const res = await axios.get(`http://${hostname}:3000/events/all`)
 
     const events = res.data
 
@@ -37,7 +38,7 @@ const getEvents = async () => {
 // Grabs all of the systems
 const getSystems = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/systems/all')
+    const res = await axios.get(`http://${hostname}:3000/systems/all`)
 
     const systems = res.data
 
@@ -51,7 +52,7 @@ const getSystems = async () => {
 // Grabs all of the findings
 const getFindings = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/findings/all')
+    const res = await axios.get(`http://${hostname}:3000/findings/all`)
 
     const findings = res.data
 
@@ -63,7 +64,7 @@ const getFindings = async () => {
 }
 const createFinalReport = (analysts, event, systems, findings) => {
   const d = new Date();
-  var date = d.toLocaleString("default", {month: "long"}) + ' ' + d.getFullYear();
+  var date = d.toLocaleString('default', {month: 'long'}) + ' ' + d.getFullYear();
 
   docx.on('error', function(err) {
       console.log(err)
