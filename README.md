@@ -10,6 +10,9 @@
  
 [![CodeFactor](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg/badge?s=acb59e049c14218072eb3bde141bc7207113f122)](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg) [![GitHub issues](https://img.shields.io/github/issues/KevinApodaca/FRIC-team8-SBSG)](https://github.com/KevinApodaca/FRIC-team8-SBSG/issues)
 
+## Documentation 📓
+Our complete documenation of the FRIC tool can be found [here](https://fric-team-8.gitbook.io/fric/)
+
 ## Scope of Product
 The Cyber Experimentation & Analysis Division (CEAD) recognizes the complexity and the time it takes to manage task assignments, progress, vulnerability discovery during a cyber engagement and generate custom reports that presents the discovered vulnerabilities and potential issues to CEAD’s target audience. They want a system that would aid the management of task, collection of evidence, and report generation during a cyber engagement.
 
@@ -31,6 +34,14 @@ This is the FRIC system, as developed by Team 8 (SBSG) of the Fall 2020 CS 4311 
 * [Useful Links](#useful-links)
 
 ## Quick Start
+
+#### Preliminary Dependencies
+FRIC builds off NodeJS and MongoDB. Thus, both of these need to be installed on your machine before you can continue with the installation of FRIC.
+- Download and install [NodeJS](https://nodejs.org/en/)
+- Download and install [MongoDB](https://docs.mongodb.com/manual/installation/)
+> For more detail on the install of Node or Mongo, please view the project documentation
+
+After you have installed both of those dependencies you can proceed with the next steps...
 
 #### Get the repo
 
