@@ -50,9 +50,9 @@
               </b-select>
             </b-field>
             <b-field label="Related Finding(s)" horizontal>
-              <b-select v-model="form.findings">
-                <option v-for="(findings, index) in findings" :key="index" :value="findings">
-                  {{ findings }}
+              <b-select v-model="form.related_findings">
+                <option v-for="(related_finding, index) in related_finding" :key="index" :value="related_finding">
+                  {{ related_finding }}
                 </option>
               </b-select>
             </b-field>
@@ -62,23 +62,23 @@
             </card-component>
             <b-field label="System" horizontal>
               <b-select v-model="form.systems_for_findings">
-                <option v-for="(systems_for_findings, index) in systems_for_findings" :key="index" :value="systems_for_findings">
-                  {{ systems_for_findings }}
+                <option v-for="(systems_for_finding, index) in systems_for_finding" :key="index" :value="systems_for_finding">
+                  {{ systems_for_finding }}
                 </option>
               </b-select>
             <label class="label is-medium is-bold has-text-info">OR</label>
             <b-field label="Task" horizontal>
-              <b-select v-model="form.subtasks_for_findings">
-                <option v-for="(subtasks_for_findings, index) in subtasks_for_findings" :key="index" :value="subtasks_for_findings">
-                  {{ subtasks_for_findings }}
+              <b-select v-model="form.tasks_for_findings">
+                <option v-for="(tasks_for_finding, index) in tasks_for_finding" :key="index" :value="tasks_for_finding">
+                  {{ tasks_for_finding }}
                 </option>
               </b-select>
             </b-field>
             <label class="label is-medium is-bold has-text-info">OR</label>
              <b-field label="Subtask" horizontal>
               <b-select v-model="form.subtasks_for_findings">
-                <option v-for="(subtasks_for_findings, index) in subtasks_for_findings" :key="index" :value="subtasks_for_findings">
-                  {{ subtasks_for_findings }}
+                <option v-for="(subtasks_for_finding, index) in subtasks_for_finding" :key="index" :value="subtasks_for_finding">
+                  {{ subtasks_for_finding }}
                 </option>
               </b-select>
              </b-field>
@@ -116,14 +116,14 @@
           <user-avatar :avatar="form.avatar" class="image has-max-width is-aligned-center"/>
             <b-field label="Analyst" horizontal>
               <b-select v-model="form.analysts_for_findings">
-                <option v-for="(analysts_for_findings, index) in analysts_for_findings" :key="index" :value="analyst">
-                  {{ analysts_for_findings }}
+                <option v-for="(analysts_for_finding, index) in analysts_for_finding" :key="index" :value="analyst">
+                  {{ analysts_for_finding }}
                 </option>
               </b-select>
             <b-field label="Collaborator" horizontal>
-              <b-select v-model="form.analysts_for_findings">
-                <option v-for="(analysts_for_findings, index) in analysts_for_findings" :key="index" :value="analysts_for_findings">
-                  {{ analysts_for_findings }}
+              <b-select v-model="form.collaborator_for_findings">
+                <option v-for="(collaborator_for_finding, index) in collaborator_for_finding" :key="index" :value="collaborator_for_finding">
+                  {{ collaborator_for_finding }}
                 </option>
               </b-select>
             </b-field>
@@ -235,7 +235,6 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
@@ -243,11 +242,12 @@ import CardComponent from '@/components/CardComponent'
 import FilePickerDragAndDrop from '@/components/FilePickerDragAndDrop'
 import FindingServices from '@/services/FindingServices'
 import LogServices from '@/services/LogTransactionServices'
-import FileServices from '@/services/FileServices'
+// import FileServices from '@/services/FileServices'
 import SystemService from '@/services/SystemServices'
 import TaskService from '@/services/TaskServices'
 import SubtaskService from '@/services/SubtaskServices'
-import AnalystService from '@/services/AnalystServices'
+// import AnalystService from '@/services/AnalystServices'
+import MultipleCallsService from '@/services/MultipleCallsService'
 
 export default {
   name: 'FindingForm',
@@ -266,11 +266,12 @@ export default {
       createdReadable: null,
       isProfileExists: false,
       finding_title: null,
-      systems_for_findings: null,
-      tasks_for_findings: null,
-      subtasks_for_findings: null,
-      related_findings: null,
+      systems_for_finding: null,
+      tasks_for_finding: null,
+      subtasks_for_finding: null,
+      related_finding: null,
       analysts_for_findings: null,
+      collaborator_for_finding: null,
       finding_status: null,
       finding_type: null,
       finding_classification: null,
@@ -281,6 +282,11 @@ export default {
       threat_relevance: null,
       effectiveness_rating: null,
       impact_level: null,
+      systems: [],
+      tasks: [],
+      subtasks: [],
+      findings: [],
+      findingId: [],
       finding_statuses: [
         'Open',
         'Closed'
@@ -391,52 +397,32 @@ export default {
       }
     }
   },
-  created () {
-    this.getData()
-    this.getOldData()
-    this.getSystems()
-    this.getTasks()
-    this.getSubtasks()
-    this.getFindings()
-    this.getAnalysts()
+  async created () {
+    await this.getData()
+    await this.getOldData()
+    await this.getAllData()
   },
   methods: {
-    async getOldData () {
-      if (this.id) {
-        await FindingServices.getFindingSingle(this.id)
-          .then(response => {
-            this.oldForm = response.data
-          })
-      }
+    async submit () {
+      this.isLoading = true
+      await this.addSystemAssociation()
+      await this.addTaskAssociation()
+      await this.addSubtaskAssociation()
+      await this.newFormFinding()
     },
-    async getSystems () {
-      SystemService.getSystems()
-        .then(response => {
-          this.systems_for_findings = response.data.map(system => system.name)
-        })
-    },
-    async getTasks () {
-      TaskService.getTasks()
-        .then(response => {
-          this.tasks_for_findings = response.data.map(task => task.title)
-        })
-    },
-    async getSubtasks () {
-      SubtaskService.getSubtasks()
-        .then(response => {
-          this.subtasks_for_findings = response.data.map(subtask => subtask.title)
-        })
-    },
-    async getFindings () {
-      FindingServices.getFindings()
-        .then(response => {
-          this.related_findings = response.data.map(finding => finding.id_form)
-        })
-    },
-    async getAnalysts () {
-      AnalystService.getAnalysts()
-        .then(response => {
-          this.analysts_for_findings = response.data.map(analyst => analyst.initials)
+    async getAllData () {
+      await MultipleCallsService.findingsForm()
+        .then(responses => {
+          this.systems = responses[0].data
+          this.tasks = responses[1].data
+          this.subtasks = responses[2].data
+          this.findings = responses[3].data
+          this.systems_for_finding = responses[0].data.map(system => system.name)
+          this.tasks_for_finding = responses[1].data.map(task => task.title)
+          this.subtasks_for_finding = responses[2].data.map(subtask => subtask.title)
+          this.related_finding = responses[3].data.map(finding => finding.id_form)
+          this.analysts_for_finding = responses[4].data.map(analyst => analyst.initials)
+          this.collaborator_for_finding = responses[4].data.map(analyst => analyst.initials)
         })
     },
     async getData () {
@@ -446,57 +432,121 @@ export default {
             this.isProfileExists = true
             this.form = response.data
           })
-
-        await FileServices.getMultipleFiles(this.form.filename)
-          .then(response => {
-            console.log(response.data)
-            this.files = response.data
-          })
-        console.log(this.files)
       }
     },
-    async logAction () {
-      LogServices.logChangesFromFinding(this.oldForm, this.form)
+    async getOldData () {
+      if (this.id) {
+        await FindingServices.getFindingSingle(this.id)
+          .then(response => {
+            this.oldForm = response.data
+          })
+      }
+    },
+    async newFormFinding () {
+      await FindingServices.modifyFinding(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
-            console.log('Successfully logged')
+            this.logAction()
           }
         })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
     },
-    input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
+    async logAction () {
+      await LogServices.logChangesFromFinding(this.oldForm, this.form)
+        .catch(e => { this.displayError(e) })
+    },
+    async addSystemAssociation () {
+      const systemAssociated = this.systems.find(this.findSystemId)
+      const isNotSameParent = this.form.systems_for_findings !== this.oldForm.systems_for_findings
+      const isNotEmpty = this.form.systems_for_findings !== ''
+      const isTaskEmpty = this.form.tasks_for_findings === ''
+      const isSubtaskEmpty = this.form.subtasks_for_findings === ''
+
+      if (systemAssociated !== undefined && isNotSameParent && isNotEmpty && isTaskEmpty && isSubtaskEmpty) {
+        await this.removeSystemAssociation()
+        await SystemService.addFinding(systemAssociated.id, this.id)
+          .catch(e => { this.displayError(e) })
+      } else {
+        this.form.systems_for_findings = this.oldForm.systems_for_findings
+      }
+    },
+    async addTaskAssociation () {
+      const taskAssociated = this.tasks.find(this.findTaskId)
+      const isNotSameParent = this.form.tasks_for_findings !== this.oldForm.tasks_for_findings
+      const isNotEmpty = this.form.tasks_for_findings !== ''
+      const isSystemEmpty = this.form.systems_for_findings === ''
+      const isSubtaskEmpty = this.form.subtasks_for_findings === ''
+
+      if (taskAssociated !== undefined && isNotSameParent && isNotEmpty && isSystemEmpty && isSubtaskEmpty) {
+        await this.removeTaskAssociation()
+        await TaskService.addFinding(taskAssociated.id, this.id)
+          .catch(e => { this.displayError(e) })
+      } else {
+        this.form.tasks_for_findings = this.oldForm.tasks_for_findings
+      }
+    },
+    async addSubtaskAssociation () {
+      const subtaskAssociated = this.subtasks.find(this.findSubtaskId)
+      const isNotSameParent = this.form.subtasks_for_findings !== this.oldForm.subtasks_for_findings
+      const isNotEmpty = this.form.subtasks_for_findings !== ''
+      const isSystemEmpty = this.form.systems_for_findings === ''
+      const isTaskEmpty = this.form.tasks_for_findings === ''
+
+      if (subtaskAssociated !== undefined && isNotSameParent && isNotEmpty && isSystemEmpty && isTaskEmpty) {
+        await this.removeSubtaskAssociation()
+        await SubtaskService.addFinding(subtaskAssociated.id, this.id)
+          .catch(e => { this.displayError(e) })
+      } else {
+        this.form.subtasks_for_findings = this.oldForm.subtasks_for_findings
+      }
+    },
+    async removeSystemAssociation () {
+      const systemAssociated = this.systems.find(this.findOldSystemId)
+      if (systemAssociated !== undefined) {
+        await SystemService.removeFinding(systemAssociated.id, this.id)
+          .then(res => {
+            console.log('Successfully Removed old system')
+          })
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async removeTaskAssociation () {
+      const taskAssociated = this.tasks.find(this.findOldTaskId)
+      if (taskAssociated !== undefined) {
+        await TaskService.removeFinding(taskAssociated.id, this.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async removeSubtaskAssociation () {
+      const subtaskAssociated = this.subtasks.find(this.findOldSubtaskId)
+      if (subtaskAssociated !== undefined) {
+        await SubtaskService.removeFinding(subtaskAssociated.id, this.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    findSystemId (system) {
+      return system.name === this.form.systems_for_findings
+    },
+    findTaskId (task) {
+      return task.title === this.form.tasks_for_findings
+    },
+    findSubtaskId (subtask) {
+      return subtask.title === this.form.subtasks_for_findings
+    },
+    findOldSystemId (system) {
+      return system.name === this.oldForm.systems_for_findings
+    },
+    findOldTaskId (task) {
+      return task.title === this.oldForm.tasks_for_findings
+    },
+    findOldSubtaskId (subtask) {
+      return subtask.title === this.oldForm.subtasks_for_findings
     },
     displayError (e) {
       this.$buefy.toast.open({
         message: `Error: ${e.message}`,
         type: 'is-danger'
       })
-    },
-    async submit () {
-      this.isLoading = true
-      FindingServices.modifyFinding(this.id, this.form)
-        .then(response => {
-          if (response.status === 200) {
-            this.logAction()
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
-    }
-  },
-  watch: {
-    id (newValue) {
-      this.isProfileExists = false
-
-      if (!newValue) {
-        this.form = this.getClearFormObject()
-      } else {
-        this.getData()
-      }
     }
   }
 }

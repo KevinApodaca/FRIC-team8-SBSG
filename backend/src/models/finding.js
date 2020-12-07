@@ -9,25 +9,29 @@ module.exports = mongoose => {
         type: String,
         default: ''
       },
-      system: {
+      systems_for_findings: {
         type: String,
         default: ''
       },
-      systems_for_findings: {
+      tasks_for_findings: {
+        type: String,
+        default: ''
+      },
+      subtasks_for_findings: {
+        type: String,
+        default: ''
+      },
+      related_findings: {
+        type: String,
+        default: ''
+      },
+      analysts_for_findings: {
         type: String,
         default: ''
       },
       analyst: {
         type: String,
         default: 'K.A'
-      },
-      title: {
-        type: String,
-        default: ''
-      },
-      findings: {
-        type: String,
-        default: ''
       },
       tasks: {
         type: Number,
@@ -36,14 +40,6 @@ module.exports = mongoose => {
       subtasks: {
         type: String,
         default: '0'
-      },
-      status: {
-        type: String,
-        default: ''
-      },
-      classification: {
-        type: String,
-        default: ''
       },
       risk: {
         type: String,
@@ -54,14 +50,6 @@ module.exports = mongoose => {
         default: ''
       },
       ip: {
-        type: String,
-        default: ''
-      },
-      desc: {
-        type: String,
-        default: ''
-      },
-      long : {
         type: String,
         default: ''
       },

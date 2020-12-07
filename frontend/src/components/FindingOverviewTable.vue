@@ -23,10 +23,10 @@
         <small class="has-text-grey"> {{ props.row.systems_for_findings }}</small>
       </b-table-column>
       <b-table-column label="Task" field="task" sortable v-slot="props">
-        <small class="has-text-grey"> {{ props.row.tasks }}</small>
+        <small class="has-text-grey"> {{ props.row.tasks_for_findings }}</small>
       </b-table-column>
       <b-table-column label="Subtask" field="subtask" sortable v-slot="props">
-        <small class="has-text-grey"> {{ props.row.subtasks }}</small>
+        <small class="has-text-grey"> {{ props.row.subtasks_for_findings }}</small>
       </b-table-column>
       <b-table-column label="Analyst" field="analyst" sortable v-slot="props">
         <small class="has-text-grey"> {{ props.row.analyst }}</small>
@@ -112,7 +112,7 @@ export default {
       return null
     }
   },
-  mounted () {
+  created () {
     this.isLoading = true
     FindingServices.getFindings()
       .then(response => {
@@ -127,20 +127,25 @@ export default {
       })
   },
   methods: {
-    displayError (e) {
-      this.$buefy.toast.open({
-        message: `Error: ${e.message}`,
-        type: 'is-danger'
+    async deleteFinding () {
+      await FindingServices.deleteFinding(this.trashObject.id)
+        .then(response => {
+          this.logAction()
+          this.removeRow(this.trashObject)
+        })
+    },
+    async trashConfirm () {
+      this.isModalActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false
       })
+
+      await this.deleteFinding()
     },
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-      FindingServices.deleteFinding(this.trashObject.id)
-        .then(response => {
-          this.logAction()
-          this.removeRow(trashObject)
-        })
     },
     removeRow (trashObject) {
       for (const index in this.findings) {
@@ -148,13 +153,6 @@ export default {
           this.findings.splice(index, 1)
         }
       }
-    },
-    trashConfirm () {
-      this.isModalActive = false
-      this.$buefy.snackbar.open({
-        message: 'Confirmed',
-        queue: false
-      })
     },
     trashCancel () {
       this.isModalActive = false
@@ -177,16 +175,15 @@ export default {
 
       return (lastPart === 'findings') ? 'button is-small is-info' : 'button is-small is-danger'
     },
+    displayError (e) {
+      this.$buefy.toast.open({
+        message: `Error: ${e.message}`,
+        type: 'is-danger'
+      })
+    },
     async logAction () {
       LogServices.logArchiveFinding(this.trashObject.finding_title)
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response)
-          }
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .catch(e => { this.displayError(e) })
     }
   }
 }
