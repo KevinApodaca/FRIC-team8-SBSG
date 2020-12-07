@@ -180,15 +180,15 @@ export default {
   async created () {
     await this.getData()
     await this.getOldData()
-    await this.getSystems()
+    await this.getRelatedSystems()
     await this.getRelatedTasks()
     await this.getRelatedSubtasks()
-    await this.getAnalysts()
+    await this.getRelatedAnalysts()
   },
   methods: {
     async submit () {
       this.isLoading = true
-      await this.addToSystem()
+      await this.addSystemAssociation()
       await this.addTaskAssociation()
       await this.checkIfNewTitleChanged()
       await this.newTaskForm()
@@ -217,7 +217,7 @@ export default {
       await TaskService.modifyTask(this.id, this.form)
         .catch(e => { this.displayError(e) })
     },
-    async addToSystem () {
+    async addSystemAssociation () {
       if ((this.form.systems_for_task !== this.oldForm.systems_for_task) && this.form.systems_for_task) {
         const newSystemId = this.allSystems.find(this.newSystem)
 
@@ -261,7 +261,7 @@ export default {
           .catch(e => { this.displayError(e) })
       }
     },
-    async getSystems () {
+    async getRelatedSystems () {
       await SystemService.getSystems()
         .then(response => {
           this.allSystems = response.data
@@ -281,16 +281,12 @@ export default {
           this.allSubtasks = response.data
         })
     },
-    async getAnalysts () {
+    async getRelatedAnalysts () {
       await AnalystService.getAnalysts()
         .then(response => {
           this.analyst = response.data.map(analyst => analyst.initials)
           this.analysts_for_task = response.data.map(analyst => analyst.initials)
         })
-    },
-    async logAction () {
-      await LogServices.logChangesFromTask(this.oldForm, this.form)
-        .catch(e => { this.displayError(e) })
     },
     async checkIfNewTitleChanged () {
       if (this.form.title !== this.oldForm.title) {
@@ -311,6 +307,10 @@ export default {
         await TaskService.modifyTask(task.id, newTitle)
           .catch(e => { this.displayError(e) })
       }
+    },
+    async logAction () {
+      await LogServices.logChangesFromTask(this.oldForm, this.form)
+        .catch(e => { this.displayError(e) })
     },
     oldTaskExist (task) {
       return task.title === this.oldForm.related_tasks

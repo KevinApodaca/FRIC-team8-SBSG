@@ -116,6 +116,22 @@ export default {
         })
         .catch(e => { this.displayError(e) })
     },
+    async deleteSubtask () {
+      await SubtaskService.deleteSubtask(this.trashObject.id)
+        .catch(e => { this.displayError(e) })
+    },
+    async removeFromTask () {
+      if (this.trashObject.parent) {
+        await TaskService.removeSubtask(this.trashObject.parent, this.trashObject.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async removeFromSubtask (subtask) {
+      if (subtask.subtask_association.includes(this.trashObject.id)) {
+        await SubtaskService.removeSubtask(subtask.id, this.trashObject.id)
+          .catch(e => { this.displayError(e) })
+      }
+    },
     async logAction () {
       await LogServices.logArchiveSubtask(this.trashObject.title)
         .catch(e => { this.displayError(e) })
@@ -132,22 +148,6 @@ export default {
       await this.deleteSubtask()
       await this.removeFromTask()
       await this.logAction()
-    },
-    async deleteSubtask () {
-      await SubtaskService.deleteSubtask(this.trashObject.id)
-        .catch(e => { this.displayError(e) })
-    },
-    async removeFromTask () {
-      if (this.trashObject.parent) {
-        await TaskService.removeSubtask(this.trashObject.parent, this.trashObject.id)
-          .catch(e => { this.displayError(e) })
-      }
-    },
-    async removeFromSubtask (subtask) {
-      if (subtask.subtask_association.includes(this.trashObject.id)) {
-        await SubtaskService.removeSubtask(subtask.id, this.trashObject.id)
-          .catch(e => { this.displayError(e) })
-      }
     },
     trashModal (trashObject) {
       this.trashObject = trashObject

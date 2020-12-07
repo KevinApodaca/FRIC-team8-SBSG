@@ -71,6 +71,7 @@
 <script>
 import TaskService from '@/services/TaskServices'
 import SystemService from '@/services/SystemServices'
+import SubtaskService from '@/services/SubtaskServices'
 import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
 
@@ -92,6 +93,7 @@ export default {
       isModalActive: false,
       trashObject: null,
       tasks: [],
+      allSubtasks: [],
       isLoading: false,
       paginated: false,
       perPage: 10,
@@ -100,6 +102,7 @@ export default {
   },
   async created () {
     await this.getTaskData()
+    await this.getRelatedSubtasks()
   },
   computed: {
     trashObjectName () {
@@ -124,22 +127,11 @@ export default {
         })
         .catch(e => { this.displayError(e) })
     },
-    async logAction () {
-      await LogServices.logArchiveTask(this.trashObject.title)
-        .catch(e => { this.displayError(e) })
-    },
-    async trashConfirm () {
-      this.isModalActive = false
-      this.$buefy.snackbar.open({
-        message: 'Confirmed',
-        queue: false
-      })
-      this.removeRow(this.trashObject)
-      await this.tasks.map(this.removeFromSystem)
-      await this.tasks.map(this.removeFromTask)
-      await this.deleteTask()
-      await this.removeFromSystem()
-      await this.logAction()
+    async getRelatedSubtasks () {
+      await SubtaskService.getSubtasks()
+        .then(response => {
+          this.allSubtasks = response.data
+        })
     },
     async deleteTask () {
       await TaskService.deleteTask(this.trashObject.id)
@@ -156,6 +148,31 @@ export default {
         await TaskService.removeTask(task.id, this.trashObject.id)
           .catch(e => { this.displayError(e) })
       }
+    },
+    async removeFromSubtask (subtask) {
+      if (subtask.parent === this.trashObject.id) {
+        const removeParent = { parent: null, task: '' }
+        await SubtaskService.modifySubtask(subtask.id, removeParent)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async trashConfirm () {
+      this.isModalActive = false
+      this.$buefy.snackbar.open({
+        message: 'Confirmed',
+        queue: false
+      })
+      this.removeRow(this.trashObject)
+      await this.tasks.map(this.removeFromSystem)
+      await this.tasks.map(this.removeFromTask)
+      await this.allSubtasks.map(this.removeFromSubtask)
+      await this.deleteTask()
+      await this.removeFromSystem()
+      await this.logAction()
+    },
+    async logAction () {
+      await LogServices.logArchiveTask(this.trashObject.title)
+        .catch(e => { this.displayError(e) })
     },
     trashModal (trashObject) {
       this.trashObject = trashObject

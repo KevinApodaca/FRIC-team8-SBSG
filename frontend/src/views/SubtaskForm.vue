@@ -161,16 +161,17 @@ export default {
   async created () {
     await this.getData()
     await this.getOldData()
-    await this.getTasks()
-    await this.getSubtasks()
-    await this.getAnalysts()
+    await this.getRelatedTasks()
+    await this.getRelatedSubtasks()
+    await this.getRelatedAnalysts()
   },
   methods: {
     async submit () {
       this.isLoading = true
+      await this.addTaskAssociation()
+      await this.addSubtaskAssociation()
+      await this.checkIfNewTitleChanged()
       await this.newSubtaskForm()
-      await this.addToTask()
-      await this.addToSubtask()
     },
     async getOldData () {
       if (this.id) {
@@ -204,47 +205,80 @@ export default {
         })
         .catch(e => { this.displayError(e) })
     },
-    async addToTask () {
-      if ((this.form.task !== this.oldForm.task) && this.form.task) {
-        const oldTaskId = this.allTasks.filter(task => task.title === this.oldForm.task)[0].id
-        const newTaskId = this.allTasks.filter(task => task.title === this.form.task)[0].id
-        if (oldTaskId) {
-          await TaskService.removeSubtask(oldTaskId, this.id)
-            .catch(e => { this.displayError(e) })
-        }
-        await TaskService.addSubtask(newTaskId, this.id)
+    async addTaskAssociation () {
+      const isNotSameParent = this.form.task !== this.oldForm.task
+      const isNotEmpty = this.form.task !== ''
+
+      if (isNotEmpty && isNotSameParent) {
+        const newTaskAssociated = this.allTasks.find(this.newTask)
+        this.form.parent = newTaskAssociated.id
+        await this.removeOldTaskAssociation()
+
+        await TaskService.addSubtask(newTaskAssociated.id, this.id)
+          .catch(e => { this.displayError(e) })
+      } else {
+        this.form.related_tasks = this.oldForm.related_tasks
+      }
+    },
+    async addSubtaskAssociation () {
+      const isNotItself = this.form.subtask !== this.form.title
+      const isNotSameParent = this.form.subtask !== this.oldForm.subtask
+      const isNotEmpty = this.form.subtask !== ''
+
+      if (isNotEmpty && isNotSameParent && isNotItself) {
+        const newSubtaskAssociationId = this.allSubTasks.find(this.newSubtask)
+
+        await this.removeOldSubtaskAssociation()
+
+        await SubtaskService.addSubtask(newSubtaskAssociationId.id, this.id)
+          .catch(e => { this.displayError(e) })
+      } else {
+        this.form.subtask = this.oldForm.subtask
+      }
+    },
+    async removeOldTaskAssociation () {
+      const oldTaskAssociated = this.allTasks.find(this.oldTaskExist)
+
+      if (oldTaskAssociated !== undefined) {
+        await TaskService.removeSubtask(oldTaskAssociated.id, this.id)
           .catch(e => { this.displayError(e) })
       }
     },
-    async addToSubtask () {
-      if (this.form.subtask && (this.form.subtask !== this.form.title) && (this.form.subtask !== this.oldForm.subtask)) {
-        const oldSubtaskAssociationId = this.allSubTasks.filter(subtask => subtask.title === this.oldForm.subtask)[0].id
-        const newSubtaskAssociationId = this.allSubTasks.filter(subtask => subtask.title === this.form.subtask)[0].id
+    async removeOldSubtaskAssociation () {
+      const oldSubtaskAssociationId = this.allSubTasks.find(this.oldSubtaskExists)
 
-        if (oldSubtaskAssociationId) {
-          await SubtaskService.removeSubtask(oldSubtaskAssociationId, this.id)
-            .catch(e => { this.displayError(e) })
-        }
-
-        await SubtaskService.addSubtask(newSubtaskAssociationId, this.id)
+      if (oldSubtaskAssociationId !== undefined) {
+        await SubtaskService.removeSubtask(oldSubtaskAssociationId.id, this.id)
           .catch(e => { this.displayError(e) })
       }
     },
-    async getTasks () {
+    async checkIfNewTitleChanged () {
+      if (this.form.title !== this.oldForm.title) {
+        await this.allSubTasks.map(this.changeTitleInSubtask)
+      }
+    },
+    async changeTitleInSubtask (subtask) {
+      if (subtask.subtask === this.oldForm.title) {
+        const newTitle = { subtask: this.form.title }
+        await SubtaskService.modifySubtask(subtask.id, newTitle)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async getRelatedTasks () {
       await TaskService.getTasks()
         .then(response => {
           this.allTasks = response.data
           this.tasks = response.data.map(task => task.title)
         })
     },
-    async getSubtasks () {
+    async getRelatedSubtasks () {
       await SubtaskService.getSubtasks()
         .then(response => {
           this.allSubTasks = response.data
           this.subtasks = response.data.map(subtask => subtask.title)
         })
     },
-    async getAnalysts () {
+    async getRelatedAnalysts () {
       await AnalystService.getAnalysts()
         .then(response => {
           this.analysts_for_subtask = response.data.map(analyst => analyst.initials)
@@ -258,6 +292,18 @@ export default {
           }
         })
         .catch(e => { this.displayError(e) })
+    },
+    oldTaskExist (task) {
+      return task.title === this.oldForm.task
+    },
+    newTask (task) {
+      return task.title === this.form.task
+    },
+    oldSubtaskExists (subtask) {
+      return subtask.title === this.oldForm.subtask
+    },
+    newSubtask (subtask) {
+      return subtask.title === this.form.subtask
     },
     displayError (e) {
       this.$buefy.toast.open({
