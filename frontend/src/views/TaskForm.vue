@@ -99,6 +99,7 @@
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
+import SubtaskService from '@/services/SubtaskServices'
 import TaskService from '@/services/TaskServices'
 import SystemService from '@/services/SystemServices'
 import AnalystService from '@/services/AnalystServices'
@@ -125,6 +126,7 @@ export default {
       analysts_for_task: null,
       allSystems: [],
       allTasks: [],
+      allSubtasks: [],
       task_priority: [
         'Low',
         'Medium',
@@ -180,6 +182,7 @@ export default {
     await this.getOldData()
     await this.getSystems()
     await this.getRelatedTasks()
+    await this.getRelatedSubtasks()
     await this.getAnalysts()
   },
   methods: {
@@ -187,6 +190,7 @@ export default {
       this.isLoading = true
       await this.addToSystem()
       await this.addTaskAssociation()
+      await this.checkIfNewTitleChanged()
       await this.newTaskForm()
       await this.logAction()
     },
@@ -221,6 +225,8 @@ export default {
 
         await SystemService.addTask(newSystemId.id, this.id)
           .catch(e => { this.displayError(e) })
+      } else {
+        this.form.systems_for_task = this.oldForm.systems_for_task
       }
     },
     async addTaskAssociation () {
@@ -269,6 +275,12 @@ export default {
           this.related_tasks = response.data.map(task => task.title)
         })
     },
+    async getRelatedSubtasks () {
+      await SubtaskService.getSubtasks()
+        .then(response => {
+          this.allSubtasks = response.data
+        })
+    },
     async getAnalysts () {
       await AnalystService.getAnalysts()
         .then(response => {
@@ -279,6 +291,26 @@ export default {
     async logAction () {
       await LogServices.logChangesFromTask(this.oldForm, this.form)
         .catch(e => { this.displayError(e) })
+    },
+    async checkIfNewTitleChanged () {
+      if (this.form.title !== this.oldForm.title) {
+        await this.allTasks.map(this.changeTitleInTask)
+        await this.allSubtasks.map(this.changeTitleInSubtask)
+      }
+    },
+    async changeTitleInSubtask (subtask) {
+      if (subtask.task === this.oldForm.title) {
+        const newTitle = { task: this.form.title }
+        await SubtaskService.modifySubtask(subtask.id, newTitle)
+          .catch(e => { this.displayError(e) })
+      }
+    },
+    async changeTitleInTask (task) {
+      if (task.related_tasks === this.oldForm.title) {
+        const newTitle = { related_tasks: this.form.title }
+        await TaskService.modifyTask(task.id, newTitle)
+          .catch(e => { this.displayError(e) })
+      }
     },
     oldTaskExist (task) {
       return task.title === this.oldForm.related_tasks
