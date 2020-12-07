@@ -81,6 +81,7 @@ import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
 import SystemService from '@/services/SystemServices'
+import TaskService from '@/services/TaskServices'
 import LogServices from '@/services/LogTransactionServices'
 
 export default {
@@ -101,6 +102,7 @@ export default {
       system_confidentiality: null,
       system_integrity: null,
       system_availability: null,
+      tasks: [],
       system_confidentialities: [
         'Low',
         'Medium',
@@ -158,13 +160,18 @@ export default {
       }
     }
   },
-  created () {
-    this.getOldData()
-    this.getData()
+  async created () {
+    await this.getOldData()
+    await this.getData()
+    await this.getRelatedTasks()
   },
   methods: {
     async submit () {
       this.isLoading = true
+      await this.checkIfNewTitleChanged()
+      await this.newSystemForm()
+    },
+    async newSystemForm () {
       await SystemService.modifySystem(this.id, this.form)
         .then(response => {
           if (response.status === 200) {
@@ -172,7 +179,6 @@ export default {
           }
         })
         .catch(e => { this.displayError(e) })
-      this.isLoading = false
     },
     async getOldData () {
       if (this.id) {
@@ -191,13 +197,30 @@ export default {
           .then(response => {
             if (response.status === 200) {
               this.isProfileExists = true
-              this.oldForm = response.data
               this.$set(this, 'form', response.data)
             }
           })
           .catch(e => {
             this.displayError(e)
           })
+      }
+    },
+    async getRelatedTasks () {
+      TaskService.getTasks()
+        .then(response => {
+          this.tasks = response.data
+        })
+    },
+    async checkIfNewTitleChanged () {
+      if (this.form.name !== this.oldForm.name) {
+        await this.tasks.map(this.changeTitleInTask)
+      }
+    },
+    async changeTitleInTask (task) {
+      if (task.systems_for_task === this.oldForm.name) {
+        const newTitle = { systems_for_task: this.form.name }
+        await TaskService.modifyTask(task.id, newTitle)
+          .catch(e => { this.displayError(e) })
       }
     },
     async logAction () {

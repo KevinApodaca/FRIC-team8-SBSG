@@ -59,6 +59,7 @@
 <script>
 import EventService from '@/services/EventServices'
 import SystemService from '@/services/SystemServices'
+import TaskService from '@/services/TaskServices'
 import LogServices from '@/services/LogTransactionServices'
 import ModalBox from '@/components/ModalBox'
 
@@ -81,15 +82,17 @@ export default {
       trashObject: null,
       evenId: null,
       systems: [],
+      tasks: [],
       isLoading: true,
       paginated: false,
       perPage: 10,
       checkedRows: []
     }
   },
-  created () {
-    this.getSystemData()
-    this.getEventData()
+  async created () {
+    await this.getSystem()
+    await this.getEvent()
+    await this.getRelatedTasks()
     this.isLoading = false
   },
   computed: {
@@ -102,16 +105,12 @@ export default {
     }
   },
   methods: {
-    async getEventData () {
+    async getEvent () {
       await EventService.getEvents()
-        .then(response => {
-          this.eventId = response.data[0].id
-        })
-        .catch(e => {
-          this.displayError(e)
-        })
+        .then(response => { this.eventId = response.data[0].id })
+        .catch(e => { this.displayError(e) })
     },
-    async getSystemData () {
+    async getSystem () {
       await SystemService.getSystems()
         .then(response => {
           if (response.status === 200) {
@@ -121,24 +120,28 @@ export default {
             this.$set(this, 'systems', response.data)
           }
         })
-        .catch(e => {
-          this.displayError(e)
+        .catch(e => { this.displayError(e) })
+    },
+    async getRelatedTasks () {
+      TaskService.getTasks()
+        .then(response => {
+          this.tasks = response.data
         })
     },
     async deleteSystem () {
       await SystemService.deleteSystem(this.trashObject.id)
-        .then(response => {})
         .catch(e => { this.displayError(e) })
     },
     async removeFromEvent () {
       EventService.removeSystem(this.eventId, this.trashObject.id)
-        .then(response => {})
         .catch(e => { this.displayError(e) })
     },
-    async logAction () {
-      await LogServices.logArchiveSystem(this.trashObject.name)
-        .then(response => {})
-        .catch(e => { this.displayError(e) })
+    async removeFromTasks (task) {
+      if (task.parent === this.trashObject.id) {
+        const removeParent = { parent: null, systems_for_task: '' }
+        await TaskService.modifyTask(task.id, removeParent)
+          .catch(e => { this.displayError(e) })
+      }
     },
     async trashConfirm () {
       this.isModalActive = false
@@ -147,10 +150,15 @@ export default {
         queue: false
       })
 
-      await this.deleteSystem()
       this.removeRow(this.trashObject)
+      await this.tasks.map(this.removeFromTasks)
       await this.removeFromEvent()
+      await this.deleteSystem()
       await this.logAction()
+    },
+    async logAction () {
+      await LogServices.logArchiveSystem(this.trashObject.name)
+        .catch(e => { this.displayError(e) })
     },
     trashCancel () {
       this.isModalActive = false
