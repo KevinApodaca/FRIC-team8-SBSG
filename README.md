@@ -8,7 +8,7 @@
 
  [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
  
-[![CodeFactor](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg/badge?s=acb59e049c14218072eb3bde141bc7207113f122)](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg) [![GitHub issues](https://img.shields.io/github/issues/KevinApodaca/FRIC-team8-SBSG)](https://github.com/KevinApodaca/FRIC-team8-SBSG/issues)
+[![CodeFactor](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg/badge?s=acb59e049c14218072eb3bde141bc7207113f122)](https://www.codefactor.io/repository/github/kevinapodaca/fric-team8-sbsg) [![GitHub issues](https://img.shields.io/github/issues/KevinApodaca/FRIC-team8-SBSG)](https://github.com/KevinApodaca/FRIC-team8-SBSG/issues) [![DeepScan grade](https://deepscan.io/api/teams/12028/projects/14985/branches/291359/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=12028&pid=14985&bid=291359)
 
 ## Documentation 📓
 Our complete documentation of the FRIC tool can be found [here](https://fric-team-8.gitbook.io/fric/)
