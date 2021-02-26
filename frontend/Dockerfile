@@ -1,7 +1,7 @@
 FROM node:latest
 WORKDIR /app
 COPY . /app
-RUN npm intall
+RUN npm install
 # Starting the backend services
 ENV VUE_APP_API_HOST localhost
 ENV VUE_APP_API_PORT 3000
