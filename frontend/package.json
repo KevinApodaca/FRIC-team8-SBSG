@@ -27,7 +27,7 @@
     "perfect-scrollbar": "^1.5.0",
     "pptxgenjs": "^3.3.1",
     "register-service-worker": "^1.7.1",
-    "spinkit": "^1.2.5",
+    "spinkit": "^2.0.0",
     "sweetalert": "^2.1.2",
     "tui-editor": "^1.4.10",
     "vue": "^2.6.12",
