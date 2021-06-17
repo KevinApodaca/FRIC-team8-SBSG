@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@mdi/font": "^5.8.55",
-    "@toast-ui/vue-editor": "^2.5.0",
+    "@toast-ui/vue-editor": "^3.0.0",
     "axios": "^0.21.0",
     "buefy": "^0.9.3",
     "bulma": "^0.9.0",
